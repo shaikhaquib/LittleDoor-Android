@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_16_dp"
+        android:text="Select"
+        style="@style/TextDarkBold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_lighter" />
+
+    <carbon.widget.EditText
+        android:id="@+id/edtSearch"
+        android:layout_marginStart="@dimen/_16_dp"
+        android:layout_marginEnd="@dimen/_16_dp"
+        android:layout_marginTop="@dimen/_16_dp"
+        android:layout_marginBottom="@dimen/_16_dp"
+        android:hint="Search"
+        android:maxLines="1"
+        android:drawableStart="@drawable/search_bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AppEditTextCarbonElevated"
+        />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/_16_dp"
+        android:paddingBottom="@dimen/_16_dp" />
+
+</LinearLayout>

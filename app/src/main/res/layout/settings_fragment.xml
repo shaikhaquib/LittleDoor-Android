@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:elevation="0dp"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/overlays_purple"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="@string/profile"
+            app:maxLines="2"
+            android:elevation="0dp"
+            app:expandedTitleTextAppearance="@style/TextStyleLargeBold"
+            app:collapsedTitleTextAppearance="@style/TextDarkBold_20"
+            android:background="@color/overlays_purple"
+            app:collapsedTitleTextColor="@color/neutral_white"
+            app:expandedTitleTextColor="@color/neutral_white"
+            android:id="@+id/collapsing_toolbar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:elevation="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.amar.library.ui.StickyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:stickyHeader="@id/searchContainer"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/searchContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingBottom="24dp"
+                android:background="@drawable/voilet_background">
+
+                <carbon.widget.LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AppEditTextCarbonElevated"
+                    android:background="@color/neutral_white"
+                    app:carbon_cornerRadius="@dimen/_14_dp"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_16_dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imageView5"
+                            style="@style/AppEditTextCarbonElevated"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:padding="0dp"
+                            android:src="@drawable/profile_placeholder"
+                            app:carbon_elevation="@dimen/_8_dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/txtName"
+                            style="@style/TextDarkBold_18_dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_18_dp"
+                            android:text="Muzammil Sathe"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintBottom_toTopOf="@+id/txtDesc"
+                            app:layout_constraintStart_toEndOf="@+id/imageView5"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <TextView
+                            android:id="@+id/txtDesc"
+                            style="@style/TextGray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8_dp"
+                            android:textSize="@dimen/_12_dp"
+                            android:text="Muzammilsathe@gmail.com"
+                            app:layout_constraintStart_toStartOf="@+id/txtName"
+                            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+
+                        <carbon.widget.ImageView
+                            android:id="@+id/btnChat"
+                            android:layout_width="@dimen/_34_dp"
+                            android:layout_height="@dimen/_34_dp"
+                            android:layout_marginTop="@dimen/_16_dp"
+                            android:background="#F7F8F8"
+                            android:padding="6dp"
+                            android:src="@drawable/forward"
+                            app:carbon_cornerRadius="@dimen/_10_dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtDesc"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </carbon.widget.LinearLayout>
+
+            </LinearLayout>
+
+
+            <carbon.widget.LinearLayout
+                android:id="@+id/materialCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_24_dp"
+                android:orientation="vertical"
+                android:padding="0dp"
+                style="@style/AppEditTextCarbonElevated"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+                    <TextView
+                        android:id="@+id/help"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/help"
+                        style="@style/TextTitleNormal_16sp"
+                        android:drawableEnd="@drawable/forward"
+                        android:drawableTint="@color/primary"
+                        android:layout_margin="16dp"
+                        android:drawablePadding="16dp"
+                        android:gravity="center_vertical"
+                        />
+                    <TextView
+                        android:id="@+id/aboutUs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_us"
+                        style="@style/TextTitleNormal_16sp"
+                        android:drawableEnd="@drawable/forward"
+                        android:drawableTint="@color/primary"
+                        android:layout_margin="16dp"
+                        android:drawablePadding="16dp"
+                        android:gravity="center_vertical"
+                        />
+                    <TextView
+                        android:id="@+id/termsConditions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/terms_conditions"
+                        style="@style/TextTitleNormal_16sp"
+                        android:drawableEnd="@drawable/forward"
+                        android:drawableTint="@color/primary"
+                        android:layout_margin="16dp"
+                        android:drawablePadding="16dp"
+                        android:gravity="center_vertical"
+                        />
+                    <TextView
+                        android:id="@+id/privacyPolicy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/privacy_policy"
+                        style="@style/TextTitleNormal_16sp"
+                        android:drawableEnd="@drawable/forward"
+                        android:drawableTint="@color/primary"
+                        android:layout_margin="16dp"
+                        android:drawablePadding="16dp"
+                        android:gravity="center_vertical"
+                        />
+
+
+            </carbon.widget.LinearLayout>
+            <carbon.widget.LinearLayout
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_24_dp"
+                android:orientation="vertical"
+                android:padding="0dp"
+                style="@style/AppEditTextCarbonElevated"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+                    <TextView
+                        android:id="@+id/txtSignOut"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sign_out"
+                        style="@style/TextTitleNormal_16sp"
+                        android:drawableEnd="@drawable/forward"
+                        android:drawableTint="@color/overlays_red"
+                        android:textColor="@color/overlays_red"
+                        android:layout_margin="16dp"
+                        android:drawablePadding="16dp"
+                        android:gravity="center_vertical"
+                        />
+
+
+            </carbon.widget.LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </com.amar.library.ui.StickyScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

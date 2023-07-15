@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_16_dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView5"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="0dp"
+            android:src="@drawable/sample_dr_image_1"
+            app:civ_border_color="@color/neutral_gray"
+            app:civ_border_width="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/txtName"
+            style="@style/TextTitleBold_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_18_dp"
+            android:text="Dr. Zaira Wasim"
+            app:layout_constraintBottom_toTopOf="@+id/txtDesc"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            app:layout_constraintVertical_chainStyle="packed" />
+        <TextView
+            android:id="@+id/txtDate"
+            style="@style/TextGray_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="12:45"
+            app:layout_constraintBottom_toBottomOf="@+id/txtName"
+            app:layout_constraintStart_toEndOf="@+id/txtName"
+            app:layout_constraintTop_toTopOf="@+id/txtName" />
+
+        <TextView
+            android:id="@+id/txtDesc"
+            style="@style/TextTitleNormal_12sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8_dp"
+            android:text="Is there a therapy which can cure crossdressing &amp; bdsm compulsion?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtName"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+
+        <CheckBox
+            android:id="@+id/chkLike"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/_16_dp"
+            android:layout_height="@dimen/_30_dp"
+            android:button="@drawable/like_button"
+            android:text="2"
+            android:paddingStart="@dimen/_8_dp"
+
+            app:layout_constraintStart_toStartOf="@+id/txtDesc"
+            app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
+
+        <ImageView
+            android:id="@+id/imgChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_comment_bubble"
+            android:layout_marginStart="35dp"
+            app:layout_constraintStart_toEndOf="@+id/chkLike"
+            app:layout_constraintTop_toTopOf="@+id/chkLike"
+            app:layout_constraintBottom_toBottomOf="@+id/chkLike"/>
+
+        <ImageView
+            android:id="@+id/imgShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share"
+            app:layout_constraintBottom_toBottomOf="@+id/imgChat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgChat" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</carbon.widget.LinearLayout>

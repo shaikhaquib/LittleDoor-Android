@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/question_text_view"
+        style="@style/TextDarkBold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:padding="16dp" />
+
+    <carbon.widget.RadioGroup
+        android:id="@+id/options_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <carbon.widget.RadioButton
+            style="@style/AppEditTextCarbonElevated"
+            android:button="@drawable/radio_button_selector"
+            android:id="@+id/option_1_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16_dp"
+            android:textSize="16sp"
+            android:padding="16dp" />
+
+        <carbon.widget.RadioButton
+            style="@style/AppEditTextCarbonElevated"
+            android:button="@drawable/radio_button_selector"
+            android:id="@+id/option_2_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16_dp"
+            android:textSize="16sp"
+            android:padding="16dp" />
+
+        <carbon.widget.RadioButton
+            style="@style/AppEditTextCarbonElevated"
+            android:button="@drawable/radio_button_selector"
+            android:id="@+id/option_3_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16_dp"
+            android:textSize="16sp"
+            android:padding="16dp" />
+
+        <carbon.widget.RadioButton
+            style="@style/AppEditTextCarbonElevated"
+            android:button="@drawable/radio_button_selector"
+            android:id="@+id/option_4_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16_dp"
+            android:textSize="16sp"
+            android:padding="16dp" />
+    </carbon.widget.RadioGroup>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:visibility="gone"
+        android:layout_gravity="end"
+        />
+</LinearLayout>
+

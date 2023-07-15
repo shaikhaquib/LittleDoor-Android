@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <application
+        android:name=".BaseApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.LittleDoor"
+        tools:targetApi="31">
+        <activity
+            android:name=".activity.drForms.ActivityUploadOtherDocument"
+            android:exported="false" />
+        <activity
+            android:name=".activity.drForms.ActivityAddAppreciation"
+            android:exported="false" />
+        <activity
+            android:name=".activity.drForms.ActivityAddAddress"
+            android:exported="false" />
+        <activity
+            android:name=".activity.drForms.ActivityLanguageSelection"
+            android:exported="false" />
+        <activity
+            android:name=".activity.drForms.ActivityAddEducationForm"
+            android:exported="false" />
+        <activity
+            android:name=".activity.drForms.ActivityAddExpertise"
+            android:exported="false" />
+        <activity
+            android:name=".activity.drForms.ActivityAddExperience"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DoctorRegistrationMaster"
+            android:exported="false" />
+        <activity
+            android:name=".activity.TermsAndCondition"
+            android:exported="false" />
+        <activity
+            android:name=".activity.GetStartedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MCQActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BasicDetailsForm"
+            android:exported="false" />
+        <activity
+            android:name=".activity.OTPVerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.SignUpActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.WelcomeBanner"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

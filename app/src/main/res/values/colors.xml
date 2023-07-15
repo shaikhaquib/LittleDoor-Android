@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#643FDB</color>
+    <color name="secondary">#FF8A00</color>
+    <color name="neutral_navyblue">#1C1243</color>
+    <color name="neutral_gray">#A29EB6</color>
+    <color name="grey_primary">#7C82A1</color>
+    <color name="neutral_3">#EFF1F3</color>
+    <color name="chipback">#CBC9D4</color>
+    <color name="neutral_white">#FFFFFF</color>
+    <color name="semantic_green">#47C272</color>
+    <color name="overlays_pink">#E15A93</color>
+    <color name="overlays_red">#FF6A5D</color>
+    <color name="overlays_green">#DEEDED</color>
+    <color name="overlays_purple">#B37BE7</color>
+    <color name="overlays_yellow">#FFE7CC</color>
+    <color name="overlays_pink_light">#F4D8E8</color>
+    <color name="black">#111111</color>
+    <color name="white_for_black">#FFFFFF</color>
+    <color name="grey_lighter">#F3F4F6</color>
+    <color name="navigation_background_color">#ffffff</color>
+    <color name="overlay_orange">#78F09E54</color>
+    <color name="dark_brown">#573926</color>
+    <color name="light_green">#DEEDED</color>
+    <color name="dark_gray">#707070</color>
+    <color name="screen_background_color">#F9F9F9</color>
+</resources>

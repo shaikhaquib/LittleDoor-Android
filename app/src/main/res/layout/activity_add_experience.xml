@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.BasicDetailsForm">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/AppToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/work_experience" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="24dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/liTermsSerive"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/select_your_expertise" />
+
+            <carbon.widget.Button
+                android:id="@+id/btnSelectExpertise"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/carbon_grid8"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/drop_down"
+                android:gravity="start|center"
+                android:text="@string/select"
+                app:carbon_rippleColor="@color/neutral_gray"
+                app:carbon_stroke="@color/grey_lighter"
+                app:carbon_strokeWidth="@dimen/carbon_1dip" />
+
+            <TextView
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/areas_of_specialization" />
+
+            <carbon.widget.Button
+                android:id="@+id/btnAreasSpecialization"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/carbon_grid8"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/drop_down"
+                android:gravity="start|center"
+                android:text="@string/select"
+                app:carbon_rippleColor="@color/neutral_gray"
+                app:carbon_stroke="@color/grey_lighter"
+                app:carbon_strokeWidth="@dimen/carbon_1dip" />
+
+
+            <TextView
+                android:id="@+id/txtLabelMobile"
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/years_of_experience" />
+
+            <carbon.widget.EditText
+                android:id="@+id/edtExperiance"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_16_dp"
+                android:hint="@string/years_of_experience"
+                android:inputType="phone"
+                android:maxLength="3"
+                android:maxLines="1" />
+
+            <TextView
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/upload_certificate" />
+
+
+            <LinearLayout
+                android:id="@+id/llUploadFile"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/dashed_border">
+
+                <TextView
+                    style="@style/TextTitleNormal_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:drawablePadding="@dimen/_16_dp"
+                    android:drawableStart="@drawable/ic_file_upload"
+                    android:text="@string/upload_file" />
+
+            </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clFileLayout"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:visibility="gone"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:background="@drawable/dashed_border_color"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    style="@style/TextTitleNormal_14sp"
+                    android:layout_width="@dimen/_44dp"
+                    android:layout_height="@dimen/_44dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:adjustViewBounds="true"
+                    android:drawableStart="@drawable/ic_file_upload"
+                    android:gravity="center"
+                    android:src="@drawable/ic_file"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/txtFileName"
+                    style="@style/TextTitleNormal_12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Name"
+                    app:layout_constraintBottom_toTopOf="@+id/txtRemove"
+                    app:layout_constraintStart_toEndOf="@+id/imageView6"
+                    app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+                <TextView
+                    android:id="@+id/txtRemove"
+                    style="@style/TextTitleNormal_12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/remove"
+                    android:gravity="center"
+                    android:textColor="@color/overlays_red"
+                    android:drawableTint="@color/overlays_red"
+                    android:drawableStart="@drawable/delete_small"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                    app:layout_constraintStart_toEndOf="@+id/imageView6"
+                    app:layout_constraintTop_toBottomOf="@+id/txtFileName" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/add_a_description" />
+
+
+            <carbon.widget.EditText
+                android:id="@+id/edtDescription"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_125dp"
+                android:layout_margin="@dimen/_16_dp"
+                android:lines="4"
+                android:hint="@string/add_a_description"
+                android:gravity="start"
+                android:inputType="text"
+                android:maxLines="1" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/liTermsSerive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_18_dp"
+        app:layout_constraintBottom_toTopOf="@id/btnCreate"
+        app:layout_constraintEnd_toEndOf="@+id/btnCreate"
+        app:layout_constraintStart_toStartOf="@+id/btnCreate">
+
+
+        <TextView
+            android:id="@+id/txtTermsLabel"
+            style="@style/TextTitleBold_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:textColor="@color/primary"
+            android:drawableStart="@drawable/add_form"
+            android:drawablePadding="@dimen/_16_dp"
+            android:padding="@dimen/_0dp"
+            android:text="@string/add_more_work_experience" />
+
+    </LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreate"
+        style="@style/RoundedCorner"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="24dp"
+        android:layout_marginTop="@dimen/_18_dp"
+        android:text="@string/save_amp_proceed"
+        app:icon="@drawable/right"
+        app:iconGravity="textEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

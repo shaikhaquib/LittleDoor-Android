@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        app:elevation="0dp"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/overlays_purple"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="@string/find_therapist"
+            app:maxLines="2"
+            android:elevation="0dp"
+            app:expandedTitleTextAppearance="@style/TextStyleLargeBold"
+            app:collapsedTitleTextAppearance="@style/TextDarkBold_20"
+            android:background="@color/overlays_purple"
+            app:collapsedTitleTextColor="@color/neutral_white"
+            app:expandedTitleTextColor="@color/neutral_white"
+            android:id="@+id/collapsing_toolbar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:elevation="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.amar.library.ui.StickyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:stickyHeader="@id/searchContainer"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/searchContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingBottom="24dp"
+                android:background="@drawable/voilet_background">
+
+                <carbon.widget.LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AppEditTextCarbonElevated"
+                    android:background="@color/neutral_white"
+                    app:carbon_cornerRadius="@dimen/_14_dp"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16_dp"
+                        android:layout_marginEnd="@dimen/_16_dp"                        android:src="@drawable/ic_search"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/AppEditText"
+                        android:maxLines="1"
+                        android:background="@color/neutral_white"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16_dp"
+                        android:layout_marginEnd="@dimen/_16_dp"
+                        android:src="@drawable/filter"
+                        app:tint="@color/neutral_gray" />
+
+                </carbon.widget.LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_24_dp"
+                style="@style/TextSubHeadLineDark_20"
+                android:text="@string/categories"/>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <carbon.widget.ImageView
+                            android:layout_width="@dimen/_68_dp"
+                            android:layout_height="@dimen/_68_dp"
+                            android:padding="@dimen/_12_dp"
+                            android:layout_margin="4dp"
+                            style="@style/AppEditTextCarbonElevated"
+                            android:layout_gravity="center"
+                            android:src="@drawable/cardiologist" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            style="@style/TextGray_10"
+                            android:text="Therapist" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <carbon.widget.ImageView
+                            android:layout_width="@dimen/_68_dp"
+                            android:layout_height="@dimen/_68_dp"
+                            android:padding="@dimen/_12_dp"
+                            android:layout_margin="4dp"
+                            style="@style/AppEditTextCarbonElevated"
+                            android:layout_gravity="center"
+                            android:src="@drawable/neurosurgeon" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            style="@style/TextGray_10"
+                            android:text="Counsellor" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <carbon.widget.ImageView
+                            android:layout_width="@dimen/_68_dp"
+                            android:layout_height="@dimen/_68_dp"
+                            android:padding="@dimen/_12_dp"
+                            android:layout_margin="4dp"
+                            style="@style/AppEditTextCarbonElevated"
+                            android:layout_gravity="center"
+                            android:src="@drawable/brain_profile" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            style="@style/TextGray_10"
+                            android:text="Psychologists" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <carbon.widget.ImageView
+                            android:layout_width="@dimen/_68_dp"
+                            android:layout_height="@dimen/_68_dp"
+                            android:padding="@dimen/_12_dp"
+                            android:layout_margin="4dp"
+                            style="@style/AppEditTextCarbonElevated"
+                            android:layout_gravity="center"
+                            android:src="@drawable/pediatrician" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            style="@style/TextGray_10"
+                            android:text="Psychiatrist" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+            </HorizontalScrollView>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTherapist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_therapist"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+
+        </LinearLayout>
+
+
+    </com.amar.library.ui.StickyScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

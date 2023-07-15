@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Add ViewPage2, TabLayout & 2 MaterialButton to your layout.-->
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:id="@+id/dialogInfo"
+    android:orientation="vertical">
+
+    <!--ViewPager2-->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8" />
+
+    <!--indicator-->
+
+    <LinearLayout
+        android:id="@+id/lilBtn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:layout_weight="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGetStarted"
+            style="@style/RoundedCorner"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:text="@string/get_started"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:orientation="horizontal"
+            />
+
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="2" >
+
+        <TextView
+            android:id="@+id/btnSkip"
+            style="@style/TextTitleGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="24dp"
+            android:gravity="center"
+            android:text="@string/skip"
+            app:layout_constraintBottom_toBottomOf="@+id/btnNext"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnNext" />
+
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/tabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btnNext"
+            android:layout_alignBottom="@+id/btnNext"
+            android:layout_centerHorizontal="true"
+            app:dotsColor="@color/neutral_gray"
+            app:dotsSize="8dp"
+            app:dotsSpacing="2dp"
+            app:dotsWidthFactor="2.4"
+            app:layout_constraintBottom_toBottomOf="@+id/btnNext"
+            app:layout_constraintEnd_toStartOf="@+id/btnNext"
+            app:layout_constraintStart_toEndOf="@+id/btnSkip"
+            app:layout_constraintTop_toTopOf="@+id/btnNext"
+            app:selectedDotColor="@color/primary"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/primary"
+            android:src="@drawable/forward"
+            android:textStyle="bold"
+            android:contentDescription="@string/next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

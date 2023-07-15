@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.BasicDetailsForm">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/AppToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/address" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="24dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtLabelMobile"
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/address_line_1" />
+
+            <carbon.widget.EditText
+                android:id="@+id/edtMobile"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/carbon_grid8"
+                android:hint="@string/address_line_1_hint"
+                android:inputType="phone"
+                android:maxLength="3"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/txtAddressLine2"
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24dp"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/address_line_2" />
+
+            <carbon.widget.EditText
+                android:id="@+id/edtAddressLine2"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/carbon_grid8"
+                android:hint="@string/address_line_2_hint"
+                android:inputType="phone"
+                android:maxLength="3"
+                android:maxLines="1" />
+
+        <TextView
+                android:id="@+id/txtZipcode"
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24dp"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/zip_code" />
+
+            <carbon.widget.EditText
+                android:id="@+id/edtZipcode"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/carbon_grid8"
+                android:hint="@string/zip_code"
+                android:inputType="phone"
+                android:maxLength="3"
+                android:maxLines="1" />
+
+            <TextView
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/state" />
+
+            <carbon.widget.Button
+                android:id="@+id/btnSelectState"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/carbon_grid8"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/drop_down"
+                android:gravity="start|center"
+                android:text="@string/select"
+                app:carbon_rippleColor="@color/neutral_gray"
+                app:carbon_stroke="@color/grey_lighter"
+                app:carbon_strokeWidth="@dimen/carbon_1dip" />
+
+            <TextView
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/city" />
+
+            <carbon.widget.Button
+                android:id="@+id/btnAreasSpecialization"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/carbon_grid8"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/drop_down"
+                android:gravity="start|center"
+                android:text="@string/select"
+                app:carbon_rippleColor="@color/neutral_gray"
+                app:carbon_stroke="@color/grey_lighter"
+                app:carbon_strokeWidth="@dimen/carbon_1dip" />
+
+
+            <TextView
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/upload_address_proof" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:background="@drawable/dashed_border"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextTitleNormal_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/ic_file_upload"
+                    android:drawablePadding="@dimen/_16_dp"
+                    android:gravity="center"
+                    android:text="@string/upload_file" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreate"
+        style="@style/RoundedCorner"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="24dp"
+        android:layout_marginTop="@dimen/_18_dp"
+        android:text="@string/save_amp_proceed"
+        app:icon="@drawable/right"
+        app:iconGravity="textEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.BasicDetailsForm">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/AppToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/other_documents" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="24dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/liTermsSerive"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtLabelMobile"
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/add_title" />
+
+            <carbon.widget.EditText
+                android:id="@+id/edtMobile"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/carbon_grid8"
+                android:hint="@string/add_title"
+                android:inputType="phone"
+                android:maxLength="3"
+                android:maxLines="1" />
+
+            <TextView
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="@string/upload_file" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/dashed_border">
+
+                <TextView
+                    style="@style/TextTitleNormal_14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:drawablePadding="@dimen/_16_dp"
+                    android:drawableStart="@drawable/ic_file_upload"
+                    android:text="@string/upload_file" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/liTermsSerive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_18_dp"
+        app:layout_constraintBottom_toTopOf="@id/btnCreate"
+        app:layout_constraintEnd_toEndOf="@+id/btnCreate"
+        app:layout_constraintStart_toStartOf="@+id/btnCreate">
+
+
+        <TextView
+            android:id="@+id/txtTermsLabel"
+            style="@style/TextTitleBold_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:textColor="@color/primary"
+            android:drawableStart="@drawable/add_form"
+            android:drawablePadding="@dimen/_16_dp"
+            android:padding="@dimen/_0dp"
+            android:text="@string/add_more_work_experience" />
+
+    </LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreate"
+        style="@style/RoundedCorner"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="24dp"
+        android:layout_marginTop="@dimen/_18_dp"
+        android:text="@string/save_amp_proceed"
+        app:icon="@drawable/right"
+        app:iconGravity="textEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

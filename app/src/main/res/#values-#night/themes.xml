@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.LittleDoor" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="WindowTransition">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+
+    <style name="TextHeadLineDark">
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@color/neutral_white</item>
+        <item name="android:fontFamily"> @font/sfprodisplaybold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextSubHeadLineDark">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/neutral_white</item>
+        <item name="android:fontFamily"> @font/sfprodisplaymedium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>z
+
+</resources>

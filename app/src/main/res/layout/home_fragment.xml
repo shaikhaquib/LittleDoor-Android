@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="@dimen/_40_dp"
+        android:layout_height="@dimen/_40_dp"
+        android:layout_margin="@dimen/_20_dp"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_20_dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgProfile"
+        app:srcCompat="@drawable/notification" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtGreet"
+        style="@style/TextSubHeadLineDark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10_dp"
+        android:fontFamily="@font/sfprodisplayregular"
+        android:text="Good Afternoon,"
+        android:textSize="@dimen/_24_dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imgProfile"
+        app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtUserName"
+        style="@style/TextHeadLineDark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5_dp"
+        android:text="Muzammil!"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imgProfile"
+        app:layout_constraintTop_toBottomOf="@+id/txtGreet" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView"
+        style="@style/TextSubHeadLineDark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/sfprodisplayregular"
+        android:text="How are you feeling today ?"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imgProfile"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserName" />
+
+    <HorizontalScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_marginTop="@dimen/_12_dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/appCompatTextView"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_55_dp"
+                    android:layout_height="@dimen/_55_dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/happy" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Happy" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_55_dp"
+                    android:layout_height="@dimen/_55_dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/calm" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Calm" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_55_dp"
+                    android:layout_height="@dimen/_55_dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/relax" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Manic" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_55_dp"
+                    android:layout_height="@dimen/_55_dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/focus" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Angry" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_55_dp"
+                    android:layout_height="@dimen/_55_dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/focus_mood" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Sad" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </HorizontalScrollView>
+
+
+    <carbon.widget.LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16_dp"
+        android:layout_marginStart="@dimen/_16_dp"
+        android:layout_marginEnd="@dimen/_16_dp"
+        android:background="@drawable/backgorund_book"
+        android:orientation="vertical"
+        app:carbon_cornerRadius="@dimen/_20_dp"
+        app:carbon_elevation="@dimen/_2_dp"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="@+id/scrollView2"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+
+        <TextView
+            style="@style/TextHeadLineDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20_dp"
+            android:layout_marginTop="@dimen/_23_dp"
+            android:text="1 on 1 Sessions"
+            android:textColor="@color/dark_brown" />
+
+        <TextView
+            style="@style/TextTitleNormal_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20_dp"
+            android:layout_marginTop="@dimen/_8_dp"
+            android:fontFamily="@font/sfprodisplayregular"
+            android:text="Let’s open up to the things that\nmatter the most "
+            android:textColor="@color/dark_brown" />
+
+        <TextView
+            style="@style/TextHeadLineDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20_dp"
+            android:layout_marginTop="@dimen/_12_dp"
+            android:drawableEnd="@drawable/callender_old_style"
+            android:drawablePadding="@dimen/_8_dp"
+            android:text="Book Now"
+            android:textColor="@color/secondary" />
+
+
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.LinearLayout
+        android:id="@+id/layoutJournal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:background="@color/grey_lighter"
+        android:orientation="horizontal"
+        android:padding="@dimen/_20_dp"
+        app:carbon_cornerRadius="@dimen/_20_dp"
+        app:carbon_elevation="@dimen/_2_dp"
+        app:layout_constraintEnd_toStartOf="@+id/Events"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            style="@style/TextHeadLineDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_journal"
+            android:drawablePadding="@dimen/_18_dp"
+            android:text="@string/journal"
+            android:textColor="@color/dark_brown"
+            android:textSize="@dimen/_18_dp"/>
+
+
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.LinearLayout
+        android:id="@+id/Events"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/grey_lighter"
+        android:orientation="horizontal"
+        android:padding="@dimen/_20_dp"
+        app:carbon_cornerRadius="@dimen/_20_dp"
+        app:carbon_elevation="@dimen/_2_dp"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@+id/layoutJournal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            style="@style/TextHeadLineDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_events"
+            android:drawablePadding="@dimen/_18_dp"
+            android:text="@string/event"
+            android:textColor="@color/dark_brown"
+            android:textSize="@dimen/_18_dp"/>
+
+
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.LinearLayout
+        android:id="@+id/quote"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16_dp"
+        android:background="@color/light_green"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/_20_dp"
+        app:carbon_cornerRadius="@dimen/_20_dp"
+        app:carbon_elevation="@dimen/_2_dp"
+        app:layout_constraintEnd_toEndOf="@+id/Events"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/layoutJournal">
+
+        <TextView
+            style="@style/TextTitleNormal_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableEnd="@drawable/ic_qoute"
+            android:text="“It is better to conquer yourself than to win a thousand battles”"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/_18_dp" />
+
+
+    </carbon.widget.LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

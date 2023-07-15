@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_16_dp"
+    style="@style/AppEditTextCarbonElevated">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <carbon.widget.ImageView
+            android:id="@+id/imageView5"
+            style="@style/AppEditTextCarbonElevated"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@color/overlays_purple"
+            android:padding="0dp"
+            android:src="@drawable/sample_dr_image"
+            app:carbon_elevation="@dimen/_8_dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="@dimen/_14_dp"
+            android:layout_height="@dimen/_14_dp"
+            android:layout_marginTop="@dimen/_4_dp"
+            android:src="@drawable/round_star_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView7"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+        <TextView
+            android:id="@+id/textView7"
+            style="@style/TextTitleBold_14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.5"
+            android:textColor="#A6080C2F"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+            app:layout_constraintEnd_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imageView6"
+            app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+
+        <TextView
+            android:id="@+id/txtName"
+            style="@style/TextDarkBold_18_dp"
+            android:textColor="@color/neutral_navyblue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_18_dp"
+            android:text="Dr. Zaira Wasim"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@id/imageView5" />
+
+        <TextView
+            android:id="@+id/txtDesc"
+            style="@style/TextGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8_dp"
+            android:text="Therapist, Nerul, Mumbai"
+            app:layout_constraintStart_toStartOf="@+id/txtName"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton"
+            style="@style/TextTitleNormal_12sp"
+            android:layout_width="@dimen/_110_sp"
+            android:layout_height="@dimen/_34_dp"
+            android:layout_marginTop="@dimen/_16_dp"
+            android:layout_marginBottom="@dimen/_8_dp"
+            android:stateListAnimator="@null"
+            android:backgroundTint="#F7F8F8"
+            android:textColor="@color/neutral_navyblue"
+            android:fontFamily="@font/sfprodisplaymedium"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:elevation="0dp"
+            android:text="@string/appointment"
+            android:textAllCaps="false"
+            app:cornerRadius="@dimen/_10_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtDesc"
+            app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
+
+        <carbon.widget.ImageView
+            android:id="@+id/btnChat"
+            android:layout_width="@dimen/_34_dp"
+            android:layout_height="@dimen/_34_dp"
+            android:layout_marginStart="@dimen/_16_dp"
+            android:layout_marginTop="@dimen/_16_dp"
+            android:background="#F7F8F8"
+            android:padding="6dp"
+            android:src="@drawable/comment_"
+            app:carbon_cornerRadius="@dimen/_10_dp"
+            app:layout_constraintBottom_toBottomOf="@+id/materialButton"
+            app:layout_constraintStart_toEndOf="@+id/materialButton"
+            app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</carbon.widget.LinearLayout>
