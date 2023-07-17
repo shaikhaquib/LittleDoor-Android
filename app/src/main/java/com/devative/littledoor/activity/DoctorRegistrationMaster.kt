@@ -3,7 +3,6 @@ package com.devative.littledoor.activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.TextureView
 import android.view.Window
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -112,7 +111,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
     override fun onClickAdd(position: Int) {
         when(position)
         {
-            0 -> startActivity(Intent(applicationContext,ActivityAddExperience::class.java).putExtra(Constants.FORM_LIST_SIZE,vm.doctorDetailsData.value?.data?.data?.work_experience?.size?:0))
+            0 -> startActivity(Intent(applicationContext,ActivityAddExperience::class.java).putExtra(Constants.FORM_EDIT_POSITION,-1).putExtra(Constants.FORM_EDIT_DATA,vm.doctorDetailsData.value?.data?.data))
             1 -> startActivity(Intent(applicationContext,ActivityAddEducationForm::class.java))
             2 -> startActivity(Intent(applicationContext,ActivityAddExpertise::class.java))
             3 -> startActivity(Intent(applicationContext,ActivityAddAddress::class.java))
@@ -122,12 +121,12 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         }
     }
 
-    override fun onEdit(type: Any) {
+    override fun onEdit(type: Any, position: Int) {
         when(type){
             is DoctorDetailsResponse.Data.WorkExperience->{
                 startActivity(Intent(applicationContext,ActivityAddExperience::class.java)
-                    .putExtra(Constants.FORM_LIST_SIZE,vm.doctorDetailsData.value?.data?.data?.work_experience?.size?:0)
-                    .putExtra(Constants.FORM_EDIT_DATA,type)
+                    .putExtra(Constants.FORM_EDIT_POSITION,position)
+                    .putExtra(Constants.FORM_EDIT_DATA,vm.doctorDetailsData.value?.data?.data)
                 )
             }
         }

@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import carbon.widget.Button
 import com.devative.littledoor.R
@@ -45,13 +44,13 @@ import kotlinx.coroutines.launch
 class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.FormAdapterEvent {
     lateinit var binding: ActivityAddExperienceBinding
     var fileURI: Uri? = null
+    var fileURL: String? = null
     private val vm: DrRegViewModel by viewModels()
     private val categoryList = ArrayList<CategoryResponse.Data>()
     private val subCategoryList = ArrayList<SubCategoryResponse.Data>()
     private val itemList = mutableListOf<String>()
     private val itemIDList = mutableListOf<String>()
     private var formData = FormData()
-    private var formSize = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddExperienceBinding.inflate(layoutInflater)
@@ -64,24 +63,54 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
     }
 
     private fun initIntent() {
-        formSize = intent.getIntExtra(Constants.FORM_LIST_SIZE,0)
+        val editPosition = intent.getIntExtra(Constants.FORM_EDIT_POSITION,-1)
         if (intent.hasExtra(Constants.FORM_EDIT_DATA)){
-            val editData = intent.getSerializableExtra(Constants.FORM_EDIT_DATA) as DoctorDetailsResponse.Data.WorkExperience
-            vm.getSubCategory(editData.category_id.toString())
-            binding.chipGroup.removeAllViews()
-          //  fileURI = data.getCertificate()
-            //addFile()
-            itemIDList.clear()
-            itemList.clear()
-            val subCategoryArray = getCommaSeparatedNames(editData.sub_category).split(",")
-            for (subCatID in subCategoryArray!!){
-                subCategoryList.clear()
-                itemIDList.add(subCatID)
+            val data = intent.getSerializableExtra(Constants.FORM_EDIT_DATA) as DoctorDetailsResponse.Data
+            for (editData in data.work_experience)
+            {
+               val formD = FormData()
+                formD.setCategoryId(editData.category_id)
+                formD.setSubCategoryId(getCommaSeparatedNames(editData.sub_category))
+                formD.setCertificateURL(editData.certificate[0])
+                formD.setDescription(editData.description)
+                formD.setYearOfExperience(editData.year_of_experience)
+                if ( editPosition == -1 || editData.id != data.work_experience[editPosition].id)
+                vm.addFormItem(formD)
             }
-            formData.setCategoryId(editData.category_id)
-            formData.setSubCategoryId(getCommaSeparatedNames(editData.sub_category))
+            if (editPosition != -1 && !data.work_experience.isNullOrEmpty()) {
+                editdataSetUI(data, editPosition)
+            }
+
+
         }
     }
+
+    private fun editdataSetUI(
+        data: DoctorDetailsResponse.Data,
+        editPosition: Int
+    ) {
+        formData = FormData()
+        val editData = data.work_experience[editPosition]
+        vm.getSubCategory(editData.category_id.toString())
+        binding.chipGroup.removeAllViews()
+        binding.edtExperiance.setText(editData.year_of_experience)
+        binding.edtDescription.setText(editData.description)
+        fileURL = editData.certificate[0]
+        addFile()
+        itemIDList.clear()
+        itemList.clear()
+        val subCategoryArray = getCommaSeparatedNames(editData.sub_category).split(",")
+        for (subCatID in subCategoryArray!!) {
+            subCategoryList.clear()
+            itemIDList.add(subCatID)
+        }
+        formData.setCategoryId(editData.category_id)
+        formData.setSubCategoryId(getCommaSeparatedNames(editData.sub_category))
+        formData.setDescription(editData.description)
+        formData.setYearOfExperience(editData.year_of_experience)
+        formData.setCertificateURL(fileURL)
+    }
+
     fun getCommaSeparatedNames(subCategories: List<DoctorDetailsResponse.Data.WorkExperience.SubCategory>): String {
         return subCategories.map { it.id }.joinToString(", ")
     }
@@ -163,7 +192,6 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
         }
 
         vm.formData.observe(this){
-            Toast.makeText(applicationContext, "${vm.doctorDetailsData.value?.data?.data?.work_experience?.size}", Toast.LENGTH_SHORT).show()
             binding.rvFormData.adapter = FormAdapter(this,it as ArrayList<Any>,this)
             binding.formDivider.isGone = it.isNullOrEmpty()
         }
@@ -275,11 +303,16 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
         val dataMap = HashMap<String,String>()
         for (i in list!!.indices){
             dataMap["step"] = "1"
-            fileMap["work[${i+formSize}][certificate][0]"] = list[i].getCertificate()!!
-            dataMap["work[${i+formSize}][category_id]"] = list[i].getCategoryId().toString()
-            dataMap["work[${i+formSize}][sub_category_id]"] = list[i].getSubCategoryId().toString()
-            dataMap["work[${i+formSize}][year_of_experience]"] = list[i].getYearOfExperience().toString()
-            dataMap["work[${i+formSize}][description]"] = list[i].getDescription().toString()
+           list[i].getCertificate()?.let {
+               fileMap["work[$i][certificate][0]"] = it
+           }
+           list[i].getCertificateURL()?.let {
+               dataMap["work[$i][certificate][0]"] = it
+           }
+            dataMap["work[$i][category_id]"] = list[i].getCategoryId().toString()
+            dataMap["work[$i][sub_category_id]"] = list[i].getSubCategoryId().toString()
+            dataMap["work[$i][year_of_experience]"] = list[i].getYearOfExperience().toString()
+            dataMap["work[$i][description]"] = list[i].getDescription().toString()
         }
         Logger.d("TAG", "uploadFormData: ${dataMap.toString()}")
             CoroutineScope(Dispatchers.IO).launch {
@@ -350,10 +383,16 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
     }
 
     private fun addFile() {
-        val fileName = getFileNameFromUri(fileURI!!, this)
-        val path = FilePickerUtils.getFullPathFromUri(fileURI!!, this)
-        binding.clFileLayout.visibility = View.VISIBLE
-        binding.txtFileName.text = fileName
+        if (fileURI != null) {
+            val fileName = getFileNameFromUri(fileURI!!, this)
+            val path = FilePickerUtils.getFullPathFromUri(fileURI!!, this)
+            binding.clFileLayout.visibility = View.VISIBLE
+            binding.txtFileName.text = fileName
+        }else if (fileURL != null){
+            val fileName = fileURL?.substring(fileURL!!.lastIndexOf("/")+1)
+            binding.clFileLayout.visibility = View.VISIBLE
+            binding.txtFileName.text = fileName
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -397,18 +436,21 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
         private var sub_category_id:String? = null
         private var year_of_experience:String? = null
         private var certificate:Uri? = null
+        private var certificateURL:String? = null
         private var description:String? = null
 
         fun getCategoryId() = category_id
         fun getSubCategoryId() = sub_category_id
         fun getYearOfExperience() = year_of_experience
         fun getCertificate() = certificate
+        fun getCertificateURL() = certificateURL
         fun getDescription() = description
 
         fun setCategoryId(id:Int) { category_id = id}
         fun setSubCategoryId(id:String)  { sub_category_id = id }
         fun setYearOfExperience(exp:String)  { year_of_experience = exp }
         fun setCertificate(uri: Uri?) {certificate = uri}
+        fun setCertificateURL(url: String?) {certificateURL = url}
         fun setDescription(string: String) {
             description = string
         }
@@ -427,7 +469,12 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
             binding.edtExperiance.setText(data.getYearOfExperience().toString())
             binding.edtDescription.setText(data.getDescription())
             binding.chipGroup.removeAllViews()
-            fileURI = data.getCertificate()
+
+            if (data.getCertificate() != null)
+                fileURI = data.getCertificate()
+            if (data.getCertificateURL() != null)
+                fileURL= data.getCertificateURL()
+
             addFile()
             itemIDList.clear()
             itemList.clear()

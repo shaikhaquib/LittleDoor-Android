@@ -1,8 +1,10 @@
 package com.devative.littledoor.adapter
 
 import FilePickerUtils
+import FilePickerUtils.getFileNameFromUri
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import carbon.widget.LinearLayout
@@ -34,7 +36,11 @@ class FormAdapter (
             val formData = list[position] as ActivityAddExperience.FormData
             binding.txtName.text = formData.getDescription()
             binding.txtDesc.text = "Year Experience ${formData.getYearOfExperience()}"
-            binding.txtSubDesc.text = FilePickerUtils.getFileNameFromUri(formData.getCertificate()!!, context)
+            if (formData.getCertificate() != null) {
+                binding.txtSubDesc.text = FilePickerUtils.getFileNameFromUri(formData.getCertificate()!!, context)
+            }else if (formData.getCertificateURL() != null){
+                binding.txtSubDesc.text = formData.getCertificateURL()?.substring(formData.getCertificateURL()!!.lastIndexOf("/")+1)
+            }
             binding.imgIcon.setOnClickListener {
                 event.onclick(position, list[position])
             }

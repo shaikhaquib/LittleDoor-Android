@@ -73,6 +73,8 @@ data class DoctorDetailsResponse(
 
         data class WorkExperience(
             val category_id: Int,
+            val year_of_experience: String,
+            val description: String,
             val category_name: String,
             val certificate: List<String>,
             val doctor_id: Int,

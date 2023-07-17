@@ -37,7 +37,7 @@ class DoctorFormMasterAdapter(
                                     position: Int,
                                     formData: Any
                                 ) {
-                                    event.onEdit(formData)
+                                    event.onEdit(formData,position)
                                 }
 
                             })
@@ -78,7 +78,7 @@ class DoctorFormMasterAdapter(
     interface FormMasterEvent {
         fun onClick(position: Int)
         fun onClickAdd(position: Int)
-        fun onEdit(type: Any)
+        fun onEdit(type: Any, position: Int)
     }
 
 }

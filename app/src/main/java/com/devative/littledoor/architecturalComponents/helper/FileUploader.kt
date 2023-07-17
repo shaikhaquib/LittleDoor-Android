@@ -44,16 +44,12 @@ object FileUploader {
             parameters.forEach { (key, value) ->
                 multipartBuilder.addFormDataPart(key, value)
             }
-
             fileUris.forEach { (key, uri) ->
                 val file = File(uriToFilePath(context, uri))
                 val requestBody = file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
                 multipartBuilder.addFormDataPart(key, file.name, requestBody)
             }
-
-
             val requestBody = multipartBuilder.build()
-
             val request: Request = Request.Builder()
                 .url(url)
                 .post(requestBody)
