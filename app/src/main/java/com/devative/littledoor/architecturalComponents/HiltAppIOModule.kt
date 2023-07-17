@@ -28,8 +28,8 @@ class  HiltAppIOModule {
     @Provides
     fun provideOkHttpClient(@ApplicationContext context: Context) = run {
         val loggingInterceptor = HttpLoggingInterceptor()
-        val authInterceptor = AuthInterceptor(context)
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val authInterceptor = AuthInterceptor(context)
         OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)

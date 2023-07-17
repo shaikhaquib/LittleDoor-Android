@@ -11,8 +11,7 @@ import com.devative.littledoor.model.LoginModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    private lateinit var basicDetails: LoginModel.BasicDetails
+class MainActivity : BaseActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var vm:MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -15,6 +15,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.devative.littledoor.R
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
+import com.devative.littledoor.model.DrRegistrationMasterModel
 import com.devative.littledoor.util.Utility
 import com.devative.littledoor.util.Utility.CHANNEL_ID
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,8 +41,13 @@ class SplashActivity : BaseActivity() {
                     startActivity(Intent(applicationContext, SignUpActivity::class.java))
                 else
                     startActivity(Intent(applicationContext, WelcomeBanner::class.java))
-            } else
-                startActivity(Intent(applicationContext, MainActivity::class.java))
+            } else {
+                if (basicDetails?.doctor_id == null)
+                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                else{
+                    startActivity(Intent(applicationContext, DoctorRegistrationMaster::class.java))
+                }
+            }
 
             finish()
         }, 800)

@@ -6,11 +6,14 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.Window
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.DataBindingUtil.setContentView
+import androidx.lifecycle.ViewModel
 import com.devative.littledoor.R
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Status
+import com.devative.littledoor.architecturalComponents.viewmodel.DrRegViewModel
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.ActivityBasicDetailsFormBinding
 import com.devative.littledoor.model.GetAllCitiesResponse
@@ -26,12 +29,13 @@ import es.dmoral.toasty.Toasty
 
 @AndroidEntryPoint
 class BasicDetailsForm : BaseActivity(), View.OnClickListener {
-    lateinit var binding: ActivityBasicDetailsFormBinding
-    lateinit var viewModel: MainViewModel
-    var selectedCityId = -1
-    var selectedDate = ""
-    var selectedGender = ""
-    val citiesList = ArrayList<GetAllCitiesResponse.Data>()
+    private lateinit var binding: ActivityBasicDetailsFormBinding
+    private lateinit var viewModel: MainViewModel
+    private var selectedCityId = -1
+    private var selectedDate = ""
+    private var selectedGender = ""
+    private val citiesList = ArrayList<GetAllCitiesResponse.Data>()
+    private val drRegViewModel:DrRegViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBasicDetailsFormBinding.inflate(layoutInflater)
@@ -102,8 +106,7 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
                     progress?.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
-                        startActivity(Intent(applicationContext, MCQActivity::class.java))
-                        finish()
+                        viewModel.getUserDetails()
                     } else {
                         Toasty.error(applicationContext, it.data!!.message).show()
                     }
@@ -121,6 +124,92 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
 
             }
         }
+
+        drRegViewModel.registerTherapist.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress?.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress?.dismiss()
+                    if (it.data?.status == true) {
+                        if (it.data?.otp != null) {
+                            Utility.showNotification(
+                                applicationContext,
+                                "Use this OTP to Login:${it.data?.otp}",
+                                "Login Auth"
+                            )
+                            it.message?.let { it1 ->
+                                Toasty.success(
+                                    this,
+                                    it1, Toasty.LENGTH_SHORT
+                                ).show()
+                            }
+                            startActivity(
+                                Intent(
+                                    applicationContext, OTPVerificationActivity::class.java
+                                ).putExtra(Constants.PHONE_NO, binding.edtMobile.text.toString())
+                                 .putExtra(Constants.IS_DOCTOR, true)
+                            )
+                        } else {
+                            it.message?.let { it1 ->
+                                Toasty.error(
+                                    this,
+                                    it1, Toasty.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress?.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
+
+
+        viewModel.userDetails.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress?.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress?.dismiss()
+                    if (it.data?.status == true) {
+                        it.data?.let {data->
+                            viewModel.insertUserData(data.data)
+                        }
+                        // Toasty.success(applicationContext, it.data.message).show()
+                        startActivity(Intent(applicationContext, MCQActivity::class.java))
+                        finish()
+                    } else {
+                        Toasty.error(applicationContext,getString(R.string.some_thing_went_wrong)).show()
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress?.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
+
 
     }
 
@@ -227,6 +316,13 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
                     getString(R.string.error_empty_email)
                 )
             }
+            !isValidEmail(binding.edtEmail.text.toString())-> {
+                binding.edtEmail.error = getString(R.string.error_empty_email)
+                Utility.errorToast(
+                    applicationContext,
+                    getString(R.string.enter_valid_email_address)
+                )
+            }
 
             intent.hasExtra(Constants.IS_DOCTOR) && binding.edtMobile.text.toString()
                 .isEmpty() -> {
@@ -257,7 +353,15 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
 
             else -> {
                 if (intent.hasExtra(Constants.IS_DOCTOR)) {
-                    startActivity(Intent(applicationContext,DoctorRegistrationMaster::class.java))
+
+                    val therapistData = HashMap<String,String>()
+                    therapistData.put("name",binding.edtName.text.toString())
+                    therapistData.put("gender",selectedGender)
+                    therapistData.put("dob",selectedDate)
+                    therapistData.put("email", binding.edtEmail.text.toString())
+                    therapistData.put("city_id",selectedCityId.toString())
+                    therapistData.put("mobile_no",binding.edtMobile.text.toString())
+                    drRegViewModel.registerTherapist(therapistData)
                 } else {
                     viewModel.createUser(
                         binding.edtName.text.toString(),
@@ -269,6 +373,11 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    fun isValidEmail(email: String): Boolean {
+        val emailRegex = Regex("^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$")
+        return email.matches(emailRegex)
     }
 
 }

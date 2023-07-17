@@ -2,8 +2,6 @@ package com.devative.littledoor.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.devative.littledoor.R
 import com.devative.littledoor.adapter.QuestionPagerAdapter
@@ -24,7 +22,8 @@ import org.json.JSONObject
 class MCQActivity : BaseActivity() {
     private lateinit var binding: ActivityMcqactivityBinding
     private lateinit var viewModel: MainViewModel
-    val jsonArray = JSONArray()
+    val data = HashMap<String,Any>()
+    val questions = ArrayList<HashMap<String, Any>>()
     private val questionList = ArrayList<GetAllQuestions.Data>()
     private lateinit var viewPager: ViewPager
     private lateinit var adapter: QuestionPagerAdapter
@@ -43,6 +42,13 @@ class MCQActivity : BaseActivity() {
         viewPager.adapter = adapter
         viewPager.setOnTouchListener { v, event -> true }
         binding.txtPageIndicator.text = "${1}/${questionList.size}"
+        viewModel.fetchUserData()
+        viewModel.basicDetails.observe(this) {
+            if (!it.isNullOrEmpty()) {
+                basicDetails = it[0]
+            }
+        }
+
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
@@ -62,7 +68,7 @@ class MCQActivity : BaseActivity() {
         })
 
         binding.btnNext.setOnClickListener { onQuestionAnswered() }
-        binding.txtSkip.setOnClickListener { submitAnswers() }
+        binding.txtSkip.setOnClickListener { submitAnswers(true) }
 
         viewModel.getQuestions.observe(this) {
             when (it.status) {
@@ -93,6 +99,36 @@ class MCQActivity : BaseActivity() {
             }
         }
 
+        viewModel.saveMCQ.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress?.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress?.dismiss()
+                    if (it.data?.status == true) {
+                        Toasty.success(applicationContext, it.data.message).show()
+                        startNextPage()
+                    } else {
+                        Toasty.error(applicationContext, it.data!!.message).show()
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress?.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
+
+
     }
 
     private fun getQuestionList(): List<Question> {
@@ -104,13 +140,12 @@ class MCQActivity : BaseActivity() {
     fun onQuestionAnswered() {
         if (selectedOptionIndex != -1) {
             val question = questionList[viewPager.currentItem]
-            val jsonObject = JSONObject()
-            jsonObject.put("questionID", question.id)
-            jsonObject.put("question", question.name)
-            jsonObject.put("selectedAnswer", question.options[selectedOptionIndex].option_id)
-            jsonArray.put(jsonObject)
+            val questions = HashMap<String, Any>()
+            questions["sub_category_question_mapping_id"] = question.question_id
+            questions["option_id"] = question.options[selectedOptionIndex].option_id
+            this.questions.add(questions)
             if (viewPager.currentItem == questionList.lastIndex) {
-                submitAnswers()
+                submitAnswers(false)
                 selectedOptionIndex = -1
             } else {
                 viewPager.currentItem += 1
@@ -122,14 +157,43 @@ class MCQActivity : BaseActivity() {
 
     }
 
-    private fun submitAnswers() {
-        Logger.d("Selected Answers", jsonArray.toString())
+    private fun submitAnswers(isSkip:Boolean) {
+        if (isSkip){
+            startNextPage()
+        }else{
+            data.put("patient_id", basicDetails?.pateint_id!!)
+            data["questions"] = questions
+            viewModel.saveMCQResult(data)
+        }
+        Logger.d("Selected Answers", data.toString())
+
+    }
+
+    private fun startNextPage() {
         startActivity(Intent(applicationContext,GetStartedActivity::class.java).setFlags(
             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         ))
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish()
+    }
 
+    fun generateJsonString(data: HashMap<String, Any>): JSONObject {
+        val jsonObject = JSONObject()
+        for ((key, value) in data) {
+            when (value) {
+                is List<*> -> {
+                    val jsonArray = JSONArray()
+                    for (item in value) {
+                        if (item is HashMap<*, *>) {
+                            jsonArray.put(JSONObject(item))
+                        }
+                    }
+                    jsonObject.put(key, jsonArray)
+                }
+                else -> jsonObject.put(key, value)
+            }
+        }
+        return jsonObject
     }
 
     companion object{

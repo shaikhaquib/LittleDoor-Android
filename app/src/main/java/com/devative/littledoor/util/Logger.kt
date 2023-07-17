@@ -6,23 +6,23 @@ import timber.log.Timber
  */
 
 object Logger {
-    fun d(message: String, vararg args: Any?) {
-        Timber.d(message, *args)
+    fun d(message: String?, args: String?) {
+        Timber.d(message, args)
     }
 
-    fun e(message: String, vararg args: Any?) {
-        Timber.e(message, *args)
+    fun e(message: String?, args: String?) {
+        Timber.e(message, args)
     }
 
-    fun i(message: String, vararg args: Any?) {
-        Timber.i(message, *args)
+    fun i(message: String?, args: String?) {
+        Timber.i(message, args)
     }
 
-    fun w(message: String, vararg args: Any?) {
-        Timber.w(message, *args)
+    fun w(message: String?, args: String?) {
+        Timber.w(message, args)
     }
 
-    fun wtf(message: String, vararg args: Any?) {
-        Timber.wtf(message, *args)
+    fun wtf(message: String?, args: String?) {
+        Timber.wtf(message, args)
     }
 }

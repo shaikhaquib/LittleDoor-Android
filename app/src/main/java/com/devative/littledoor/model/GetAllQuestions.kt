@@ -1,17 +1,24 @@
 package com.devative.littledoor.model
 
+import java.io.Serializable
+
 data class GetAllQuestions(
     val `data`: List<Data>,
     val status: Boolean
-):java.io.Serializable {
+):Serializable {
     data class Data(
         val id: Int,
-        val name: String,
-        val options: List<Option>
-    ):java.io.Serializable {
+        val options: List<Option>,
+        val question_id: Int,
+        val question_name: String,
+        val sub_category_id: Int,
+        val sub_category_name: String
+    ):Serializable {
         data class Option(
-            val option: String,
-            val option_id: Int
-        ):java.io.Serializable
+            val id: Int,
+            val option_id: Int,
+            val option_name: String,
+            val sub_category_question_mapping_id: Int
+        ):Serializable
     }
 }

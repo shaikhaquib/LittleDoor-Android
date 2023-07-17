@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.UserDetails
 import com.devative.littledoor.util.Progress
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 open class BaseActivity: AppCompatActivity(){
-    var basicDetails: LoginModel.BasicDetails? = null
+    var basicDetails: UserDetails.Data? = null
     var progress: Progress? = null
     private lateinit var mainViewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {

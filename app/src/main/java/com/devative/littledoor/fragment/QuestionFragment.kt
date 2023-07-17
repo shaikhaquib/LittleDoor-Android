@@ -40,11 +40,11 @@ class QuestionFragment : Fragment() {
         val option3RadioButton = binding.option3RadioButton
         val option4RadioButton = binding.option4RadioButton
 
-        questionTextView.text = question.name
-        option1RadioButton.text = question.options[0].option
-        option2RadioButton.text = question.options[1].option
-        option3RadioButton.text = question.options[2].option
-        option4RadioButton.text = question.options[3].option
+        questionTextView.text = question.question_name
+        option1RadioButton.text = question.options[0].option_name
+        option2RadioButton.text = question.options[1].option_name
+        option3RadioButton.text = question.options[2].option_name
+        option4RadioButton.text = question.options[3].option_name
 
         option1RadioButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

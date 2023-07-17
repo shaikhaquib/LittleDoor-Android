@@ -9,6 +9,7 @@ import com.devative.littledoor.R
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.HomeFragmentBinding
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.UserDetails
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -17,7 +18,7 @@ import java.util.*
  */
 @AndroidEntryPoint
 class HomeFragment  : Fragment() {
-    private var basicDetails: LoginModel.BasicDetails? = null
+    private var basicDetails: UserDetails.Data? = null
     private lateinit var binding: HomeFragmentBinding
     private lateinit var vm: MainViewModel
     override fun onCreateView(

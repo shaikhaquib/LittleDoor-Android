@@ -25,7 +25,7 @@
     <string name="event">Event</string>
     <string name="journal">Journal</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello">Hello</string>
     <string name="categories">Categories</string>
     <string name="appointment">Appointment</string>
     <string name="find_therapist">Let’s find your top therapist!</string>
@@ -93,4 +93,6 @@
     <string name="remove">Remove</string>
     <string name="institution_name">Institution name</string>
     <string name="field_of_study">Field of Study</string>
+    <string name="enter_valid_email_address">Enter valid email address</string>
+    <string name="some_thing_went_wrong">Some thing went wrong!! Please try again later</string>
 </resources>

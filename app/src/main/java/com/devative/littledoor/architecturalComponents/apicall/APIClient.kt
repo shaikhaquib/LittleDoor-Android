@@ -1,10 +1,16 @@
 package com.devative.littledoor.architecturalComponents.apicall
 
+import com.devative.littledoor.architecturalComponents.helper.Constants
+import com.devative.littledoor.model.CategoryResponse
+import com.devative.littledoor.model.DoctorDetailsResponse
 import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.SubCategoryResponse
+import com.devative.littledoor.model.UserDetails
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -26,10 +32,13 @@ interface APIClient {
         @Field("otp") otp: String,
     ): Response<LoginModel>
 
+    @GET("admin/get/user/details")
+    suspend fun getUserDetails(): Response<UserDetails>
+
     @GET("admin/get/cities")
     suspend fun getAllCities(): Response<GetAllCitiesResponse>
 
-    @GET("admin/get-all/questions/options")
+    @GET("admin/get/questions")
     suspend fun getQuestions(): Response<GetAllQuestions>
 
     @FormUrlEncoded
@@ -41,5 +50,28 @@ interface APIClient {
         @Field("email") email: String,
         @Field("city_id") city_id: String
     ): Response<GeneralResponse>
+
+    @POST("admin/save/patient/question/response")
+    suspend fun saveMCQResult(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+
+    @POST("doctor/create/doctor")
+    suspend fun createTherapist(@Body sendData: HashMap<String, String>): Response<GeneralResponse>
+
+
+    @GET("admin/get/categroy")
+    suspend fun getCategory(): Response<CategoryResponse>
+
+    @FormUrlEncoded
+    @POST("admin/get/sub/category")
+    suspend fun getSubCategory(
+        @Field("category_id") name: String
+    ): Response<SubCategoryResponse>
+
+    @GET("doctor/get/details")
+    suspend fun getDoctorDetails(): Response<DoctorDetailsResponse>
+
+    companion object {
+        const val THERAPIST_ADD_DETAILS = "${Constants.BASE_URL}doctor/submit/details"
+    }
 
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:carbon_cornerRadius="@dimen/_15dp"
+    android:layout_margin="8dp"
+    style="@style/AppEditTextCarbonElevated"
+    android:padding="@dimen/_16_dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/txtName"
+            style="@style/TextTitleNormal_16sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Dr. Zaira Wasim"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imgIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtDesc"
+            style="@style/TextGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8_dp"
+            android:textSize="@dimen/_12_dp"
+            android:text="You have a good time!"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+        <TextView
+            android:id="@+id/txtSubDesc"
+            style="@style/TextGray_10"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_marginTop="4dp"
+            android:text="You have a good time!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtName"
+            app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
+
+        <ImageView
+            android:id="@+id/imgIcon"
+            style="@style/TextGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit_1"
+            app:layout_constraintBottom_toBottomOf="@+id/txtName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtName" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</carbon.widget.LinearLayout>

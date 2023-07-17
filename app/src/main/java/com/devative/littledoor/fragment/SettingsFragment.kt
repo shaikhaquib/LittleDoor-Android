@@ -11,6 +11,7 @@ import com.devative.littledoor.activity.SignUpActivity
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.SettingsFragmentBinding
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.UserDetails
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -18,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
-    private var basicDetails: LoginModel.BasicDetails ? = null
+    private var basicDetails: UserDetails.Data? = null
     private lateinit var binding: SettingsFragmentBinding
     private lateinit var vm:MainViewModel
     override fun onCreateView(

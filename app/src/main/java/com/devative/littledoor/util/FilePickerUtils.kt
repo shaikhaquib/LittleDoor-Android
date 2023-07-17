@@ -1,5 +1,6 @@
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,7 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.devative.littledoor.BuildConfig
 
-object FilePickerUtils {
+object  FilePickerUtils {
     const val PICK_FILE_REQUEST_CODE = 123
 
     // Utility function to check if the required READ_EXTERNAL_STORAGE permission is granted
@@ -69,9 +70,9 @@ object FilePickerUtils {
     }
 
     // Utility function to get the file name from the URI
-    fun getFileNameFromUri(uri: Uri, activity: Activity): String? {
+    fun getFileNameFromUri(uri: Uri, context: Context): String? {
         var fileName: String? = null
-        val cursor = activity.contentResolver.query(uri, null, null, null, null)
+        val cursor = context.contentResolver.query(uri, null, null, null, null)
         cursor?.use {
             if (it.moveToFirst()) {
                 val displayNameIndex = it.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME)

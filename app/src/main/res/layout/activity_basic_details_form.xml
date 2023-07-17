@@ -218,7 +218,7 @@
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:padding="@dimen/_0dp"
-            android:text="@string/login_as_therapist"
+            android:text="@string/label_terms_condition"
             />
 
     </LinearLayout>

@@ -7,6 +7,7 @@
     app:carbon_cornerRadius="@dimen/_15dp"
     android:layout_marginEnd="@dimen/_16_dp"
     android:layout_marginStart="@dimen/_16_dp"
+    android:orientation="vertical"
     android:layout_marginTop="@dimen/_16_dp"
     app:carbon_elevation="@dimen/_2_dp"
     android:background="@color/white_for_black"
@@ -52,5 +53,35 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/formDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1dp"
+        android:background="@color/grey_lighter"
+        android:layout_marginTop="@dimen/_16_dp"
+        android:visibility="gone"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFormData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_form_data"
+        tools:itemCount="3"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_16_dp"
+        android:nestedScrollingEnabled="false"
+        android:orientation="vertical"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="16dp" />
+
+
 
 </carbon.widget.LinearLayout>

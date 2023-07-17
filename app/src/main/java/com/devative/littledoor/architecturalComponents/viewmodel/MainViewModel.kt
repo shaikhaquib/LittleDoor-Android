@@ -8,6 +8,7 @@ import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.UserDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +28,7 @@ class MainViewModel  @Inject constructor(
     }
 
 
-    var basicDetails: LiveData<List<LoginModel.BasicDetails>> = MutableLiveData()
+    var basicDetails: LiveData<List<UserDetails.Data>> = MutableLiveData()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun fetchUserData(){
@@ -35,7 +36,7 @@ class MainViewModel  @Inject constructor(
             basicDetails = userDao.getAll()
         }
     }
-    fun insertUserData(data:LoginModel.BasicDetails){
+    fun insertUserData(data:UserDetails.Data){
         CoroutineScope(Dispatchers.IO).launch {
            userDao.insertAll(data)
         }
@@ -48,9 +49,13 @@ class MainViewModel  @Inject constructor(
 
 
 
+    private val _userDetails = MutableLiveData<Resource<UserDetails>>()
+    val userDetails : LiveData<Resource<UserDetails>>
+        get() = _userDetails
+
     private val _OTPSend = MutableLiveData<Resource<GeneralResponse>>()
     val OTPSend : LiveData<Resource<GeneralResponse>>
-        get() = _OTPSend 
+        get() = _OTPSend
 
     private val _verifyOtp = MutableLiveData<Resource<LoginModel>>()
     val verifyOtp : LiveData<Resource<LoginModel>>
@@ -67,6 +72,10 @@ class MainViewModel  @Inject constructor(
     private val _createPatient = MutableLiveData<Resource<GeneralResponse>>()
     val createPatient : LiveData<Resource<GeneralResponse>>
         get() = _createPatient
+
+    private val _saveMCQ = MutableLiveData<Resource<GeneralResponse>>()
+    val saveMCQ : LiveData<Resource<GeneralResponse>>
+        get() = _saveMCQ
 
     fun getOTPPatientLogin(mobileNo:String, isPatient:String) = CoroutineScope(Dispatchers.IO).launch {
         _OTPSend.postValue(Resource.loading(null))
@@ -104,6 +113,26 @@ class MainViewModel  @Inject constructor(
             }
         } catch (e: Exception) {
             _verifyOtp.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+    fun getUserDetails() = CoroutineScope(Dispatchers.IO).launch {
+        _userDetails.postValue(Resource.loading(null))
+        try {
+            mainRepository.getUserDetails().let {
+                if (it.isSuccessful) {
+                    _userDetails.postValue(Resource.success(it.body()))
+
+                } else {
+                    _userDetails.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            _userDetails.postValue(Resource.error(e.message.toString(), null))
         }
     }
     fun getCities() = CoroutineScope(Dispatchers.IO).launch {
@@ -164,6 +193,27 @@ class MainViewModel  @Inject constructor(
             _createPatient.postValue(Resource.error(e.message.toString(), null))
         }
     }
+    fun saveMCQResult(result: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
+        _saveMCQ.postValue(Resource.loading(null))
+        try {
+            mainRepository.saveMCQResult(result).let {
+                if (it.isSuccessful) {
+                    _saveMCQ.postValue(Resource.success(it.body()))
+                } else {
+                    _saveMCQ.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            _saveMCQ.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+
+
 
 
 }

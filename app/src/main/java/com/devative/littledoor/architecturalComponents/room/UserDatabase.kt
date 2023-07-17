@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.UserDetails
 
 /**
  * Created by AQUIB RASHID SHAIKH on 25-03-2023.
  */
-@Database(entities = [LoginModel.BasicDetails::class], version = 2)
+@Database(entities = [UserDetails.Data::class], version = 5)
 abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
