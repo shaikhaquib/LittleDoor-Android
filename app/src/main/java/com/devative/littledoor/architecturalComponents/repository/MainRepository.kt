@@ -17,4 +17,5 @@ class MainRepository @Inject constructor(
     suspend fun getSubCategory(id:String) = apiHelper.getSubCategory(id)
     suspend fun getCategory() = apiHelper.getCategory()
     suspend fun getDoctorDetails() = apiHelper.getDoctorDetails()
+    suspend fun getSkill() = apiHelper.getSkill()
 }

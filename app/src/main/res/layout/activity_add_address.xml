@@ -34,16 +34,43 @@
             android:orientation="vertical">
 
             <TextView
+                style="@style/TextDarkBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:text="Address Type" />
+
+            <carbon.widget.Button
+                android:id="@+id/btnAddressType"
+                style="@style/AppEditTextCarbonElevated"
+                android:layout_width="@dimen/_160dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/carbon_grid8"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/drop_down"
+                android:gravity="start|center"
+                android:hint="@string/select"
+                android:text="Home"
+                app:carbon_rippleColor="@color/neutral_gray"
+                app:carbon_stroke="@color/grey_lighter"
+                app:carbon_strokeWidth="@dimen/carbon_1dip" />
+
+            <TextView
                 android:id="@+id/txtLabelMobile"
                 style="@style/TextDarkBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16_dp"
                 android:layout_marginEnd="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_24dp"
                 android:text="@string/address_line_1" />
 
             <carbon.widget.EditText
-                android:id="@+id/edtMobile"
+                android:id="@+id/edtAddLine1"
                 style="@style/AppEditTextCarbonElevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,8 +78,6 @@
                 android:layout_marginTop="@dimen/_16_dp"
                 android:layout_marginEnd="@dimen/carbon_grid8"
                 android:hint="@string/address_line_1_hint"
-                android:inputType="phone"
-                android:maxLength="3"
                 android:maxLines="1" />
 
             <TextView
@@ -66,7 +91,7 @@
                 android:text="@string/address_line_2" />
 
             <carbon.widget.EditText
-                android:id="@+id/edtAddressLine2"
+                android:id="@+id/edtAddLine2"
                 style="@style/AppEditTextCarbonElevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,8 +99,6 @@
                 android:layout_marginTop="@dimen/_16_dp"
                 android:layout_marginEnd="@dimen/carbon_grid8"
                 android:hint="@string/address_line_2_hint"
-                android:inputType="phone"
-                android:maxLength="3"
                 android:maxLines="1" />
 
         <TextView
@@ -98,7 +121,7 @@
                 android:layout_marginEnd="@dimen/carbon_grid8"
                 android:hint="@string/zip_code"
                 android:inputType="phone"
-                android:maxLength="3"
+                android:maxLength="6"
                 android:maxLines="1" />
 
             <TextView
@@ -122,7 +145,7 @@
                 android:layout_weight="1"
                 android:drawableEnd="@drawable/drop_down"
                 android:gravity="start|center"
-                android:text="@string/select"
+                android:hint="@string/select"
                 app:carbon_rippleColor="@color/neutral_gray"
                 app:carbon_stroke="@color/grey_lighter"
                 app:carbon_strokeWidth="@dimen/carbon_1dip" />
@@ -137,7 +160,7 @@
                 android:text="@string/city" />
 
             <carbon.widget.Button
-                android:id="@+id/btnAreasSpecialization"
+                android:id="@+id/btnCitySelect"
                 style="@style/AppEditTextCarbonElevated"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
@@ -148,7 +171,7 @@
                 android:layout_weight="1"
                 android:drawableEnd="@drawable/drop_down"
                 android:gravity="start|center"
-                android:text="@string/select"
+                android:hint="@string/select"
                 app:carbon_rippleColor="@color/neutral_gray"
                 app:carbon_stroke="@color/grey_lighter"
                 app:carbon_strokeWidth="@dimen/carbon_1dip" />
@@ -165,6 +188,7 @@
 
 
             <LinearLayout
+                android:id="@+id/llUploadFile"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_marginStart="@dimen/_16_dp"
@@ -185,6 +209,63 @@
                     android:text="@string/upload_file" />
 
             </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clFileLayout"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:visibility="gone"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:background="@drawable/dashed_border_color"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    style="@style/TextTitleNormal_14sp"
+                    android:layout_width="@dimen/_44dp"
+                    android:layout_height="@dimen/_44dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:adjustViewBounds="true"
+                    android:drawableStart="@drawable/ic_file_upload"
+                    android:gravity="center"
+                    android:src="@drawable/ic_file"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/txtFileName"
+                    style="@style/TextTitleNormal_12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Name"
+                    app:layout_constraintBottom_toTopOf="@+id/txtRemove"
+                    app:layout_constraintStart_toEndOf="@+id/imageView6"
+                    app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+                <TextView
+                    android:id="@+id/txtRemove"
+                    style="@style/TextTitleNormal_12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/remove"
+                    android:gravity="center"
+                    android:textColor="@color/overlays_red"
+                    android:drawableTint="@color/overlays_red"
+                    android:drawableStart="@drawable/delete_small"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                    app:layout_constraintStart_toEndOf="@+id/imageView6"
+                    app:layout_constraintTop_toBottomOf="@+id/txtFileName" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
         </LinearLayout>

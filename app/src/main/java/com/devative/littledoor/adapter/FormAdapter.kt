@@ -1,13 +1,11 @@
 package com.devative.littledoor.adapter
 
 import FilePickerUtils
-import FilePickerUtils.getFileNameFromUri
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import carbon.widget.LinearLayout
+import com.devative.littledoor.activity.drForms.ActivityAddEducationForm
 import com.devative.littledoor.activity.drForms.ActivityAddExperience
 import com.devative.littledoor.databinding.ItemFormDataBinding
 import com.devative.littledoor.model.DoctorDetailsResponse
@@ -28,42 +26,64 @@ class FormAdapter (
                 handleFormExp(position)
             }else if (list[0] is DoctorDetailsResponse.Data.WorkExperience){
                 formList(position)
+            }else if (list[0] is DoctorDetailsResponse.Data.Education){
+                handleFormEduList(position)
+            }else if (list[0] is ActivityAddEducationForm.EducationFormData){
+                handleFormEdu(position)
+            }else if (list[0] is DoctorDetailsResponse.Data.Addres){
+                handleAddress(position)
             }
+            binding.imgIcon.setOnClickListener {
+                event.onclick(position, list[position])
+            }
+        }
 
+        private fun handleAddress(position: Int) {
+            removeCardElevation()
+            val formData = list[position] as DoctorDetailsResponse.Data.Addres
+            setData(formData.address_line_1,formData.address_line_1,"${formData.city_name}, ${formData.pincode}, ${formData.state_name}")
+
+        }
+
+        private fun handleFormEduList(position: Int) {
+            removeCardElevation()
+            val formData = list[position] as DoctorDetailsResponse.Data.Education
+            setData(formData.name,formData.institution_name,"${formData.start_date} - ${formData.start_date}")
+        }
+
+        private fun setData(name:String,txtDesc:String,txtSubDesc:String) {
+            binding.txtName.text = name
+            binding.txtSubDesc.text = txtSubDesc
+            binding.txtDesc.text = txtDesc
+        }
+
+        private fun handleFormEdu(position: Int) {
+            val formData = list[position] as ActivityAddEducationForm.EducationFormData
+            setData(formData.name!!,formData.institution_name!!,"${formData.start_date} - ${formData.start_date}")
         }
 
         private fun handleFormExp(position: Int) {
             val formData = list[position] as ActivityAddExperience.FormData
-            binding.txtName.text = formData.getDescription()
-            binding.txtDesc.text = "Year Experience ${formData.getYearOfExperience()}"
-            if (formData.getCertificate() != null) {
-                binding.txtSubDesc.text = FilePickerUtils.getFileNameFromUri(formData.getCertificate()!!, context)
-            }else if (formData.getCertificateURL() != null){
-                binding.txtSubDesc.text = formData.getCertificateURL()?.substring(formData.getCertificateURL()!!.lastIndexOf("/")+1)
-            }
-            binding.imgIcon.setOnClickListener {
-                event.onclick(position, list[position])
-            }
+            setData(formData.getDescription()!!,formData.getDescription()!!,"Year Experience ${formData.getYearOfExperience()}")
         }
         private fun formList(position: Int) {
-            binding.cardRoot.setCornerRadius(0f)
-            binding.cardRoot.elevation = 0f
-
-            val param = binding.cardRoot.layoutParams as ViewGroup.MarginLayoutParams
-            param.setMargins(-16,-16,-16,-16)
-            binding.cardRoot.layoutParams = param
-
-
+            removeCardElevation()
             val formData = list[position] as DoctorDetailsResponse.Data.WorkExperience
-            binding.txtName.text = formData.category_name
-            binding.txtSubDesc.text = getCommaSeparatedNames(formData.sub_category)
-            binding.txtDesc.text = formData.certificate.get(0).substring(formData.certificate.get(0).lastIndexOf("/")+1)
-            binding.imgIcon.setOnClickListener {
-                event.onclick(position, list[position])
-            }
-
+            setData(formData.category_name,
+                formData.description,
+                getCommaSeparatedNames(formData.sub_category)
+            )
         }
     }
+
+    private fun ViewHolder.removeCardElevation() {
+        binding.cardRoot.setCornerRadius(0f)
+        binding.cardRoot.elevation = 0f
+        val param = binding.cardRoot.layoutParams as ViewGroup.MarginLayoutParams
+        param.setMargins(-16, -16, -16, -16)
+        binding.cardRoot.layoutParams = param
+    }
+
     fun getCommaSeparatedNames(subCategories: List<DoctorDetailsResponse.Data.WorkExperience.SubCategory>): String {
         return subCategories.map { it.name }.joinToString(", ")
     }

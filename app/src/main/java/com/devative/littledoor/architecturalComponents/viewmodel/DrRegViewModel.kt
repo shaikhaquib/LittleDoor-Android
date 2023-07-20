@@ -1,9 +1,14 @@
 package com.devative.littledoor.architecturalComponents.viewmodel
 
+import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.devative.littledoor.R
 import com.devative.littledoor.activity.drForms.ActivityAddExperience
+import com.devative.littledoor.architecturalComponents.apicall.APIClient
+import com.devative.littledoor.architecturalComponents.helper.FileUploader
 import com.devative.littledoor.architecturalComponents.helper.Resource
 import com.devative.littledoor.architecturalComponents.repository.MainRepository
 import com.devative.littledoor.architecturalComponents.room.UserDao
@@ -11,7 +16,10 @@ import com.devative.littledoor.model.CategoryResponse
 import com.devative.littledoor.model.DoctorDetailsResponse
 import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.SkillResponse
 import com.devative.littledoor.model.SubCategoryResponse
+import com.devative.littledoor.util.Logger
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,30 +44,9 @@ class DrRegViewModel @Inject constructor(
         get() = _verifyOtpTher
 
 
-    val subCategoryData= MutableLiveData<Resource<SubCategoryResponse>>()
-    val categoryData = MutableLiveData<Resource<CategoryResponse>>()
+    val uploadResponse = MutableLiveData<Resource<GeneralResponse>>()
     val doctorDetailsData =  MutableLiveData<Resource<DoctorDetailsResponse>>()
-    private val _formData = MutableLiveData<ArrayList<ActivityAddExperience.FormData>>()
-    val formData: LiveData<ArrayList<ActivityAddExperience.FormData>> get() = _formData
-
-    init {
-        _formData.value = ArrayList()
-    }
-
-    fun addFormItem(item: ActivityAddExperience.FormData) {
-        val currentList = _formData.value ?: ArrayList()
-        currentList.add(item)
-        _formData.value = currentList
-    }
-
-    fun deleteFormItem(index: Int) {
-        val currentList = _formData.value ?: ArrayList()
-        if (index in 0 until currentList.size) {
-            currentList.removeAt(index)
-            _formData.value = currentList
-        }
-    }
-
+    val skillData =  MutableLiveData<Resource<SkillResponse>>()
 
     fun registerTherapist(sendData: HashMap<String, String>) = CoroutineScope(Dispatchers.IO).launch {
         _registerTherapist.postValue(Resource.loading(null))
@@ -100,44 +87,7 @@ class DrRegViewModel @Inject constructor(
             _verifyOtpTher.postValue(Resource.error(e.message.toString(), null))
         }
     }
-    fun getSubCategory(catID:String) = CoroutineScope(Dispatchers.IO).launch {
-        subCategoryData.postValue(Resource.loading(null))
-        try {
-            mainRepository.getSubCategory(catID).let {
-                if (it.isSuccessful) {
-                    subCategoryData.postValue(Resource.success(it.body()))
-                } else {
-                    subCategoryData.postValue(
-                        Resource.error(
-                            "Server Error",
-                            null
-                        )
-                    )
-                }
-            }
-        } catch (e: Exception) {
-            subCategoryData.postValue(Resource.error(e.message.toString(), null))
-        }
-    }
-    fun getCategory() = CoroutineScope(Dispatchers.IO).launch {
-        categoryData.postValue(Resource.loading(null))
-        try {
-            mainRepository.getCategory().let {
-                if (it.isSuccessful) {
-                    categoryData.postValue(Resource.success(it.body()))
-                } else {
-                    categoryData.postValue(
-                        Resource.error(
-                            "Server Error",
-                            null
-                        )
-                    )
-                }
-            }
-        } catch (e: Exception) {
-            categoryData.postValue(Resource.error(e.message.toString(), null))
-        }
-    }
+
     fun getDoctorDetails() = CoroutineScope(Dispatchers.IO).launch {
         doctorDetailsData.postValue(Resource.loading(null))
         try {
@@ -156,6 +106,58 @@ class DrRegViewModel @Inject constructor(
         } catch (e: Exception) {
             doctorDetailsData.postValue(Resource.error(e.message.toString(), null))
         }
+    }
+    fun getSkill() = CoroutineScope(Dispatchers.IO).launch {
+        skillData.postValue(Resource.loading(null))
+        try {
+            mainRepository.getSkill().let {
+                if (it.isSuccessful) {
+                    skillData.postValue(Resource.success(it.body()))
+                } else {
+                    skillData.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            skillData.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+
+
+    fun uploadData(
+        context: Context,
+        fileMap: Map<String, Uri>,
+        dataMap: Map<String, String>
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        uploadResponse.postValue(Resource.loading(null))
+        FileUploader.uploadFiles(context,
+            APIClient.THERAPIST_ADD_DETAILS,
+            fileMap,
+            dataMap,
+            object : FileUploader.UploadCallback {
+                override fun onFileUploadError(errorMessage: String?) {
+                    uploadResponse.postValue(Resource.error(errorMessage!!, null))
+                }
+
+                override fun onAllFilesUploaded(string: String) {
+                    Logger.d("File upload", string)
+                    if (string != null) {
+                        val gson = Gson()
+                        val data: GeneralResponse =
+                            gson.fromJson(string, GeneralResponse::class.java)
+                        if (data.status)
+                            uploadResponse.postValue(Resource.success(data))
+                        else
+                            uploadResponse.postValue(Resource.error(data.message, null))
+                    }else{
+                        uploadResponse.postValue(Resource.error(context.getString(R.string.some_thing_went_wrong), null))
+                    }
+                }
+            })
     }
 
 

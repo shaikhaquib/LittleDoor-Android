@@ -23,7 +23,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginRight="24dp"
         android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@+id/liTermsSerive"
+        app:layout_constraintBottom_toTopOf="@+id/llAddMore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -32,6 +32,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFormData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_form_data"
+                tools:itemCount="3"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"/>
+
+            <View
+                android:id="@+id/formDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:background="@color/grey_lighter"
+                android:layout_margin="@dimen/_16_dp"/>
 
             <TextView
                 android:id="@+id/txtLabelMobile"
@@ -51,8 +69,6 @@
                 android:layout_marginTop="@dimen/_16_dp"
                 android:layout_marginEnd="@dimen/carbon_grid8"
                 android:hint="@string/e_g_bachelor_s_master_s_phd"
-                android:inputType="phone"
-                android:maxLength="3"
                 android:maxLines="1" />
             <TextView
                 style="@style/TextDarkBold"
@@ -72,8 +88,6 @@
                 android:layout_marginTop="@dimen/_16_dp"
                 android:layout_marginEnd="@dimen/carbon_grid8"
                 android:hint="@string/institution_name"
-                android:inputType="phone"
-                android:maxLength="3"
                 android:maxLines="1" />
 
             <TextView
@@ -94,8 +108,6 @@
                 android:layout_marginTop="@dimen/_16_dp"
                 android:layout_marginEnd="@dimen/carbon_grid8"
                 android:hint="@string/field_of_study"
-                android:inputType="phone"
-                android:maxLength="3"
                 android:maxLines="1" />
 
 
@@ -129,7 +141,7 @@
                     android:textSize="@dimen/_12_dp"
                     android:drawableEnd="@drawable/calendar"
                     android:gravity="start|center"
-                    android:text="@string/start_date"
+                    android:hint="@string/start_date"
                     app:carbon_rippleColor="@color/neutral_gray"
                     app:carbon_stroke="@color/grey_lighter"
                     app:carbon_strokeWidth="@dimen/carbon_1dip" />
@@ -146,7 +158,7 @@
                     android:drawableEnd="@drawable/calendar"
                     android:gravity="start|center"
                     android:maxLines="1"
-                    android:text="@string/end_date"
+                    android:hint="@string/end_date"
                     app:carbon_rippleColor="@color/neutral_gray"
                     app:carbon_stroke="@color/grey_lighter"
                     app:carbon_strokeWidth="@dimen/carbon_1dip" />
@@ -269,7 +281,7 @@
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/liTermsSerive"
+        android:id="@+id/llAddMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_18_dp"
@@ -286,6 +298,7 @@
             android:gravity="center"
             android:minWidth="0dp"
             android:minHeight="0dp"
+            android:layout_marginTop="@dimen/_16_dp"
             android:textColor="@color/primary"
             android:drawableStart="@drawable/add_form"
             android:drawablePadding="@dimen/_16_dp"

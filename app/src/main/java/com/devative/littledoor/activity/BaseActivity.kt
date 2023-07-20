@@ -1,5 +1,6 @@
 package com.devative.littledoor.activity
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ open class BaseActivity: AppCompatActivity(){
     private lateinit var mainViewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         mainViewModel = MainViewModel.getViewModel(this)
         progress = Progress(this)
         mainViewModel.fetchUserData()

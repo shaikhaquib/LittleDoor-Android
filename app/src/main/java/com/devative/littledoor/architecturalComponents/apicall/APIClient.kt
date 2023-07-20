@@ -7,6 +7,7 @@ import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.SkillResponse
 import com.devative.littledoor.model.SubCategoryResponse
 import com.devative.littledoor.model.UserDetails
 import retrofit2.Response
@@ -69,6 +70,8 @@ interface APIClient {
 
     @GET("doctor/get/details")
     suspend fun getDoctorDetails(): Response<DoctorDetailsResponse>
+    @GET("admin/get/skills")
+    suspend fun getSkill(): Response<SkillResponse>
 
     companion object {
         const val THERAPIST_ADD_DETAILS = "${Constants.BASE_URL}doctor/submit/details"

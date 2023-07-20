@@ -22,6 +22,7 @@ import com.devative.littledoor.architecturalComponents.apicall.APIClient
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.FileUploader
 import com.devative.littledoor.architecturalComponents.helper.Status
+import com.devative.littledoor.architecturalComponents.viewmodel.DrExperienceFormVM
 import com.devative.littledoor.architecturalComponents.viewmodel.DrRegViewModel
 import com.devative.littledoor.databinding.ActivityAddExperienceBinding
 import com.devative.littledoor.model.CategoryResponse
@@ -45,7 +46,8 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
     lateinit var binding: ActivityAddExperienceBinding
     var fileURI: Uri? = null
     var fileURL: String? = null
-    private val vm: DrRegViewModel by viewModels()
+    private val vm: DrExperienceFormVM by viewModels()
+    private val vmDR: DrRegViewModel by viewModels()
     private val categoryList = ArrayList<CategoryResponse.Data>()
     private val subCategoryList = ArrayList<SubCategoryResponse.Data>()
     private val itemList = mutableListOf<String>()
@@ -74,8 +76,9 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
                 formD.setCertificateURL(editData.certificate[0])
                 formD.setDescription(editData.description)
                 formD.setYearOfExperience(editData.year_of_experience)
-                if ( editPosition == -1 || editData.id != data.work_experience[editPosition].id)
-                vm.addFormItem(formD)
+                if ( editPosition == -1 || editData.id != data.work_experience[editPosition].id) {
+                    vm.addFormItem(formD)
+                }
             }
             if (editPosition != -1 && !data.work_experience.isNullOrEmpty()) {
                 editdataSetUI(data, editPosition)
@@ -129,13 +132,13 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
                     if (it.data?.status == true) {
                         categoryList.clear()
                         categoryList.addAll(it.data.data)
-                        if (formData.getCategoryId() != null)
-                        for (cat in categoryList){
-                            if (formData.getCategoryId() == cat.id){
-                                binding.btnSelectExpertise.setText(cat.name)
+                        if (formData.getCategoryId() != null) {
+                            for (cat in categoryList) {
+                                if (formData.getCategoryId() == cat.id) {
+                                    binding.btnSelectExpertise.setText(cat.name)
+                                }
                             }
                         }
-
                     } else {
                         Toasty.error(applicationContext, getString(R.string.some_thing_went_wrong)).show()
                     }
@@ -143,6 +146,34 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
 
                 Status.ERROR -> {
                     progress?.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
+        vmDR.uploadResponse.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress?.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress?.show()
+                    if (it.data?.status == true) {
+                        Toasty.success(applicationContext, it.data.message).show()
+                        finish()
+                    } else {
+                        Toasty.error(applicationContext, it.data!!.message).show()
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress?.show()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
@@ -231,6 +262,10 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
             }
 
             binding.btnAreasSpecialization.id -> {
+                if (formData.getCategoryId() == null){
+                    Toasty.info(applicationContext,"You haven't selected the Expertise, Please select one!").show()
+                    return
+                }
                 val searchData = ArrayList<SearchAbleList>()
                 for (i in subCategoryList){
                     searchData.add(
@@ -266,8 +301,8 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
             binding.edtExperiance.text.isEmpty()->{
                 Toasty.error(this,"Please enter year of experience").show()
             }
-            fileURI == null->{
-                Toasty.error(this,"Please enter year certificate").show()
+            fileURI == null && fileURL == null->{
+                Toasty.error(this,"Please select year certificate").show()
             }
             binding.edtDescription.text.isEmpty()->{
                 Toasty.error(this,"Please enter year Description").show()
@@ -285,6 +320,7 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
                     chipGroup.removeAllViews()
                     binding.clFileLayout.visibility = View.GONE
                     fileURI = null
+                    fileURL = null
                     formData = FormData()
                 }
                 if (!isAddMore)
@@ -301,8 +337,8 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
         }
         val fileMap = HashMap<String,Uri>()
         val dataMap = HashMap<String,String>()
+        dataMap["step"] = "1"
         for (i in list!!.indices){
-            dataMap["step"] = "1"
            list[i].getCertificate()?.let {
                fileMap["work[$i][certificate][0]"] = it
            }
@@ -314,35 +350,12 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
             dataMap["work[$i][year_of_experience]"] = list[i].getYearOfExperience().toString()
             dataMap["work[$i][description]"] = list[i].getDescription().toString()
         }
-        Logger.d("TAG", "uploadFormData: ${dataMap.toString()}")
-            CoroutineScope(Dispatchers.IO).launch {
-            FileUploader.uploadFiles(this@ActivityAddExperience,
-                APIClient.THERAPIST_ADD_DETAILS,
-                fileMap,
-                dataMap,
-                object : FileUploader.UploadCallback {
-                    override fun onFileUploadError(errorMessage: String?) {
-                        progress?.dismiss()
-                        Toasty.error(this@ActivityAddExperience,getString(R.string.some_thing_went_wrong)).show()
-                        Logger.e("File upload Error",errorMessage)
-                    }
+        vmDR.uploadData(
+            this,
+            fileMap,
+            dataMap
+        )
 
-                    override fun onAllFilesUploaded(string: String) {
-                        progress?.dismiss()
-                        Logger.d("File upload",string)
-                        val gson =Gson()
-                        val data:GeneralResponse = gson.fromJson(string, GeneralResponse::class.java)
-                        if (data.status)
-                            Toasty.success(this@ActivityAddExperience,data.message).show()
-                        else
-                            Toasty.error(this@ActivityAddExperience,data.message).show()
-
-                        finish()
-
-                    }
-                })
-
-        }
     }
 
     private fun showDropDown(button: Button,items: ArrayList<SearchAbleList>) {
@@ -377,6 +390,7 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
 
         if (requestCode == FilePickerUtils.PICK_FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             fileURI = data?.data
+            fileURL = null
             addFile()
 
         }

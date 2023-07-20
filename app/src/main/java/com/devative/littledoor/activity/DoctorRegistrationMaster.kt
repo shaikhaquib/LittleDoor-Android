@@ -1,12 +1,14 @@
 package com.devative.littledoor.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.drForms.ActivityAddAddress
 import com.devative.littledoor.activity.drForms.ActivityAddAppreciation
@@ -73,6 +75,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         vm.doctorDetailsData.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
+                    if (progress?.isShowing() == false)
                     progress?.show()
                 }
 
@@ -100,6 +103,28 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
 
             }
         }
+        vm.uploadResponse.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress?.show()
+                }
+
+                Status.SUCCESS -> {
+                    vm.getDoctorDetails()
+                }
+
+                Status.ERROR -> {
+                    progress?.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
 
 
     }
@@ -111,10 +136,10 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
     override fun onClickAdd(position: Int) {
         when(position)
         {
-            0 -> startActivity(Intent(applicationContext,ActivityAddExperience::class.java).putExtra(Constants.FORM_EDIT_POSITION,-1).putExtra(Constants.FORM_EDIT_DATA,vm.doctorDetailsData.value?.data?.data))
-            1 -> startActivity(Intent(applicationContext,ActivityAddEducationForm::class.java))
-            2 -> startActivity(Intent(applicationContext,ActivityAddExpertise::class.java))
-            3 -> startActivity(Intent(applicationContext,ActivityAddAddress::class.java))
+            0 -> startActivityForEdit(-1,ActivityAddExperience::class.java)
+            1 -> startActivityForEdit(-1,ActivityAddEducationForm::class.java)
+            2 -> startActivityForEdit(-1,ActivityAddExpertise::class.java)
+            3 -> startActivityForEdit(-1,ActivityAddAddress::class.java)
             4 -> startActivity(Intent(applicationContext,ActivityLanguageSelection::class.java))
             5 -> startActivity(Intent(applicationContext,ActivityAddAppreciation::class.java))
             6 -> startActivity(Intent(applicationContext,ActivityUploadOtherDocument::class.java))
@@ -124,11 +149,59 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
     override fun onEdit(type: Any, position: Int) {
         when(type){
             is DoctorDetailsResponse.Data.WorkExperience->{
-                startActivity(Intent(applicationContext,ActivityAddExperience::class.java)
-                    .putExtra(Constants.FORM_EDIT_POSITION,position)
-                    .putExtra(Constants.FORM_EDIT_DATA,vm.doctorDetailsData.value?.data?.data)
-                )
+                startActivityForEdit(position,ActivityAddExperience::class.java)
+            }
+            is DoctorDetailsResponse.Data.Education->{
+                startActivityForEdit(position,ActivityAddEducationForm::class.java)
+            }
+            is DoctorDetailsResponse.Data.Addres->{
+                startActivityForEdit(position,ActivityAddAddress::class.java)
             }
         }
+    }
+
+    override fun onExpertiseRemove(list: ArrayList<String>) {
+        if (list.isNotEmpty()) {
+            val fileMap = HashMap<String, Uri>()
+            val dataMap = HashMap<String, String>()
+            dataMap["step"] = "3"
+            for (i in list!!.indices) {
+                dataMap["skills[$i]"] = list[i]
+            }
+            vm.uploadData(
+                this,
+                fileMap,
+                dataMap
+            )
+        }else{
+            Toasty.info(this,"Please add additional skill/expertise before eliminating everything!").show()
+            binding.rvFormMaster.adapter?.notifyDataSetChanged()
+        }
+    }
+    override fun onLangRemove(list: ArrayList<String>) {
+        if (list.isNotEmpty()) {
+            val fileMap = HashMap<String, Uri>()
+            val dataMap = HashMap<String, String>()
+            dataMap["step"] = "5"
+            for (i in list!!.indices) {
+                dataMap["languages[i]"] = list[i]
+            }
+            vm.uploadData(
+                this,
+                fileMap,
+                dataMap
+            )
+        }else{
+            Toasty.info(this,"Please add additional language before eliminating everything!").show()
+            binding.rvFormMaster.adapter?.notifyDataSetChanged()
+        }
+    }
+
+    private fun startActivityForEdit(position: Int, activity: Class<*>) {
+        startActivity(
+            Intent(applicationContext, activity)
+                .putExtra(Constants.FORM_EDIT_POSITION, position)
+                .putExtra(Constants.FORM_EDIT_DATA, vm.doctorDetailsData.value?.data?.data)
+        )
     }
 }

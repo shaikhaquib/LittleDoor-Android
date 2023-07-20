@@ -16,7 +16,7 @@ data class DoctorDetailsResponse(
         val form_status: Int,
         val gender: String,
         val id: Int,
-        val languages: List<String>,
+            val languages: List<String>,
         val mobile_no: String,
         val other: List<Other>,
         val skills: List<Skill>,
