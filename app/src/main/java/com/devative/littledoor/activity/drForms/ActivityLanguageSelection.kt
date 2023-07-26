@@ -224,7 +224,7 @@ class ActivityLanguageSelection : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                    progress?.show()
+                    progress?.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,

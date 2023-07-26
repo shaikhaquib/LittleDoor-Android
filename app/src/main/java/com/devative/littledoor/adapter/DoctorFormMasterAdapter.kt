@@ -33,10 +33,53 @@ class DoctorFormMasterAdapter(
                 "Expertise" -> expertise()
                 "Address" -> address()
                 "Language" -> language()
-                "Appreciation" -> binding.icForm.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.appreciation))
-                "Other documents" -> binding.icForm.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.other_doc))
+                "Appreciation" -> appreciation()
+                "Other documents" -> otherDocument()
             }
             binding.addForm.setOnClickListener{event.onClickAdd(position)}
+        }
+
+        private fun otherDocument() {
+            binding.icForm.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.other_doc))
+            formData?.let {
+                if (!it.data.other.isNullOrEmpty()) {
+                    binding.formDivider.visibility = View.VISIBLE
+                    binding.rvFormData.visibility = View.VISIBLE
+                    binding.rvFormData.adapter =
+                        FormAdapter(context, it.data.other as ArrayList<Any>, object :
+                            FormAdapter.FormAdapterEvent {
+                            override fun onclick(
+                                position: Int,
+                                formData: Any
+                            ) {
+                                event.onEdit(formData, position)
+                            }
+
+                        })
+                }
+            }
+
+        }
+
+        private fun appreciation() {
+            binding.icForm.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.appreciation))
+            formData?.let {
+                if (!it.data.appreciation.isNullOrEmpty()) {
+                    binding.formDivider.visibility = View.VISIBLE
+                    binding.rvFormData.visibility = View.VISIBLE
+                    binding.rvFormData.adapter =
+                        FormAdapter(context, it.data.appreciation as ArrayList<Any>, object :
+                            FormAdapter.FormAdapterEvent {
+                            override fun onclick(
+                                position: Int,
+                                formData: Any
+                            ) {
+                                event.onEdit(formData, position)
+                            }
+
+                        })
+                }
+            }
         }
 
         private fun language() {
@@ -44,6 +87,7 @@ class DoctorFormMasterAdapter(
             formData?.apply {
                 val chipList = ArrayList<String>()
                 binding.chipGroup.removeAllViews()
+                if (!data.skills.isNullOrEmpty())
                 for (chip in data.languages) {
                     chipList.add(chip)
                     binding.chipGroup.addView(
@@ -96,6 +140,7 @@ class DoctorFormMasterAdapter(
             formData?.apply {
                 val chipList = ArrayList<String>()
                 binding.chipGroup.removeAllViews()
+                if (!data.skills.isNullOrEmpty())
                 for (chip in data.skills) {
                     chipList.add(chip.skill_name)
                     binding.chipGroup.addView(

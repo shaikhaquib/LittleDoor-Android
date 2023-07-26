@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dr_nav_graph.xml"
+    app:startDestination="@id/bottom_navigation_home">
+    <fragment
+        android:id="@+id/bottom_navigation_home"
+        android:name="com.devative.littledoor.fragment.drdashboard.TherapistHomeFragment"
+        android:label="FrgHome"
+        tools:layout="@layout/therapist_home_fragment"/>
+    <fragment
+        android:id="@+id/bottom_navigation_calender"
+        android:name="com.devative.littledoor.fragment.drdashboard.TherapistAppointmentFragment"
+        android:label="frgCategory"
+        tools:layout="@layout/therapist_appointment_fragment" />
+
+    <fragment
+        android:id="@+id/bottom_navigation_chat"
+        android:name="com.devative.littledoor.fragment.MessengerFragment"
+        android:label="frgCategory"
+        tools:layout="@layout/messenger_fragment"/>
+    <fragment
+        android:id="@+id/bottom_navigation_notification"
+        android:name="com.devative.littledoor.fragment.ExploreFragment"
+        android:label="frgCart"
+        tools:layout="@layout/explore_fragment" />
+    <fragment
+        android:id="@+id/bottom_navigation_settings"
+        android:name="com.devative.littledoor.fragment.SettingsFragment"
+        android:label="frgCart"
+        tools:layout="@layout/settings_fragment"/>
+
+
+</navigation>

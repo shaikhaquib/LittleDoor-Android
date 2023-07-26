@@ -173,7 +173,7 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
                 }
 
                 Status.ERROR -> {
-                    progress?.show()
+                    progress?.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,

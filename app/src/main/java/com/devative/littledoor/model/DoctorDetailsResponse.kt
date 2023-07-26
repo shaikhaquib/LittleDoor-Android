@@ -16,7 +16,7 @@ data class DoctorDetailsResponse(
         val form_status: Int,
         val gender: String,
         val id: Int,
-            val languages: List<String>,
+        val languages: List<String>,
         val mobile_no: String,
         val other: List<Other>,
         val skills: List<Skill>,
@@ -38,7 +38,7 @@ data class DoctorDetailsResponse(
 
         data class Appreciation(
             val category_achieved: String,
-            val description: Any,
+            val description: String,
             val doctor_id: Int,
             val id: Int,
             val image_url: String,

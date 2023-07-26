@@ -10,9 +10,29 @@
     style="@style/AppEditTextCarbonElevated"
     android:padding="@dimen/_16_dp">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="@dimen/_44dp"
+            android:layout_height="@dimen/_44dp"
+            android:src="@drawable/ic_file"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/txtSubDesc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtName" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="@dimen/_12_dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/txtSubDesc"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/txtName" />
 
 
         <TextView
@@ -22,8 +42,10 @@
             android:layout_height="wrap_content"
             android:text="Dr. Zaira Wasim"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txtDesc"
             app:layout_constraintEnd_toStartOf="@+id/imgIcon"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/view"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -32,9 +54,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8_dp"
-            android:textSize="@dimen/_12_dp"
             android:text="You have a good time!"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/_12_dp"
+            app:layout_constraintBottom_toTopOf="@+id/txtSubDesc"
+            app:layout_constraintStart_toStartOf="@+id/txtName"
             app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
         <TextView
@@ -56,7 +79,8 @@
             android:src="@drawable/edit_1"
             app:layout_constraintBottom_toBottomOf="@+id/txtName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txtName" />
+            app:layout_constraintTop_toTopOf="@+id/txtName"
+            app:tint="@color/secondary" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

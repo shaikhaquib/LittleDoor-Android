@@ -95,4 +95,7 @@
     <string name="field_of_study">Field of Study</string>
     <string name="enter_valid_email_address">Enter valid email address</string>
     <string name="some_thing_went_wrong">Some thing went wrong!! Please try again later</string>
+    <string name="finish">Finish</string>
+    <string name="upload_profile_picture">Upload Profile Picture</string>
+    <string name="appointments">Appointments</string>
 </resources>

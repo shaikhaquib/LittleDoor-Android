@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/bottom_navigation_home" android:enabled="true"
+        android:icon="@drawable/home_selctor" android:title="Home"
+        app:showAsAction="ifRoom" />
+
+ <item android:id="@+id/bottom_navigation_calender" android:enabled="true"
+        android:icon="@drawable/calender_selctor" android:title="search"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/bottom_navigation_chat" android:enabled="true"
+        android:icon="@drawable/chat_selector" android:title="chat"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/bottom_navigation_notification" android:enabled="true"
+        android:icon="@drawable/notification_select" android:title="notification"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/bottom_navigation_settings" android:enabled="true"
+        android:icon="@drawable/settings_select" android:title="Settings"
+        app:showAsAction="ifRoom" />
+
+</menu>

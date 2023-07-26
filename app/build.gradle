@@ -48,7 +48,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation("com.tbuonomo:dotsindicator:4.3")
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation 'tk.zielony:carbon:0.16.0.1'
+    implementation 'com.github.zieiony.Carbon:carbon:83060f9cdf'
 
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
@@ -104,4 +104,5 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.5.2'
     implementation 'com.airbnb.android:lottie:6.0.1'
     implementation 'com.github.ChochaNaresh:FilePicker:0.1.6'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

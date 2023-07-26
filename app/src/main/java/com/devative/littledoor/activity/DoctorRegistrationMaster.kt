@@ -24,7 +24,9 @@ import com.devative.littledoor.architecturalComponents.viewmodel.DrRegViewModel
 import com.devative.littledoor.databinding.ActivityDoctorRegistrationMasterBinding
 import com.devative.littledoor.model.DoctorDetailsResponse
 import com.devative.littledoor.model.DrRegistrationMasterModel
+import com.devative.littledoor.util.ListSpacingDecoration
 import com.devative.littledoor.util.Progress
+import com.devative.littledoor.util.Utility
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 
@@ -48,6 +50,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         setContentView(binding.root)
         adapter = DoctorFormMasterAdapter(this,formMasterList,doctorDetails,this)
         binding.rvFormMaster.adapter = adapter
+        binding.rvFormMaster.addItemDecoration(ListSpacingDecoration())
         progress = Progress(this)
         formMasterList.apply {
             add(DrRegistrationMasterModel("Work experience"))
@@ -59,9 +62,10 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
             add(DrRegistrationMasterModel("Other documents"))
         }
         adapter.notifyDataSetChanged()
-
-
-
+        binding.btnFinish.setOnClickListener {
+            Utility.savePrefBoolean(applicationContext,Constants.IS_DR_Reg_Finish,true)
+            startActivity(Intent(applicationContext,ProfileActivity::class.java))
+        }
        observe()
         
     }
@@ -141,8 +145,8 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
             2 -> startActivityForEdit(-1,ActivityAddExpertise::class.java)
             3 -> startActivityForEdit(-1,ActivityAddAddress::class.java)
             4 -> startActivity(Intent(applicationContext,ActivityLanguageSelection::class.java))
-            5 -> startActivity(Intent(applicationContext,ActivityAddAppreciation::class.java))
-            6 -> startActivity(Intent(applicationContext,ActivityUploadOtherDocument::class.java))
+            5 -> startActivityForEdit(position,ActivityAddAppreciation::class.java)
+            6 -> startActivityForEdit(position,ActivityUploadOtherDocument::class.java)
         }
     }
 
@@ -156,6 +160,12 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
             }
             is DoctorDetailsResponse.Data.Addres->{
                 startActivityForEdit(position,ActivityAddAddress::class.java)
+            }
+            is DoctorDetailsResponse.Data.Appreciation->{
+                startActivityForEdit(position,ActivityAddAppreciation::class.java)
+            }
+            is DoctorDetailsResponse.Data.Other->{
+                startActivityForEdit(position,ActivityUploadOtherDocument::class.java)
             }
         }
     }

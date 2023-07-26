@@ -65,7 +65,7 @@ class ActivityAddEducationForm : BaseActivity(), OnClickListener, FormAdapter.Fo
                 }
 
                 Status.ERROR -> {
-                    progress?.show()
+                    progress?.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
@@ -178,6 +178,9 @@ class ActivityAddEducationForm : BaseActivity(), OnClickListener, FormAdapter.Fo
             }
             binding.btnEndDate.text.isNullOrEmpty() ->{
                 Toasty.error(this,"Please select your End Date").show()
+            }
+            certificate == null && certificateURL ==null ->{
+                Toasty.error(this,"Please select file").show()
             }
             else->{
                 binding.apply {

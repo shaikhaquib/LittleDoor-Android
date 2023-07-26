@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Checkable
 import androidx.fragment.app.Fragment
+import carbon.widget.OnCheckedChangeListener
 import com.devative.littledoor.activity.MCQActivity.Companion.selectedOptionIndex
 import com.devative.littledoor.databinding.FragmentQuestionBinding
 import com.devative.littledoor.model.GetAllQuestions
@@ -17,7 +19,7 @@ data class Question(
     val id: Int,
     val text: String,
     val options: List<String>
-):java.io.Serializable
+) : java.io.Serializable
 
 class QuestionFragment : Fragment() {
     private lateinit var question: GetAllQuestions.Data
@@ -25,10 +27,14 @@ class QuestionFragment : Fragment() {
     private var _binding: FragmentQuestionBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
 
-        question = arguments?.get(ARG_QUESTION)as GetAllQuestions.Data
+        question = arguments?.get(ARG_QUESTION) as GetAllQuestions.Data
         mcqHandling()
         return binding.root
     }
@@ -46,33 +52,46 @@ class QuestionFragment : Fragment() {
         option3RadioButton.text = question.options[2].option_name
         option4RadioButton.text = question.options[3].option_name
 
-        option1RadioButton.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedOptionIndex = 0
+        option1RadioButton.setOnCheckedChangeListener(object :
+            OnCheckedChangeListener {
+            override fun onCheckedChanged(view: Checkable, isChecked: Boolean) {
+                if (isChecked) {
+                    selectedOptionIndex = 0
+                }
             }
-        }
-        option2RadioButton.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedOptionIndex = 1
+
+        })
+        option2RadioButton.setOnCheckedChangeListener(object :
+            OnCheckedChangeListener {
+            override fun onCheckedChanged(view: Checkable, isChecked: Boolean) {
+                if (isChecked) {
+                    selectedOptionIndex = 1
+                }
             }
-        }
-        option3RadioButton.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedOptionIndex = 2
+        })
+        option3RadioButton.setOnCheckedChangeListener(object :
+            OnCheckedChangeListener {
+            override fun onCheckedChanged(view: Checkable, isChecked: Boolean) {
+                if (isChecked) {
+                    selectedOptionIndex = 2
+                }
             }
-        }
-        option4RadioButton.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                selectedOptionIndex = 3
+        })
+        option4RadioButton.setOnCheckedChangeListener(object :
+            OnCheckedChangeListener {
+            override fun onCheckedChanged(view: Checkable, isChecked: Boolean) {
+                if (isChecked) {
+                    selectedOptionIndex = 3
+                }
             }
-        }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       /* binding.submitButton.setOnClickListener {
-            (activity as? MCQActivity)?.onQuestionAnswered(question.id, selectedOptionIndex)
-        }*/
+        /* binding.submitButton.setOnClickListener {
+             (activity as? MCQActivity)?.onQuestionAnswered(question.id, selectedOptionIndex)
+         }*/
     }
 
     override fun onDestroyView() {

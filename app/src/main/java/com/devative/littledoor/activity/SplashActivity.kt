@@ -45,7 +45,10 @@ class SplashActivity : BaseActivity() {
                 if (basicDetails?.doctor_id == null)
                     startActivity(Intent(applicationContext, MainActivity::class.java))
                 else{
-                    startActivity(Intent(applicationContext, DoctorRegistrationMaster::class.java))
+                    if (basicDetails?.status == 1 || Utility.getPrefBoolean(applicationContext,Constants.IS_DR_Reg_Finish))
+                        startActivity(Intent(applicationContext, MainActivity::class.java).putExtra(Constants.IS_DOCTOR,true))
+                    else
+                        startActivity(Intent(applicationContext, DoctorRegistrationMaster::class.java))
                 }
             }
 

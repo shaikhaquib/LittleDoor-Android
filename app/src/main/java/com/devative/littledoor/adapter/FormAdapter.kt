@@ -3,10 +3,13 @@ package com.devative.littledoor.adapter
 import FilePickerUtils
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.devative.littledoor.activity.drForms.ActivityAddAppreciation
 import com.devative.littledoor.activity.drForms.ActivityAddEducationForm
 import com.devative.littledoor.activity.drForms.ActivityAddExperience
+import com.devative.littledoor.activity.drForms.ActivityUploadOtherDocument
 import com.devative.littledoor.databinding.ItemFormDataBinding
 import com.devative.littledoor.model.DoctorDetailsResponse
 
@@ -32,10 +35,50 @@ class FormAdapter (
                 handleFormEdu(position)
             }else if (list[0] is DoctorDetailsResponse.Data.Addres){
                 handleAddress(position)
+            }else if (list[0] is DoctorDetailsResponse.Data.Appreciation){
+                appreciationList(position)
+            }else if (list[0] is ActivityAddAppreciation.AppreciationForm){
+                appreciationForm(position)
+            }else if (list[0] is DoctorDetailsResponse.Data.Other){
+                otherDocument(position)
+            }else if (list[0] is ActivityUploadOtherDocument.OtherDocumentForm){
+                otherDocumentForm(position)
             }
             binding.imgIcon.setOnClickListener {
                 event.onclick(position, list[position])
             }
+        }
+
+        private fun otherDocumentForm(position: Int) {
+            val formData = list[position] as ActivityUploadOtherDocument.OtherDocumentForm
+            val fileName =  if (formData.certificateURL != null){
+                formData.certificateURL?.substring(formData.certificateURL!!.lastIndexOf("/")+1)
+            }else{
+                FilePickerUtils.getFileNameFromUri(formData.certificate!!,context)
+            }
+            setData(formData.name!!,fileName!!,"")
+            binding.view.visibility = View.VISIBLE
+            binding.imageView7.visibility = View.VISIBLE
+            binding.txtSubDesc.visibility = View.GONE
+        }
+
+        private fun otherDocument(position: Int) {
+            removeCardElevation()
+            val formData = list[position] as DoctorDetailsResponse.Data.Other
+            setData(formData.name,formData.document.substring(formData.document.lastIndexOf("/")+1),"")
+            binding.view.visibility = View.VISIBLE
+            binding.imageView7.visibility = View.VISIBLE
+        }
+
+        private fun appreciationList(position: Int) {
+            removeCardElevation()
+            val formData = list[position] as DoctorDetailsResponse.Data.Appreciation
+            setData(formData.name!!,formData.category_achieved!!,"${formData.description}, Issued on: ${formData.issue_date}")
+        }
+
+        private fun appreciationForm(position: Int) {
+            val formData = list[position] as ActivityAddAppreciation.AppreciationForm
+            setData(formData.name!!,formData.category_achieved!!,"${formData.description}, Issued on: ${formData.issue_date}")
         }
 
         private fun handleAddress(position: Int) {
