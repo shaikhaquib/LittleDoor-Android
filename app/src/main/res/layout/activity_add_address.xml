@@ -34,7 +34,7 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/TextDarkBold"
+                style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16_dp"
@@ -61,7 +61,7 @@
 
             <TextView
                 android:id="@+id/txtLabelMobile"
-                style="@style/TextDarkBold"
+                style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16_dp"
@@ -82,7 +82,7 @@
 
             <TextView
                 android:id="@+id/txtAddressLine2"
-                style="@style/TextDarkBold"
+                style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_24dp"
@@ -103,7 +103,7 @@
 
         <TextView
                 android:id="@+id/txtZipcode"
-                style="@style/TextDarkBold"
+                style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_24dp"
@@ -125,7 +125,7 @@
                 android:maxLines="1" />
 
             <TextView
-                style="@style/TextDarkBold"
+                style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16_dp"
@@ -151,7 +151,7 @@
                 app:carbon_strokeWidth="@dimen/carbon_1dip" />
 
             <TextView
-                style="@style/TextDarkBold"
+                style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16_dp"
@@ -178,7 +178,7 @@
 
 
             <TextView
-                style="@style/TextDarkBold"
+                style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16_dp"

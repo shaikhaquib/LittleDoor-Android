@@ -24,4 +24,5 @@
     <color name="light_green">#DEEDED</color>
     <color name="dark_gray">#707070</color>
     <color name="screen_background_color">#F9F9F9</color>
+    <color name="primary_trans">#1B59F8</color>
 </resources>

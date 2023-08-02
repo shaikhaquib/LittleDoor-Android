@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/TextDarkBold"
+        style="@style/TextDarkBold_16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

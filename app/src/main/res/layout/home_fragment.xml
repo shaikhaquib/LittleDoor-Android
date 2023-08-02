@@ -40,7 +40,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtUserName"
-        style="@style/TextHeadLineDark"
+        style="@style/TextHeadLineDark_24dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5_dp"
@@ -200,7 +200,7 @@
         app:layout_constraintTop_toBottomOf="@+id/scrollView2">
 
         <TextView
-            style="@style/TextHeadLineDark"
+            style="@style/TextHeadLineDark_24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20_dp"
@@ -219,7 +219,7 @@
             android:textColor="@color/dark_brown" />
 
         <TextView
-            style="@style/TextHeadLineDark"
+            style="@style/TextHeadLineDark_24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20_dp"
@@ -249,7 +249,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <TextView
-            style="@style/TextHeadLineDark"
+            style="@style/TextHeadLineDark_24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -280,7 +280,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <TextView
-            style="@style/TextHeadLineDark"
+            style="@style/TextHeadLineDark_24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

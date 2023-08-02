@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:carbon_elevation="@dimen/_4_dp"
+    android:background="#EEF0FB"
+    app:carbon_cornerRadius="@dimen/_12_dp"
+    android:padding="@dimen/_16_dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <carbon.widget.ImageView
+            android:id="@+id/imageView5"
+            style="@style/AppEditTextCarbonElevated"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:padding="0dp"
+            app:carbon_cornerRadius="@dimen/_18_dp"
+            android:src="@drawable/sample_dr_image_1"
+            app:carbon_strokeWidth="@dimen/_2_dp"
+            app:carbon_stroke="#8a96e5"
+            app:carbon_elevation="@dimen/_8_dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/txtName"
+            style="@style/TextTitleNormal_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10_dp"
+            android:text="Dr. Zaira Wasim"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txtDesc"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/txtDesc"
+            style="@style/TextTitleNormal_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You have a good time!"
+            android:textColor="@color/grey_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtName"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+        <TextView
+            android:id="@+id/txtDate"
+            style="@style/TextGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/time_small"
+            android:text="08:00 PM"
+            android:gravity="center"
+            android:drawablePadding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</carbon.widget.LinearLayout>
