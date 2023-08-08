@@ -98,4 +98,6 @@
     <string name="finish">Finish</string>
     <string name="upload_profile_picture">Upload Profile Picture</string>
     <string name="appointments">Appointments</string>
+    <string name="message">Message</string>
+    <string name="book_appointment">Book Appointment</string>
 </resources>

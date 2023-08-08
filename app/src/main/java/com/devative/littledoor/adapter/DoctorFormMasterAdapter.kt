@@ -87,26 +87,27 @@ class DoctorFormMasterAdapter(
             formData?.apply {
                 val chipList = ArrayList<String>()
                 binding.chipGroup.removeAllViews()
-                if (!data.skills.isNullOrEmpty())
-                for (chip in data.languages) {
-                    chipList.add(chip)
-                    binding.chipGroup.addView(
-                        Chip(context).apply {
-                            text = chip
-                            setBackgroundColor(ContextCompat.getColor(context, R.color.chipback))
-                            isCloseIconVisible = true
-                            setTextColor(ContextCompat.getColor(context, R.color.black))
-                            closeIcon = ContextCompat.getDrawable(context, R.drawable.cancel)
-                            setTextAppearance(R.style.TextTitleNormal_12sp)
-                            chipCornerRadius = 15f
-                            setPadding(24)
-                            setOnCloseIconClickListener {
-                                binding.chipGroup.removeView(this)
-                                chipList.remove(text)
-                                event.onLangRemove(chipList)
+                if (!data.skills.isNullOrEmpty()) {
+                    for (chip in data.languages) {
+                        chipList.add(chip)
+                        binding.chipGroup.addView(
+                            Chip(context).apply {
+                                text = chip
+                                setBackgroundColor(ContextCompat.getColor(context, R.color.chipback))
+                                isCloseIconVisible = true
+                                setTextColor(ContextCompat.getColor(context, R.color.black))
+                                closeIcon = ContextCompat.getDrawable(context, R.drawable.cancel)
+                                setTextAppearance(R.style.TextTitleNormal_12sp)
+                                chipCornerRadius = 15f
+                                setPadding(24)
+                                setOnCloseIconClickListener {
+                                    binding.chipGroup.removeView(this)
+                                    chipList.remove(text)
+                                    event.onLangRemove(chipList)
+                                }
                             }
-                        }
-                    )
+                        )
+                    }
                 }
                 binding.formDivider.isVisible = chipList.isNotEmpty()
                 binding.chipGroup.isVisible = chipList.isNotEmpty()

@@ -71,7 +71,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
+            android:id="@+id/btnBookAppointment"
             style="@style/TextTitleNormal_12sp"
             android:layout_width="@dimen/_110_sp"
             android:layout_height="@dimen/_34_dp"
@@ -101,8 +101,8 @@
             android:padding="6dp"
             android:src="@drawable/comment_"
             app:carbon_cornerRadius="@dimen/_10_dp"
-            app:layout_constraintBottom_toBottomOf="@+id/materialButton"
-            app:layout_constraintStart_toEndOf="@+id/materialButton"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBookAppointment"
+            app:layout_constraintStart_toEndOf="@+id/btnBookAppointment"
             app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
 
 

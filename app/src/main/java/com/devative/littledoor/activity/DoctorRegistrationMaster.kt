@@ -8,7 +8,6 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.drForms.ActivityAddAddress
 import com.devative.littledoor.activity.drForms.ActivityAddAppreciation
@@ -64,7 +63,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         adapter.notifyDataSetChanged()
         binding.btnFinish.setOnClickListener {
             Utility.savePrefBoolean(applicationContext,Constants.IS_DR_Reg_Finish,true)
-            startActivity(Intent(applicationContext,ProfileActivity::class.java))
+            startActivity(Intent(applicationContext,ProfilePicUploadActivity::class.java).putExtra(Constants.IS_DOCTOR,true))
         }
        observe()
         

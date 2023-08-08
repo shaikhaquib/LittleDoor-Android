@@ -53,11 +53,13 @@
 
     <com.aquib.pinview.Pinview
         android:id="@+id/pinview"
+        style="@style/TextSubHeadLineOnWhite"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center"
-        style="@style/TextSubHeadLineOnWhite"
         app:forceKeyboard="false"
         app:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,11 +67,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:pinBackground="@drawable/pin_background_light"
         app:pinEnteredBackground="@drawable/pin_background_border"
-        app:pinHeight="60dp"
-        app:pinWidth="50dp"
+        app:pinHeight="50dp"
         app:pinLength="6"
+        app:pinWidth="45dp"
         app:textColor="@color/neutral_navyblue"
-        app:textSize="8sp" />
+        app:textSize="@dimen/_12_dp" />
 
 
     <TextView

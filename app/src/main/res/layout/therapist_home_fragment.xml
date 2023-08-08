@@ -1,261 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="@dimen/_40_dp"
+        android:layout_height="@dimen/_40_dp"
+        android:layout_margin="@dimen/_20_dp"
+        android:src="@drawable/sample_dr_image_1"
+        app:civ_border_color="@color/grey_primary"
+        app:civ_border_width="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_20_dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgProfile"
+        app:srcCompat="@drawable/notification" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/_16_dp"
+        app:layout_constraintTop_toBottomOf="@+id/imgProfile">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgProfile"
-            android:layout_width="@dimen/_40_dp"
-            android:layout_height="@dimen/_40_dp"
-            android:layout_margin="@dimen/_20_dp"
-            android:src="@drawable/sample_dr_image_1"
-            app:civ_border_color="@color/grey_primary"
-            app:civ_border_width="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtGreet"
+                style="@style/TextSubHeadLineDark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sfprodisplayregular"
+                android:text="Good Afternoon,"
+                android:textSize="@dimen/_24_dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_20_dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imgProfile"
-            app:srcCompat="@drawable/notification" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtGreet"
-            style="@style/TextSubHeadLineDark"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10_dp"
-            android:fontFamily="@font/sfprodisplayregular"
-            android:text="Good Afternoon,"
-            android:textSize="@dimen/_24_dp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView4"
-            app:layout_constraintStart_toStartOf="@+id/imgProfile"
-            app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtUserName"
-            style="@style/TextHeadLineDark_24dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5_dp"
-            android:text="Muzammil!"
-            app:layout_constraintEnd_toStartOf="@+id/imageView4"
-            app:layout_constraintStart_toStartOf="@+id/imgProfile"
-            app:layout_constraintTop_toBottomOf="@+id/txtGreet" />
-
-        <TextView
-            android:id="@+id/textView8"
-            style="@style/TextHeadLineDark_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16_dp"
-            android:drawableStart="@drawable/rupee"
-            android:drawablePadding="@dimen/_8_dp"
-            android:text="10.1K"
-            android:textColor="@color/semantic_green"
-            android:textSize="@dimen/_32dp"
-            app:layout_constraintEnd_toStartOf="@+id/view2"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtUserName" />
-
-        <TextView
-            android:id="@+id/textView11"
-            style="@style/TextTitleNormal_12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/_8_dp"
-            android:text="Patients"
-            app:layout_constraintEnd_toEndOf="@+id/textView9"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="@dimen/_1dp"
-            android:layout_height="@dimen/_0dp"
-            android:background="@color/grey_lighter"
-            app:layout_constraintBottom_toBottomOf="@+id/textView10"
-            app:layout_constraintEnd_toStartOf="@+id/textView9"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toTopOf="@+id/textView8" />
-
-        <TextView
-            android:id="@+id/textView9"
-            style="@style/TextHeadLineDark_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/member"
-            android:drawablePadding="@dimen/_8_dp"
-            android:text="500"
-            android:textColor="@color/overlays_purple"
-            android:textSize="@dimen/_32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/view2"
-            app:layout_constraintTop_toTopOf="@+id/textView8" />
-
-        <TextView
-            android:id="@+id/textView10"
-            style="@style/TextTitleNormal_12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/_8_dp"
-            android:text="Revenue"
-            app:layout_constraintEnd_toEndOf="@+id/textView8"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        <carbon.widget.LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="#FEF3E7"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/_14_dp"
-            app:carbon_cornerRadius="@dimen/_20_dp"
-            app:carbon_elevation="@dimen/_2_dp"
-            android:padding="@dimen/_16_dp"
-            app:layout_constraintEnd_toEndOf="@+id/txtUserName"
-            app:layout_constraintStart_toStartOf="@+id/txtUserName"
-            app:layout_constraintTop_toBottomOf="@+id/textView10">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtUserName"
+                style="@style/TextHeadLineDark_24dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5_dp"
+                android:text="Muzammil!"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtGreet" />
 
             <TextView
+                android:id="@+id/textView8"
                 style="@style/TextHeadLineDark_24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20_dp"
-                android:text="Aquib Shaikh"
-                android:textColor="@color/dark_brown" />
+                android:layout_marginTop="@dimen/_16_dp"
+                android:drawableStart="@drawable/rupee"
+                android:drawablePadding="@dimen/_8_dp"
+                android:text="10.1K"
+                android:textColor="@color/semantic_green"
+                android:textSize="@dimen/_32dp"
+                app:layout_constraintEnd_toStartOf="@+id/view2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtUserName" />
 
             <TextView
+                android:id="@+id/textView11"
                 style="@style/TextTitleNormal_12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20_dp"
-                android:layout_marginTop="@dimen/_8_dp"
-                android:fontFamily="@font/sfprodisplayregular"
-                android:text="04:00 PM to 05:00 PM"
-                android:textColor="@color/dark_brown" />
+                android:drawablePadding="@dimen/_8_dp"
+                android:text="Patients"
+                app:layout_constraintEnd_toEndOf="@+id/textView9"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="@dimen/_1dp"
+                android:layout_height="@dimen/_0dp"
+                android:background="@color/grey_lighter"
+                app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                app:layout_constraintEnd_toStartOf="@+id/textView9"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintTop_toTopOf="@+id/textView8" />
 
             <TextView
-                style="@style/TextDarkBold_16dp"
+                android:id="@+id/textView9"
+                style="@style/TextHeadLineDark_24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20_dp"
-                android:layout_marginTop="@dimen/_12_dp"
-                android:gravity="center"
-                android:drawableEnd="@drawable/round_play_circle"
+                android:drawableStart="@drawable/member"
                 android:drawablePadding="@dimen/_8_dp"
-                android:text="Join Now"
-                android:textColor="@color/secondary" />
+                android:text="500"
+                android:textColor="@color/overlays_purple"
+                android:textSize="@dimen/_32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/view2"
+                app:layout_constraintTop_toTopOf="@+id/textView8" />
 
-
-        </carbon.widget.LinearLayout>
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="24dp"
-            android:adjustViewBounds="true"
-            android:elevation="@dimen/_4_dp"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout2"
-            app:srcCompat="@drawable/join_member" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView2"
-            style="@style/TextTitleNormal_16sp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="@dimen/_16_dp"
-            android:gravity="center_vertical"
-            android:text="Today’s Appointment"
-            android:textSize="@dimen/_16_dp"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView3"
-            style="@style/TextDarkBold_16dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16_dp"
-            android:drawableEnd="@drawable/forward"
-            android:gravity="center_vertical"
-            android:text="View all"
-            android:textColor="@color/secondary"
-            android:textSize="@dimen/_16_dp"
-            app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView2"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2">
-
-            <include
-                layout="@layout/item_appointment"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView10"
+                style="@style/TextTitleNormal_12sp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8_dp" />
+                android:drawablePadding="@dimen/_8_dp"
+                android:text="Revenue"
+                app:layout_constraintEnd_toEndOf="@+id/textView8"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-            <include
-                layout="@layout/item_appointment"
-                android:layout_width="match_parent"
+            <carbon.widget.LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8_dp" />
+                android:layout_marginTop="@dimen/_14_dp"
+                android:background="#FEF3E7"
+                android:orientation="vertical"
+                android:padding="@dimen/_16_dp"
+                app:carbon_cornerRadius="@dimen/_20_dp"
+                app:carbon_elevation="@dimen/_2_dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txtUserName"
+                app:layout_constraintTop_toBottomOf="@+id/textView10">
 
-        </LinearLayout>
+                <TextView
+                    style="@style/TextHeadLineDark_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20_dp"
+                    android:text="Aquib Shaikh"
+                    android:textColor="@color/dark_brown" />
 
-        <carbon.widget.LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/_16_dp"
-            app:carbon_cornerRadius="@dimen/_20_dp"
-            app:carbon_elevation="4dp"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/_16_dp"
-            app:layout_constraintEnd_toEndOf="@+id/txtUserName"
-            app:layout_constraintStart_toStartOf="@+id/txtUserName"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+                <TextView
+                    style="@style/TextTitleNormal_12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20_dp"
+                    android:layout_marginTop="@dimen/_8_dp"
+                    android:fontFamily="@font/sfprodisplayregular"
+                    android:text="04:00 PM to 05:00 PM"
+                    android:textColor="@color/dark_brown" />
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
+                <TextView
+                    style="@style/TextDarkBold_16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20_dp"
+                    android:layout_marginTop="@dimen/_12_dp"
+                    android:drawableEnd="@drawable/round_play_circle"
+                    android:drawablePadding="@dimen/_8_dp"
+                    android:gravity="center"
+                    android:text="Join Now"
+                    android:textColor="@color/secondary" />
+
+
+            </carbon.widget.LinearLayout>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="24dp"
+                android:adjustViewBounds="true"
+                android:elevation="@dimen/_4_dp"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+                app:srcCompat="@drawable/join_member" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView2"
+                style="@style/TextTitleNormal_16sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:gravity="center_vertical"
+                android:text="Today’s Appointment"
+                android:textSize="@dimen/_16_dp"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtViewAll"
+                style="@style/TextDarkBold_16dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:drawableEnd="@drawable/forward"
+                android:gravity="center_vertical"
+                android:text="View all"
+                android:textColor="@color/secondary"
+                android:textSize="@dimen/_16_dp"
+                app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView2"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAppointment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8_dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_appointment" />
+
+
+            </LinearLayout>
+
+            <carbon.widget.LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/_16_dp"
+                app:carbon_cornerRadius="@dimen/_20_dp"
+                app:carbon_elevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txtUserName"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_110_sp" />
+
+            </carbon.widget.LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_110_sp"
-                />
-
-        </carbon.widget.LinearLayout>
-
-
+                android:layout_height="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
-</ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

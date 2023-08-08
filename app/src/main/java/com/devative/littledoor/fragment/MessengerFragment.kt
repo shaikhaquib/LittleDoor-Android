@@ -1,17 +1,14 @@
 package com.devative.littledoor.fragment
 
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
-import android.view.*
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.devative.littledoor.R
+import com.devative.littledoor.ChatUi.ChatActivity
 import com.devative.littledoor.adapter.ChatRoomAdapter
-import com.devative.littledoor.adapter.TherapistAdapter
 import com.devative.littledoor.databinding.MessengerFragmentBinding
-import com.devative.littledoor.util.DividerItemDecoration
 
 
 /**
@@ -22,11 +19,6 @@ class MessengerFragment  : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window: Window = requireActivity().window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.overlays_purple)
-        }
     }
 
     override fun onCreateView(
@@ -43,6 +35,7 @@ class MessengerFragment  : Fragment() {
         binding.rvChatRoom.adapter = ChatRoomAdapter(requireActivity(),object :
             ChatRoomAdapter.ChatRoomAdapterEvent {
             override fun onclick(position: Int) {
+                startActivity(Intent(requireContext(), ChatActivity::class.java))
             }
         })
 

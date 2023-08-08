@@ -1,14 +1,15 @@
 package com.devative.littledoor.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.devative.littledoor.R
+import com.devative.littledoor.activity.ProfilePicUploadActivity
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.HomeFragmentBinding
-import com.devative.littledoor.model.LoginModel
 import com.devative.littledoor.model.UserDetails
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -41,8 +42,9 @@ class HomeFragment  : Fragment() {
                 updateUI()
             }
         }
-
-
+        binding.imgProfile.setOnClickListener {
+            startActivity(Intent(requireContext(),ProfilePicUploadActivity::class.java))
+        }
     }
 
     private fun updateUI() {

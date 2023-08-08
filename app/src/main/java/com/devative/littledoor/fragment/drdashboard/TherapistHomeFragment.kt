@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.devative.littledoor.R
+import com.devative.littledoor.activity.MainActivity
+import com.devative.littledoor.adapter.AppointmentAdapter
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.TherapistHomeFragmentBinding
 import com.devative.littledoor.model.UserDetails
@@ -54,6 +56,21 @@ class TherapistHomeFragment  : Fragment() {
             }
         }
         setUpLineChart()
+        setUpList()
+    }
+
+    private fun setUpList() {
+
+        binding.txtViewAll.setOnClickListener {
+            (requireActivity() as MainActivity).setNavigationSelection(R.id.bottom_navigation_calender)
+        }
+
+        binding.rvAppointment.adapter = AppointmentAdapter(requireActivity(),object:
+            AppointmentAdapter.AppointmentAdapterEvent {
+            override fun onclick(position: Int) {
+
+            }
+        },2)
     }
 
     private fun updateUI() {

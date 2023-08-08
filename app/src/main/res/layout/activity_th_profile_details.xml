@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ThProfileDetails">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/AppToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Dr Name Surname" />
+
+
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_190dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:srcCompat="@drawable/sample_dr_image" />
+
+    <carbon.widget.LinearLayout
+        android:id="@+id/linearLayout7"
+        style="@style/AppEditTextCarbonElevated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:background="#DEEDED"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgProfile">
+
+        <TextView
+            style="@style/TextDarkBold_16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_4_dp"
+            android:text="300"
+            android:textColor="#259d4e"
+            app:drawableStartCompat="@drawable/rupee_bold" />
+
+        <TextView
+            style="@style/TextTitleNormal_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4_dp"
+            android:text="Per Session"
+            android:textColor="#259d4e" />
+
+
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.LinearLayout
+        style="@style/AppEditTextCarbonElevated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="@color/purple_lighter"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgProfile">
+
+        <TextView
+            style="@style/TextTitleNormal_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_8_dp"
+            android:text="@string/message"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:drawableTint="@color/secondary"
+            app:drawableStartCompat="@drawable/comment_" />
+
+    </carbon.widget.LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="16dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/btnBookAppointment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtCategory"
+                style="@style/TextDarkBold_16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="16dp"
+                android:text="Therapist"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtCity"
+                style="@style/TextTitleNormal_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="@dimen/_6dp"
+                android:text="Nerul, Navi Mumbai"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/txtCategory"
+                app:layout_constraintTop_toBottomOf="@+id/txtCategory" />
+
+            <TextView
+                android:id="@+id/txtDegree"
+                style="@style/TextTitleNormal_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginTop="@dimen/_6dp"
+                android:text="MBBS, Mumbai University"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/txtCategory"
+                app:layout_constraintTop_toBottomOf="@+id/txtCity" />
+
+            <RatingBar
+                android:id="@+id/rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:progress="90"
+                android:progressTint="#FFC107"
+                android:stepSize="0.1"
+                app:layout_constraintStart_toStartOf="@+id/txtDegree"
+                app:layout_constraintTop_toBottomOf="@+id/txtDegree" />
+
+
+            <TextView
+                style="@style/TextTitleNormal_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginStart="@dimen/_12_dp"
+                android:text="4.8"
+                android:textColor="@color/neutral_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/rating"
+                app:layout_constraintStart_toEndOf="@+id/rating"
+                app:layout_constraintTop_toTopOf="@+id/rating" />
+
+
+            <TextView
+                android:id="@+id/txtExprts"
+                style="@style/TextTitleBold_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24_dp"
+                android:drawableStart="@drawable/experties"
+                android:drawablePadding="@dimen/_8_dp"
+                android:gravity="center_vertical"
+                android:text="Expertise"
+                app:layout_constraintStart_toStartOf="@+id/rating"
+                app:layout_constraintTop_toBottomOf="@+id/rating" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12_dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txtExprts"
+                app:layout_constraintTop_toBottomOf="@+id/txtExprts">
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Separation"
+                    app:chipBackgroundColor="#f5f4f7"
+                    app:chipCornerRadius="@dimen/_8_dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dialectical"
+                    app:chipBackgroundColor="#f5f4f7"
+                    app:chipCornerRadius="@dimen/_8_dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Social"
+                    app:chipBackgroundColor="#f5f4f7"
+                    app:chipCornerRadius="@dimen/_8_dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Panic"
+                    app:chipBackgroundColor="#f5f4f7"
+                    app:chipCornerRadius="@dimen/_8_dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Group Therapy"
+                    app:chipBackgroundColor="#f5f4f7"
+                    app:chipCornerRadius="@dimen/_8_dp" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/textView12"
+                style="@style/TextTitleBold_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18_dp"
+                android:drawableStart="@drawable/appreciation"
+                android:drawablePadding="@dimen/_8_dp"
+                android:gravity="center_vertical"
+                android:text="Expertise"
+                app:layout_constraintStart_toStartOf="@+id/rating"
+                app:layout_constraintTop_toBottomOf="@+id/chipGroup2" />
+
+            <TextView
+                android:id="@+id/txtExpertise"
+                style="@style/TextTitleBold_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12_dp"
+                android:text="Expert practice - Oxford Academic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <TextView
+                android:id="@+id/txtExpertiseDescription"
+                style="@style/TextTitleNormal_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:text="Nerul, Navi Mumbai"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/txtExpertise"
+                app:layout_constraintTop_toBottomOf="@+id/txtExpertise" />
+
+            <TextView
+                android:id="@+id/txtExpertiseYear"
+                style="@style/TextTitleNormal_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:text="2014"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/txtExpertiseDescription"
+                app:layout_constraintTop_toBottomOf="@+id/txtExpertiseDescription" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBookAppointment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/book_appointment"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="@dimen/_0dp"
+        app:icon="@drawable/right"
+        app:iconGravity="textEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

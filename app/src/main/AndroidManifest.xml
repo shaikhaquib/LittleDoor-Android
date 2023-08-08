@@ -24,7 +24,16 @@
         android:theme="@style/Theme.LittleDoor"
         tools:targetApi="31">
         <activity
-            android:name=".activity.ProfileActivity"
+            android:name=".ChatUi.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.BookAppointment"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ThProfileDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ProfilePicUploadActivity"
             android:exported="false" />
         <activity
             android:name=".activity.drForms.ActivityUploadOtherDocument"

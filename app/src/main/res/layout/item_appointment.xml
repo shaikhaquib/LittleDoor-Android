@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     app:carbon_elevation="@dimen/_4_dp"
     android:background="#EEF0FB"
+    android:layout_margin="@dimen/_8_dp"
     app:carbon_cornerRadius="@dimen/_12_dp"
     android:padding="@dimen/_16_dp">
 
@@ -54,12 +55,13 @@
 
         <TextView
             android:id="@+id/txtDate"
-            style="@style/TextGray"
+            style="@style/TextTitleNormal_12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/time_small"
             android:text="08:00 PM"
             android:gravity="center"
+            android:textColor="@color/neutral_gray"
             android:drawablePadding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

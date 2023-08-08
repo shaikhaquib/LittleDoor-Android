@@ -37,8 +37,7 @@ class SignUpActivity : BaseActivity(),View.OnClickListener {
         setMessageWithClickableLink()
         binding.btnSendOTP.setOnClickListener(this)
         binding.btnTherapistLogin.setOnClickListener(this)
-
-
+        Utility.clearPreference(this)
 
         viewModel.OTPSend.observe(this) {
             when (it.status) {

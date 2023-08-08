@@ -13,6 +13,12 @@ class TherapistAdapter(
     inner class ViewHolder(val binding: ItemTherapistBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
+            binding.btnBookAppointment.setOnClickListener {
+                therapistAdapterEvent.bookAppointment(position)
+            }
+            binding.btnChat.setOnClickListener {
+                therapistAdapterEvent.onChat(position)
+            }
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,6 +29,7 @@ class TherapistAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindData(position)
+
     }
 
     override fun getItemCount(): Int {
@@ -31,5 +38,7 @@ class TherapistAdapter(
 
     interface TherapistAdapterEvent {
         fun onclick(position: Int)
+        fun bookAppointment(position: Int)
+        fun onChat(position: Int)
     }
 }

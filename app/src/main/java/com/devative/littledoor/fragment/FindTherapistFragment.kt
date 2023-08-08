@@ -1,11 +1,14 @@
 package com.devative.littledoor.fragment
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.devative.littledoor.ChatUi.ChatActivity
 import com.devative.littledoor.R
+import com.devative.littledoor.activity.ThProfileDetails
 import com.devative.littledoor.adapter.ChatRoomAdapter
 import com.devative.littledoor.adapter.TherapistAdapter
 import com.devative.littledoor.databinding.FragmentFindTherapistBinding
@@ -14,14 +17,7 @@ class FindTherapistFragment : Fragment() {
     lateinit var binding:FragmentFindTherapistBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window: Window = requireActivity().window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.overlays_purple)
-        }
-
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +31,13 @@ class FindTherapistFragment : Fragment() {
         binding.rvTherapist.adapter = TherapistAdapter(requireActivity(),object :
             TherapistAdapter.TherapistAdapterEvent {
             override fun onclick(position: Int) {
+
+            }
+            override fun onChat(position: Int) {
+                startActivity(Intent(requireContext(),ChatActivity::class.java))
+            }
+            override fun bookAppointment(position: Int) {
+                startActivity(Intent(requireContext(),ThProfileDetails::class.java))
             }
         })
     }

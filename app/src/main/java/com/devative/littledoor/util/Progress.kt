@@ -11,7 +11,7 @@ import com.devative.littledoor.R
 class Progress( var activity: AppCompatActivity) {
     var dialog: Dialog? = null
 
-    //..we need the context else we can not create the dialog so get context in constructo
+    //..we need the context else we can not create the dialog so get context in construction
     fun show() {
         if (activity.isDestroyed){
             return
