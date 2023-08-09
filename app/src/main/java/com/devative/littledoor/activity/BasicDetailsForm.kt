@@ -40,7 +40,7 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityBasicDetailsFormBinding.inflate(layoutInflater)
         viewModel = MainViewModel.getViewModel(this)
-        progress = Progress(this)
+        
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         init()
@@ -186,9 +186,6 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
                 Status.SUCCESS -> {
                     progress?.dismiss()
                     if (it.data?.status == true) {
-                        it.data?.let {data->
-                            viewModel.insertUserData(data.data)
-                        }
                         // Toasty.success(applicationContext, it.data.message).show()
                         startActivity(Intent(applicationContext, MCQActivity::class.java))
                         finish()

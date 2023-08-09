@@ -16,18 +16,21 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 open class BaseActivity: AppCompatActivity(){
     var basicDetails: UserDetails.Data? = null
-    var progress: Progress? = null
+    val progress: Progress by lazy { 
+        Progress(this)
+    }
     private lateinit var mainViewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         mainViewModel = MainViewModel.getViewModel(this)
-        progress = Progress(this)
+
         mainViewModel.fetchUserData()
         mainViewModel.basicDetails.observe(this){
             if (!it.isNullOrEmpty()){
                 basicDetails = it[0]
             }
         }
+        mainViewModel.getUserDetails()
     }
 }

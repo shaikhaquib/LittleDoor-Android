@@ -56,7 +56,7 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddExperienceBinding.inflate(layoutInflater)
-        progress = Progress(this)
+        
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         initIntent()

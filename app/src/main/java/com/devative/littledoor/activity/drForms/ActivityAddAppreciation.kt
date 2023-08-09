@@ -35,7 +35,7 @@ class ActivityAddAppreciation : BaseActivity(), View.OnClickListener, FormAdapte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddAppreciationBinding.inflate(layoutInflater)
-        progress = Progress(this)
+        
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         initIntent()

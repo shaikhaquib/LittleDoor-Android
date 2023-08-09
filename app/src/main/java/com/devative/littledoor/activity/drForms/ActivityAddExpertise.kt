@@ -32,7 +32,7 @@ class ActivityAddExpertise : BaseActivity() {
         binding = ActivityAddExpertiseBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        progress = Progress(this)
+        
         initIntent()
         observe()
         uiClick()

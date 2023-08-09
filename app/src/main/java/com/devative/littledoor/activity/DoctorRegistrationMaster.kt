@@ -50,7 +50,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         adapter = DoctorFormMasterAdapter(this,formMasterList,doctorDetails,this)
         binding.rvFormMaster.adapter = adapter
         binding.rvFormMaster.addItemDecoration(ListSpacingDecoration())
-        progress = Progress(this)
+        
         formMasterList.apply {
             add(DrRegistrationMasterModel("Work experience"))
             add(DrRegistrationMasterModel("Education"))

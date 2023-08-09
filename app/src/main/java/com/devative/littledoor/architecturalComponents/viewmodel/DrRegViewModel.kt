@@ -131,11 +131,12 @@ class DrRegViewModel @Inject constructor(
     fun uploadData(
         context: Context,
         fileMap: Map<String, Uri>,
-        dataMap: Map<String, String>
+        dataMap: Map<String, String>,
+        url:String = APIClient.THERAPIST_ADD_DETAILS
     ) = CoroutineScope(Dispatchers.IO).launch {
         uploadResponse.postValue(Resource.loading(null))
         FileUploader.uploadFiles(context,
-            APIClient.THERAPIST_ADD_DETAILS,
+            url,
             fileMap,
             dataMap,
             object : FileUploader.UploadCallback {

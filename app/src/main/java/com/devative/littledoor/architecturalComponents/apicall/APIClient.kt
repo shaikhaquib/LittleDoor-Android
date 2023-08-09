@@ -75,6 +75,7 @@ interface APIClient {
 
     companion object {
         const val THERAPIST_ADD_DETAILS = "${Constants.BASE_URL}doctor/submit/details"
+        const val UPDATE_PROFILE = "${Constants.BASE_URL}admin/update/user/details"
     }
 
 }

@@ -21,6 +21,7 @@ data class UserDetails(
         val id: Int,
         val mobile_no: String,
         val name: String,
+        val image_url: String?,
         val pateint_id: Int?
     )
 }

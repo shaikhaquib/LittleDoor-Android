@@ -31,7 +31,7 @@ class SignUpActivity : BaseActivity(),View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        progress = Progress(this)
+        
         viewModel = MainViewModel.getViewModel(this)
         viewAnimation()
         setMessageWithClickableLink()

@@ -37,7 +37,7 @@ class ActivityAddEducationForm : BaseActivity(), OnClickListener, FormAdapter.Fo
         binding = ActivityAddEducationFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        progress = Progress(this)
+        
         sutUpClick()
         initIntent()
         observe()

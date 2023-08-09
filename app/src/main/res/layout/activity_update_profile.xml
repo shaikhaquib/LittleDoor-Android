@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.BasicDetailsForm">
+    tools:context=".activity.UpdateProfile">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -16,22 +16,77 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Basic Details" />
 
+
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/_16_dp"
+        android:layout_marginTop="@dimen/_16_dp"
+        android:layout_marginRight="@dimen/_16_dp"
         android:scrollbars="none"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/liTermsSerive"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreate"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="@dimen/_100dp"
+                    android:layout_height="@dimen/_100dp"
+                    android:src="@drawable/profile_view"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <carbon.widget.FloatingActionButton
+                    android:id="@+id/btnCamera"
+                    android:layout_width="@dimen/_34dp"
+                    android:layout_height="@dimen/_34dp"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:padding="@dimen/_5_dp"
+                    app:borderWidth="@dimen/_1dp"
+                    app:carbon_cornerRadius="@dimen/_18_dp"
+                    app:carbon_src="@drawable/camera"
+                    app:carbon_stroke="@color/grey_lighter"
+                    app:carbon_strokeWidth="@dimen/_1dp"
+                    app:carbon_tint="@color/secondary"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline3"
+                    app:layout_constraintEnd_toEndOf="@+id/guideline4"
+                    app:layout_constraintStart_toEndOf="@+id/guideline4"
+                    app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.7" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.6" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 style="@style/TextDarkBold_16dp"
@@ -56,33 +111,11 @@
 
 
             <TextView
-                android:id="@+id/txtLabelMobile"
                 style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16_dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="@dimen/_16_dp"
-                android:text="@string/mobile" />
-
-            <carbon.widget.EditText
-                android:id="@+id/edtMobile"
-                style="@style/AppEditTextCarbonElevated"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_16_dp"
-                android:maxLength="10"
-                android:drawableStart="@drawable/phone"
-                android:hint="@string/enter_mobile"
-                android:inputType="phone"
-                android:maxLines="1" />
-
-            <TextView
-                style="@style/TextDarkBold_16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_16_dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/_16_dp"
                 android:layout_marginEnd="@dimen/_16_dp"
                 android:text="@string/email" />
 
@@ -106,17 +139,19 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16_dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="@dimen/_16_dp"
                     android:layout_marginEnd="@dimen/carbon_grid8"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="@string/gender" />
 
                 <TextView
                     style="@style/TextDarkBold_16dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="@dimen/_16_dp"
                     android:layout_marginEnd="@dimen/_16_dp"
+                    android:gravity="center"
                     android:layout_weight="1"
                     android:text="@string/date_of_birth" />
 
@@ -137,10 +172,9 @@
                     android:layout_marginEnd="@dimen/carbon_grid8"
                     android:layout_marginBottom="4dp"
                     android:layout_weight="1"
-                    android:drawableEnd="@drawable/drop_down"
+                    android:enabled="false"
                     android:gravity="center"
                     android:text="@string/select"
-                    android:textSize="@dimen/_12_dp"
                     app:carbon_rippleColor="@color/neutral_gray"
                     app:carbon_stroke="@color/grey_lighter"
                     app:carbon_strokeWidth="@dimen/carbon_1dip" />
@@ -153,10 +187,9 @@
                     android:layout_marginTop="@dimen/_16_dp"
                     android:layout_marginEnd="@dimen/_16_dp"
                     android:layout_weight="1"
-                    android:drawableEnd="@drawable/calendar"
+                    android:enabled="false"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:textSize="@dimen/_12_dp"
                     android:text="@string/select"
                     app:carbon_rippleColor="@color/neutral_gray"
                     app:carbon_stroke="@color/grey_lighter"
@@ -169,7 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16_dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/_16_dp"
                 android:layout_marginEnd="@dimen/carbon_grid8"
                 android:layout_weight="1"
                 android:text="City" />
@@ -181,7 +214,7 @@
                 android:layout_height="?actionBarSize"
                 android:layout_margin="@dimen/carbon_padding"
                 android:drawableStart="@drawable/event"
-                android:drawableEnd="@drawable/drop_down"
+                android:enabled="false"
                 android:gravity="start|center"
                 android:text="@string/select"
                 app:carbon_rippleColor="@color/neutral_gray"
@@ -189,51 +222,18 @@
                 app:carbon_strokeWidth="@dimen/carbon_1dip" />
 
 
-
-
         </LinearLayout>
 
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/liTermsSerive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/btnCreate"
-        app:layout_constraintStart_toStartOf="@+id/btnCreate">
-        <CheckBox
-            android:id="@+id/chkTerms"
-            style="@style/TextTitleBold_14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:padding="@dimen/_0dp"
-            />
-        <TextView
-            android:id="@+id/txtTermsLabel"
-            style="@style/TextTitleBold_14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:padding="@dimen/_0dp"
-            android:text="@string/label_terms_condition"
-            />
-
-    </LinearLayout>
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCreate"
         style="@style/RoundedCorner"
         android:layout_width="0dp"
         android:layout_height="?actionBarSize"
-        android:layout_margin="24dp"
+        android:layout_margin="@dimen/_16_dp"
         android:layout_marginTop="@dimen/_16_dp"
-        android:text="@string/create"
+        android:text="@string/update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

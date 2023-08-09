@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.SignUpActivity
+import com.devative.littledoor.activity.UpdateProfile
+import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.SettingsFragmentBinding
 import com.devative.littledoor.model.LoginModel
@@ -56,11 +58,18 @@ class SettingsFragment : Fragment() {
             startActivity(Intent(requireContext(),SignUpActivity::class.java))
             requireActivity().finish()
         }
+        binding.btnUpdateProfile.setOnClickListener{
+            startActivity(Intent(requireContext(),UpdateProfile::class.java))
+        }
     }
 
     private fun updateUI() {
         binding.txtName.text = basicDetails?.name
         binding.txtDesc.text = basicDetails?.email
+        basicDetails?.image_url?.let { it1 -> binding.imgProfile.load(it1,R.drawable.profile_view)}
+        binding.imgProfile.borderColor =
+            ContextCompat.getColor(requireContext(), R.color.grey_primary)
+        binding.imgProfile.borderWidth = 10
     }
 
 }

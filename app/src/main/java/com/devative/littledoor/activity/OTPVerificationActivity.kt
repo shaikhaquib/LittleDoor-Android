@@ -30,7 +30,7 @@ class OTPVerificationActivity : BaseActivity() {
         binding = ActivityOtpverificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        progress = Progress(this)
+        
         title = ""
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
@@ -100,7 +100,6 @@ class OTPVerificationActivity : BaseActivity() {
                     progress?.dismiss()
                     if (it.data?.status == true) {
                         it.data?.let { data ->
-                            viewModel.insertUserData(data.data)
                             // Toasty.success(applicationContext, it.data.message).show()
                             if (isDoctor || data.data.doctor_id != null) {
                                 startActivity(

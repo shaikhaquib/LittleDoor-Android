@@ -121,7 +121,9 @@ class MainViewModel  @Inject constructor(
             mainRepository.getUserDetails().let {
                 if (it.isSuccessful) {
                     _userDetails.postValue(Resource.success(it.body()))
-
+                    it.body()?.data?.let {data->
+                        insertUserData(data)
+                    }
                 } else {
                     _userDetails.postValue(
                         Resource.error(

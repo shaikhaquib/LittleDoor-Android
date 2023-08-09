@@ -33,9 +33,12 @@ class MainActivity : BaseActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         if (intent.hasExtra(Constants.IS_DOCTOR)){
+            Constants.isDoctor = true
             navController.setGraph(R.navigation.dr_nav_graph)
             binding.bottomNavigation.menu.clear()
             binding.bottomNavigation.inflateMenu(R.menu.dr_bottom_navigation);
+        }else{
+            Constants.isDoctor = false
         }
         NavigationUI.setupWithNavController(binding.bottomNavigation, navController)
         vm = MainViewModel.getViewModel(this)

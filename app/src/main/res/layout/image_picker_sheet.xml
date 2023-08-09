@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout8"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/_40_dp"
+    app:carbon_cornerRadiusTopEnd="@dimen/_24_dp"
+    app:carbon_cornerRadiusTopStart="@dimen/_24_dp"
+    app:carbon_stroke="#22A29EB6"
+    app:carbon_strokeWidth="1dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <TextView
+        style="@style/TextTitleNormal_16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_32dp"
+        android:text="Upload Profile Picture"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        style="@style/TextTitleNormal_12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_8_dp"
+        android:gravity="center"
+        android:text="Upload a new avatar. Larger image will be resized automatically."
+        android:textColor="@color/dark_gray" />
+
+    <carbon.widget.LinearLayout
+        android:id="@+id/lil_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16_dp"
+        android:padding="@dimen/_16_dp"
+        app:carbon_cornerRadius="@dimen/_16_dp"
+        app:carbon_stroke="#22A29EB6"
+        app:carbon_strokeWidth="1dp">
+
+
+        <ImageView
+            android:layout_width="@dimen/_40_dp"
+            android:layout_height="@dimen/_40_dp"
+            app:srcCompat="@drawable/ic_gallery" />
+
+        <TextView
+            style="@style/TextDarkBold_18_dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_16_dp"
+            android:drawableEnd="@drawable/forward"
+            android:text="From Gallery" />
+
+
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.LinearLayout
+        android:id="@+id/lil_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16_dp"
+        android:padding="@dimen/_16_dp"
+        app:carbon_cornerRadius="@dimen/_16_dp"
+        app:carbon_stroke="#22A29EB6"
+        app:carbon_strokeWidth="1dp">
+
+
+        <ImageView
+            android:layout_width="@dimen/_40_dp"
+            android:layout_height="@dimen/_40_dp"
+            app:srcCompat="@drawable/ic_cam" />
+
+        <TextView
+            style="@style/TextDarkBold_18_dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_16_dp"
+            android:drawableEnd="@drawable/forward"
+            android:text="Open Camera" />
+
+    </carbon.widget.LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_submit"
+        style="@style/RoundedCorner"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="@dimen/_16_dp"
+        android:text="@string/dialog_cancel"
+        app:icon="@drawable/cancel"
+        app:iconGravity="textEnd"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</carbon.widget.LinearLayout>
+
+

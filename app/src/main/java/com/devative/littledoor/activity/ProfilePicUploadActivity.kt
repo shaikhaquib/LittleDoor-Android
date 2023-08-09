@@ -83,7 +83,7 @@ class ProfilePicUploadActivity : AppCompatActivity(), OnClickListener {
         )
     }
 
-    private val launcher =
+    val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 uri = it.data?.data

@@ -35,7 +35,7 @@ class MCQActivity : BaseActivity() {
         setContentView(binding.root)
         viewModel = MainViewModel.getViewModel(this)
         viewModel.getQuestions()
-        progress = Progress(this)
+        
         // questionList = getQuestionList()
         viewPager = binding.viewPager
         adapter = QuestionPagerAdapter(supportFragmentManager, questionList)

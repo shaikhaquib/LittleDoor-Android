@@ -33,4 +33,7 @@
     <dimen name="_190dp">190dp</dimen>
     <dimen name="_6dp">6dp</dimen>
     <dimen name="_48dp">48dp</dimen>
+    <dimen name="_100dp">100dp</dimen>
+    <dimen name="_34dp">34dp</dimen>
+    <dimen name="_50dp">50dp</dimen>
 </resources>

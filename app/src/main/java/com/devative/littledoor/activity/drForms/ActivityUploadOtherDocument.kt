@@ -36,7 +36,7 @@ class ActivityUploadOtherDocument : BaseActivity(),OnClickListener,FormAdapter.F
         binding = ActivityUploadOtherDocumentBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        progress = Progress(this)
+        
         sutUpClick()
         initIntent()
         observe()
