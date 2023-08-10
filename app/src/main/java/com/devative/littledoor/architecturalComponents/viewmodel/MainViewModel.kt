@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.devative.littledoor.architecturalComponents.helper.Resource
 import com.devative.littledoor.architecturalComponents.room.UserDao
 import com.devative.littledoor.architecturalComponents.repository.MainRepository
+import com.devative.littledoor.model.DoctotorListRes
 import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
@@ -76,6 +77,8 @@ class MainViewModel  @Inject constructor(
     private val _saveMCQ = MutableLiveData<Resource<GeneralResponse>>()
     val saveMCQ : LiveData<Resource<GeneralResponse>>
         get() = _saveMCQ
+
+    val doctorList = MutableLiveData<Resource<DoctotorListRes>>()
 
     fun getOTPPatientLogin(mobileNo:String, isPatient:String) = CoroutineScope(Dispatchers.IO).launch {
         _OTPSend.postValue(Resource.loading(null))
@@ -212,6 +215,25 @@ class MainViewModel  @Inject constructor(
             }
         } catch (e: Exception) {
             _saveMCQ.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+    fun getDoctorList() = CoroutineScope(Dispatchers.IO).launch {
+        doctorList.postValue(Resource.loading(null))
+        try {
+            mainRepository.getDoctorList().let {
+                if (it.isSuccessful) {
+                    doctorList.postValue(Resource.success(it.body()))
+                } else {
+                    doctorList.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            doctorList.postValue(Resource.error(e.message.toString(), null))
         }
     }
 

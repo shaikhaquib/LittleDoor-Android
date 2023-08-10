@@ -99,7 +99,7 @@
         android:text="@string/dialog_cancel"
         app:icon="@drawable/cancel"
         app:iconGravity="textEnd"
-        app:iconTint="@color/white"
+        app:iconTint="@color/white_for_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

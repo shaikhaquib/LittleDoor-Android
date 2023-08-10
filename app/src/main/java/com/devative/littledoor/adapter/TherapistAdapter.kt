@@ -5,14 +5,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.databinding.ItemTherapistBinding
+import com.devative.littledoor.model.DoctotorListRes
 
 class TherapistAdapter(
     val context: Context,
+    val dataList:ArrayList<DoctotorListRes.Data>,
     val therapistAdapterEvent:TherapistAdapterEvent
 ) : RecyclerView.Adapter<TherapistAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemTherapistBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(position: Int) {
+        fun bindData(position: Int, data: DoctotorListRes.Data) {
+
+            binding.apply {
+                txtName.text = data.name
+                txtDesc.text = "${data.category_name}, ${data.city}, ${data.state}"
+            }
+
             binding.btnBookAppointment.setOnClickListener {
                 therapistAdapterEvent.bookAppointment(position)
             }
@@ -28,12 +36,11 @@ class TherapistAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindData(position)
-
+        holder.bindData(position,dataList[position])
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return dataList.size
     }
 
     interface TherapistAdapterEvent {

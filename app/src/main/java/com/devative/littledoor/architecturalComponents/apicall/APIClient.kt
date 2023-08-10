@@ -3,6 +3,7 @@ package com.devative.littledoor.architecturalComponents.apicall
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.model.CategoryResponse
 import com.devative.littledoor.model.DoctorDetailsResponse
+import com.devative.littledoor.model.DoctotorListRes
 import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
@@ -72,6 +73,8 @@ interface APIClient {
     suspend fun getDoctorDetails(): Response<DoctorDetailsResponse>
     @GET("admin/get/skills")
     suspend fun getSkill(): Response<SkillResponse>
+  @GET("admin/get/doctor/list")
+    suspend fun getDoctorList(): Response<DoctotorListRes>
 
     companion object {
         const val THERAPIST_ADD_DETAILS = "${Constants.BASE_URL}doctor/submit/details"
