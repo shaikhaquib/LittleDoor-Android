@@ -5,15 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.devative.littledoor.R
+import com.devative.littledoor.activity.DailyGeneralActivity
 import com.devative.littledoor.activity.ProfilePicUploadActivity
 import com.devative.littledoor.activity.UpdateProfile
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.HomeFragmentBinding
 import com.devative.littledoor.model.UserDetails
+import com.devative.littledoor.util.DailyGeneraleBottomSheet
+import com.devative.littledoor.util.ImagePickerDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -47,6 +51,16 @@ class HomeFragment  : Fragment() {
         }
         binding.imgProfile.setOnClickListener {
             startActivity(Intent(requireContext(),UpdateProfile::class.java))
+        }
+        binding.layoutJournal.setOnClickListener {
+            startActivity(Intent(requireContext(),DailyGeneralActivity::class.java))
+        }
+
+        binding.liAction.setOnClickListener {
+            val dialog = DailyGeneraleBottomSheet(
+                requireActivity() as AppCompatActivity
+            )
+            dialog.show(requireActivity().supportFragmentManager, "ImagePickerDialog")
         }
     }
 

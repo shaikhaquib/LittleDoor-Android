@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="22dp">
+
+    <TextView
+        style="@style/TextTitleNormal_14sp"
+        android:id="@+id/MonthText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:gravity="center"
+        android:text="JAN"
+
+        android:textColor="@color/grey_light"/>
+
+    <TextView
+        android:id="@+id/dayOfMonthText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/grey_primary"
+        android:text="29"
+        android:textSize="22dp"
+        style="@style/TextHeadLineDark_24dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+
+    <TextView
+        style="@style/TextTitleNormal_12sp"
+        android:id="@+id/dayOfWeekText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/grey_primary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="MON" />
+
+
+</LinearLayout>

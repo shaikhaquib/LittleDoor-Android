@@ -26,4 +26,6 @@
     <color name="dark_gray">#707070</color>
     <color name="screen_background_color">#F9F9F9</color>
     <color name="primary_trans">#1B59F8</color>
+    <color name="grey_light">#ACAFC3</color>
+    <color name="black_light">#44485F</color>
 </resources>

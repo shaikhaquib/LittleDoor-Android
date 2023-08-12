@@ -1,0 +1,39 @@
+<carbon.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/_16_dp"
+    android:background="@color/white"
+    app:carbon_cornerRadiusTopEnd="@dimen/_32dp"
+    app:carbon_cornerRadiusTopStart="@dimen/_32dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        style="@style/TextDarkBold_16dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Date Seletion"/>
+
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:dateTextAppearance="@style/TextTitleNormal_14sp"
+        android:weekDayTextAppearance="@style/TextTitleBold_14sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnOkay"
+        style="@style/RoundedCorner"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_margin="24dp"
+        android:layout_marginTop="@dimen/_16_dp"
+        android:text="Select"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</carbon.widget.LinearLayout>

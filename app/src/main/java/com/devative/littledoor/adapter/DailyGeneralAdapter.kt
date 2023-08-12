@@ -6,33 +6,35 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.databinding.ItemChatBinding
+import com.devative.littledoor.databinding.ItemDailyGeneralBinding
+import com.devative.littledoor.databinding.ItemExploreBinding
 import com.devative.littledoor.databinding.ItemTherapistBinding
 
 
-class ChatRoomAdapter(
+class DailyGeneralAdapter(
     val context: Context,
-    val event:ChatRoomAdapterEvent
-) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
-    inner class ViewHolder(val binding: ItemChatBinding) :
+    val event:DailyGeneralAdapterEvent
+) : RecyclerView.Adapter<DailyGeneralAdapter.ViewHolder>() {
+    inner class ViewHolder(val binding: ItemDailyGeneralBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ItemChatBinding.inflate(LayoutInflater.from(context), parent, false)
+            ItemDailyGeneralBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ChatRoomAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DailyGeneralAdapter.ViewHolder, position: Int) {
         holder.bindData(position)
     }
 
     override fun getItemCount(): Int {
-        return 2
+        return 4
     }
 
-    interface ChatRoomAdapterEvent {
+    interface DailyGeneralAdapterEvent {
         fun onclick(position: Int)
     }
 }

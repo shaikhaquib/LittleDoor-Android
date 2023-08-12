@@ -107,6 +107,13 @@
         <item name="android:fontFamily"> @font/sfprodisplayregular</item>
         <item name="android:includeFontPadding">false</item>
     </style>
+    <style name="TextTitleBold_12sp">
+        <item name="android:textSize">@dimen/_12_dp</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily"> @font/sfprodisplaybold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
     <style name="TextTitleNormal_14sp">
         <item name="android:textSize">@dimen/_14_dp</item>
         <item name="android:letterSpacing">0.05</item>
@@ -217,6 +224,17 @@
         <item name="android:background">@color/neutral_white</item>
         <item name="drawableTint">@color/neutral_navyblue</item>
     </style>
+
+    <style name="VerticalWeekCalendarStyle">
+
+        <!--        <item name="customFont">Quicksand-Light.otf</item>-->
+        <item name="dayTextColor">@color/grey_primary</item>
+        <item name="weekDayTextColor">@color/grey_primary</item>
+        <item name="dayBackground">@android:color/white</item>
+        <item name="selectedDayTextColor">@color/primary</item>
+        <item name="selectedBackground">@android:color/white</item>
+    </style>
+
 
     <dimen name="_14_dp">14dp</dimen>
 </resources>

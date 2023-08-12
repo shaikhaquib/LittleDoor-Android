@@ -23,9 +23,7 @@ class FindTherapistFragment : Fragment(),TherapistAdapter.TherapistAdapterEvent 
     private val viewModel:MainViewModel by activityViewModels()
     private val doctorList = ArrayList<DoctotorListRes.Data>()
     private lateinit var adapter: TherapistAdapter
-    private val progress:Progress by lazy {
-        Progress(requireActivity() as AppCompatActivity)
-    }
+    private lateinit var progress:Progress
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +35,8 @@ class FindTherapistFragment : Fragment(),TherapistAdapter.TherapistAdapterEvent 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = TherapistAdapter(requireActivity(),doctorList,this)
+        binding.rvTherapist.adapter = adapter
+        progress = Progress(requireActivity() as AppCompatActivity)
         processViewModel()
     }
 

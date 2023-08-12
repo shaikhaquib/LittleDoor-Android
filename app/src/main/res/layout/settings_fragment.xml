@@ -78,6 +78,9 @@
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/_16_dp">
 
+
+
+
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imgProfile"
                             style="@style/AppEditTextCarbonElevated"
@@ -135,6 +138,7 @@
                 </carbon.widget.LinearLayout>
 
             </LinearLayout>
+
 
 
             <carbon.widget.LinearLayout

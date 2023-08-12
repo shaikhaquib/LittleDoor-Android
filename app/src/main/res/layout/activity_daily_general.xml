@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.DailyGeneralActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/AppToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="My Daily Journal" />
+
+    <View
+        android:id="@+id/v1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_toEndOf="@id/verticalCalendar"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <com.devative.littledoor.verticalweekcalendar.VerticalWeekCalendar
+        android:id="@+id/verticalCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_alignParentStart="true"
+        app:customFont="sfprodisplaybold"
+        android:layout_marginTop="@dimen/_1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:selectedBackground="@color/grey_lighter" />
+
+    <View
+        android:id="@+id/verticalDivider"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_toEndOf="@id/verticalCalendar"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toEndOf="@+id/verticalCalendar"
+        />
+
+    <TextView
+        android:id="@+id/txtMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:padding="@dimen/_16_dp"
+        android:drawableEnd="@drawable/round_keyboard_arrow_down_24"
+        android:gravity="center_vertical"
+        android:text="December"
+        android:includeFontPadding="false"
+        style="@style/TextTitleNormal_16sp"
+        android:drawablePadding="@dimen/_16_dp"
+        app:layout_constraintStart_toEndOf="@+id/verticalDivider"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_toEndOf="@id/verticalCalendar"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/verticalDivider"
+        app:layout_constraintTop_toBottomOf="@+id/txtMonth" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addDailyGenral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_24_dp"
+        android:layout_marginBottom="@dimen/_24_dp"
+        android:clickable="true"
+        app:backgroundTint="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/edit" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvGeneral"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_0dp"
+        tools:listitem="@layout/item_daily_general"
+        tools:itemCount="3"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/verticalDivider"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<carbon.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:carbon_cornerRadiusTopEnd="@dimen/_24_dp"
+    app:carbon_cornerRadiusTopStart="@dimen/_24_dp"
+    android:background="@color/white">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16_dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView"
+            style="@style/TextDarkBold_16dp"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/_16_dp"
+            android:layout_marginTop="@dimen/_16_dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfprodisplayregular"
+            android:text="@string/how_are_you_feeling_today"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_46dp"
+                    android:layout_height="@dimen/_46dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/happy_emoji" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Happy" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_46dp"
+                    android:layout_height="@dimen/_46dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/angry" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Angry" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_46dp"
+                    android:layout_height="@dimen/_46dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/sad" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Sad" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_46dp"
+                    android:layout_height="@dimen/_46dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/manic" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Manic" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/_46dp"
+                    android:layout_height="@dimen/_46dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/relieved_face" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Calm" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <carbon.widget.EditText
+            android:id="@+id/editText"
+            style="@style/AppEditTextCarbonElevated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16_dp"
+            android:lines="6"
+            android:gravity="start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_submit"
+            style="@style/RoundedCorner"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_margin="@dimen/_16_dp"
+            android:text="@string/submit"
+            app:iconGravity="textEnd"
+            app:iconTint="@color/white_for_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+
+        <ImageView
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/appCompatTextView"
+            app:srcCompat="@drawable/x_circle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</carbon.widget.LinearLayout>

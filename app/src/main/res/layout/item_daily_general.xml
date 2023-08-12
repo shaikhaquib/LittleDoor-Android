@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginVertical="@dimen/_8_dp"
+    android:layout_marginHorizontal="@dimen/_16_dp"
+    app:cardCornerRadius="@dimen/_16_dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_8_dp"
+        android:layout_marginHorizontal="@dimen/_16_dp">
+
+        <TextView
+            android:id="@+id/txtTime"
+            style="@style/TextTitleBold_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="19:00"
+            android:textColor="@color/black_light"
+            app:layout_constraintBottom_toBottomOf="@+id/imgEmotion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgEmotion" />
+
+
+        <ImageView
+            android:id="@+id/imgEmotion"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/angry"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtDetails"
+            style="@style/TextTitleNormal_14sp"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4_dp"
+            android:text="Today, I remember this quote - Happiness is making the most of what you have and riches is making the most of we got."
+            android:textColor="@color/black_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="@dimen/_6dp"
+            app:layout_constraintTop_toBottomOf="@+id/imgEmotion" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
