@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_20_dp"
+    app:cardBackgroundColor="@color/purple_lighter"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_16_dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_12_dp">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView15"
+            style="@style/TextTitleMedium_12sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="09:45 - 03 July 2023"
+            android:textColor="@color/grey_primary"
+            android:drawableStart="@drawable/blue_ring"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/_6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtName"
+            style="@style/TextDarkBold_16dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Hi Aquib"
+            android:layout_marginTop="@dimen/_8_dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <TextView
+            android:id="@+id/txtSubText"
+            style="@style/TextTitleMedium_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4_dp"
+            android:text="You have a meeting with Dr. Wasim."
+            android:textColor="@color/grey_primary"
+            app:layout_constraintStart_toStartOf="@+id/txtName"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

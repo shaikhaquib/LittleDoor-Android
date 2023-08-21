@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.activity.drForms.ActivityAddAppreciation
 import com.devative.littledoor.activity.drForms.ActivityAddEducationForm
@@ -19,11 +20,15 @@ import com.devative.littledoor.model.DoctorDetailsResponse
 class FormAdapter (
     val context: Context,
     val list: ArrayList<Any>,
-    val event: FormAdapterEvent
+    val event: FormAdapterEvent,
+    val isEdit:Boolean = true
 ) : RecyclerView.Adapter<FormAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemFormDataBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
+
+            binding.imgIcon.isVisible = isEdit
+
             if (list.isNotEmpty())
             if (list[0] is ActivityAddExperience.FormData){
                 handleFormExp(position)

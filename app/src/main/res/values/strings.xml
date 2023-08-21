@@ -103,4 +103,12 @@
     <string name="update">Update</string>
     <string name="how_are_you_feeling_today">How are you feeling today ?</string>
     <string name="submit">Submit</string>
+    <string name="transaction">Transaction</string>
+    <string name="notification">Notification</string>
+    <string name="today">Today</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="previous">Previous</string>
+    <string name="all_payment">All Payment</string>
+    <string name="successful">Successful</string>
+    <string name="failed">Failed</string>
 </resources>

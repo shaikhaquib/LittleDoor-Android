@@ -1,10 +1,9 @@
 package com.devative.littledoor.activity
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import com.devative.littledoor.R
 import com.devative.littledoor.architecturalComponents.helper.Constants
@@ -12,8 +11,6 @@ import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.DrRegViewModel
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.ActivityOtpverificationBinding
-import com.devative.littledoor.model.DrRegistrationMasterModel
-import com.devative.littledoor.util.Progress
 import com.devative.littledoor.util.Utility
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
@@ -164,6 +161,15 @@ class OTPVerificationActivity : BaseActivity() {
             }
         }
 
+    }
+
+    private fun startActivity(activity: Class<*>,isDoctor:Boolean = false) {
+        val intent = Intent(this.applicationContext, activity)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        if (isDoctor){
+            intent.putExtra(Constants.IS_DOCTOR,true)
+        }
+        startActivity(intent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

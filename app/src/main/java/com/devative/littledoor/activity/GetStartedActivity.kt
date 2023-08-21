@@ -3,6 +3,7 @@ package com.devative.littledoor.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.databinding.ActivityGetStartedBinding
 
 class GetStartedActivity : AppCompatActivity() {
@@ -13,7 +14,7 @@ class GetStartedActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnNext.setOnClickListener {
-            startActivity(Intent(applicationContext,MainActivity::class.java))
+            startActivity(Intent(applicationContext,ProfilePicUploadActivity::class.java))
             finish()
         }
 

@@ -3,6 +3,7 @@ package com.devative.littledoor.architecturalComponents.helper
 import android.widget.ImageView
 import androidx.constraintlayout.helper.widget.MotionPlaceholder
 import com.bumptech.glide.Glide
+import com.devative.littledoor.R
 
 
 object Constants {
@@ -14,9 +15,10 @@ object Constants {
     const val AUTH_TOKEN = "token"
     const val FORM_EDIT_POSITION = "position"
     const val FORM_EDIT_DATA = "FORM_EDIT_DATA"
+    const val TH_DETAILS = "TH_DETAILS"
     var isDoctor = false
 
-    fun ImageView.load(url: String,placeholder: Int) {
+    fun ImageView.load(url: String,placeholder: Int = R.color.primary) {
         Glide.with(context)
             .load(url)
             .placeholder(placeholder)

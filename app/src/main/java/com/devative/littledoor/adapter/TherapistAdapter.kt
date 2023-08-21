@@ -16,6 +16,10 @@ class TherapistAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int, data: DoctotorListRes.Data) {
 
+            binding.root.setOnClickListener{
+                therapistAdapterEvent.onclick(position)
+            }
+
             binding.apply {
                 txtName.text = data.name
                 txtDesc.text = "${data.category_name}, ${data.city}, ${data.state}"

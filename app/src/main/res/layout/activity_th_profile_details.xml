@@ -40,6 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imgProfile">
 
         <TextView
+            android:id="@+id/txtSessionFee"
             style="@style/TextDarkBold_16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -148,6 +149,7 @@
 
 
             <TextView
+                android:id="@+id/textView12"
                 style="@style/TextTitleNormal_14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
@@ -159,106 +161,16 @@
                 app:layout_constraintTop_toTopOf="@+id/rating" />
 
 
-            <TextView
-                android:id="@+id/txtExprts"
-                style="@style/TextTitleBold_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_24_dp"
-                android:drawableStart="@drawable/experties"
-                android:drawablePadding="@dimen/_8_dp"
-                android:gravity="center_vertical"
-                android:text="Expertise"
-                app:layout_constraintStart_toStartOf="@+id/rating"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvData"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rating" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12_dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/txtExprts"
-                app:layout_constraintTop_toBottomOf="@+id/txtExprts">
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Separation"
-                    app:chipBackgroundColor="#f5f4f7"
-                    app:chipCornerRadius="@dimen/_8_dp" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dialectical"
-                    app:chipBackgroundColor="#f5f4f7"
-                    app:chipCornerRadius="@dimen/_8_dp" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Social"
-                    app:chipBackgroundColor="#f5f4f7"
-                    app:chipCornerRadius="@dimen/_8_dp" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Panic"
-                    app:chipBackgroundColor="#f5f4f7"
-                    app:chipCornerRadius="@dimen/_8_dp" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Group Therapy"
-                    app:chipBackgroundColor="#f5f4f7"
-                    app:chipCornerRadius="@dimen/_8_dp" />
-            </com.google.android.material.chip.ChipGroup>
-
-            <TextView
-                android:id="@+id/textView12"
-                style="@style/TextTitleBold_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_18_dp"
-                android:drawableStart="@drawable/appreciation"
-                android:drawablePadding="@dimen/_8_dp"
-                android:gravity="center_vertical"
-                android:text="Expertise"
-                app:layout_constraintStart_toStartOf="@+id/rating"
-                app:layout_constraintTop_toBottomOf="@+id/chipGroup2" />
-
-            <TextView
-                android:id="@+id/txtExpertise"
-                style="@style/TextTitleBold_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12_dp"
-                android:text="Expert practice - Oxford Academic"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-            <TextView
-                android:id="@+id/txtExpertiseDescription"
-                style="@style/TextTitleNormal_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:text="Nerul, Navi Mumbai"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@+id/txtExpertise"
-                app:layout_constraintTop_toBottomOf="@+id/txtExpertise" />
-
-            <TextView
-                android:id="@+id/txtExpertiseYear"
-                style="@style/TextTitleNormal_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:text="2014"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@+id/txtExpertiseDescription"
-                app:layout_constraintTop_toBottomOf="@+id/txtExpertiseDescription" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

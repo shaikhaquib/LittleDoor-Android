@@ -10,16 +10,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.DailyGeneralActivity
-import com.devative.littledoor.activity.ProfilePicUploadActivity
 import com.devative.littledoor.activity.UpdateProfile
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.HomeFragmentBinding
 import com.devative.littledoor.model.UserDetails
 import com.devative.littledoor.util.DailyGeneraleBottomSheet
-import com.devative.littledoor.util.ImagePickerDialog
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 /**
  * Created by AQUIB RASHID SHAIKH on 20-03-2023.

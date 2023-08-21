@@ -21,8 +21,9 @@ import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.UserDetails
 import com.devative.littledoor.util.ImagePickerDialog
 import com.devative.littledoor.util.Logger
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
-
+@AndroidEntryPoint
 class UpdateProfile : BaseActivity(),View.OnClickListener {
     val binding: ActivityUpdateProfileBinding by lazy {
         ActivityUpdateProfileBinding.inflate(layoutInflater)

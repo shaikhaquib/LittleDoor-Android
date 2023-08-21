@@ -4,11 +4,16 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.view.View.OnClickListener
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.SignUpActivity
 import com.devative.littledoor.activity.UpdateProfile
+import com.devative.littledoor.activity.UserAppointmentActivity
+import com.devative.littledoor.activity.UserNotificationActivity
+import com.devative.littledoor.activity.UserTransactionActivity
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.SettingsFragmentBinding
@@ -20,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by AQUIB RASHID SHAIKH on 20-03-2023.
  */
 @AndroidEntryPoint
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment(), OnClickListener {
     private var basicDetails: UserDetails.Data? = null
     private lateinit var binding: SettingsFragmentBinding
     private lateinit var vm:MainViewModel
@@ -61,6 +66,9 @@ class SettingsFragment : Fragment() {
         binding.btnUpdateProfile.setOnClickListener{
             startActivity(Intent(requireContext(),UpdateProfile::class.java))
         }
+        binding.txtAppointment.setOnClickListener(this)
+        binding.txtNotification.setOnClickListener(this)
+        binding.txtTransaction.setOnClickListener(this)
     }
 
     private fun updateUI() {
@@ -70,6 +78,14 @@ class SettingsFragment : Fragment() {
         binding.imgProfile.borderColor =
             ContextCompat.getColor(requireContext(), R.color.grey_primary)
         binding.imgProfile.borderWidth = 10
+    }
+
+    override fun onClick(p0: View?) {
+        when(p0?.id){
+            binding.txtAppointment.id -> startActivity(Intent(requireContext(),UserAppointmentActivity::class.java))
+            binding.txtTransaction.id -> startActivity(Intent(requireContext(),UserTransactionActivity::class.java))
+            binding.txtNotification.id -> startActivity(Intent(requireContext(),UserNotificationActivity::class.java))
+        }
     }
 
 }

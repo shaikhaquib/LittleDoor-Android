@@ -17,7 +17,7 @@ class ListSpacingDecoration : ItemDecoration() {
     ) {
         // only for the last one
         if (parent.getChildAdapterPosition(view) == parent.adapter!!.itemCount - 1) {
-            outRect.bottom = 50 /* set your margin here */
+            outRect.bottom = 100 /* set your margin here */
         }
     }
 }
