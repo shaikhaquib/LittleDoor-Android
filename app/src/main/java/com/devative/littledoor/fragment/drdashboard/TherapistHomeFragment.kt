@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.MainActivity
 import com.devative.littledoor.adapter.AppointmentAdapter
+import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.TherapistHomeFragmentBinding
 import com.devative.littledoor.model.UserDetails
@@ -75,6 +76,10 @@ class TherapistHomeFragment  : Fragment() {
 
     private fun updateUI() {
         binding.txtUserName.text = basicDetails?.name
+        basicDetails?.image_url?.let { it1 -> binding.imgProfile.load(it1,R.drawable.profile_view)}
+        binding.imgProfile.borderColor =
+            ContextCompat.getColor(requireContext(), R.color.grey_primary)
+        binding.imgProfile.borderWidth = 10
     }
 
     private fun dayGreetings() {

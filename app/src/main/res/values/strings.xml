@@ -111,4 +111,16 @@
     <string name="all_payment">All Payment</string>
     <string name="successful">Successful</string>
     <string name="failed">Failed</string>
+    <string name="session_details">Session Details</string>
+    <string name="revenue">Revenue</string>
+    <string name="enter_your_per_session_charges">Enter your per session charges</string>
+    <string-array name="week_days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
 </resources>

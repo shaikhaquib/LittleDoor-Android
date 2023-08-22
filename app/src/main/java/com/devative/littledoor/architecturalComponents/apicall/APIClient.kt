@@ -8,6 +8,7 @@ import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.SessionDetails
 import com.devative.littledoor.model.SkillResponse
 import com.devative.littledoor.model.SubCategoryResponse
 import com.devative.littledoor.model.UserDetails
@@ -68,6 +69,25 @@ interface APIClient {
     suspend fun getSubCategory(
         @Field("category_id") name: String
     ): Response<SubCategoryResponse>
+
+    @FormUrlEncoded
+    @POST("doctor/get/session/charge")
+    suspend fun getSessionCharge(
+        @Field("doctor_id") id: Int
+    ): Response<SessionDetails>
+
+    @FormUrlEncoded
+    @POST("doctor/create/update/sesion/charge")
+    suspend fun setSessionCharge(
+        @Field("doctor_id") id: Int,
+        @Field("session_charge_amount") amount: String
+    ): Response<GeneralResponse>
+   @FormUrlEncoded
+    @POST("doctor/update/availability/consultancy")
+    suspend fun setDrAvailability(
+        @Field("doctor_id") id: Int,
+        @Field("consultancy_status") status: Int
+    ): Response<GeneralResponse>
 
     @GET("doctor/get/details")
     suspend fun getDoctorDetails(): Response<DoctorDetailsResponse>

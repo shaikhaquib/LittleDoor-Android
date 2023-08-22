@@ -175,6 +175,8 @@
         <item name="textAllCaps">false</item>
         <item name="iconTint">@color/neutral_white</item>
         <item name="iconSize">@dimen/_24_dp</item>
+        <item name="android:insetBottom">@dimen/_0dp</item>
+        <item name="android:insetTop">@dimen/_0dp</item>
         <item name="android:fontFamily"> @font/sfprodisplaymedium</item>
         <item name="android:includeFontPadding">false</item>
         <item name="cornerRadius">@dimen/_16_dp</item>

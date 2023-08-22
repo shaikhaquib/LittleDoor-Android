@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.THAddSessionDetailsActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/AppToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Session Details" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtUserName"
+        style="@style/TextDarkBold_16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_your_per_session_charges"
+        android:layout_marginTop="@dimen/_24_dp"
+        android:layout_marginHorizontal="@dimen/_16_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtUserName4"
+        style="@style/TextDarkBold_16dp"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_marginHorizontal="@dimen/_16_dp"
+        android:layout_marginTop="16dp"
+        android:text="Select Day &amp; Time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserName3" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtUserName3"
+        style="@style/TextTitleMedium_16sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16_dp"
+        android:layout_marginTop="16dp"
+        android:text="Available for Consultancy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtUserName2"
+        style="@style/TextTitleMedium_12sp"
+        android:layout_width="0dp"
+        android:layout_height="29dp"
+        android:layout_marginHorizontal="@dimen/_16_dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/grey_primary"
+        android:text="You will able to update your session amount to given current amount for another 30 days."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtAmount" />
+
+    <EditText
+        android:id="@+id/edtAmount"
+        style="@style/TextDarkBold_18_dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:inputType="number"
+        android:background="@drawable/border_background_white"
+        android:drawableStart="@drawable/rupee"
+        android:drawablePadding="@dimen/_16_dp"
+        android:drawableTint="@color/black"
+        android:maxLength="5"
+        android:maxLines="1"
+        android:gravity="center|start"
+        android:paddingStart="@dimen/_18_dp"
+        android:paddingTop="@dimen/_12_dp"
+        android:paddingBottom="@dimen/_12_dp"
+        app:layout_constraintEnd_toEndOf="@+id/txtUserName"
+        app:layout_constraintStart_toStartOf="@+id/txtUserName"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserName" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSUbmit"
+        style="@style/RoundedCorner"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/submit"
+        android:insetTop="@dimen/_0dp"
+        android:insetBottom="@dimen/_0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtAmount"
+        app:layout_constraintEnd_toEndOf="@+id/edtAmount"
+        app:layout_constraintTop_toTopOf="@+id/edtAmount" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/grey_lighter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserName2" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/swOnOff"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:checked="true"
+        android:thumb="@drawable/custom_thumb"
+        app:layout_constraintBottom_toBottomOf="@+id/txtUserName3"
+        app:layout_constraintEnd_toEndOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="@+id/txtUserName3"
+        app:track="@drawable/switch_selector_track" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSlots"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_16_dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
+        app:layout_constraintEnd_toEndOf="@+id/txtUserName4"
+        app:layout_constraintStart_toStartOf="@+id/txtUserName4"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserName4"
+        tools:itemCount="7"
+        tools:listitem="@layout/item_create_slot" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnUpdate"
+        style="@style/RoundedCorner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/update"
+        android:layout_marginVertical="@dimen/_24_dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rvSlots"
+        app:layout_constraintStart_toStartOf="@+id/rvSlots" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

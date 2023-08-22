@@ -1,6 +1,7 @@
 package com.devative.littledoor.architecturalComponents.repository
 
 import com.devative.littledoor.architecturalComponents.apicall.APIClient
+import com.devative.littledoor.architecturalComponents.helper.Status
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -15,6 +16,9 @@ class MainRepository @Inject constructor(
     suspend fun saveMCQResult(data: HashMap<String, Any>) = apiHelper.saveMCQResult(data)
     suspend fun createTherapist(sendData: HashMap<String, String>) = apiHelper.createTherapist(sendData)
     suspend fun getSubCategory(id:String) = apiHelper.getSubCategory(id)
+    suspend fun getSessionCharge(id:Int) = apiHelper.getSessionCharge(id)
+    suspend fun setSessionCharge(id:Int, amount:String) = apiHelper.setSessionCharge(id, amount)
+    suspend fun setAvailability(id:Int, status:Int) = apiHelper.setDrAvailability(id, status)
     suspend fun getCategory() = apiHelper.getCategory()
     suspend fun getDoctorDetails() = apiHelper.getDoctorDetails()
     suspend fun getSkill() = apiHelper.getSkill()

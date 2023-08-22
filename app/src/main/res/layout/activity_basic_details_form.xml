@@ -19,10 +19,10 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scrollbars="none"
-        android:layout_marginTop="24dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
         android:layout_marginRight="24dp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/liTermsSerive"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,10 +71,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_16_dp"
-                android:maxLength="10"
                 android:drawableStart="@drawable/phone"
                 android:hint="@string/enter_mobile"
                 android:inputType="phone"
+                android:maxLength="10"
                 android:maxLines="1" />
 
             <TextView
@@ -156,8 +156,8 @@
                     android:drawableEnd="@drawable/calendar"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:textSize="@dimen/_12_dp"
                     android:text="@string/select"
+                    android:textSize="@dimen/_12_dp"
                     app:carbon_rippleColor="@color/neutral_gray"
                     app:carbon_stroke="@color/grey_lighter"
                     app:carbon_strokeWidth="@dimen/carbon_1dip" />
@@ -189,8 +189,6 @@
                 app:carbon_strokeWidth="@dimen/carbon_1dip" />
 
 
-
-
         </LinearLayout>
 
     </ScrollView>
@@ -199,29 +197,34 @@
         android:id="@+id/liTermsSerive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8_dp"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toTopOf="@id/btnCreate"
         app:layout_constraintStart_toStartOf="@+id/btnCreate">
-        <CheckBox
+
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/chkTerms"
-            style="@style/TextTitleBold_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:button="@drawable/checkbox_selector"
+            android:checked="true"
             android:gravity="center"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            android:padding="@dimen/_0dp"
-            />
+            android:padding="@dimen/_0dp" />
+
         <TextView
             android:id="@+id/txtTermsLabel"
             style="@style/TextTitleBold_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_16_dp"
             android:gravity="center"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:padding="@dimen/_0dp"
-            android:text="@string/label_terms_condition"
-            />
+            android:text="@string/label_terms_condition" />
 
     </LinearLayout>
 

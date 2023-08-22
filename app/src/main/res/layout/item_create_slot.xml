@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingVertical="@dimen/_8_dp"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/chkDays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/checkbox_selector"
+        android:checked="true"
+        android:gravity="center"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="@dimen/_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDay"
+        style="@style/TextTitleMedium_14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Monday"
+        android:layout_marginStart="@dimen/_16_dp"
+        app:layout_constraintBottom_toBottomOf="@+id/chkDays"
+        app:layout_constraintStart_toEndOf="@+id/chkDays"
+        app:layout_constraintTop_toTopOf="@+id/chkDays" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtSelectTime"
+        style="@style/TextTitleMedium_14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_16_dp"
+        android:text="Select Time"
+        android:textColor="@color/primary"
+        app:layout_constraintBottom_toBottomOf="@+id/chkDays"
+        app:layout_constraintEnd_toStartOf="@+id/chkEdit"
+        app:layout_constraintTop_toTopOf="@+id/chkDays" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/chkEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/checkbox_selector_time_edit"
+        android:checked="false"
+        android:gravity="center"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="@dimen/_0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtSelectTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtSelectTime" />
+
+    <ImageView
+        android:id="@+id/imgSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/txtSelectTime"
+        app:layout_constraintEnd_toStartOf="@+id/txtSelectTime"
+        app:layout_constraintTop_toTopOf="@+id/txtSelectTime"
+        app:srcCompat="@drawable/check_green" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
