@@ -2,6 +2,7 @@ package com.devative.littledoor.architecturalComponents.repository
 
 import com.devative.littledoor.architecturalComponents.apicall.APIClient
 import com.devative.littledoor.architecturalComponents.helper.Status
+import retrofit2.http.Body
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -24,4 +25,8 @@ class MainRepository @Inject constructor(
     suspend fun getSkill() = apiHelper.getSkill()
     suspend fun getDoctorList() = apiHelper.getDoctorList()
     suspend fun getAllTimeSLots() = apiHelper.getAllTimeSLots()
+    suspend fun getAllEmotions() = apiHelper.getAllEmotions()
+    suspend fun getJournal() = apiHelper.getJournal()
+    suspend fun postJournal(sendData: HashMap<String, Any>) = apiHelper.postJournal(sendData)
+    suspend fun deleteJournal(id:Int) = apiHelper.deleteJournal(id)
 }

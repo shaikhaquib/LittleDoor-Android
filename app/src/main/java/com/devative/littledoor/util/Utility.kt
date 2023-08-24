@@ -13,6 +13,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.MainActivity
 import es.dmoral.toasty.Toasty
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -93,6 +94,12 @@ object Utility {
     }
     fun infoToast(applicationContext: Context,message: String){
         Toasty.info(applicationContext,message).show()
+    }
+
+    fun getCurrentDateFormatted(format:String): String {
+        val currentDate = Date()
+        val dateFormat = SimpleDateFormat(format, Locale.getDefault()) // Customize the format as needed
+        return dateFormat.format(currentDate)
     }
 
 }

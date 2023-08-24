@@ -11,7 +11,9 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.devative.littledoor.adapter.EmoteAdapter
 import com.devative.littledoor.databinding.BottomSheetDailyGenralBinding
+import com.devative.littledoor.model.EmotModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -20,9 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  */
 
 
-class DailyGeneraleBottomSheet(
-    private val context: AppCompatActivity
-) : BottomSheetDialogFragment(),OnClickListener {
+class DailyGeneraleBottomSheet(val list:ArrayList<EmotModel.Data>,var selectedPosition:Int = -1,val event: DailyGeneraleBottomSheetEvent) : BottomSheetDialogFragment(),OnClickListener {
 
     private lateinit var binding:BottomSheetDailyGenralBinding
 
@@ -44,13 +44,34 @@ class DailyGeneraleBottomSheet(
         isCancelable = false
         binding.btnCancel.setOnClickListener(this)
         binding.btnSubmit.setOnClickListener(this)
+
+        binding.rvEmote.adapter = EmoteAdapter(requireActivity(),list,object :
+            EmoteAdapter.EmoteAdapterEvent {
+            override fun onclick(position: Int) {
+               selectedPosition = position
+            }
+        },selectedPosition)
+
     }
     override fun onClick(p0: View?) {
         when (p0?.id) {
             binding.btnCancel.id -> dismiss()
-            binding.btnSubmit.id -> dismiss()
+            binding.btnSubmit.id ->{
+                if (binding.editText.text.isEmpty()){
+                    binding.editText.error ="Please describe your feelings in the message box."
+                    Utility.errorToast(requireActivity(),"Please describe your feelings in the message box.")
+                }else if (selectedPosition == -1){
+                    Utility.errorToast(requireActivity(),"Please choose the emoji that best expresses your emotions.")
+                }else {
+                    dismiss()
+                    event.onSubmit(list[selectedPosition].id,binding.editText.text.toString())
+                }
+            }
         }
+    }
 
+    interface DailyGeneraleBottomSheetEvent{
+        fun onSubmit(id:Int,message:String)
     }
 
 }

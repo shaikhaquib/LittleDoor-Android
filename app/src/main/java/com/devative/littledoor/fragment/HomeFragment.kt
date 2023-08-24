@@ -8,15 +8,23 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.DailyGeneralActivity
 import com.devative.littledoor.activity.UpdateProfile
+import com.devative.littledoor.adapter.EmoteAdapter
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
+import com.devative.littledoor.architecturalComponents.helper.Status
+import com.devative.littledoor.architecturalComponents.viewmodel.DailyJournalVM
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.HomeFragmentBinding
+import com.devative.littledoor.model.EmotModel
 import com.devative.littledoor.model.UserDetails
 import com.devative.littledoor.util.DailyGeneraleBottomSheet
+import com.devative.littledoor.util.Progress
+import com.devative.littledoor.util.Utility
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import java.util.Calendar
 import java.util.Date
 
@@ -28,6 +36,11 @@ class HomeFragment  : Fragment() {
     private var basicDetails: UserDetails.Data? = null
     private lateinit var binding: HomeFragmentBinding
     private lateinit var vm: MainViewModel
+    private val dailyJournalVM: DailyJournalVM by viewModels()
+    private val emoteList = ArrayList<EmotModel.Data>()
+    private val progress:Progress by lazy {
+        Progress(requireActivity() as AppCompatActivity)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,13 +67,78 @@ class HomeFragment  : Fragment() {
         binding.layoutJournal.setOnClickListener {
             startActivity(Intent(requireContext(),DailyGeneralActivity::class.java))
         }
+        binding.rvEmote.adapter = EmoteAdapter(requireActivity(),emoteList,object :
+            EmoteAdapter.EmoteAdapterEvent {
+            override fun onclick(position: Int) {
+                val dialog = DailyGeneraleBottomSheet(emoteList,position,object :
+                    DailyGeneraleBottomSheet.DailyGeneraleBottomSheetEvent {
+                    override fun onSubmit(id: Int, message: String) {
+                        val dataMap = HashMap<String, Any>()
+                        dataMap["emotion_id"] = id
+                        dataMap["date"] = Utility.getCurrentDateFormatted("yyyy-MM-dd")
+                        dataMap["message"] = message
+                        dailyJournalVM.postJournal(dataMap)
+                    }
+                })
+                dialog.show(requireActivity().supportFragmentManager, "ImagePickerDialog")
+            }
+        })
 
-        binding.liAction.setOnClickListener {
-            val dialog = DailyGeneraleBottomSheet(
-                requireActivity() as AppCompatActivity
-            )
-            dialog.show(requireActivity().supportFragmentManager, "ImagePickerDialog")
+        observe()
+    }
+
+    private fun observe() {
+        dailyJournalVM.getEmote()
+        dailyJournalVM.getEmote.observe(requireActivity()) {
+            when (it.status) {
+                Status.LOADING -> {
+               //   progress.show()
+                }
+
+                Status.SUCCESS -> {
+                 //   progress.dismiss()
+                    if (it.data?.status == true) {
+                        emoteList.clear()
+                        if (it.data.data.isNotEmpty()) {
+                            emoteList.addAll(it.data.data)
+                            binding.rvEmote.adapter?.notifyDataSetChanged()
+                        }
+
+                    }
+                }
+
+                Status.ERROR -> {
+                 //   progress.dismiss()
+                }
+
+            }
         }
+        dailyJournalVM.postJournal.observe(requireActivity()) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress?.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true){
+                        Utility.successToast(requireContext(),it.data.message)
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress?.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            requireContext(),
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
+
     }
 
     private fun updateUI() {

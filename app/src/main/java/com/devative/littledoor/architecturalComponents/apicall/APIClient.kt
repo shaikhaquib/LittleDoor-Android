@@ -1,9 +1,12 @@
 package com.devative.littledoor.architecturalComponents.apicall
 
+import androidx.room.Delete
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.model.CategoryResponse
+import com.devative.littledoor.model.DailyJournalModel
 import com.devative.littledoor.model.DoctorDetailsResponse
 import com.devative.littledoor.model.DoctotorListRes
+import com.devative.littledoor.model.EmotModel
 import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
@@ -15,10 +18,12 @@ import com.devative.littledoor.model.TimeSLotModel
 import com.devative.littledoor.model.UserDetails
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface APIClient {
 
@@ -83,7 +88,8 @@ interface APIClient {
         @Field("doctor_id") id: Int,
         @Field("session_charge_amount") amount: String
     ): Response<GeneralResponse>
-   @FormUrlEncoded
+
+    @FormUrlEncoded
     @POST("doctor/update/availability/consultancy")
     suspend fun setDrAvailability(
         @Field("doctor_id") id: Int,
@@ -92,13 +98,29 @@ interface APIClient {
 
     @GET("doctor/get/details")
     suspend fun getDoctorDetails(): Response<DoctorDetailsResponse>
+
     @GET("admin/get/skills")
     suspend fun getSkill(): Response<SkillResponse>
-  @GET("admin/get/doctor/list")
+
+    @GET("admin/get/doctor/list")
     suspend fun getDoctorList(): Response<DoctotorListRes>
 
     @GET("admin/get/all-slot")
     suspend fun getAllTimeSLots(): Response<TimeSLotModel>
+
+    @GET("admin/get/all/emotions")
+    suspend fun getAllEmotions(): Response<EmotModel>
+
+    @POST("patient/add/daily/journal")
+    suspend fun postJournal(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+
+    @GET("patient/get/daily/journal")
+    suspend fun getJournal(): Response<DailyJournalModel>
+
+    @DELETE("patient/delete/daily/journal/{id}")
+    suspend fun deleteJournal(
+        @Path("doctor_id") id: Int,
+    ): Response<GeneralResponse>
 
     companion object {
         const val THERAPIST_ADD_DETAILS = "${Constants.BASE_URL}doctor/submit/details"

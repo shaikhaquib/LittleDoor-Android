@@ -3,30 +3,37 @@ package com.devative.littledoor.activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
+import androidx.activity.viewModels
 import com.devative.littledoor.R
 import com.devative.littledoor.adapter.DailyGeneralAdapter
 import com.devative.littledoor.architecturalComponents.helper.Constants
+import com.devative.littledoor.architecturalComponents.helper.Status
+import com.devative.littledoor.architecturalComponents.viewmodel.DailyJournalVM
 import com.devative.littledoor.databinding.ActivityDailyGeneralBinding
+import com.devative.littledoor.model.DailyJournalModel
+import com.devative.littledoor.model.EmotModel
 import com.devative.littledoor.util.CalendarBottomSheetDialogFragment
 import com.devative.littledoor.util.DailyGeneraleBottomSheet
-import com.devative.littledoor.util.IOSDatePickerFragment
-import com.devative.littledoor.util.Logger
+import com.devative.littledoor.util.Utility
 import com.devative.littledoor.verticalweekcalendar.VerticalWeekCalendar
 import com.devative.littledoor.verticalweekcalendar.controller.VerticalWeekAdapter
 import com.devative.littledoor.verticalweekcalendar.interfaces.DateWatcher
-import com.devative.littledoor.verticalweekcalendar.interfaces.OnDateClickListener
 import com.devative.littledoor.verticalweekcalendar.model.CalendarDay
+import es.dmoral.toasty.Toasty
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.GregorianCalendar
-import java.util.Objects
+import java.util.Locale
 
-class DailyGeneralActivity : AppCompatActivity(),DailyGeneralAdapter.DailyGeneralAdapterEvent {
+class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAdapterEvent {
     private val binding: ActivityDailyGeneralBinding by lazy {
         ActivityDailyGeneralBinding.inflate(layoutInflater)
     }
-    private lateinit var adapter:DailyGeneralAdapter
+    private lateinit var adapter: DailyGeneralAdapter
+    private val vm: DailyJournalVM by viewModels()
+    private val emoteList = ArrayList<EmotModel.Data>()
+    private val dailyJournalList = ArrayList<DailyJournalModel.Data>()
+    var selected: GregorianCalendar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -34,7 +41,7 @@ class DailyGeneralActivity : AppCompatActivity(),DailyGeneralAdapter.DailyGenera
         val calendar = Calendar.getInstance()
         setUpwatcher(calendar)
         binding.txtMonth.text = Constants.monthNames[calendar[Calendar.MONTH]]
-        adapter = DailyGeneralAdapter(this,this)
+        adapter = DailyGeneralAdapter(this, this,dailyJournalList)
         binding.rvGeneral.adapter = adapter
         adapter.notifyDataSetChanged()
 
@@ -62,17 +69,142 @@ class DailyGeneralActivity : AppCompatActivity(),DailyGeneralAdapter.DailyGenera
         }
 
         binding.addDailyGenral.setOnClickListener {
-            val dialog = DailyGeneraleBottomSheet(
-                this
-            )
+            val dialog = DailyGeneraleBottomSheet(emoteList,-1,object :
+                DailyGeneraleBottomSheet.DailyGeneraleBottomSheetEvent {
+                override fun onSubmit(id: Int, message: String) {
+                    val year = selected?.get(Calendar.YEAR)
+                    val month = selected?.get(Calendar.MONTH)?.plus(1) // Adding 1 since Calendar.MONTH is 0-based
+                    val day = selected?.get(Calendar.DAY_OF_MONTH)
+
+                    val dataMap = HashMap<String, Any>()
+                    dataMap["emotion_id"] = id
+                    dataMap["date"] = Utility.getCurrentDateFormatted("$year-$month-$day")
+                    dataMap["message"] = message
+                    vm.postJournal(dataMap)
+                }
+            })
             dialog.show(supportFragmentManager, "ImagePickerDialog")
+        }
+        observe()
+    }
+
+    private fun observe() {
+        vm.getJournal()
+        vm.getEmote()
+
+        vm.getEmote.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+
+                }
+
+                Status.SUCCESS -> {
+                    if (it.data?.status == true) {
+                        emoteList.clear()
+                        if (it.data.data.isNotEmpty()) {
+                            emoteList.addAll(it.data.data as ArrayList)
+                        }
+                    }
+                }
+
+                Status.ERROR -> {
+                }
+
+            }
+        }
+        vm.getJournal.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    if (!progress.isShowing())
+                        progress.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress?.dismiss()
+                    if (it.data?.status == true) {
+                        emoteList.clear()
+                        if (it.data.data.isNotEmpty()) {
+                            dailyJournalList.addAll(it.data.data as ArrayList)
+                            adapter.notifyDataSetChanged()
+                        }
+                    } else {
+                        Toasty.error(applicationContext, getString(R.string.some_thing_went_wrong))
+                            .show()
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress?.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
+
+        vm.postJournal.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress?.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true){
+                        vm.getJournal()
+                        Utility.successToast(applicationContext,it.data.message)
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress?.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
+        vm.deleteJournal.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress?.show()
+                }
+
+                Status.SUCCESS -> {
+                    if (it.data?.status == true){
+                        vm.getJournal()
+                        Utility.successToast(applicationContext,it.data.message)
+                    }else{
+                        it.data?.message?.let { it1 -> Utility.errorToast(applicationContext, it1) }
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
         }
 
 
     }
 
     private fun setUpwatcher(calendar: Calendar) {
-        var selected: GregorianCalendar? = null
+
         var calendarView: VerticalWeekCalendar? = null
         selected = GregorianCalendar(
             calendar[Calendar.YEAR],
