@@ -2,7 +2,6 @@ package com.devative.littledoor.activity
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.CompoundButton
 import androidx.activity.viewModels
 import com.devative.littledoor.R
 import com.devative.littledoor.adapter.THCreateSlotAdapter
@@ -10,8 +9,12 @@ import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.architecturalComponents.viewmodel.UpdateSessionDetailsVM
 import com.devative.littledoor.databinding.ActivityThaddSessionDetailsBinding
+import com.devative.littledoor.model.TimeSLotModel
+import com.devative.littledoor.util.AllTimeSlotSelectDialog
+import com.devative.littledoor.util.ImagePickerDialog
 import com.devative.littledoor.util.Utility
 import es.dmoral.toasty.Toasty
+import java.sql.Time
 
 class THAddSessionDetailsActivity : BaseActivity() {
     val binding: ActivityThaddSessionDetailsBinding by lazy {
@@ -19,6 +22,7 @@ class THAddSessionDetailsActivity : BaseActivity() {
     }
     private val vm: UpdateSessionDetailsVM by viewModels()
     private val mainViewModel: MainViewModel by viewModels()
+    private val timeSlotsList = ArrayList<TimeSLotModel.Data>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,7 @@ class THAddSessionDetailsActivity : BaseActivity() {
 
     private fun observe() {
         basicDetails?.doctor_id?.let { vm.getSessionDetails(it) }
+        vm.getAllTimeSlots()
         vm.getSessionAmount.observe(this){
             when (it.status) {
                 Status.LOADING -> {
@@ -116,12 +121,36 @@ class THAddSessionDetailsActivity : BaseActivity() {
             }
 
         }
+        vm.getAllTimeSlot.observe(this){
+            when (it.status) {
+                Status.LOADING -> {
+                }
+
+                Status.SUCCESS -> {
+                    timeSlotsList.clear()
+                    if (it.data != null && it.data.data.isNotEmpty()){
+                        timeSlotsList.addAll(it.data.data as ArrayList<TimeSLotModel.Data>)
+                    }
+                }
+
+                Status.ERROR -> {
+                }
+
+            }
+
+        }
     }
 
     private fun setUpUI() {
         binding.rvSlots.adapter = THCreateSlotAdapter(this,object :
             THCreateSlotAdapter.THCreateSlotAdapterEvent {
             override fun onclick(position: Int) {
+
+            }
+
+            override fun onOpenSelection(day: Int) {
+                val dialog = AllTimeSlotSelectDialog(timeSlotsList)
+                dialog.show(supportFragmentManager, "AllTimeSlotSelectDialog")
 
             }
         })

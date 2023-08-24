@@ -65,7 +65,7 @@ class OTPVerificationActivity : BaseActivity() {
                             it.data.api_token
                         )
                         if (it.data.user_details == null)
-                            startActivity(Intent(applicationContext, BasicDetailsForm::class.java))
+                            startActivity(BasicDetailsForm::class.java)
                         else {
                             viewModel.getUserDetails()
                         }
@@ -99,16 +99,15 @@ class OTPVerificationActivity : BaseActivity() {
                         it.data?.let { data ->
                             // Toasty.success(applicationContext, it.data.message).show()
                             if (isDoctor || data.data.doctor_id != null) {
-                                startActivity(
-                                    Intent(
-                                        applicationContext,
-                                        DoctorRegistrationMaster::class.java
-                                    )
-                                )
+                                if (it.data.data.status == 1){
+                                    startActivity(MainActivity::class.java,true)
+                                }else {
+                                    startActivity(DoctorRegistrationMaster::class.java)
+                                }
                             } else {
-                                startActivity(Intent(applicationContext, MainActivity::class.java))
+                                startActivity(MainActivity::class.java)
                             }
-                            finish()
+
                         }
                     } else {
                         Toasty.error(applicationContext,getString(R.string.some_thing_went_wrong)).show()
@@ -165,11 +164,12 @@ class OTPVerificationActivity : BaseActivity() {
 
     private fun startActivity(activity: Class<*>,isDoctor:Boolean = false) {
         val intent = Intent(this.applicationContext, activity)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         if (isDoctor){
             intent.putExtra(Constants.IS_DOCTOR,true)
         }
         startActivity(intent)
+        finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

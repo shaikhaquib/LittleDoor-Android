@@ -43,12 +43,11 @@
         app:layout_constraintEnd_toStartOf="@+id/chkEdit"
         app:layout_constraintTop_toTopOf="@+id/chkDays" />
 
-    <androidx.appcompat.widget.AppCompatCheckBox
+    <ImageView
         android:id="@+id/chkEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/checkbox_selector_time_edit"
-        android:checked="false"
+        android:src="@drawable/checkbox_selector_time_edit"
         android:gravity="center"
         android:minWidth="0dp"
         android:minHeight="0dp"

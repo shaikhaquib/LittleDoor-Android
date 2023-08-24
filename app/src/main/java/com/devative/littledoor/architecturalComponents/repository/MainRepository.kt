@@ -23,4 +23,5 @@ class MainRepository @Inject constructor(
     suspend fun getDoctorDetails() = apiHelper.getDoctorDetails()
     suspend fun getSkill() = apiHelper.getSkill()
     suspend fun getDoctorList() = apiHelper.getDoctorList()
+    suspend fun getAllTimeSLots() = apiHelper.getAllTimeSLots()
 }

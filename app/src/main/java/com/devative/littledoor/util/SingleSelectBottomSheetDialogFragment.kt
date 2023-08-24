@@ -91,7 +91,6 @@ class SingleSelectBottomSheetDialogFragment(
 
                 val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
                 bottomSheetBehavior.isFitToContents = false
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 val layoutParams: ViewGroup.LayoutParams = bottomSheet.getLayoutParams()
                 val windowHeight = getWindowHeight()
                 if (layoutParams != null) {

@@ -22,11 +22,12 @@ class THCreateSlotAdapter(
             val weekDaysList = Arrays.asList(*weekDays)
             val day = weekDaysList[position] // second day of the week is Tuesday
             binding.txtDay.text = day
-            binding.chkEdit.setOnCheckedChangeListener { _, b ->
-                handleTimeSet(b)
+            binding.chkEdit.isSelected = false
+            binding.chkEdit.setOnClickListener {
+                binding.chkEdit.isSelected =  !binding.chkEdit.isSelected
             }
-            binding.chkDays.setOnCheckedChangeListener { _, b ->
-                handleDataVisibility(b)
+            binding.txtSelectTime.setOnClickListener {
+                event.onOpenSelection(position)
             }
         }
         fun handleDataVisibility(checked:Boolean){
@@ -36,9 +37,15 @@ class THCreateSlotAdapter(
         fun handleTimeSet(checked:Boolean){
             if (checked) {
                 binding.txtSelectTime.text = "Time Set"
+                binding.txtSelectTime.isClickable = false
+                binding.chkEdit.isClickable = true
+                binding.chkEdit.isSelected = true
                 binding.txtSelectTime.setTextColor(ContextCompat.getColor(context, R.color.black))
             }else {
                 binding.txtSelectTime.text = "Select Time"
+                binding.txtSelectTime.isClickable = true
+                binding.chkEdit.isClickable = false
+                binding.chkEdit.isSelected = false
                 binding.txtSelectTime.setTextColor(ContextCompat.getColor(context, R.color.primary))
             }
             binding.imgSet.isVisible = checked
@@ -60,5 +67,6 @@ class THCreateSlotAdapter(
 
     interface THCreateSlotAdapterEvent {
         fun onclick(position: Int)
+        fun onOpenSelection(day:Int)
     }
 }

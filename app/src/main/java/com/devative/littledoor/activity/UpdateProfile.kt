@@ -225,7 +225,6 @@ class UpdateProfile : BaseActivity(),View.OnClickListener {
             launcher
         )
         dialog.show(supportFragmentManager, "ImagePickerDialog")
-
     }
 
     fun isValidEmail(email: String): Boolean {

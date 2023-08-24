@@ -114,6 +114,7 @@
     <string name="session_details">Session Details</string>
     <string name="revenue">Revenue</string>
     <string name="enter_your_per_session_charges">Enter your per session charges</string>
+    <string name="select_your_available_timeslot">Select your available timeslot</string>
     <string-array name="week_days">
         <item>Sunday</item>
         <item>Monday</item>

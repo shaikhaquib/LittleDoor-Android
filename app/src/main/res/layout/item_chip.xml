@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="Chip Name"
         android:textColor="@color/grey_primary"
-        style="@style/TextTitleBold_14sp"/>
+        style="@style/TextTitleBold_12sp"/>
 
 
 

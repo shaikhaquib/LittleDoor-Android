@@ -11,6 +11,7 @@ import com.devative.littledoor.model.LoginModel
 import com.devative.littledoor.model.SessionDetails
 import com.devative.littledoor.model.SkillResponse
 import com.devative.littledoor.model.SubCategoryResponse
+import com.devative.littledoor.model.TimeSLotModel
 import com.devative.littledoor.model.UserDetails
 import retrofit2.Response
 import retrofit2.http.Body
@@ -95,6 +96,9 @@ interface APIClient {
     suspend fun getSkill(): Response<SkillResponse>
   @GET("admin/get/doctor/list")
     suspend fun getDoctorList(): Response<DoctotorListRes>
+
+    @GET("admin/get/all-slot")
+    suspend fun getAllTimeSLots(): Response<TimeSLotModel>
 
     companion object {
         const val THERAPIST_ADD_DETAILS = "${Constants.BASE_URL}doctor/submit/details"

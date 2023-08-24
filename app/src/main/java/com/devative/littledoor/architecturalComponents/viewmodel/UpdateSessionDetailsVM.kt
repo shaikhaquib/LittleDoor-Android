@@ -19,6 +19,7 @@ import com.devative.littledoor.model.LoginModel
 import com.devative.littledoor.model.SessionDetails
 import com.devative.littledoor.model.SkillResponse
 import com.devative.littledoor.model.SubCategoryResponse
+import com.devative.littledoor.model.TimeSLotModel
 import com.devative.littledoor.util.Logger
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,6 +40,7 @@ class UpdateSessionDetailsVM @Inject constructor(
     val setSessionAmount = MutableLiveData<Resource<GeneralResponse>>()
     val getSessionAmount = MutableLiveData<Resource<SessionDetails>>()
     val setAvailability = MutableLiveData<Resource<GeneralResponse>>()
+    val getAllTimeSlot = MutableLiveData<Resource<TimeSLotModel>>()
 
 
     fun setSessionAmount(drID:Int, amount: String) = CoroutineScope(Dispatchers.IO).launch {
@@ -97,6 +99,25 @@ class UpdateSessionDetailsVM @Inject constructor(
             }
         } catch (e: Exception) {
             getSessionAmount.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+    fun getAllTimeSlots() = CoroutineScope(Dispatchers.IO).launch {
+        getAllTimeSlot.postValue(Resource.loading(null))
+        try {
+            mainRepository.getAllTimeSLots().let {
+                if (it.isSuccessful) {
+                    getAllTimeSlot.postValue(Resource.success(it.body()))
+                } else {
+                    getAllTimeSlot.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            getAllTimeSlot.postValue(Resource.error(e.message.toString(), null))
         }
     }
 
