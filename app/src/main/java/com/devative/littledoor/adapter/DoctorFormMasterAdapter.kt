@@ -87,7 +87,7 @@ class DoctorFormMasterAdapter(
             formData?.apply {
                 val chipList = ArrayList<String>()
                 binding.chipGroup.removeAllViews()
-                if (!data.skills.isNullOrEmpty()) {
+                if (!data.languages.isNullOrEmpty()) {
                     for (chip in data.languages) {
                         chipList.add(chip)
                         binding.chipGroup.addView(

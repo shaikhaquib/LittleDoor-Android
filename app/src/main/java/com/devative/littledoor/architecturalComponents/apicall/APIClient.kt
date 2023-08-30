@@ -2,6 +2,7 @@ package com.devative.littledoor.architecturalComponents.apicall
 
 import androidx.room.Delete
 import com.devative.littledoor.architecturalComponents.helper.Constants
+import com.devative.littledoor.model.AvailableSlotModel
 import com.devative.littledoor.model.CategoryResponse
 import com.devative.littledoor.model.DailyJournalModel
 import com.devative.littledoor.model.DoctorDetailsResponse
@@ -76,11 +77,8 @@ interface APIClient {
         @Field("category_id") name: String
     ): Response<SubCategoryResponse>
 
-    @FormUrlEncoded
-    @POST("doctor/get/session/charge")
-    suspend fun getSessionCharge(
-        @Field("doctor_id") id: Int
-    ): Response<SessionDetails>
+    @GET("doctor/get/doctor/time/slot")
+    suspend fun getSessionCharge(): Response<SessionDetails>
 
     @FormUrlEncoded
     @POST("doctor/create/update/sesion/charge")
@@ -117,14 +115,23 @@ interface APIClient {
     @GET("patient/get/daily/journal")
     suspend fun getJournal(): Response<DailyJournalModel>
 
+    @POST("patient/get/available/slot/book")
+    suspend fun getAvailableSLotByDate(@Body sendData: HashMap<String, Any>): Response<AvailableSlotModel>
+
+    @POST("patient/book/appointment")
+    suspend fun bookAppointment(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
     @DELETE("patient/delete/daily/journal/{id}")
     suspend fun deleteJournal(
-        @Path("doctor_id") id: Int,
+        @Path(
+            value = "id",
+            encoded = true
+        ) id: Int,
     ): Response<GeneralResponse>
 
     companion object {
         const val THERAPIST_ADD_DETAILS = "${Constants.BASE_URL}doctor/submit/details"
         const val UPDATE_PROFILE = "${Constants.BASE_URL}admin/update/user/details"
+        const val DR_CREATE_TIMESLOT = "${Constants.BASE_URL}doctor/create/slot"
     }
 
 }

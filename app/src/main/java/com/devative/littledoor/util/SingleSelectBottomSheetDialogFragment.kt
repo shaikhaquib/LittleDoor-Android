@@ -12,6 +12,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +35,8 @@ class SingleSelectBottomSheetDialogFragment(
     private val items: ArrayList<SearchAbleList>,
     private val title: String,
     private val selectedValue: Int? = 0,
-    private val searchAble:Boolean? = false,
+    private val searchAble:Boolean = false,
+    private val cancelAble:Boolean = false,
     private val listener: ((selectedValue: SearchAbleList) -> Unit)? = null
 ) : BottomSheetDialogFragment() {
 
@@ -58,7 +60,7 @@ class SingleSelectBottomSheetDialogFragment(
         bottomSheet.backgroundTintMode = PorterDuff.Mode.CLEAR
         bottomSheet.backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
         bottomSheet.setBackgroundColor(Color.TRANSPARENT)
-        isCancelable = false
+        isCancelable = cancelAble
         binding.title.text = title
         adapter = SingleSelectAdapter(items, selectedValue?:0) { value ->
             listener?.invoke(value)
@@ -142,6 +144,11 @@ class SingleSelectBottomSheetDialogFragment(
             holder.text.text = item.title
             holder.itemView.isSelected = position == selectedValue
             holder.itemView.setOnClickListener { onItemClick.invoke(item) }
+            if (item.icon != 0){
+                holder.imgIcon.setImageResource(item.icon)
+            }else{
+                holder.imgIcon.visibility = View.GONE
+            }
         }
 
         override fun getItemCount(): Int {
@@ -164,6 +171,7 @@ class SingleSelectBottomSheetDialogFragment(
 
         class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val text = itemView.findViewById<TextView>(com.devative.littledoor.R.id.itemText)
+            val imgIcon = itemView.findViewById<ImageView>(com.devative.littledoor.R.id.imgIcon)
         }
     }
 

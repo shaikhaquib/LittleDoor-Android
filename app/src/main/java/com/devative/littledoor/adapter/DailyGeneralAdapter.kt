@@ -30,6 +30,9 @@ class DailyGeneralAdapter(
                 "sad" -> binding.imgEmotion.setImageResource(R.drawable.sad)
                 "happy" -> binding.imgEmotion.setImageResource(R.drawable.happy_emoji)
             }
+            binding.more.setOnClickListener {
+                event.onMore(list[position])
+            }
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -48,5 +51,6 @@ class DailyGeneralAdapter(
 
     interface DailyGeneralAdapterEvent {
         fun onclick(position: Int)
+        fun onMore(position: DailyJournalModel.Data)
     }
 }

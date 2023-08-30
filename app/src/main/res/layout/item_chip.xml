@@ -8,17 +8,19 @@
     android:layout_margin="@dimen/_8_dp"
     android:orientation="vertical"
     app:carbon_elevation="4dp"
+    android:padding="@dimen/_10_dp"
     android:background="@color/grey_lighter"
     tools:ignore="MissingDefaultResource"
     android:id="@+id/chip">
 
     <TextView
+        style="@style/TextTitleBold_12sp"
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chip Name"
         android:textColor="@color/grey_primary"
-        style="@style/TextTitleBold_12sp"/>
+        />
 
 
 

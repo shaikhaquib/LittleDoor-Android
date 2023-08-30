@@ -1,6 +1,7 @@
 package com.devative.littledoor.architecturalComponents
 
 import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.devative.littledoor.architecturalComponents.apicall.APIClient
 import com.devative.littledoor.architecturalComponents.apicall.AuthInterceptor
 import com.devative.littledoor.architecturalComponents.helper.Constants
@@ -32,6 +33,7 @@ class  HiltAppIOModule {
         val authInterceptor = AuthInterceptor(context)
         OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
+            .addInterceptor(ChuckerInterceptor(context))
             .addInterceptor(loggingInterceptor)
             .build()
     }

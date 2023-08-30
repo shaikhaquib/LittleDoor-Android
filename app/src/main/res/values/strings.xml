@@ -116,12 +116,12 @@
     <string name="enter_your_per_session_charges">Enter your per session charges</string>
     <string name="select_your_available_timeslot">Select your available timeslot</string>
     <string-array name="week_days">
-        <item>Sunday</item>
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
         <item>Thursday</item>
         <item>Friday</item>
         <item>Saturday</item>
+        <item>Sunday</item>
     </string-array>
 </resources>

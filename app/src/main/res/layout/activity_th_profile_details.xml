@@ -61,6 +61,7 @@
     </carbon.widget.LinearLayout>
 
     <carbon.widget.LinearLayout
+        android:id="@+id/linearLayout12"
         style="@style/AppEditTextCarbonElevated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,10 +78,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/_8_dp"
-            android:text="@string/message"
-            android:textStyle="bold"
-            android:textColor="@color/black"
             android:drawableTint="@color/secondary"
+            android:text="@string/message"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             app:drawableStartCompat="@drawable/comment_" />
 
     </carbon.widget.LinearLayout>
@@ -89,11 +90,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="16dp"
         android:fillViewport="true"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/btnBookAppointment"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
@@ -104,10 +104,12 @@
             <TextView
                 android:id="@+id/txtCategory"
                 style="@style/TextDarkBold_16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Therapist"
+                android:maxLines="1"
+                app:layout_constraintEnd_toStartOf="@+id/view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -132,6 +134,50 @@
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/txtCategory"
                 app:layout_constraintTop_toBottomOf="@+id/txtCity" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="@dimen/_1dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/_14_dp"
+                android:background="@color/grey_lighter"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCity"
+                app:layout_constraintEnd_toStartOf="@+id/textView16"
+                app:layout_constraintTop_toTopOf="@+id/txtCategory" />
+
+            <TextView
+                android:id="@+id/textView16"
+                style="@style/TextTitleNormal_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Experiance"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintBottom_toTopOf="@+id/txtYearEXP"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/txtYearEXP"
+                style="@style/TextDarkBold_18_dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/view"
+                app:layout_constraintEnd_toStartOf="@+id/textView17"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            <TextView
+                android:id="@+id/textView17"
+                style="@style/TextDarkBold_16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yrs"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/txtYearEXP"
+                app:layout_constraintEnd_toEndOf="parent" />
+
 
             <RatingBar
                 android:id="@+id/rating"
@@ -170,7 +216,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rating" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

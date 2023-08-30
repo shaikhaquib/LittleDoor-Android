@@ -25,7 +25,7 @@ class DoctorDetailsAdapter(
     val event: FormMasterEvent
 ) : RecyclerView.Adapter<DoctorDetailsAdapter.ViewHolder>() {
 
-    val formList = arrayListOf("Expertise","Appreciation")
+    val formList = arrayListOf("Expertise","Language","Appreciation")
 
     inner class ViewHolder(val binding: ItemDoctorDetailsBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -36,8 +36,8 @@ class DoctorDetailsAdapter(
                /* "Work experience" -> workEXP()
                 "Education" -> education()*/
                 "Expertise" -> expertise()
-               /* "Address" -> address()
-                "Language" -> language()*/
+               /* "Address" -> address()*/
+                "Language" -> language()
                 "Appreciation" -> appreciation()
                // "Other documents" -> otherDocument()
             }
@@ -90,22 +90,20 @@ class DoctorDetailsAdapter(
             }
         }
 
-/*
         private fun language() {
             binding.icForm.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.lang))
             formData?.apply {
                 val chipList = ArrayList<String>()
                 binding.chipGroup.removeAllViews()
-                if (!data.skills.isNullOrEmpty()) {
-                    for (chip in data.languages) {
+                if (!languages.isNullOrEmpty()) {
+                    for (chip in languages) {
                         chipList.add(chip)
                         binding.chipGroup.addView(
                             Chip(context).apply {
                                 text = chip
                                 setBackgroundColor(ContextCompat.getColor(context, R.color.chipback))
-                                isCloseIconVisible = true
+                                isCloseIconVisible = false
                                 setTextColor(ContextCompat.getColor(context, R.color.black))
-                                closeIcon = ContextCompat.getDrawable(context, R.drawable.cancel)
                                 setTextAppearance(R.style.TextTitleNormal_12sp)
                                 chipCornerRadius = 15f
                                 setPadding(24)
@@ -118,12 +116,10 @@ class DoctorDetailsAdapter(
                         )
                     }
                 }
-                binding.formDivider.isVisible = chipList.isNotEmpty()
                 binding.chipGroup.isVisible = chipList.isNotEmpty()
             }
 
         }
-*/
 
 /*
         private fun address() {

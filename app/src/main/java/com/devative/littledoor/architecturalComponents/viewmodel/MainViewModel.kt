@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.devative.littledoor.architecturalComponents.helper.Resource
 import com.devative.littledoor.architecturalComponents.room.UserDao
 import com.devative.littledoor.architecturalComponents.repository.MainRepository
+import com.devative.littledoor.model.AvailableSlotModel
 import com.devative.littledoor.model.DoctotorListRes
 import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
@@ -79,6 +80,8 @@ class MainViewModel  @Inject constructor(
         get() = _saveMCQ
 
     val doctorList = MutableLiveData<Resource<DoctotorListRes>>()
+    val bookAppointment = MutableLiveData<Resource<GeneralResponse>>()
+    val availableSlots = MutableLiveData<Resource<AvailableSlotModel>>()
 
     fun getOTPPatientLogin(mobileNo:String, isPatient:String) = CoroutineScope(Dispatchers.IO).launch {
         _OTPSend.postValue(Resource.loading(null))
@@ -234,6 +237,44 @@ class MainViewModel  @Inject constructor(
             }
         } catch (e: Exception) {
             doctorList.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+    fun bookAppointment(data: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
+        bookAppointment.postValue(Resource.loading(null))
+        try {
+            mainRepository.bookAppointment(data).let {
+                if (it.isSuccessful) {
+                    bookAppointment.postValue(Resource.success(it.body()))
+                } else {
+                    bookAppointment.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            bookAppointment.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+    fun getAvailableSLotByDate(data: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
+        availableSlots.postValue(Resource.loading(null))
+        try {
+            mainRepository.getAvailableSLotByDate(data).let {
+                if (it.isSuccessful) {
+                    availableSlots.postValue(Resource.success(it.body()))
+                } else {
+                    availableSlots.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            availableSlots.postValue(Resource.error(e.message.toString(), null))
         }
     }
 

@@ -1,0 +1,61 @@
+<carbon.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/_16_dp"
+    app:carbon_cornerRadiusTopEnd="@dimen/_24_dp"
+    app:carbon_cornerRadiusTopStart="@dimen/_24_dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dialogTitle"
+        style="@style/TextDarkBold_16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:text="Title"
+        android:padding="16dp"
+        android:gravity="center" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dialogMessage"
+        style="@style/TextTitleMedium_16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:text="Message"
+        android:padding="16dp"
+        android:gravity="center" />
+
+    <carbon.widget.RelativeLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/negativeButton"
+            style="@style/RoundedCorner"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            app:cornerRadius="@dimen/_16_dp"
+            app:backgroundTint="@color/overlays_purple"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/positiveButton"
+            style="@style/RoundedCorner"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            app:cornerRadius="@dimen/_16_dp"
+            app:backgroundTint="@color/primary"
+            android:layout_alignParentRight="true"
+            android:visibility="gone" />
+
+    </carbon.widget.RelativeLayout>
+
+</carbon.widget.LinearLayout>

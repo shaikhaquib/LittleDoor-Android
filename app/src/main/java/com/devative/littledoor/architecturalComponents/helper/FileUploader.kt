@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.util.Log
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.devative.littledoor.util.Utility
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -35,6 +36,7 @@ object FileUploader {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(ChuckerInterceptor(context))
             .build()
 
         var responseBody: String? = null

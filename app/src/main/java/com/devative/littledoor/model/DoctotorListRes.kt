@@ -15,8 +15,10 @@ data class DoctotorListRes(
         val image: String?,
         val name: String,
         val skills: List<DoctorDetailsResponse.Data.Skill>,
+        val languages: List<String>,
         val state: String,
         val time_slot: List<Any>,
-        val total_year_of_experience: Any
+        val total_year_of_experience: Int = 1,
+        val doctor_session_charge: String = "300"
     ):Serializable
 }

@@ -1,27 +1,13 @@
 package com.devative.littledoor.architecturalComponents.viewmodel
 
-import android.content.Context
-import android.net.Uri
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.devative.littledoor.R
-import com.devative.littledoor.activity.drForms.ActivityAddExperience
-import com.devative.littledoor.architecturalComponents.apicall.APIClient
-import com.devative.littledoor.architecturalComponents.helper.FileUploader
 import com.devative.littledoor.architecturalComponents.helper.Resource
 import com.devative.littledoor.architecturalComponents.repository.MainRepository
 import com.devative.littledoor.architecturalComponents.room.UserDao
-import com.devative.littledoor.model.CategoryResponse
-import com.devative.littledoor.model.DoctorDetailsResponse
 import com.devative.littledoor.model.GeneralResponse
-import com.devative.littledoor.model.LoginModel
 import com.devative.littledoor.model.SessionDetails
-import com.devative.littledoor.model.SkillResponse
-import com.devative.littledoor.model.SubCategoryResponse
 import com.devative.littledoor.model.TimeSLotModel
-import com.devative.littledoor.util.Logger
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

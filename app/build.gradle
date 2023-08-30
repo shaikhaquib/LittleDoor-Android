@@ -111,4 +111,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:6.0.1'
     implementation 'com.github.ChochaNaresh:FilePicker:0.1.7'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    debugImplementation "com.github.chuckerteam.chucker:library:4.0.0"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:4.0.0"
 }

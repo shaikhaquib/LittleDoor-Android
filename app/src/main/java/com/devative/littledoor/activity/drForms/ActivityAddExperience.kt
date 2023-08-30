@@ -163,7 +163,7 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
                 }
 
                 Status.SUCCESS -> {
-                    progress?.show()
+                    progress?.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
                         finish()

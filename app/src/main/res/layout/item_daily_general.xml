@@ -26,12 +26,22 @@
 
 
         <ImageView
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/imgEmotion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgEmotion"
+            app:srcCompat="@drawable/more_menu" />
+
+        <ImageView
             android:id="@+id/imgEmotion"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/angry"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginEnd="@dimen/_8_dp"
+            app:layout_constraintEnd_toStartOf="@+id/more"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/angry" />
 
         <TextView
             android:id="@+id/txtDetails"

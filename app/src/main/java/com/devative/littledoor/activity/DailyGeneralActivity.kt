@@ -12,8 +12,11 @@ import com.devative.littledoor.architecturalComponents.viewmodel.DailyJournalVM
 import com.devative.littledoor.databinding.ActivityDailyGeneralBinding
 import com.devative.littledoor.model.DailyJournalModel
 import com.devative.littledoor.model.EmotModel
+import com.devative.littledoor.model.SearchAbleList
 import com.devative.littledoor.util.CalendarBottomSheetDialogFragment
 import com.devative.littledoor.util.DailyGeneraleBottomSheet
+import com.devative.littledoor.util.Logger
+import com.devative.littledoor.util.SingleSelectBottomSheetDialogFragment
 import com.devative.littledoor.util.Utility
 import com.devative.littledoor.verticalweekcalendar.VerticalWeekCalendar
 import com.devative.littledoor.verticalweekcalendar.controller.VerticalWeekAdapter
@@ -122,7 +125,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
                 Status.SUCCESS -> {
                     progress?.dismiss()
                     if (it.data?.status == true) {
-                        emoteList.clear()
+                        dailyJournalList.clear()
                         if (it.data.data.isNotEmpty()) {
                             dailyJournalList.addAll(it.data.data as ArrayList)
                             adapter.notifyDataSetChanged()
@@ -262,6 +265,21 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
 
     override fun onclick(position: Int) {
 
+    }
+
+    override fun onMore(position: DailyJournalModel.Data) {
+        val items = arrayListOf(SearchAbleList(0,"Delete",R.drawable.delete))
+        val dialog = SingleSelectBottomSheetDialogFragment(
+            this,
+            items,
+            "Menu Option",
+            cancelAble = true
+        ) { selectedValue ->
+            when(selectedValue.position){
+               0 -> vm.deleteJournal(position.id)
+            }
+        }
+        dialog.show(supportFragmentManager,"SearchAbleList")
     }
 
 

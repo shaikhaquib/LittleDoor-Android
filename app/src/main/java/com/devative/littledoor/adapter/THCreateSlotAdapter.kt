@@ -3,30 +3,55 @@ package com.devative.littledoor.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.R
 import com.devative.littledoor.databinding.ItemCreateSlotBinding
+import com.devative.littledoor.model.SessionDetails
+import com.devative.littledoor.util.GeneralBottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.Arrays
 
 
 class THCreateSlotAdapter(
-    val context: Context,
+    val context: AppCompatActivity,
+    val slotTime: List<SessionDetails.Data.SlotTime>,
     val event:THCreateSlotAdapterEvent
 ) : RecyclerView.Adapter<THCreateSlotAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemCreateSlotBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
-            val weekDays: Array<String> = context.resources.getStringArray(R.array.week_days)
-            val weekDaysList = Arrays.asList(*weekDays)
-            val day = weekDaysList[position] // second day of the week is Tuesday
-            binding.txtDay.text = day
-            binding.chkEdit.isSelected = false
-            binding.chkEdit.setOnClickListener {
-                binding.chkEdit.isSelected =  !binding.chkEdit.isSelected
+            val data = slotTime[position]
+            binding.txtDay.text = data.day
+            handleTimeSet(data.slots.isNotEmpty())
+            binding.chkDays.isSelected = data.slots.isNotEmpty()
+            handleDataVisibility(binding.chkDays.isSelected)
+            binding.chkDays.setOnClickListener {
+                if (binding.chkDays.isSelected && data.slots.isNotEmpty()){
+                    val bottomSheetDialog = GeneralBottomSheetDialog()
+                    bottomSheetDialog.setTitle("Clear Slots")
+                    bottomSheetDialog.setMessage("This Action will clear all selected slots for the day, Do you wants to continue?")
+                    bottomSheetDialog.setNegativeButton("cancel") {
+                        bottomSheetDialog.dismiss()
+                    }
+                    bottomSheetDialog.setPositiveButton("continue") {
+                        event.clearSelection(position)
+                        binding.chkDays.isSelected = false
+                        bottomSheetDialog.dismiss()
+                    }
+                    bottomSheetDialog.show(context.supportFragmentManager, "BottomSheetDialog")
+                }else {
+                    binding.chkDays.isSelected = !binding.chkDays.isSelected
+                    handleDataVisibility(binding.chkDays.isSelected)
+                }
             }
+
             binding.txtSelectTime.setOnClickListener {
+                event.onOpenSelection(position)
+            }
+            binding.chkEdit.setOnClickListener {
                 event.onOpenSelection(position)
             }
         }
@@ -62,11 +87,16 @@ class THCreateSlotAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 7
+        return slotTime.size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     interface THCreateSlotAdapterEvent {
         fun onclick(position: Int)
         fun onOpenSelection(day:Int)
+        fun clearSelection(day:Int)
     }
 }

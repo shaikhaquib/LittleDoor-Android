@@ -27,7 +27,7 @@
         android:layout_gravity="center"
         android:layout_margin="24dp"
         android:calendarViewShown="false"
-        android:datePickerMode="calendar" />
+        android:datePickerMode="spinner" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/confirm_button"

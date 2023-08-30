@@ -25,7 +25,8 @@ class ThProfileDetails : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         binding.btnBookAppointment.setOnClickListener {
-            startActivity(Intent(applicationContext,BookAppointment::class.java))
+            startActivity(Intent(applicationContext,BookAppointment::class.java)
+                .putExtra(TH_DETAILS,thDetails))
         }
         setData()
     }
@@ -36,27 +37,26 @@ class ThProfileDetails : BaseActivity() {
                 image?.let { imgProfile.load(it,) }
                 txtCategory.text = category_name
                 txtCity.text = city
+                txtYearEXP.text = "$total_year_of_experience"
                 toolbar.setTitle(name)
+                txtSessionFee.text = "$doctor_session_charge"
+
+
                 rvData.adapter = DoctorDetailsAdapter(this@ThProfileDetails,thDetails,object :
                     DoctorDetailsAdapter.FormMasterEvent {
                     override fun onClick(position: Int) {
-                        TODO("Not yet implemented")
                     }
 
                     override fun onClickAdd(position: Int) {
-                        TODO("Not yet implemented")
                     }
 
                     override fun onEdit(type: Any, position: Int) {
-                        TODO("Not yet implemented")
                     }
 
                     override fun onExpertiseRemove(list: ArrayList<String>) {
-                        TODO("Not yet implemented")
                     }
 
                     override fun onLangRemove(list: ArrayList<String>) {
-                        TODO("Not yet implemented")
                     }
                 })
             }

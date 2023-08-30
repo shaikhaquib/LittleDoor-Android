@@ -8,22 +8,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.R
 import com.devative.littledoor.databinding.ItemChipBinding
 import com.devative.littledoor.databinding.ItemTherapistBinding
+import com.devative.littledoor.model.AvailableSlotModel
 import com.devative.littledoor.model.TimeSLotModel
 
 
-class TimeSlotAdapter(
+class TimeSlotAdapterByDate(
     val context: Context,
-    val list: ArrayList<TimeSLotModel.Data>,
-) : RecyclerView.Adapter<TimeSlotAdapter.ViewHolder>() {
+    val list: ArrayList<AvailableSlotModel.Data>,
+) : RecyclerView.Adapter<TimeSlotAdapterByDate.ViewHolder>() {
+
+    private var selectedPosition = -1
     inner class ViewHolder(val binding: ItemChipBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
             binding.root.setOnClickListener {
-                list[position].isSelected = !list[position].isSelected
-                notifyDataSetChanged()
+                if (list[position].is_booked != 1) {
+                    selectedPosition = position
+                    notifyDataSetChanged()
+                }
             }
-            if (list[position].isSelected) {
+            if (list[position].is_booked == 1) {
                 binding.chip.setBackgroundResource(R.color.primary)
+                binding.txtName.setTextColor(
+                    ContextCompat.getColorStateList(
+                        context,
+                        R.color.neutral_white
+                    )
+                )
+            } else if (selectedPosition == position) {
+                binding.chip.setBackgroundResource(R.color.secondary)
                 binding.txtName.setTextColor(
                     ContextCompat.getColorStateList(
                         context,
@@ -49,7 +62,7 @@ class TimeSlotAdapter(
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TimeSlotAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TimeSlotAdapterByDate.ViewHolder, position: Int) {
         holder.bindData(position)
     }
 
@@ -57,14 +70,8 @@ class TimeSlotAdapter(
         return list.size
     }
 
-    fun getSelected(): List<TimeSLotModel.Data> {
-        return list.filter { it.isSelected }
+    fun getSelected() :AvailableSlotModel.Data {
+        return list[selectedPosition]
     }
 
-    fun setSelected(selected: List<Int>) {
-        for (data in list) {
-            data.isSelected = data.id in selected
-        }
-        notifyDataSetChanged()
-    }
 }
