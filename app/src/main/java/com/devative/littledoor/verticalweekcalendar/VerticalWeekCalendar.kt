@@ -1,221 +1,187 @@
-package com.devative.littledoor.verticalweekcalendar;
+package com.devative.littledoor.verticalweekcalendar
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Typeface;
-import android.util.AttributeSet;
-import android.util.Log;
+import android.content.Context
+import android.util.AttributeSet
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.devative.littledoor.R
+import com.devative.littledoor.verticalweekcalendar.controller.VerticalWeekAdapter
+import com.devative.littledoor.verticalweekcalendar.interfaces.DateWatcher
+import com.devative.littledoor.verticalweekcalendar.interfaces.OnDateClickListener
+import com.devative.littledoor.verticalweekcalendar.interfaces.ResProvider
+import java.util.Calendar
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+class VerticalWeekCalendar : LinearLayoutCompat, ResProvider {
+    private var context: Context? = null
+    private var customFont: String? = null
+    override var dayTextColor = 0
+        private set
+    override var weekDayTextColor = 0
+        private set
+    override var dayBackground = 0
+        private set
+    override var selectedDayTextColor = 0
+        private set
+    override var selectedDayBackground = 0
+        private set
+    private var adapter: VerticalWeekAdapter? = null
+    private lateinit var recyclerView: RecyclerView
 
-import com.devative.littledoor.R;
-import com.devative.littledoor.verticalweekcalendar.controller.VerticalWeekAdapter;
-import com.devative.littledoor.verticalweekcalendar.interfaces.DateWatcher;
-import com.devative.littledoor.verticalweekcalendar.interfaces.OnDateClickListener;
-import com.devative.littledoor.verticalweekcalendar.interfaces.ResProvider;
-
-import java.util.Calendar;
-
-public class VerticalWeekCalendar extends LinearLayoutCompat implements ResProvider {
-
-    private Context context;
-    private String customFont;
-    private int defaultDayTextColor;
-    private int defaultWeekDayTextColor;
-    private int defaultBackground;
-    private int selectedTextColor;
-    private int selectedBackground;
-
-    private VerticalWeekAdapter adapter;
-    private RecyclerView recyclerView;
-
-    public VerticalWeekCalendar(Context context) {
-        super(context);
-        this.context = context;
-        initLayout(context);
+    constructor(context: Context?) : super(context!!) {
+        this.context = context
+        initLayout(context)
     }
 
-    public VerticalWeekCalendar(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initLayout(context);
-        loadStyle(context,attrs);
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        initLayout(context)
+        loadStyle(context, attrs)
     }
 
-    public VerticalWeekCalendar(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initLayout(context);
-        loadStyle(context,attrs);
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        initLayout(context)
+        loadStyle(context, attrs)
     }
 
-    private void init() {
-        setupRecyclerView();
+    private fun init() {
+        setupRecyclerView()
     }
 
-    private void initLayout(Context context) {
-        this.context = context;
-        setOrientation(VERTICAL);
-        inflate(context, R.layout.verticalweekcalendar_week,this);
+    private fun initLayout(context: Context?) {
+        this.context = context
+        orientation = VERTICAL
+        inflate(context, R.layout.verticalweekcalendar_week, this)
     }
 
-    private void loadStyle(Context context, AttributeSet attrs) {
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.VerticalWeekCalendar, R.attr.verticalWeekCalendarStyleAttr, R.style.VerticalWeekCalendarStyle);
-        customFont = ta.getString(R.styleable.VerticalWeekCalendar_customFont);
-
-        defaultBackground = ta.getResourceId(R.styleable.VerticalWeekCalendar_dayBackground, 0);
-        defaultDayTextColor = ta.getColor(R.styleable.VerticalWeekCalendar_dayTextColor, 0);
-        defaultWeekDayTextColor = ta.getColor(R.styleable.VerticalWeekCalendar_weekDayTextColor, 0);
-
-        selectedBackground = ta.getResourceId(R.styleable.VerticalWeekCalendar_selectedBackground, 0);
-        selectedTextColor = ta.getColor(R.styleable.VerticalWeekCalendar_selectedDayTextColor, 0);
-
-        ta.recycle();
+    private fun loadStyle(context: Context, attrs: AttributeSet?) {
+        val ta = context.obtainStyledAttributes(
+            attrs,
+            R.styleable.VerticalWeekCalendar,
+            R.attr.verticalWeekCalendarStyleAttr,
+            R.style.VerticalWeekCalendarStyle
+        )
+        customFont = ta.getString(R.styleable.VerticalWeekCalendar_customFont)
+        dayBackground = ta.getResourceId(R.styleable.VerticalWeekCalendar_dayBackground, 0)
+        dayTextColor = ta.getColor(R.styleable.VerticalWeekCalendar_dayTextColor, 0)
+        weekDayTextColor = ta.getColor(R.styleable.VerticalWeekCalendar_weekDayTextColor, 0)
+        selectedDayBackground =
+            ta.getResourceId(R.styleable.VerticalWeekCalendar_selectedBackground, 0)
+        selectedDayTextColor = ta.getColor(R.styleable.VerticalWeekCalendar_selectedDayTextColor, 0)
+        ta.recycle()
     }
 
-    public void setDate(Calendar calendar) {
-        adapter = new VerticalWeekAdapter(this, calendar);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        recyclerView.setAdapter(adapter);
-        recyclerView.scrollToPosition(15);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            private int mLastFirstVisibleItem;
-            private boolean mIsScrollingUp;
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                LinearLayoutManager lm = (LinearLayoutManager) recyclerView.getLayoutManager();
-
-                final int currentFirstVisibleItem = lm.findFirstVisibleItemPosition();
-
+    fun setDate(calendar: Calendar?) {
+        adapter = VerticalWeekAdapter(this, calendar!!)
+        recyclerView.layoutManager =
+            LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false)
+        recyclerView.adapter = adapter
+        recyclerView.scrollToPosition(15)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            private var mLastFirstVisibleItem = 0
+            private var mIsScrollingUp = false
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val lm = recyclerView.layoutManager as LinearLayoutManager?
+                val currentFirstVisibleItem = lm!!.findFirstVisibleItemPosition()
                 if (currentFirstVisibleItem > mLastFirstVisibleItem) {
-                    mIsScrollingUp = false;
+                    mIsScrollingUp = false
                 } else if (currentFirstVisibleItem < mLastFirstVisibleItem) {
-                    mIsScrollingUp = true;
+                    mIsScrollingUp = true
                 }
-
-                mLastFirstVisibleItem = currentFirstVisibleItem;
-
+                mLastFirstVisibleItem = currentFirstVisibleItem
                 if (lm.findFirstVisibleItemPosition() < 10 && mIsScrollingUp) {
-                    getAdapter().addCalendarDays(false);
-                    Log.i("onScrollChange", "FirstVisibleItem: " + lm.findFirstVisibleItemPosition());
-                    Log.i("onScrollChange", "new Size: " + getAdapter().days.size());
-                } else if ((getAdapter().days.size() - 1 - lm.findLastVisibleItemPosition()) < 10 && !mIsScrollingUp) {
-                    getAdapter().addCalendarDays(true);
-                    Log.i("onScrollChange", "LastVisibleItem: " + lm.findLastVisibleItemPosition());
-                    Log.i("onScrollChange", "new Size: " + getAdapter().days.size());
+                    getAdapter().addCalendarDays(false)
+                } else if (getAdapter().days.size - 1 - lm.findLastVisibleItemPosition() < 10 && !mIsScrollingUp) {
+                    getAdapter().addCalendarDays(true)
                 }
             }
-        });
-
+        })
     }
-    private void setupRecyclerView() {
-        recyclerView  = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        recyclerView.setAdapter(getAdapter());
 
-        recyclerView.scrollToPosition(15);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
-
-            private int mLastFirstVisibleItem;
-            private boolean mIsScrollingUp;
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                LinearLayoutManager lm = (LinearLayoutManager) recyclerView.getLayoutManager();
-
-                final int currentFirstVisibleItem = lm.findFirstVisibleItemPosition();
-
+    private fun setupRecyclerView() {
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.setLayoutManager(
+            LinearLayoutManager(
+                getContext(),
+                RecyclerView.VERTICAL,
+                false
+            )
+        )
+        recyclerView.setAdapter(getAdapter())
+        recyclerView.scrollToPosition(15)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            private var mLastFirstVisibleItem = 0
+            private var mIsScrollingUp = false
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val lm = recyclerView.layoutManager as LinearLayoutManager?
+                val currentFirstVisibleItem = lm!!.findFirstVisibleItemPosition()
                 if (currentFirstVisibleItem > mLastFirstVisibleItem) {
-                    mIsScrollingUp = false;
+                    mIsScrollingUp = false
                 } else if (currentFirstVisibleItem < mLastFirstVisibleItem) {
-                    mIsScrollingUp = true;
+                    mIsScrollingUp = true
                 }
-
-                mLastFirstVisibleItem = currentFirstVisibleItem;
-
+                mLastFirstVisibleItem = currentFirstVisibleItem
                 if (lm.findFirstVisibleItemPosition() < 10 && mIsScrollingUp) {
-                    getAdapter().addCalendarDays(false);
-                    Log.i("onScrollChange", "FirstVisibleItem: " + lm.findFirstVisibleItemPosition());
-                    Log.i("onScrollChange", "new Size: " + getAdapter().days.size());
-                } else if ((getAdapter().days.size() - 1 - lm.findLastVisibleItemPosition()) < 10 && !mIsScrollingUp) {
-                    getAdapter().addCalendarDays(true);
-                    Log.i("onScrollChange", "LastVisibleItem: " + lm.findLastVisibleItemPosition());
-                    Log.i("onScrollChange", "new Size: " + getAdapter().days.size());
+                    getAdapter().addCalendarDays(false)
+                    Log.i(
+                        "onScrollChange",
+                        "FirstVisibleItem: " + lm.findFirstVisibleItemPosition()
+                    )
+                    Log.i("onScrollChange", "new Size: " + getAdapter().days.size)
+                } else if (getAdapter().days.size - 1 - lm.findLastVisibleItemPosition() < 10 && !mIsScrollingUp) {
+                    getAdapter().addCalendarDays(true)
+                    Log.i("onScrollChange", "LastVisibleItem: " + lm.findLastVisibleItemPosition())
+                    Log.i("onScrollChange", "new Size: " + getAdapter().days.size)
                 }
             }
-        });
+        })
     }
 
-    public VerticalWeekAdapter getAdapter() {
-
-        return adapter == null ? createAdapter() : adapter;
+    fun getAdapter(): VerticalWeekAdapter {
+        return if (adapter == null) createAdapter() else adapter!!
     }
 
-    private VerticalWeekAdapter createAdapter() {
-        adapter = new VerticalWeekAdapter(this, Calendar.getInstance());
-        return adapter;
-    }
-    public void setOnDateClickListener(final OnDateClickListener callback){
-        getAdapter().setOnDateClickListener(callback);
+    private fun createAdapter(): VerticalWeekAdapter {
+        adapter = VerticalWeekAdapter(this, Calendar.getInstance())
+        return adapter!!
     }
 
-    public void setDateWatcher(DateWatcher dateWatcher) {
-        getAdapter().setDateWatcher(dateWatcher);
+    fun setOnDateClickListener(callback: OnDateClickListener) {
+        getAdapter().setOnDateClickListener(callback)
     }
 
-    public void setCustomFont(String customFont) {
-        this.customFont = customFont;
+    fun setDateWatcher(dateWatcher: DateWatcher?) {
+        getAdapter().setDateWatcher(dateWatcher)
     }
 
-    public void setDefaultDayTextColor(int defaultDayTextColor) {
-        this.defaultDayTextColor = defaultDayTextColor;
+    fun setCustomFont(customFont: String?) {
+        this.customFont = customFont
     }
 
-    public void setDefaultBackground(int defaultBackground) {
-        this.defaultBackground = defaultBackground;
+    fun setDefaultDayTextColor(defaultDayTextColor: Int) {
+        dayTextColor = defaultDayTextColor
     }
 
-    public void setSelectedTextColor(int selectedTextColor) {
-        this.selectedTextColor = selectedTextColor;
+    fun setDefaultBackground(defaultBackground: Int) {
+        dayBackground = defaultBackground
     }
 
-    public void setSelectedBackground(int selectedBackground) {
-        this.selectedBackground = selectedBackground;
+    fun setSelectedTextColor(selectedTextColor: Int) {
+        selectedDayTextColor = selectedTextColor
     }
 
-
-    @Override
-    public int getSelectedDayBackground() {
-        return selectedBackground;
+    fun setSelectedBackground(selectedBackground: Int) {
+        selectedDayBackground = selectedBackground
     }
 
-    @Override
-    public int getSelectedDayTextColor() {
-        return selectedTextColor;
-    }
-
-    @Override
-    public int getDayTextColor() {
-        return defaultDayTextColor;
-    }
-
-    @Override
-    public int getWeekDayTextColor() {
-        return defaultWeekDayTextColor;
-    }
-
-    @Override
-    public int getDayBackground() {
-        return defaultBackground;
-    }
-
-/*
+    /*
     @Override
     public Typeface getCustomFont() {
         if (customFont == null) {
@@ -229,24 +195,17 @@ public class VerticalWeekCalendar extends LinearLayoutCompat implements ResProvi
         }
     }
 */
-
-    public static class Builder {
-
-        private int view;
-
-        public Builder() {
+    class Builder {
+        private var view = 0
+        fun setView(view: Int): Builder {
+            this.view = view
+            return this
         }
 
-        public Builder setView(int view) {
-            this.view = view;
-            return this;
-        }
-
-        public VerticalWeekCalendar init(AppCompatActivity appCompatActivity){
-
-            VerticalWeekCalendar calendar = appCompatActivity.findViewById(view);
-            calendar.init();
-            return calendar;
+        fun init(appCompatActivity: AppCompatActivity): VerticalWeekCalendar {
+            val calendar = appCompatActivity.findViewById<VerticalWeekCalendar>(view)
+            calendar.init()
+            return calendar
         }
     }
 }

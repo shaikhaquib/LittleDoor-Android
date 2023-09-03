@@ -1,9 +1,8 @@
-package com.devative.littledoor.verticalweekcalendar.interfaces;
+package com.devative.littledoor.verticalweekcalendar.interfaces
 
+import com.devative.littledoor.verticalweekcalendar.controller.VerticalWeekAdapter.DayViewHolder
 
-import com.devative.littledoor.verticalweekcalendar.controller.VerticalWeekAdapter;
-
-public interface DateWatcher {
-    int getStateForDate(int year, int month, int day, VerticalWeekAdapter.DayViewHolder view);
-    void onDateSelection(int year, int month, int day);
+interface DateWatcher {
+    fun getStateForDate(year: Int, month: Int, day: Int, view: DayViewHolder?): Int
+    fun onDateSelection(year: Int, month: Int, day: Int)
 }

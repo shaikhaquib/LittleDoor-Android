@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
@@ -18,28 +17,19 @@ import carbon.widget.Button
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.BaseActivity
 import com.devative.littledoor.adapter.FormAdapter
-import com.devative.littledoor.architecturalComponents.apicall.APIClient
 import com.devative.littledoor.architecturalComponents.helper.Constants
-import com.devative.littledoor.architecturalComponents.helper.FileUploader
 import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.DrExperienceFormVM
 import com.devative.littledoor.architecturalComponents.viewmodel.DrRegViewModel
 import com.devative.littledoor.databinding.ActivityAddExperienceBinding
 import com.devative.littledoor.model.CategoryResponse
 import com.devative.littledoor.model.DoctorDetailsResponse
-import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.SearchAbleList
 import com.devative.littledoor.model.SubCategoryResponse
-import com.devative.littledoor.util.Logger
-import com.devative.littledoor.util.Progress
 import com.devative.littledoor.util.SingleSelectBottomSheetDialogFragment
 import com.google.android.material.chip.Chip
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.FormAdapterEvent {

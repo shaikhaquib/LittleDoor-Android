@@ -22,6 +22,7 @@ import com.devative.littledoor.model.EmotModel
 import com.devative.littledoor.model.UserDetails
 import com.devative.littledoor.util.DailyGeneraleBottomSheet
 import com.devative.littledoor.util.Progress
+import com.devative.littledoor.util.QuoteManager
 import com.devative.littledoor.util.Utility
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
@@ -83,6 +84,7 @@ class HomeFragment  : Fragment() {
                 dialog.show(requireActivity().supportFragmentManager, "ImagePickerDialog")
             }
         })
+        QuoteManager(requireActivity(),binding.txtQuote,binding.txtQuoteAuthor)
 
         observe()
     }

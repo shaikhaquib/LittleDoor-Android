@@ -1,12 +1,9 @@
-package com.devative.littledoor.verticalweekcalendar.interfaces;
+package com.devative.littledoor.verticalweekcalendar.interfaces
 
-import android.graphics.Typeface;
-
-public interface ResProvider {
-
-    public int getSelectedDayBackground();
-    public int getSelectedDayTextColor();
-    public int getDayTextColor();
-    public int getWeekDayTextColor();
-    public int getDayBackground();
+interface ResProvider {
+    val selectedDayBackground: Int
+    val selectedDayTextColor: Int
+    val dayTextColor: Int
+    val weekDayTextColor: Int
+    val dayBackground: Int
 }

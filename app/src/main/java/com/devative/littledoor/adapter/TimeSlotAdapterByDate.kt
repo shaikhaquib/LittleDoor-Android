@@ -15,6 +15,7 @@ import com.devative.littledoor.model.TimeSLotModel
 class TimeSlotAdapterByDate(
     val context: Context,
     val list: ArrayList<AvailableSlotModel.Data>,
+    val event: TimeSlotAdapterByDateEvent
 ) : RecyclerView.Adapter<TimeSlotAdapterByDate.ViewHolder>() {
 
     private var selectedPosition = -1
@@ -25,6 +26,7 @@ class TimeSlotAdapterByDate(
                 if (list[position].is_booked != 1) {
                     selectedPosition = position
                     notifyDataSetChanged()
+                    event.onItemSelected(list[position])
                 }
             }
             if (list[position].is_booked == 1) {
@@ -72,6 +74,9 @@ class TimeSlotAdapterByDate(
 
     fun getSelected() :AvailableSlotModel.Data {
         return list[selectedPosition]
+    }
+    interface TimeSlotAdapterByDateEvent{
+        fun onItemSelected(data:AvailableSlotModel.Data)
     }
 
 }

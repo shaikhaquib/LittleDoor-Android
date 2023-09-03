@@ -15,12 +15,12 @@ import com.devative.littledoor.model.EmotModel
 import com.devative.littledoor.model.SearchAbleList
 import com.devative.littledoor.util.CalendarBottomSheetDialogFragment
 import com.devative.littledoor.util.DailyGeneraleBottomSheet
-import com.devative.littledoor.util.Logger
 import com.devative.littledoor.util.SingleSelectBottomSheetDialogFragment
 import com.devative.littledoor.util.Utility
 import com.devative.littledoor.verticalweekcalendar.VerticalWeekCalendar
 import com.devative.littledoor.verticalweekcalendar.controller.VerticalWeekAdapter
 import com.devative.littledoor.verticalweekcalendar.interfaces.DateWatcher
+import com.devative.littledoor.verticalweekcalendar.interfaces.OnDateClickListener
 import com.devative.littledoor.verticalweekcalendar.model.CalendarDay
 import es.dmoral.toasty.Toasty
 import java.text.SimpleDateFormat
@@ -123,7 +123,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         dailyJournalList.clear()
                         if (it.data.data.isNotEmpty()) {
@@ -137,7 +137,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
@@ -152,7 +152,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
         vm.postJournal.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
@@ -164,7 +164,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
@@ -178,7 +178,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
         vm.deleteJournal.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
@@ -220,13 +220,15 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
 
         calendarView.setDate(calendar)
 
-        calendarView?.setOnDateClickListener { year, month, day ->
-            val selectedDay = GregorianCalendar(year, month, day)
-            if (selected?.compareTo(selectedDay) != 0) {
-                selected = selectedDay
+         calendarView.setOnDateClickListener(object : OnDateClickListener {
+            override fun onCalenderDayClicked(year: Int, month: Int, day: Int) {
+                val selectedDay = GregorianCalendar(year, month, day)
+                if (selected?.compareTo(selectedDay) != 0) {
+                    selected = selectedDay
+                }
             }
-        }
-        calendarView?.setDateWatcher(object : DateWatcher {
+        })
+         calendarView.setDateWatcher(object : DateWatcher {
             override fun getStateForDate(
                 year: Int,
                 month: Int,

@@ -1,16 +1,11 @@
 package com.devative.littledoor.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
-import com.devative.littledoor.R
-import com.devative.littledoor.adapter.DoctorDetailsAdapter
-import com.devative.littledoor.adapter.TimeSlotAdapter
 import com.devative.littledoor.adapter.TimeSlotAdapterByDate
 import com.devative.littledoor.architecturalComponents.helper.Constants
-import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.ActivityBookAppointmentBinding
@@ -20,10 +15,9 @@ import com.devative.littledoor.util.Utility
 import es.dmoral.toasty.Toasty
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.HashMap
 import java.util.Locale
 
-class BookAppointment : BaseActivity() {
+class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDateEvent {
     val binding: ActivityBookAppointmentBinding by lazy {
         ActivityBookAppointmentBinding.inflate(layoutInflater)
     }
@@ -31,18 +25,33 @@ class BookAppointment : BaseActivity() {
         intent.getSerializableExtra(Constants.TH_DETAILS) as DoctotorListRes.Data
     }
     val slotList = ArrayList<AvailableSlotModel.Data>()
+    var selectedSlot:AvailableSlotModel.Data? = null
     private val vm:MainViewModel by viewModels()
+    private var formattedDate = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         setData()
         val currentDate = Calendar.getInstance().time
-        val formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentDate)
+        formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentDate)
         val dayId = getDayID(Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
         getAvaibaleSLot(dayId, formattedDate)
         setupCalendar()
         setUPObserver()
+        binding.btnProceed.setOnClickListener {
+            /*slot_id:2
+            appointment_date:2023-08-22*/
+            if (selectedSlot == null){
+                Utility.errorToast(applicationContext,"Please select the available slot")
+            }else {
+                val hashMap = HashMap<String, Any>()
+                hashMap["doctor_id"] = thDetails.id
+                hashMap["slot_id"] = selectedSlot!!.id
+                hashMap["appointment_date"] = formattedDate
+                vm.bookAppointment(hashMap)
+            }
+        }
     }
 
     private fun setUPObserver() {
@@ -58,7 +67,7 @@ class BookAppointment : BaseActivity() {
                         if (!it.data.data.isNullOrEmpty()) {
                             slotList.clear()
                             slotList.addAll(it.data.data as ArrayList)
-                            binding.rvTimeSlot.adapter = TimeSlotAdapterByDate(this,slotList)
+                            binding.rvTimeSlot.adapter = TimeSlotAdapterByDate(this,slotList,this)
                             binding.txtError.visibility = View.GONE
                             binding.rvTimeSlot.visibility = View.VISIBLE
                         }else{
@@ -85,16 +94,46 @@ class BookAppointment : BaseActivity() {
 
             }
         }
+        vm.bookAppointment.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress?.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress?.dismiss()
+                    if (it.data?.status == true) {
+                        Toasty.success(applicationContext, it.data.message).show()
+                        finish()
+                    } else {
+                        Toasty.error(applicationContext, it.data!!.message).show()
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress?.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
 
     }
 
     private fun setupCalendar() {
+        val currentDate = Calendar.getInstance()
+        binding.calendarView.minDate = currentDate.timeInMillis
         binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(year, month, dayOfMonth)
 
             val selectedDayOfWeek = selectedDate.get(Calendar.DAY_OF_WEEK)
-            val formattedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
+            formattedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
             val dayId = getDayID(selectedDayOfWeek)
             getAvaibaleSLot(dayId, formattedDate)
 
@@ -141,6 +180,10 @@ class BookAppointment : BaseActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onItemSelected(data: AvailableSlotModel.Data) {
+        selectedSlot = data
     }
 
 

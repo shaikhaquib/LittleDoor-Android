@@ -1,5 +1,5 @@
-package com.devative.littledoor.verticalweekcalendar.interfaces;
+package com.devative.littledoor.verticalweekcalendar.interfaces
 
-public interface DateClickCallback {
-    void onCalenderDayClicked(int year, int month, int day);
+interface DateClickCallback {
+    fun onCalenderDayClicked(year: Int, month: Int, day: Int)
 }
