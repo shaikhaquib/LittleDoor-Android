@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/imgProfile"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:padding="0dp"
@@ -30,8 +30,8 @@
             android:layout_marginStart="@dimen/_18_dp"
             android:text="Dr. Zaira Wasim"
             app:layout_constraintBottom_toTopOf="@+id/txtDesc"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imgProfile"
+            app:layout_constraintTop_toTopOf="@+id/imgProfile"
             app:layout_constraintVertical_chainStyle="packed" />
         <TextView
             android:id="@+id/txtDate"
@@ -44,17 +44,40 @@
             app:layout_constraintStart_toEndOf="@+id/txtName"
             app:layout_constraintTop_toTopOf="@+id/txtName" />
 
-        <TextView
-            android:id="@+id/txtDesc"
-            style="@style/TextTitleNormal_12sp"
+        <LinearLayout
+            android:id="@+id/liPostContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8_dp"
-            android:text="Is there a therapy which can cure crossdressing &amp; bdsm compulsion?"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/txtName"
-            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+            app:layout_constraintTop_toBottomOf="@+id/txtName">
 
+            <TextView
+                android:id="@+id/txtDesc"
+                style="@style/TextTitleNormal_12sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8_dp"
+                android:text="Is there a therapy which can cure crossdressing &amp; bdsm compulsion?"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <carbon.widget.ImageView
+                android:id="@+id/imgPost"
+                style="@style/TextTitleNormal_12sp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_250dp"
+                android:visibility="visible"
+                app:carbon_cornerRadius="@dimen/_15dp"
+                app:carbon_stroke="@color/grey_light"
+                app:carbon_strokeWidth="@dimen/_1dp"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:text="Is there a therapy which can cure crossdressing &amp; bdsm compulsion?"
+                />
+
+        </LinearLayout>
 
         <CheckBox
             android:id="@+id/chkLike"
@@ -64,9 +87,8 @@
             android:button="@drawable/like_button"
             android:text="2"
             android:paddingStart="@dimen/_8_dp"
-
-            app:layout_constraintStart_toStartOf="@+id/txtDesc"
-            app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
+            app:layout_constraintStart_toStartOf="@+id/liPostContainer"
+            app:layout_constraintTop_toBottomOf="@+id/liPostContainer" />
 
         <ImageView
             android:id="@+id/imgChat"

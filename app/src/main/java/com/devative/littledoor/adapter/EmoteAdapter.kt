@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.R
+import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.databinding.ItemChatBinding
 import com.devative.littledoor.databinding.ItemEmoteBinding
 import com.devative.littledoor.databinding.ItemExploreBinding
@@ -24,13 +25,7 @@ class EmoteAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
             binding.txtName.text = list[position].name
-            when(list[position].name.toLowerCase()){
-                "angry" -> binding.imgEmote.setImageResource(R.drawable.angry)
-                "calm" -> binding.imgEmote.setImageResource(R.drawable.relieved_face)
-                "manic" -> binding.imgEmote.setImageResource(R.drawable.manic)
-                "sad" -> binding.imgEmote.setImageResource(R.drawable.sad)
-                "happy" -> binding.imgEmote.setImageResource(R.drawable.happy_emoji)
-            }
+            binding.imgEmote.load(list[position].image_url,R.drawable.sad)
             if (selectedPosition == position){
                 binding.txtName.setTextColor(ContextCompat.getColor(context, R.color.primary))
             }else{

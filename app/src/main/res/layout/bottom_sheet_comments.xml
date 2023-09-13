@@ -1,0 +1,129 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextDarkBold_16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/_16_dp"
+            android:text="Comments" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16_dp"
+            android:padding="@dimen/_8_dp"
+            app:srcCompat="@drawable/cancel" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_light"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout14"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/_16_dp"
+        android:paddingBottom="@dimen/_16_dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintBottom_toTopOf="@+id/chatBox"
+        tools:listitem="@layout/item_explore" />
+    <TextView
+        android:id="@+id/txtError"
+        style="@style/TextDarkBold_18_dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/_16_dp"
+        android:gravity="center"
+        android:paddingBottom="@dimen/_16_dp"
+        android:textColor="@color/grey_primary"
+        android:text="be the first one to comment"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintBottom_toTopOf="@+id/chatBox"
+        tools:listitem="@layout/item_explore" />
+
+    <carbon.widget.LinearLayout
+        android:id="@+id/chatBox"
+        style="@style/AppEditTextCarbonElevated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_16_dp"
+        android:gravity="center_vertical"
+        app:carbon_cornerRadiusTopEnd="@dimen/_12_dp"
+        app:carbon_cornerRadiusTopStart="@dimen/_12_dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:background="@drawable/bordergrey_8dp">
+
+
+
+            <EditText
+                android:id="@+id/edtChat"
+                style="@style/TextTitleNormal_12sp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:maxLines="6"
+                android:paddingVertical="@dimen/_12_dp"
+                android:layout_marginTop="@dimen/_4_dp"
+                android:layout_marginBottom="@dimen/_4_dp"
+                android:scrollbars="vertical"
+                android:inputType="textMultiLine"
+                android:layout_marginStart="@dimen/_12_dp"
+                android:layout_marginEnd="@dimen/_12_dp"
+                android:background="@android:color/transparent"
+                android:hint="Type a message..."/>
+
+
+        </LinearLayout>
+
+        <carbon.widget.ImageView
+            android:id="@+id/btnChat"
+            android:layout_width="@dimen/_48dp"
+            android:layout_height="@dimen/_48dp"
+            android:layout_marginStart="@dimen/_16_dp"
+            android:background="@color/primary"
+            android:padding="8dp"
+            android:src="@drawable/send"
+            app:carbon_cornerRadius="@dimen/_10_dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBookAppointment"
+            app:layout_constraintStart_toEndOf="@+id/btnBookAppointment"
+            app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
+
+
+    </carbon.widget.LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

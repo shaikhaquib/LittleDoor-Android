@@ -115,6 +115,10 @@
     <string name="revenue">Revenue</string>
     <string name="enter_your_per_session_charges">Enter your per session charges</string>
     <string name="select_your_available_timeslot">Select your available timeslot</string>
+    <string name="no_appointment_error">You have no appointments. Please modify the filter or schedule a new appointment.</string>
+    <string name="my_post">My Post</string>
+    <string name="comments">Comments</string>
+    <string name="likes">Likes</string>
     <string-array name="week_days">
         <item>Monday</item>
         <item>Tuesday</item>

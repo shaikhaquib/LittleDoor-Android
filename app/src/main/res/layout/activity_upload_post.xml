@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CreatePost">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtCancel"
+        style="@style/TextTitleMedium_16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_16_dp"
+        android:layout_marginStart="@dimen/_4_dp"
+        android:text="@string/str_cancel"
+        android:textColor="@color/primary"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPost"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnPost" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPost"
+        style="@style/RoundedCorner"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:padding="@dimen/_0dp"
+        android:text="Post"
+        app:cornerRadius="17dp"
+        android:layout_margin="@dimen/_16_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="@dimen/_40_dp"
+        android:layout_height="@dimen/_40_dp"
+        android:layout_marginStart="@dimen/_20_dp"
+        android:src="@drawable/logo"
+        app:civ_border_color="@color/grey_primary"
+        app:civ_border_width="@dimen/_2_dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCancel" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/txtContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/TextTitleMedium_14sp"
+        android:layout_marginEnd="@dimen/_20_dp"
+        android:padding="@dimen/_12_dp"
+        android:hint="What’s happening?"
+        android:textColorHint="@color/grey_light"
+        android:background="@drawable/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgProfile"
+        app:layout_constraintTop_toTopOf="@+id/imgProfile" />
+
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgPost"
+        style="@style/TextTitleNormal_12sp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_250dp"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/ic_launcher"
+        android:text="Is there a therapy which can cure crossdressing &amp; bdsm compulsion?"
+        android:visibility="gone"
+        app:carbon_cornerRadius="@dimen/_15dp"
+        app:carbon_stroke="@color/grey_light"
+        app:carbon_strokeWidth="@dimen/_1dp"
+        app:layout_constraintEnd_toEndOf="@+id/txtContent"
+        app:layout_constraintStart_toEndOf="@+id/imgProfile"
+        app:layout_constraintTop_toBottomOf="@+id/txtContent" />
+
+
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgCamera"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
+        android:padding="@dimen/_20_dp"
+        android:src="@drawable/camera"
+        app:carbon_cornerRadius="17dp"
+        app:carbon_stroke="@color/grey_light"
+        app:carbon_strokeWidth="1dp"
+        app:carbon_tint="@color/secondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

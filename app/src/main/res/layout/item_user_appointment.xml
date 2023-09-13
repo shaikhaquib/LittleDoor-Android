@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_16_dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageView"
@@ -23,18 +24,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txtName"
-            style="@style/TextDarkBold_16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="Test Doctor"
-            app:layout_constraintStart_toEndOf="@+id/circleImageView"
-            app:layout_constraintTop_toTopOf="@+id/circleImageView" />
 
         <TextView
-            android:id="@+id/txtName3"
+            android:id="@+id/txtName"
             style="@style/TextDarkBold_16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +67,7 @@
             app:layout_constraintStart_toStartOf="@+id/circleImageView"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
         <TextView
-            android:id="@+id/txtName2"
+            android:id="@+id/txtDateTIme"
             style="@style/TextTitleMedium_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,12 +101,13 @@
             android:src="@drawable/comment_"
             app:carbon_cornerRadius="@dimen/_10_dp"
             app:carbon_tint="@color/secondary"
-            app:layout_constraintBottom_toBottomOf="@+id/txtName2"
+            app:layout_constraintBottom_toBottomOf="@+id/txtDateTIme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txtTimeRemaining" />
 
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVideoCallStart"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_16_dp"
@@ -124,11 +117,10 @@
             app:cornerRadius="@dimen/_8_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btnChat"
-            app:layout_constraintStart_toStartOf="@+id/txtName2"
-            app:layout_constraintTop_toBottomOf="@+id/txtName2"
+            app:layout_constraintStart_toStartOf="@+id/txtDateTIme"
+            app:layout_constraintTop_toBottomOf="@+id/txtDateTIme"
             app:strokeColor="@color/primary"
-            app:strokeWidth="@dimen/_2_dp"
-            android:layout_marginBottom="@dimen/_16_dp"/>
+            app:strokeWidth="@dimen/_2_dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

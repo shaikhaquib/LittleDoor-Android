@@ -12,10 +12,13 @@ import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.PostCommentModel
+import com.devative.littledoor.model.PostModel
 import com.devative.littledoor.model.SessionDetails
 import com.devative.littledoor.model.SkillResponse
 import com.devative.littledoor.model.SubCategoryResponse
 import com.devative.littledoor.model.TimeSLotModel
+import com.devative.littledoor.model.UserAppointmentModel
 import com.devative.littledoor.model.UserDetails
 import retrofit2.Response
 import retrofit2.http.Body
@@ -120,8 +123,34 @@ interface APIClient {
 
     @POST("patient/book/appointment")
     suspend fun bookAppointment(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+    @GET("patient/get/book/appointment/details")
+    suspend fun getUserBookedAppointment(): Response<UserAppointmentModel>
     @DELETE("patient/delete/daily/journal/{id}")
     suspend fun deleteJournal(
+        @Path(
+            value = "id",
+            encoded = true
+        ) id: Int,
+    ): Response<GeneralResponse>
+
+    @GET("admin/get/all-post")
+    suspend fun getAllPost(): Response<PostModel>
+    @GET("admin/get/user-post")
+    suspend fun getAllPostUser(): Response<PostModel>
+    @GET("admin/user/likes-post")
+    suspend fun getAllPostUserLikes(): Response<PostModel>
+    @GET("admin/user/comment-post")
+    suspend fun getAllPostUserComment(): Response<PostModel>
+    @POST("admin/add/post-like")
+    suspend fun likePost(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+    @POST("admin/add/post-comment")
+    suspend fun addComment(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+
+    @POST("admin/get/post-comments")
+    suspend fun getComments(@Body sendData: HashMap<String, Any>): Response<PostCommentModel>
+
+    @DELETE("admin/delete/post/1/{id}")
+    suspend fun deletePost(
         @Path(
             value = "id",
             encoded = true
@@ -132,6 +161,7 @@ interface APIClient {
         const val THERAPIST_ADD_DETAILS = "${Constants.BASE_URL}doctor/submit/details"
         const val UPDATE_PROFILE = "${Constants.BASE_URL}admin/update/user/details"
         const val DR_CREATE_TIMESLOT = "${Constants.BASE_URL}doctor/create/slot"
+        const val CREATE_POST = "${Constants.BASE_URL}admin/add/post"
     }
 
 }

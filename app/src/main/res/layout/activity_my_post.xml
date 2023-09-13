@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/searchContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/voilet_background"
+                android:orientation="vertical">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:title="@string/explore"
+                    app:titleTextAppearance="@style/TextDarkBold_20"
+                    app:titleTextColor="@color/white" />
+
+
+                <carbon.widget.LinearLayout
+                    style="@style/AppEditTextCarbonElevated"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_24_dp"
+                    android:layout_marginEnd="@dimen/_24_dp"
+                    android:layout_marginBottom="@dimen/_24_dp"
+                    android:background="@color/neutral_white"
+
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="0dp"
+                    app:carbon_cornerRadius="@dimen/_14_dp">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_16_dp">
+
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imgProfile"
+                            style="@style/AppEditTextCarbonElevated"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:padding="0dp"
+                            android:src="@drawable/profile_placeholder"
+                            app:carbon_elevation="@dimen/_8_dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/txtName"
+                            style="@style/TextDarkBold_18_dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_18_dp"
+                            android:layout_marginTop="8dp"
+                            android:text="Muzammil Sathe"
+                            app:layout_constraintBottom_toTopOf="@+id/txtDesc"
+                            app:layout_constraintStart_toEndOf="@+id/imgProfile"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <TextView
+                            android:id="@+id/txtDesc"
+                            style="@style/TextGray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8_dp"
+                            android:text="Muzammilsathe@gmail.com"
+                            android:textSize="@dimen/_12_dp"
+                            app:layout_constraintStart_toStartOf="@+id/txtName"
+                            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+
+                        <carbon.widget.ImageView
+                            android:id="@+id/btnUpdateProfile"
+                            android:layout_width="@dimen/_34_dp"
+                            android:layout_height="@dimen/_34_dp"
+                            android:layout_marginTop="@dimen/_16_dp"
+                            android:background="#F7F8F8"
+                            android:padding="6dp"
+                            android:src="@drawable/forward"
+                            app:carbon_cornerRadius="@dimen/_10_dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtDesc"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </carbon.widget.LinearLayout>
+            </LinearLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16_dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginEnd="@dimen/_16_dp"
+                android:layout_marginBottom="@dimen/_16_dp"
+                app:tabBackground="@drawable/selector_tab"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@android:color/transparent"
+                app:tabIndicatorHeight="0dp"
+                app:tabMode="fixed"
+                app:tabRippleColor="@null"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextAppearance="@style/TextTitleNormal_16sp"
+                app:tabTextColor="@color/neutral_gray">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_post" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/comments" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/likes" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTherapist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_explore" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

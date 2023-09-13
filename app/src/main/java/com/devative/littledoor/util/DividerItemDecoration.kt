@@ -137,6 +137,10 @@ class DividerItemDecoration(context: Context, orientation: Int, isShowInLastItem
                 outRect[0, 0, mDivider!!.intrinsicWidth] = 0
             }
         }
+
+        if (parent.getChildAdapterPosition(view) == parent.adapter!!.itemCount - 1) {
+            outRect.bottom = 200 /* set your margin here */
+        }
     }
 
     companion object {

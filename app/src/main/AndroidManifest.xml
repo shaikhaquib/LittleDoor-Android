@@ -24,6 +24,13 @@
         android:theme="@style/Theme.LittleDoor"
         tools:targetApi="31">
         <activity
+            android:name=".activity.CreatePost"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".activity.MyPost"
+            android:exported="false" />
+        <activity
             android:name=".activity.THAddSessionDetailsActivity"
             android:exported="false" />
         <activity

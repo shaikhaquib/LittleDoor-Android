@@ -6,6 +6,7 @@ data class EmotModel(
 ) {
     data class Data(
         val id: Int,
-        val name: String
+        val name: String,
+        val image_url: String
     )
 }

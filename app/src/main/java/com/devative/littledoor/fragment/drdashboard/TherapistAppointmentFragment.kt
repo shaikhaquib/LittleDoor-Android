@@ -1,16 +1,12 @@
 package com.devative.littledoor.fragment.drdashboard
 
-import android.os.Build
 import android.os.Bundle
-import android.view.*
-import androidx.core.content.ContextCompat
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.devative.littledoor.R
 import com.devative.littledoor.adapter.AppointmentAdapter
-import com.devative.littledoor.adapter.ExplorerAdapter
 import com.devative.littledoor.databinding.TherapistAppointmentFragmentBinding
-import com.devative.littledoor.util.DividerItemDecoration
 
 
 /**

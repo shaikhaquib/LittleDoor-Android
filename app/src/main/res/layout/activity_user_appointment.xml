@@ -18,6 +18,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -29,36 +30,34 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabGravity="fill"
-            app:tabBackground="@drawable/selector_tab"
-            app:tabIndicatorColor="@android:color/transparent"
-            app:tabIndicatorHeight="0dp"
             android:layout_marginStart="@dimen/_16_dp"
             android:layout_marginEnd="@dimen/_16_dp"
+            app:tabBackground="@drawable/selector_tab"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabIndicatorHeight="0dp"
             app:tabMode="fixed"
             app:tabRippleColor="@null"
-            app:tabTextAppearance="@style/TextTitleMedium_16sp"
             app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/TextTitleMedium_16sp"
             app:tabTextColor="@color/neutral_gray">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:text="@string/today"
-                />
+                android:text="@string/today" />
+
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:text="@string/upcoming"
-                />
+                android:text="@string/upcoming" />
+
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:text="@string/previous"
-                />
+                android:text="@string/previous" />
 
         </com.google.android.material.tabs.TabLayout>
-
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -66,12 +65,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8_dp"
-            tools:listitem="@layout/item_user_appointment"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_user_appointment" />
 
 
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/no_appointment_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_20_dp"
+        style="@style/TextTitleMedium_16sp"
+        android:gravity="center"
+        android:textColor="@color/overlays_red"
+        android:text="@string/no_appointment_error"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

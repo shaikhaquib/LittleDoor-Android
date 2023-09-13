@@ -3,6 +3,7 @@ package com.devative.littledoor.activity
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.PersistableBundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.model.LoginModel
@@ -19,12 +20,10 @@ open class BaseActivity: AppCompatActivity(){
     val progress: Progress by lazy { 
         Progress(this)
     }
-    private lateinit var mainViewModel: MainViewModel
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    private val mainViewModel: MainViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-        mainViewModel = MainViewModel.getViewModel(this)
-
         mainViewModel.fetchUserData()
         mainViewModel.basicDetails.observe(this){
             if (!it.isNullOrEmpty()){

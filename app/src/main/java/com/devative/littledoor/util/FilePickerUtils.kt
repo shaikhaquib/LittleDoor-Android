@@ -27,11 +27,11 @@ object  FilePickerUtils {
     }
 
     // Utility function to request the READ_EXTERNAL_STORAGE permission
-    private fun requestReadStoragePermission(activity: Activity) {
+    private fun requestReadStoragePermission(activity: Activity, requestCode: Int = PICK_FILE_REQUEST_CODE) {
         ActivityCompat.requestPermissions(
             activity,
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            PICK_FILE_REQUEST_CODE
+            requestCode
         )
     }
 
@@ -60,11 +60,11 @@ object  FilePickerUtils {
     ) {
         if (requestCode == PICK_FILE_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, pick the file
                 pickFileFromFileManager(activity)
-            } else {
-                // Permission denied, show a message or handle accordingly
-                // You can display a Toast message indicating that the permission is required
+            }
+        }else if (requestCode == 1234) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getRecentPicturesFilePathsFromGallery(activity)
             }
         }
     }
@@ -98,6 +98,44 @@ object  FilePickerUtils {
             }
         }
         return fullPath
+    }
+
+    fun getRecentPicturesFilePathsFromGallery(activity: Activity): List<String> {
+        val pictureFilePaths = mutableListOf<String>()
+         // Check if the READ_EXTERNAL_STORAGE permission is granted
+            if (isReadStoragePermissionGranted(activity) || Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                // Create an intent to pick a file
+                val projection = arrayOf(
+                    MediaStore.Images.Media._ID,
+                    MediaStore.Images.Media.DISPLAY_NAME,
+                    MediaStore.Images.Media.DATE_ADDED,
+                    MediaStore.Images.Media.DATA
+                )
+
+                val sortOrder = "${MediaStore.Images.Media.DATE_ADDED} DESC"
+
+                val query = activity.contentResolver.query(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    projection,
+                    null,
+                    null,
+                    sortOrder
+                )
+
+                query?.use { cursor ->
+                    val dataColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+
+                    while (cursor.moveToNext()) {
+                        val data = cursor.getString(dataColumn)
+                        pictureFilePaths.add(data)
+                    }
+                }
+
+            } else {
+                // Request the READ_EXTERNAL_STORAGE permission
+                requestReadStoragePermission(activity,1234)
+            }
+        return pictureFilePaths
     }
 
 
