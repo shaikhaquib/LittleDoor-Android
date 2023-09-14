@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/_12_dp">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayout11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,14 +14,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgEmote"
             android:layout_width="@dimen/_46dp"
             android:layout_height="@dimen/_46dp"
             android:layout_gravity="center"
             android:src="@drawable/angry" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtName"
             style="@style/TextTitleMedium_12sp"
             android:layout_width="match_parent"
@@ -30,6 +30,6 @@
             android:textColor="@color/grey_primary"
             android:text="Angry" />
 
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

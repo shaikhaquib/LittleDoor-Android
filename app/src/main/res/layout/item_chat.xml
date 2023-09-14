@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtName"
             style="@style/TextDarkBold_18_dp"
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtDesc"
             style="@style/TextGray"
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
             app:layout_constraintStart_toStartOf="@+id/txtName"
             app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtDate"
             style="@style/TextGray"
             android:layout_width="wrap_content"

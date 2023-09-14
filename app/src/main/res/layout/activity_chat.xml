@@ -31,7 +31,7 @@
         app:carbon_cornerRadiusTopStart="@dimen/_12_dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -39,7 +39,7 @@
             android:background="@drawable/bordergrey_8dp">
 
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_smiled"
@@ -47,7 +47,7 @@
                 android:layout_marginBottom="@dimen/_12_dp"
                 android:layout_marginStart="@dimen/_8_dp"/>
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatEditText
                 style="@style/TextTitleNormal_12sp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -63,7 +63,7 @@
                 android:background="@android:color/transparent"
                 android:hint="Type a message..."/>
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_attach"
@@ -71,7 +71,7 @@
                 android:layout_marginBottom="@dimen/_12_dp"
                 android:layout_marginEnd="@dimen/_8_dp"/>
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <carbon.widget.ImageView
             android:id="@+id/btnChat"

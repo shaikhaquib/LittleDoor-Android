@@ -66,6 +66,7 @@ class SingleSelectBottomSheetDialogFragment(
             listener?.invoke(value)
             dismiss()
         }
+        adapter.setHasStableIds(true)
         // Set up RecyclerView with adapter
         if (searchAble == true){
             binding.edtSearch.visibility = View.VISIBLE
@@ -170,8 +171,8 @@ class SingleSelectBottomSheetDialogFragment(
         }
 
         class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val text = itemView.findViewById<TextView>(com.devative.littledoor.R.id.itemText)
-            val imgIcon = itemView.findViewById<ImageView>(com.devative.littledoor.R.id.imgIcon)
+            val text = itemView.findViewById<androidx.appcompat.widget.AppCompatTextView>(com.devative.littledoor.R.id.itemText)
+            val imgIcon = itemView.findViewById<androidx.appcompat.widget.AppCompatImageView>(com.devative.littledoor.R.id.imgIcon)
         }
     }
 

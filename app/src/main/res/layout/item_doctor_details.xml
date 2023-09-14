@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icForm"
             style="@style/AppEditTextCarbonElevated"
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtName"
             style="@style/TextDarkBold_18_dp"
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
             app:layout_constraintVertical_chainStyle="packed" />
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/addForm"
             style="@style/TextGray"
             android:layout_width="wrap_content"
@@ -69,4 +69,4 @@
 
 
 
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

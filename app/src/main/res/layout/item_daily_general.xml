@@ -13,7 +13,7 @@
         android:layout_marginVertical="@dimen/_8_dp"
         android:layout_marginHorizontal="@dimen/_16_dp">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtTime"
             style="@style/TextTitleBold_12sp"
             android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="@+id/imgEmotion" />
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="@+id/imgEmotion"
             app:srcCompat="@drawable/more_menu" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgEmotion"
             android:layout_width="28dp"
             android:layout_height="28dp"
@@ -43,7 +43,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/angry" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtDetails"
             style="@style/TextTitleNormal_14sp"
             android:layout_width="@dimen/_0dp"

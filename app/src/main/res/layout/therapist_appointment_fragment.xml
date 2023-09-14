@@ -48,7 +48,7 @@
         app:stickyHeader="@id/tabs"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -99,7 +99,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     </com.amar.library.ui.StickyScrollView>

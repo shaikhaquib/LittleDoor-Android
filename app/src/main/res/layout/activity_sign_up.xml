@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.SignUpActivity">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/signup" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:layout_margin="12dp">
 
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgPhoneIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/phone" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtCountryCode"
                 style="@style/TextSubHeadLineOnWhite"
                 android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                 app:layout_constraintStart_toEndOf="@id/txtCountryCode"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edtPhoneNo"
                 style="@style/TextSubHeadLineOnWhite"
                 android:layout_width="0dp"
@@ -114,7 +114,7 @@
 
 
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnTherapistLogin"
         style="@style/TextTitleNormal_14sp"
         android:layout_width="0dp"

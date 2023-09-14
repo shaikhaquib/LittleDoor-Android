@@ -49,6 +49,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         setContentView(binding.root)
         adapter = DoctorFormMasterAdapter(this,formMasterList,doctorDetails,this)
         binding.rvFormMaster.adapter = adapter
+        adapter.setHasStableIds(true)
         binding.rvFormMaster.addItemDecoration(ListSpacingDecoration())
         
         formMasterList.apply {

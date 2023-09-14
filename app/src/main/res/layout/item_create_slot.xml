@@ -6,7 +6,7 @@
     android:paddingVertical="@dimen/_8_dp"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/chkDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toStartOf="@+id/chkEdit"
         app:layout_constraintTop_toTopOf="@+id/chkDays" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/chkEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtSelectTime" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgSet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -16,7 +16,7 @@
         app:navigationIcon="@drawable/backward" />
 
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/asset_otp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView3"
         style="@style/TextHeadLineDark_24dp"
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView4"
         style="@style/TextTitleGray"
         android:layout_width="0dp"
@@ -74,7 +74,7 @@
         app:textSize="@dimen/_12_dp" />
 
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView5"
         style="@style/TextSubHeadLineDark"
         android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pinview" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView6"
         style="@style/TextTitleGray"
         android:layout_width="wrap_content"

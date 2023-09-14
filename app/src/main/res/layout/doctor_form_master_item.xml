@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icForm"
             style="@style/AppEditTextCarbonElevated"
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtName"
             style="@style/TextDarkBold_18_dp"
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             app:layout_constraintVertical_chainStyle="packed" />
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/addForm"
             style="@style/TextGray"
             android:layout_width="wrap_content"

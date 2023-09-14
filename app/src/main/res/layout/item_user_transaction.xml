@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtName"
             style="@style/TextDarkBold_16dp"
             android:layout_width="0dp"
@@ -38,7 +38,7 @@
             app:layout_constraintTop_toTopOf="@+id/circleImageView" />
 
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtSubText"
             style="@style/TextTitleMedium_12sp"
             android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
             app:layout_constraintStart_toStartOf="@+id/txtName"
             app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             app:srcCompat="@drawable/green_success_tick" />
 
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView14"
             style="@style/TextDarkBold_16dp"
             android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/circleImageView" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextTitleMedium_12sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

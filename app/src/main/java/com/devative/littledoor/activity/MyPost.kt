@@ -58,6 +58,7 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
             startActivity(Intent(this, UpdateProfile::class.java))
         }
         adapter = ExplorerAdapter(this,userPosts,this)
+        adapter.setHasStableIds(true)
         binding.rvTherapist.adapter = adapter
         binding.rvTherapist.addItemDecoration(
             DividerItemDecoration(this,

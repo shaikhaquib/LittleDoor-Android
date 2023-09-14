@@ -25,6 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class DailyGeneraleBottomSheet(val list:ArrayList<EmotModel.Data>,var selectedPosition:Int = -1,val event: DailyGeneraleBottomSheetEvent) : BottomSheetDialogFragment(),OnClickListener {
 
     private lateinit var binding:BottomSheetDailyGenralBinding
+    private lateinit var adapter:EmoteAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,13 +45,15 @@ class DailyGeneraleBottomSheet(val list:ArrayList<EmotModel.Data>,var selectedPo
         isCancelable = false
         binding.btnCancel.setOnClickListener(this)
         binding.btnSubmit.setOnClickListener(this)
-
-        binding.rvEmote.adapter = EmoteAdapter(requireActivity(),list,object :
+       adapter = EmoteAdapter(requireActivity(),list,object :
             EmoteAdapter.EmoteAdapterEvent {
             override fun onclick(position: Int) {
                selectedPosition = position
             }
         },selectedPosition)
+        adapter.setHasStableIds(true)
+        binding.rvEmote.adapter = adapter
+
 
     }
     override fun onClick(p0: View?) {

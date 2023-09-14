@@ -28,12 +28,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:maxLines="1" />
 
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtLabelMobile"
                 style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
                 android:maxLength="10"
                 android:maxLines="1" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,11 +97,11 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1" />
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextDarkBold_16dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                     android:layout_weight="1"
                     android:text="@string/gender" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     style="@style/TextDarkBold_16dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -121,9 +121,9 @@
                     android:text="@string/date_of_birth" />
 
 
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -162,9 +162,9 @@
                     app:carbon_stroke="@color/grey_lighter"
                     app:carbon_strokeWidth="@dimen/carbon_1dip" />
 
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 style="@style/TextDarkBold_16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -189,11 +189,11 @@
                 app:carbon_strokeWidth="@dimen/carbon_1dip" />
 
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/liTermsSerive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
             android:minHeight="0dp"
             android:padding="@dimen/_0dp" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtTermsLabel"
             style="@style/TextTitleBold_14sp"
             android:layout_width="wrap_content"
@@ -226,7 +226,7 @@
             android:padding="@dimen/_0dp"
             android:text="@string/label_terms_condition" />
 
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     <com.google.android.material.button.MaterialButton

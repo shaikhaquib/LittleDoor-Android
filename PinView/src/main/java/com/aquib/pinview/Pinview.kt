@@ -17,11 +17,11 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import java.util.*
 import java.util.logging.Logger
@@ -38,7 +38,7 @@ class Pinview @JvmOverloads constructor(
      * Attributes
      */
     private var mPinLength = 4
-    private val editTextList: MutableList<EditText>? = ArrayList()
+    private val editTextList: MutableList<androidx.appcompat.widget.AppCompatEditText>? = ArrayList()
     private var mPinWidth = 50
     private var mTextSize = 12
     private var mPinHeight = 50
@@ -128,9 +128,9 @@ class Pinview @JvmOverloads constructor(
     private fun createEditTexts() {
         removeAllViews()
         editTextList!!.clear()
-        var editText: EditText
+        var editText: AppCompatEditText
         for (i in 0 until mPinLength) {
-            editText = EditText(context)
+            editText = AppCompatEditText(context)
             editText.setTextColor(textColor)
             editText.textSize = mTextSize.toFloat()
             editTextList.add(i, editText)
@@ -147,6 +147,7 @@ class Pinview @JvmOverloads constructor(
      * @param attrs
      * @param defStyleAttr
      */
+    @SuppressLint("ResourceType")
     private fun initAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         if (attrs != null) {
             val array = context.obtainStyledAttributes(attrs, R.styleable.Pinview, defStyleAttr, 0)
@@ -182,7 +183,7 @@ class Pinview @JvmOverloads constructor(
      * @param styleEditText
      * @param tag
      */
-    private fun generateOneEditText(styleEditText: EditText, tag: String) {
+    private fun generateOneEditText(styleEditText: AppCompatEditText, tag: String) {
         params!!.setMargins(mSplitWidth / 2, mSplitWidth / 2, mSplitWidth / 2, mSplitWidth / 2)
         filters[0] = LengthFilter(1)
         styleEditText.filters = filters
@@ -258,7 +259,7 @@ class Pinview @JvmOverloads constructor(
                     if (inputType == InputType.NUMBER || mPassword) finalNumberPin = true
                     if (mListener != null) mListener!!.onDataEntered(this, false)
                 }
-                (currentFocus as EditText).requestFocus()
+                (currentFocus as AppCompatEditText).requestFocus()
             }
             fromSetValue = false
             updateEnabledState()
@@ -370,13 +371,13 @@ class Pinview @JvmOverloads constructor(
                             val currentTag = indexOfCurrentFocus
                             mDelPressed = true
                             //For the last cell of the non password text fields. Clear the text without changing the focus.
-                            if (editTextList[currentTag].text.length > 0) {
+                            if ((editTextList[currentTag].text?.length ?: 0) > 0) {
                                 editTextList[currentTag].setText("")
                                 editTextList[currentTag].setBackgroundResource(pinBackground)
                             }
                         }
                         for (index in 0 until mPinLength) {
-                            if (editTextList[index].text.length < 1) break
+                            if ((editTextList[index].text?.length ?: 0) < 1) break
                             if (!fromSetValue && index + 1 == mPinLength && mListener != null) mListener!!.onDataEntered(
                                 this@Pinview,
                                 true
@@ -432,13 +433,13 @@ class Pinview @JvmOverloads constructor(
             val currentTag = indexOfCurrentFocus
             mDelPressed = true
             //For the last cell of the non password text fields. Clear the text without changing the focus.
-            if (editTextList!![currentTag].text.length > 0) {
+            if ((editTextList!![currentTag].text?.length ?: 0) > 0) {
                 editTextList[currentTag].setText("")
                 editTextList[currentTag].setBackgroundResource(pinBackground)
             }
         }
         for (index in 0 until mPinLength) {
-            if (editTextList!![index].text.length < 1) break
+            if ((editTextList!![index].text?.length ?: 0) < 1) break
             if (!fromSetValue && index + 1 == mPinLength && mListener != null) mListener!!.onDataEntered(
                 this,
                 true
@@ -503,7 +504,7 @@ class Pinview @JvmOverloads constructor(
                 }
             } else {
                 //For the first cell
-                if (editTextList!![currentTag].text.length > 0) {
+                if ((editTextList!![currentTag].text?.length ?: 0) > 0) {
                     editTextList[currentTag].setText("")
                     editTextList[i].setBackgroundResource(pinBackground)
                 }
@@ -675,7 +676,7 @@ class Pinview @JvmOverloads constructor(
     }
 
     @SuppressLint("SoonBlockedPrivateApi")
-    private fun setCursorColor(view: EditText, @ColorInt color: Int) {
+    private fun setCursorColor(view: AppCompatEditText, @ColorInt color: Int) {
         try {
             // Get the cursor resource id
             var field = TextView::class.java.getDeclaredField("mCursorDrawableRes")

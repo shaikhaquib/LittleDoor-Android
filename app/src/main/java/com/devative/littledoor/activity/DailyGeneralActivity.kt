@@ -46,6 +46,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
         binding.txtMonth.text = Constants.monthNames[calendar[Calendar.MONTH]]
         adapter = DailyGeneralAdapter(this, this,dailyJournalList)
         binding.rvGeneral.adapter = adapter
+        adapter.setHasStableIds(true)
         adapter.notifyDataSetChanged()
 
 //        binding.txtMonth.setText(calendarView.g)

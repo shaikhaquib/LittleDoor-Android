@@ -13,7 +13,7 @@
     tools:ignore="MissingDefaultResource"
     android:id="@+id/chip">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         style="@style/TextTitleBold_12sp"
         android:id="@+id/txtName"
         android:layout_width="wrap_content"

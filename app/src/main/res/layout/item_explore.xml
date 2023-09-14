@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtName"
             style="@style/TextTitleBold_14sp"
             android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             app:layout_constraintStart_toEndOf="@+id/imgProfile"
             app:layout_constraintTop_toTopOf="@+id/imgProfile"
             app:layout_constraintVertical_chainStyle="packed" />
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtDate"
             style="@style/TextGray_10"
             android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             app:layout_constraintStart_toEndOf="@+id/txtName"
             app:layout_constraintTop_toTopOf="@+id/txtName" />
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/liPostContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             app:layout_constraintStart_toStartOf="@+id/txtName"
             app:layout_constraintTop_toBottomOf="@+id/txtName">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtDesc"
                 style="@style/TextTitleNormal_12sp"
                 android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                 android:text="Is there a therapy which can cure crossdressing &amp; bdsm compulsion?"
                 />
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <CheckBox
             android:id="@+id/chkLike"
@@ -90,7 +90,7 @@
             app:layout_constraintStart_toStartOf="@+id/liPostContainer"
             app:layout_constraintTop_toBottomOf="@+id/liPostContainer" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
             app:layout_constraintTop_toTopOf="@+id/chkLike"
             app:layout_constraintBottom_toBottomOf="@+id/chkLike"/>
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

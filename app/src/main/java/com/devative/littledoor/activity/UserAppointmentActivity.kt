@@ -42,6 +42,7 @@ class UserAppointmentActivity : BaseActivity() {
 
             }
         })
+        adapter.setHasStableIds(true)
         binding.rvAppointment.adapter =adapter
         binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {

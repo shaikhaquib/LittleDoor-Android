@@ -12,7 +12,7 @@
     app:carbon_stroke="#22A29EB6"
     app:carbon_strokeWidth="1dp">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         style="@style/TextTitleNormal_16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:textColor="@color/black"
         android:textStyle="bold" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         style="@style/TextTitleNormal_12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,12 +43,12 @@
         app:carbon_strokeWidth="1dp">
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_40_dp"
             android:layout_height="@dimen/_40_dp"
             app:srcCompat="@drawable/ic_gallery" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextDarkBold_18_dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,12 +71,12 @@
         app:carbon_strokeWidth="1dp">
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_40_dp"
             android:layout_height="@dimen/_40_dp"
             app:srcCompat="@drawable/ic_cam" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextDarkBold_18_dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

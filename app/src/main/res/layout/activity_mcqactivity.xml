@@ -17,7 +17,7 @@
         app:title="For Understanding You"
         />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView2"
         style="@style/TextGray"
         android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtPageIndicator"
         style="@style/TextSubHeadLineDark"
         android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/txtSkip" />
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtSkip"
         style="@style/TextSubHeadLineDark"
         android:layout_width="0dp"

@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView6"
             android:layout_width="@dimen/_14_dp"
             android:layout_height="@dimen/_14_dp"
@@ -36,7 +36,7 @@
             app:layout_constraintStart_toStartOf="@id/imageView5"
             app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView7"
             style="@style/TextTitleBold_14sp"
             android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtName"
             style="@style/TextDarkBold_18_dp"
             android:textColor="@color/neutral_navyblue"
@@ -60,7 +60,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toTopOf="@id/imageView5" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtDesc"
             style="@style/TextGray"
             android:layout_width="wrap_content"

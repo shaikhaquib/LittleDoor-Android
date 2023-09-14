@@ -7,7 +7,7 @@
     android:background="@color/screen_background_color"
     tools:context=".activity.DoctorRegistrationMaster">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtName"
             style="@style/TextHeadLineDark_24dp"
             android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
             android:text="Hello Bruce Cullen"
             android:textColor="@color/white_for_black" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextTitleNormal_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:text="To build a complete professional profile,\nkindly share your experience and required data with us"
             android:textColor="@color/white_for_black" />
 
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     <androidx.recyclerview.widget.RecyclerView

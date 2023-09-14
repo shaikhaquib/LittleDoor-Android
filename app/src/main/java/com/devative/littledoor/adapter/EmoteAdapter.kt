@@ -19,14 +19,15 @@ class EmoteAdapter(
     val context: Context,
     val list:ArrayList<EmotModel.Data>,
     val event:EmoteAdapterEvent,
-    var selectedPosition:Int = -1
+    var selectedPosition:Int = -1,
+    val selectable: Boolean = true
 ) : RecyclerView.Adapter<EmoteAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemEmoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
             binding.txtName.text = list[position].name
             binding.imgEmote.load(list[position].image_url,R.drawable.sad)
-            if (selectedPosition == position){
+            if (selectable && selectedPosition == position){
                 binding.txtName.setTextColor(ContextCompat.getColor(context, R.color.primary))
             }else{
                 binding.txtName.setTextColor(ContextCompat.getColor(context, R.color.grey_primary))
@@ -35,7 +36,9 @@ class EmoteAdapter(
             binding.root.setOnClickListener {
                 selectedPosition = position
                 event.onclick(position)
-                notifyDataSetChanged()
+                if (selectable) {
+                    notifyDataSetChanged()
+                }
             }
         }
     }
@@ -47,10 +50,15 @@ class EmoteAdapter(
 
     override fun onBindViewHolder(holder: EmoteAdapter.ViewHolder, position: Int) {
         holder.bindData(position)
+
     }
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     interface EmoteAdapterEvent {

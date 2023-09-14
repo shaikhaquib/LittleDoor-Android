@@ -145,7 +145,7 @@ class SignUpActivity : BaseActivity(),View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id){
             binding.btnSendOTP.id ->{
-                if (binding.edtPhoneNo.text.isEmpty()) {
+                if (binding.edtPhoneNo.text.isNullOrEmpty()) {
                     binding.edtPhoneNo.error = getString(R.string.phone_error_empty)
                     Toasty.error(applicationContext, getString(R.string.phone_error_empty)).show()
                 } else {

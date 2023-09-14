@@ -246,7 +246,7 @@ class THAddSessionDetailsActivity : BaseActivity() {
 
     private fun setUpUI() {
         binding.btnSUbmit.setOnClickListener {
-            if (binding.edtAmount.text.isEmpty() || binding.edtAmount.text.toString().toInt() == 0){
+            if (binding.edtAmount.text.isNullOrEmpty() || binding.edtAmount.text.toString().toInt() == 0){
                 Utility.errorToast(applicationContext,"To continue please enter valid amount")
             }else if (binding.edtAmount.text.toString().toInt() > 5000){
                 Utility.errorToast(applicationContext,"The session amount cannot be greater than Rs.5000, it should be in between Rs.1 to Rs.5000")

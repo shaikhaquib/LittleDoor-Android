@@ -17,7 +17,7 @@
         app:title="Appointment" />
 
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayout13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,10 +69,10 @@
             tools:listitem="@layout/item_user_appointment" />
 
 
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/no_appointment_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

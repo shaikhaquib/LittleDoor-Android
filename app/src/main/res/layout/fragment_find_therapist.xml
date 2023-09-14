@@ -49,12 +49,12 @@
         app:stickyHeader="@id/searchContainer"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/searchContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,13 +73,13 @@
                     android:padding="0dp"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_16_dp"
                         android:layout_marginEnd="@dimen/_16_dp"                        android:src="@drawable/ic_search"/>
 
-                    <EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/AppEditText"
@@ -87,7 +87,7 @@
                         android:background="@color/neutral_white"
                         android:layout_weight="1"/>
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_16_dp"
@@ -97,9 +97,9 @@
 
                 </carbon.widget.LinearLayout>
 
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_24_dp"
@@ -107,120 +107,18 @@
                 android:text="@string/categories"/>
 
 
-            <HorizontalScrollView
-                android:layout_width="match_parent"
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategory"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fillViewport="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <carbon.widget.ImageView
-                            android:layout_width="@dimen/_68_dp"
-                            android:layout_height="@dimen/_68_dp"
-                            android:padding="@dimen/_12_dp"
-                            android:layout_margin="4dp"
-                            style="@style/AppEditTextCarbonElevated"
-                            android:layout_gravity="center"
-                            android:src="@drawable/cardiologist" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            style="@style/TextGray_10"
-                            android:text="Therapist" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <carbon.widget.ImageView
-                            android:layout_width="@dimen/_68_dp"
-                            android:layout_height="@dimen/_68_dp"
-                            android:padding="@dimen/_12_dp"
-                            android:layout_margin="4dp"
-                            style="@style/AppEditTextCarbonElevated"
-                            android:layout_gravity="center"
-                            android:src="@drawable/neurosurgeon" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            style="@style/TextGray_10"
-                            android:text="Counsellor" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <carbon.widget.ImageView
-                            android:layout_width="@dimen/_68_dp"
-                            android:layout_height="@dimen/_68_dp"
-                            android:padding="@dimen/_12_dp"
-                            android:layout_margin="4dp"
-                            style="@style/AppEditTextCarbonElevated"
-                            android:layout_gravity="center"
-                            android:src="@drawable/brain_profile" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            style="@style/TextGray_10"
-                            android:text="Psychologists" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <carbon.widget.ImageView
-                            android:layout_width="@dimen/_68_dp"
-                            android:layout_height="@dimen/_68_dp"
-                            android:padding="@dimen/_12_dp"
-                            android:layout_margin="4dp"
-                            style="@style/AppEditTextCarbonElevated"
-                            android:layout_gravity="center"
-                            android:src="@drawable/pediatrician" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            style="@style/TextGray_10"
-                            android:text="Psychiatrist" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-
-
-            </HorizontalScrollView>
-
+                tools:listitem="@layout/item_category"
+                android:orientation="horizontal"
+                tools:itemCount="2"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTherapist"
@@ -230,7 +128,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     </com.amar.library.ui.StickyScrollView>

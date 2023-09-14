@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgIcon"
         android:layout_width="@dimen/_18_dp"
         android:layout_height="@dimen/_18_dp"
@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/itemText"
         style="@style/TextSubHeadLineDark"
         android:layout_width="0dp"

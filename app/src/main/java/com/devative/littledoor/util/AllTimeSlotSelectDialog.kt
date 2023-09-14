@@ -58,6 +58,7 @@ class AllTimeSlotSelectDialog(
         binding.btnSubmit.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
         adapter = TimeSlotAdapter(requireActivity(),list)
+        adapter.setHasStableIds(true)
         binding.rvTimeSlot.adapter = adapter
     }
 

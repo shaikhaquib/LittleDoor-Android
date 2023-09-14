@@ -77,7 +77,7 @@ class CommentDialogFragment(
             dismiss()
         }
         binding.btnChat.setOnClickListener {
-            if (binding.edtChat.text.isEmpty()){
+            if (binding.edtChat.text.isNullOrEmpty()){
                 binding.edtChat.error = "Please enter comment message"
             }else{
                 val map =  HashMap<String,Any>()
@@ -88,6 +88,7 @@ class CommentDialogFragment(
         }
         binding.itemList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         adapter = CommentsAdapter(requireActivity(), commentList)
+        adapter.setHasStableIds(true)
         binding.itemList.adapter = adapter
         observer()
     }

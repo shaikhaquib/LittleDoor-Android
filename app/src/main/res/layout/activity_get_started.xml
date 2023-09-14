@@ -17,7 +17,7 @@
         app:title="For Understanding You" />
 
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/intro_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         app:layout_constraintVertical_chainStyle="packed"
         android:src="@drawable/final_question" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/intro_title"
         style="@style/TextHeadLineDark_24dp"
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/intro_image"
         android:text="Great!\nLet’s Begin..." />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/intro_description"
         style="@style/TextSubHeadLineDark"
         android:layout_width="300dp"

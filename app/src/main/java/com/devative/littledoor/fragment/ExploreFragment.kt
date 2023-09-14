@@ -71,6 +71,7 @@ class ExploreFragment : Fragment(),ExplorerAdapter.ExplorerAdapterEvent {
         }
         mainViewModel.getUserDetails()
         adapter = ExplorerAdapter(requireActivity(),postList,this)
+        adapter.setHasStableIds(true)
         binding.rvTherapist.adapter = adapter
         binding.rvTherapist.addItemDecoration(DividerItemDecoration(requireContext(),LinearLayoutManager.VERTICAL,false))
         binding.imgProfile.setOnClickListener{

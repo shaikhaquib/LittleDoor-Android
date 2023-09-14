@@ -50,7 +50,7 @@
         app:layout_constraintStart_toEndOf="@+id/verticalCalendar"
         />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

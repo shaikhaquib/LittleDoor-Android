@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_marginHorizontal="@dimen/_8_dp"
+    android:orientation="vertical">
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgIcon"
+        style="@style/AppEditTextCarbonElevated"
+        android:layout_width="@dimen/_68_dp"
+        android:layout_height="@dimen/_68_dp"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:padding="@dimen/_12_dp"
+        android:src="@drawable/cardiologist" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtName"
+        style="@style/TextGray_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Therapist" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+

@@ -1,10 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bottom_sheet_background"
     android:orientation="vertical">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,4 +40,4 @@
         android:paddingTop="@dimen/_16_dp"
         android:paddingBottom="@dimen/_16_dp" />
 
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

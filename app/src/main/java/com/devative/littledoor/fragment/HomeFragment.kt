@@ -83,7 +83,7 @@ class HomeFragment  : Fragment() {
                 })
                 dialog.show(requireActivity().supportFragmentManager, "ImagePickerDialog")
             }
-        })
+        }, selectable = false)
         QuoteManager(requireActivity(),binding.txtQuote,binding.txtQuoteAuthor)
 
         observe()

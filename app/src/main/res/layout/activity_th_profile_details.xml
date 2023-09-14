@@ -17,7 +17,7 @@
         app:title="Dr Name Surname" />
 
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgProfile"
         android:layout_width="0dp"
         android:layout_height="@dimen/_190dp"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgProfile">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtSessionFee"
             style="@style/TextDarkBold_16dp"
             android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
             android:textColor="#259d4e"
             app:drawableStartCompat="@drawable/rupee_bold" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextTitleNormal_12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgProfile">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextTitleNormal_12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtCategory"
                 style="@style/TextDarkBold_16dp"
                 android:layout_width="0dp"
@@ -113,7 +113,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtCity"
                 style="@style/TextTitleNormal_14sp"
                 android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
                 app:layout_constraintStart_toStartOf="@+id/txtCategory"
                 app:layout_constraintTop_toBottomOf="@+id/txtCategory" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtDegree"
                 style="@style/TextTitleNormal_14sp"
                 android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/textView16"
                 app:layout_constraintTop_toTopOf="@+id/txtCategory" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView16"
                 style="@style/TextTitleNormal_12sp"
                 android:layout_width="wrap_content"
@@ -157,7 +157,7 @@
                 app:layout_constraintTop_toTopOf="@+id/view"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtYearEXP"
                 style="@style/TextDarkBold_18_dp"
                 android:layout_width="wrap_content"
@@ -168,7 +168,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/textView17"
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView17"
                 style="@style/TextDarkBold_16dp"
                 android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtDegree" />
 
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView12"
                 style="@style/TextTitleNormal_14sp"
                 android:layout_width="wrap_content"
