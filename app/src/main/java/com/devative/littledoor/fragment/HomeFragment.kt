@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.DailyGeneralActivity
+import com.devative.littledoor.activity.MainActivity
 import com.devative.littledoor.activity.UpdateProfile
 import com.devative.littledoor.adapter.EmoteAdapter
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
@@ -19,6 +20,7 @@ import com.devative.littledoor.architecturalComponents.viewmodel.DailyJournalVM
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.HomeFragmentBinding
 import com.devative.littledoor.model.EmotModel
+import com.devative.littledoor.model.UserAppointmentModel.*
 import com.devative.littledoor.model.UserDetails
 import com.devative.littledoor.util.DailyGeneraleBottomSheet
 import com.devative.littledoor.util.Progress
@@ -26,8 +28,10 @@ import com.devative.littledoor.util.QuoteManager
 import com.devative.littledoor.util.Utility
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 /**
  * Created by AQUIB RASHID SHAIKH on 20-03-2023.
@@ -85,12 +89,16 @@ class HomeFragment  : Fragment() {
             }
         }, selectable = false)
         QuoteManager(requireActivity(),binding.txtQuote,binding.txtQuoteAuthor)
-
         observe()
+        binding.btnBookNow.setOnClickListener {
+            (requireActivity() as MainActivity).setNavigationSelection(R.id.bottom_navigation_search)
+        }
+
     }
 
     private fun observe() {
         dailyJournalVM.getEmote()
+        vm.getUserBookedAppointment()
         dailyJournalVM.getEmote.observe(requireActivity()) {
             when (it.status) {
                 Status.LOADING -> {
@@ -140,6 +148,39 @@ class HomeFragment  : Fragment() {
 
             }
         }
+        vm.getUserBookedAppointment.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                    if (!progress.isShowing())
+                        progress.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true) {
+                        if (it.data.data.isNotEmpty()) {
+                            todayAppointment(it.data.data as ArrayList)
+                        }else{
+                            binding.liBookSession.visibility = View.VISIBLE
+                            binding.liJoinSession.visibility = View.GONE
+                        }
+                    } else {
+
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress.dismiss()
+                    it.message?.let { it1 ->
+                      Utility.errorToast(
+                            requireContext(),
+                            it1
+                        )
+                    }
+                }
+
+            }
+        }
 
     }
 
@@ -178,5 +219,41 @@ class HomeFragment  : Fragment() {
             }
         }
     }
+    fun todayAppointment(dataList: java.util.ArrayList<Data>) {
 
+        val currentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+
+        val todayData = dataList.filter {
+            val appointmentTime = it.slot_time.toLowerCase(Locale.getDefault())
+            val appointmentDateTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(appointmentTime)
+            val calendar = Calendar.getInstance()
+            calendar.time = appointmentDateTime!!
+            calendar.add(Calendar.MINUTE, 30) // Add 30 minutes
+            val updatedTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(calendar.time)
+            val appointmentDate = it.apointmnet_date
+
+            appointmentDate == today && updatedTime > currentTime
+        }
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault())
+        val upcomingAppointment = todayData.minByOrNull {
+            val appointmentDateTime = sdf.parse("${it.apointmnet_date} ${it.slot_time}")
+            val calendar = Calendar.getInstance()
+            calendar.time = appointmentDateTime
+            calendar.add(Calendar.MINUTE, 30) // Add 30 minutes
+            calendar.time
+        }
+
+        if (upcomingAppointment != null) {
+            binding.liBookSession.visibility = View.GONE
+            binding.liJoinSession.visibility = View.VISIBLE
+            binding.txtTHName.text = "${upcomingAppointment.doctor_name}"
+            binding.txtSlotTime.text = "Today at ${upcomingAppointment.slot_time}"
+        } else {
+            binding.liBookSession.visibility = View.VISIBLE
+            binding.liJoinSession.visibility = View.GONE
+        }
+    }
 }

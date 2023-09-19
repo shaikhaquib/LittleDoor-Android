@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
@@ -84,7 +85,6 @@ class ExploreFragment : Fragment(),ExplorerAdapter.ExplorerAdapterEvent {
     }
 
     private fun observer() {
-        vm.getAllPost()
         vm.getAllPost.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
@@ -203,4 +203,8 @@ class ExploreFragment : Fragment(),ExplorerAdapter.ExplorerAdapterEvent {
     override fun onShare(position: Int, postID: Int) {
     }
 
+    override fun onResume() {
+        super.onResume()
+        vm.getAllPost()
+    }
 }

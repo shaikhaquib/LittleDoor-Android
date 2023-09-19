@@ -5,12 +5,16 @@ data class UserAppointmentModel(
     val status: Boolean
 ) {
     data class Data(
+        val id: Int,
         val apointmnet_date: String,
         val doctor_id: Int,
         val doctor_name: String,
-        val id: Int,
+        val doctor_profile: String,
+        val doctor_category: List<String>,
         val is_appointment_active: Int,
         val slot_id: Int,
-        val slot_time: String
+        val slot_time: String,
+        val patient_name: String,
+        val patient_profile: String,
     )
 }

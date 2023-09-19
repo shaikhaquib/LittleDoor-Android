@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.R
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Constants.hasDatePassed
+import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.databinding.ItemAppointmentBinding
 import com.devative.littledoor.databinding.ItemUserAppointmentBinding
 import com.devative.littledoor.model.UserAppointmentModel
@@ -21,13 +22,15 @@ class UserAppointmentListAdapter(
     private val context: Context,
     private val list :ArrayList<UserAppointmentModel.Data>,
     private val event: UserAppointmentAdapterEvent,
-    private val maxLength: Int = -1
+    private val maxLength: Int = -1,
 ) : RecyclerView.Adapter<UserAppointmentListAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemUserAppointmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
             val item = list[position]
             binding.txtName.text = item.doctor_name
+            binding.circleImageView.load(item.doctor_profile)
+            binding.txtSubText.text = item.doctor_category[0]
             binding.txtTimeRemaining.text = Constants.getTimeRemaining("${item.apointmnet_date}, ${item.slot_time}")
             binding.txtDateTIme.text = "${Constants.convertDateFormat(item.apointmnet_date,"dd MMM")}, ${item.slot_time}"
 
