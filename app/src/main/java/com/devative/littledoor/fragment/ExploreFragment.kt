@@ -41,6 +41,7 @@ class ExploreFragment : Fragment(),ExplorerAdapter.ExplorerAdapterEvent {
     private val mainViewModel :MainViewModel by activityViewModels()
     private val postList = ArrayList<PostModel.Data>()
     private lateinit var adapter:ExplorerAdapter
+    private val uniqueIds = HashSet<Int>()
     val progress: Progress by lazy {
         Progress(requireActivity() as AppCompatActivity)
     }
@@ -95,9 +96,12 @@ class ExploreFragment : Fragment(),ExplorerAdapter.ExplorerAdapterEvent {
                 Status.SUCCESS -> {
                     progress.dismiss()
                     if (it.data?.status == true) {
-                        postList.clear()
                         if (it.data.data.isNotEmpty()) {
-                            postList.addAll(it.data.data as ArrayList)
+                            for (data in it.data.data) {
+                                if (uniqueIds.add(data.id)) {
+                                    postList.add(data)
+                                }
+                            }
                             adapter.notifyDataSetChanged()
                         }
                     } else {

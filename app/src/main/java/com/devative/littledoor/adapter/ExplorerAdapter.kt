@@ -69,6 +69,16 @@ class ExplorerAdapter(
         return list.size
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+
+
     interface ExplorerAdapterEvent {
         fun onclick(position: Int)
         fun onLike(position: Int,isLike: Boolean,postID: Int)
