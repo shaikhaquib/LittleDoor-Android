@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-
+import com.devative.littledoor.model.UserAppointmentModel
 
 
 object Constants {
@@ -54,6 +54,10 @@ object Constants {
         val targetDate = Calendar.getInstance()
         targetDate.time = formatter.parse(dateString)
 
+        if (currentDate >= targetDate) {
+            return "$dateString is already passed"
+        }
+
         val months = targetDate.get(Calendar.MONTH) - currentDate.get(Calendar.MONTH)
         val weeks = targetDate.get(Calendar.WEEK_OF_YEAR) - currentDate.get(Calendar.WEEK_OF_YEAR)
         val days = targetDate.get(Calendar.DAY_OF_YEAR) - currentDate.get(Calendar.DAY_OF_YEAR)
@@ -66,7 +70,7 @@ object Constants {
             days > 0 -> "Start in $days day"
             hours > 0 -> "Start in $hours hour"
             minutes > 0 -> "Start in $minutes minute"
-            else -> "Time has already passed"
+            else -> "$dateString is already passed"
         }
     }
 
@@ -76,6 +80,17 @@ object Constants {
         val currentDate = Date()
         val targetDateTimeObj = dateTimeFormatter.parse(targetDateTime)
         return currentDate.after(targetDateTimeObj)
+    }
+    fun filterAndSortData(dataList: List<UserAppointmentModel.Data>, filterCode: Int): List<UserAppointmentModel.Data> {
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        return when (filterCode) {
+            1 -> dataList.filter { it.apointmnet_date == currentDate }
+            2 -> dataList.filter { dateFormatter.parse(it.apointmnet_date) > dateFormatter.parse(currentDate) }
+            3 -> dataList.filter { dateFormatter.parse(it.apointmnet_date) < dateFormatter.parse(currentDate) }
+            else -> throw IllegalArgumentException("Invalid filter code")
+        }.sortedBy { it.apointmnet_date }
     }
 
 

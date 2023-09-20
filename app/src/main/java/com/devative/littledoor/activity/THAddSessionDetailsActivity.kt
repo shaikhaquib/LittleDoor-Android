@@ -112,11 +112,11 @@ class THAddSessionDetailsActivity : BaseActivity() {
         vm.getSessionAmount.observe(this){
             when (it.status) {
                 Status.LOADING -> {
-                    progress.show()
+                 progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress.dismiss()
+                 progress.dismiss()
                     it.data?.let {session->
                         if (session.status) {
                             if (session.data != null) {
@@ -138,7 +138,7 @@ class THAddSessionDetailsActivity : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                 //   progress?.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
@@ -152,16 +152,16 @@ class THAddSessionDetailsActivity : BaseActivity() {
         vm.setSessionAmount.observe(this){
             when (it.status) {
                 Status.LOADING -> {
-                    progress.show()
+                progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress.dismiss()
+                 progress.dismiss()
                     it.data?.let { it1 -> Toasty.success(applicationContext, it1.message).show() }
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                 progress?.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,

@@ -45,10 +45,8 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
         setUpwatcher(calendar)
         binding.txtMonth.text = Constants.monthNames[calendar[Calendar.MONTH]]
         adapter = DailyGeneralAdapter(this, this,dailyJournalList)
-        binding.rvGeneral.adapter = adapter
         adapter.setHasStableIds(true)
-        adapter.notifyDataSetChanged()
-
+        binding.rvGeneral.adapter = adapter
 //        binding.txtMonth.setText(calendarView.g)
         binding.txtMonth.setOnClickListener {
             val bottomSheetFragment = CalendarBottomSheetDialogFragment((object :

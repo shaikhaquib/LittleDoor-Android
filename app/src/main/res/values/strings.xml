@@ -119,6 +119,7 @@
     <string name="my_post">My Post</string>
     <string name="comments">Comments</string>
     <string name="likes">Likes</string>
+    <string name="no_schedule_appointment">No appointments scheduled at the moment. We\'ll keep you posted if any appointments are arranged.</string>
     <string-array name="week_days">
         <item>Monday</item>
         <item>Tuesday</item>

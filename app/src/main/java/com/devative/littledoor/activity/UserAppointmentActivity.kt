@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import com.devative.littledoor.R
 import com.devative.littledoor.adapter.AppointmentAdapter
 import com.devative.littledoor.adapter.UserAppointmentListAdapter
+import com.devative.littledoor.architecturalComponents.helper.Constants.filterAndSortData
 import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.ActivityUserAppointmentBinding
@@ -130,15 +131,4 @@ class UserAppointmentActivity : BaseActivity() {
     }
 
 
-    fun filterAndSortData(dataList: List<UserAppointmentModel.Data>, filterCode: Int): List<UserAppointmentModel.Data> {
-        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
-        return when (filterCode) {
-            1 -> dataList.filter { it.apointmnet_date == currentDate }
-            2 -> dataList.filter { dateFormatter.parse(it.apointmnet_date) > dateFormatter.parse(currentDate) }
-            3 -> dataList.filter { dateFormatter.parse(it.apointmnet_date) < dateFormatter.parse(currentDate) }
-            else -> throw IllegalArgumentException("Invalid filter code")
-        }.sortedBy { it.apointmnet_date }
-    }
 }

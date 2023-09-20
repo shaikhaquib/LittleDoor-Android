@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.R
@@ -154,7 +156,7 @@ class VerticalWeekAdapter(private val resProvider: ResProvider, private val now:
         )
         private val intToWeekday = arrayOf("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT")
         private var currentDay: CalendarDay? = null
-        var dayView: LinearLayout
+        var dayView: LinearLayoutCompat
         var dayOfWeek: TextView
         var dayOfMonth: TextView
         var month: TextView

@@ -104,5 +104,19 @@
 
     </com.amar.library.ui.StickyScrollView>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/no_appointment_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_20_dp"
+        android:layout_gravity="center_vertical"
+        style="@style/TextTitleMedium_16sp"
+        android:gravity="center"
+        android:textColor="@color/overlays_red"
+        android:text="@string/no_appointment_error"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

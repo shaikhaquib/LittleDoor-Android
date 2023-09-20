@@ -7,15 +7,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.MainActivity
 import com.devative.littledoor.adapter.AppointmentAdapter
+import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
+import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.TherapistHomeFragmentBinding
+import com.devative.littledoor.model.UserAppointmentModel
 import com.devative.littledoor.model.UserDetails
+import com.devative.littledoor.util.Progress
+import com.devative.littledoor.util.Utility
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
@@ -24,18 +32,28 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 
 /**
  * Created by AQUIB RASHID SHAIKH on 20-03-2023.
  */
 @AndroidEntryPoint
-class TherapistHomeFragment  : Fragment() {
+class TherapistHomeFragment : Fragment() {
     private var basicDetails: UserDetails.Data? = null
     private lateinit var binding: TherapistHomeFragmentBinding
-    private lateinit var vm: MainViewModel
+    private val vm: MainViewModel by activityViewModels()
+    private val mainList = ArrayList<UserAppointmentModel.Data>()
+    private val list = ArrayList<UserAppointmentModel.Data>()
+    lateinit var adapter: AppointmentAdapter
+    private var filterCode = 1
+    val progress: Progress by lazy {
+        Progress(requireActivity() as AppCompatActivity)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,10 +66,9 @@ class TherapistHomeFragment  : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dayGreetings()
-        vm = MainViewModel.getViewModel(requireActivity())
         vm.fetchUserData()
-        vm.basicDetails.observe(viewLifecycleOwner){
-            if (!it.isNullOrEmpty()){
+        vm.basicDetails.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
                 basicDetails = it[0]
                 updateUI()
             }
@@ -66,17 +83,64 @@ class TherapistHomeFragment  : Fragment() {
             (requireActivity() as MainActivity).setNavigationSelection(R.id.bottom_navigation_calender)
         }
 
-        binding.rvAppointment.adapter = AppointmentAdapter(requireActivity(),object:
+        observe()
+        adapter = AppointmentAdapter(requireActivity(), list, object :
             AppointmentAdapter.AppointmentAdapterEvent {
             override fun onclick(position: Int) {
 
             }
-        },2)
+        }, 2)
+        adapter.setHasStableIds(true)
+        binding.rvAppointment.adapter = adapter
+    }
+
+    private fun observe() {
+        vm.getUserBookedAppointment()
+        vm.getUserBookedAppointment.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                    if (!progress.isShowing())
+                        progress.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true) {
+                        mainList.clear()
+                        if (it.data.data.isNotEmpty()) {
+                            mainList.addAll(it.data.data as ArrayList)
+                            refreshList()
+                        }
+                    } else {
+                        Utility.errorToast(
+                            requireContext(),
+                            getString(R.string.some_thing_went_wrong)
+                        )
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress.dismiss()
+                    it.message?.let { it1 ->
+                        Utility.errorToast(
+                            requireContext(),
+                            getString(R.string.some_thing_went_wrong)
+                        )
+                    }
+                }
+
+            }
+        }
     }
 
     private fun updateUI() {
         binding.txtUserName.text = basicDetails?.name
-        basicDetails?.image_url?.let { it1 -> binding.imgProfile.load(it1,R.drawable.profile_view)}
+        basicDetails?.image_url?.let { it1 ->
+            binding.imgProfile.load(
+                it1,
+                R.drawable.profile_view
+            )
+        }
         binding.imgProfile.borderColor =
             ContextCompat.getColor(requireContext(), R.color.grey_primary)
         binding.imgProfile.borderWidth = 10
@@ -95,15 +159,19 @@ class TherapistHomeFragment  : Fragment() {
             in 12..16 -> {
                 binding.txtGreet.text = "${getString(R.string.afternoon_greet)},"
             }
+
             in 17..20 -> {
                 binding.txtGreet.text = "${getString(R.string.evening_greet)},"
             }
+
             in 21..23 -> {
                 binding.txtGreet.text = "${getString(R.string.night_greet)},"
             }
+
             in 0..4 -> {
                 binding.txtGreet.text = "${getString(R.string.night_greet)},"
             }
+
             else -> {
                 binding.txtGreet.text = "${getString(R.string.morning_greet)},"
             }
@@ -161,11 +229,64 @@ class TherapistHomeFragment  : Fragment() {
         val height = mChart.height
         val linGrad = LinearGradient(
             800f, 0f, 0f, 0f,
-            ContextCompat.getColor(requireContext(),R.color.primary_trans),
-            ContextCompat.getColor(requireContext(),R.color.white_for_black),
+            ContextCompat.getColor(requireContext(), R.color.primary_trans),
+            ContextCompat.getColor(requireContext(), R.color.white_for_black),
             Shader.TileMode.CLAMP
         )
         paint.shader = linGrad
     }
+
+    fun refreshList(){
+        list.clear()
+        val l = Constants.filterAndSortData(mainList, filterCode)
+        if (l.isNotEmpty()) {
+            list.addAll(l)
+        }
+        adapter.notifyDataSetChanged()
+        binding.noAppointmentError.visibility = View.GONE
+        binding.rvAppointment.isVisible = list.isNotEmpty()
+        todayAppointment(list)
+
+    }
+
+    fun todayAppointment(dataList: java.util.ArrayList<UserAppointmentModel.Data>) {
+
+        val currentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+
+        val todayData = dataList.filter {
+            val appointmentTime = it.slot_time.toLowerCase(Locale.getDefault())
+            val appointmentDateTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(appointmentTime)
+            val calendar = Calendar.getInstance()
+            calendar.time = appointmentDateTime!!
+            calendar.add(Calendar.MINUTE, 30) // Add 30 minutes
+            val updatedTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(calendar.time)
+            val appointmentDate = it.apointmnet_date
+
+            appointmentDate == today && updatedTime > currentTime
+        }
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault())
+        val upcomingAppointment = todayData.minByOrNull {
+            val appointmentDateTime = sdf.parse("${it.apointmnet_date} ${it.slot_time}")
+            val calendar = Calendar.getInstance()
+            calendar.time = appointmentDateTime
+            calendar.add(Calendar.MINUTE, 30) // Add 30 minutes
+            calendar.time
+        }
+
+        if (upcomingAppointment != null) {
+           // binding.liJoinSession.visibility = View.VISIBLE
+            binding.txtTHName.text = "${upcomingAppointment.doctor_name}"
+            binding.txtSlotTime.text = "Today at ${upcomingAppointment.slot_time}"
+        } else {
+           // binding.liJoinSession.visibility = View.GONE
+            binding.txtTHName.text = ""
+            binding.txtSlotTime.text = ""
+            binding.btnJoinNow.visibility = View.GONE
+        }
+    }
+
 
 }

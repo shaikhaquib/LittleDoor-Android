@@ -132,7 +132,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
             <carbon.widget.LinearLayout
-                android:id="@+id/linearLayout2"
+                android:id="@+id/liJoinSession"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_14_dp"
@@ -145,36 +145,50 @@
                 app:layout_constraintStart_toStartOf="@+id/txtUserName"
                 app:layout_constraintTop_toBottomOf="@+id/textView10">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/TextHeadLineDark_24dp"
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20_dp"
-                    android:text="Aquib Shaikh"
-                    android:textColor="@color/dark_brown" />
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/TextTitleNormal_12sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20_dp"
-                    android:layout_marginTop="@dimen/_8_dp"
-                    android:fontFamily="@font/sfprodisplayregular"
-                    android:text="04:00 PM to 05:00 PM"
-                    android:textColor="@color/dark_brown" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtTHName"
+                        style="@style/TextHeadLineDark_24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_20_dp"
+                        android:text="Aquib Shaikh"
+                        android:textColor="@color/dark_brown" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/TextDarkBold_16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20_dp"
-                    android:layout_marginTop="@dimen/_12_dp"
-                    android:drawableEnd="@drawable/round_play_circle"
-                    android:drawablePadding="@dimen/_8_dp"
-                    android:gravity="center"
-                    android:text="Join Now"
-                    android:textColor="@color/secondary" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtSlotTime"
+                        style="@style/TextTitleNormal_12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_20_dp"
+                        android:layout_marginTop="@dimen/_8_dp"
+                        android:fontFamily="@font/sfprodisplayregular"
+                        android:text="04:00 PM to 05:00 PM"
+                        android:textColor="@color/dark_brown" />
 
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/btnJoinNow"
+                        style="@style/TextDarkBold_16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_20_dp"
+                        android:layout_marginTop="@dimen/_12_dp"
+                        android:drawableEnd="@drawable/round_play_circle"
+                        android:drawablePadding="@dimen/_8_dp"
+                        android:gravity="center"
+                        android:text="Join Now"
+                        android:textColor="@color/secondary" />
+
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                
 
             </carbon.widget.LinearLayout>
 
@@ -184,9 +198,9 @@
                 android:layout_marginEnd="24dp"
                 android:adjustViewBounds="true"
                 android:elevation="@dimen/_4_dp"
-                app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-                app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+                app:layout_constraintBottom_toBottomOf="@+id/liJoinSession"
+                app:layout_constraintEnd_toEndOf="@+id/liJoinSession"
+                app:layout_constraintTop_toTopOf="@+id/liJoinSession"
                 app:srcCompat="@drawable/join_member" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -199,8 +213,8 @@
                 android:gravity="center_vertical"
                 android:text="Today’s Appointment"
                 android:textSize="@dimen/_16_dp"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+                app:layout_constraintStart_toStartOf="@+id/liJoinSession"
+                app:layout_constraintTop_toBottomOf="@+id/liJoinSession" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtViewAll"
@@ -214,8 +228,8 @@
                 android:textColor="@color/secondary"
                 android:textSize="@dimen/_16_dp"
                 app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView2"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+                app:layout_constraintEnd_toEndOf="@+id/liJoinSession"
+                app:layout_constraintTop_toBottomOf="@+id/liJoinSession" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linearLayout5"
@@ -223,9 +237,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="@+id/liJoinSession"
+                app:layout_constraintStart_toStartOf="@+id/liJoinSession"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2">
+
+                <carbon.widget.TextView
+                    android:id="@+id/no_appointment_error"
+                    style="@style/AppEditTextCarbonElevated"
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/_8_dp"
+                    android:gravity="center"
+                    android:textSize="@dimen/_12_dp"
+                    android:textColor="@color/overlays_red"
+                    android:text="@string/no_schedule_appointment"
+                    android:layout_height="200dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvAppointment"
