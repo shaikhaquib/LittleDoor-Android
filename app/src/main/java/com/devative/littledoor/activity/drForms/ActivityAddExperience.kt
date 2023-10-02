@@ -56,7 +56,7 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
 
     private fun initIntent() {
         val editPosition = intent.getIntExtra(Constants.FORM_EDIT_POSITION,-1)
-        if (intent.hasExtra(Constants.FORM_EDIT_DATA)){
+        if (intent.hasExtra(Constants.FORM_EDIT_DATA) && intent.hasExtra(Constants.FORM_EDIT_DATA)){
             val data = intent.getSerializableExtra(Constants.FORM_EDIT_DATA) as DoctorDetailsResponse.Data
             for (editData in data.work_experience)
             {

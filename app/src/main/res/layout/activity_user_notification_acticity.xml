@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Appointment" />
+        app:title="Notifications" />
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -25,39 +25,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabGravity="fill"
-            app:tabBackground="@drawable/selector_tab"
-            app:tabIndicatorColor="@android:color/transparent"
-            app:tabIndicatorHeight="0dp"
-            android:layout_marginStart="@dimen/_16_dp"
-            android:layout_marginEnd="@dimen/_16_dp"
-            app:tabMode="fixed"
-            app:tabRippleColor="@null"
-            app:tabTextAppearance="@style/TextTitleMedium_16sp"
-            app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/neutral_gray">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="@string/today"
-                />
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="@string/upcoming"
-                />
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="@string/previous"
-                />
-
-        </com.google.android.material.tabs.TabLayout>
 
 
 
@@ -66,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8_dp"
-            tools:listitem="@layout/item_user_appointment"
+            tools:listitem="@layout/item_user_notification"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 

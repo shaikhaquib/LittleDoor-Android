@@ -56,9 +56,7 @@
         style="@style/TextSubHeadLineOnWhite"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
         android:gravity="center"
         app:forceKeyboard="false"
         app:inputType="number"
@@ -70,6 +68,7 @@
         app:pinHeight="50dp"
         app:pinLength="6"
         app:pinWidth="45dp"
+        app:splitWidth="6dp"
         app:textColor="@color/neutral_navyblue"
         app:textSize="@dimen/_12_dp" />
 

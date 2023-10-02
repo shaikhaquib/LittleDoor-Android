@@ -16,6 +16,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         style="@style/TextTitleBold_12sp"
         android:id="@+id/txtName"
+        android:textSize="@dimen/_10_dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chip Name"

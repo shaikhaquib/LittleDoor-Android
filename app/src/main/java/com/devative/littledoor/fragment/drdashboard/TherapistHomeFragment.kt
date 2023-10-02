@@ -21,6 +21,7 @@ import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.TherapistHomeFragmentBinding
 import com.devative.littledoor.model.UserAppointmentModel
+import com.devative.littledoor.model.UserAppointmentModel.*
 import com.devative.littledoor.model.UserDetails
 import com.devative.littledoor.util.Progress
 import com.devative.littledoor.util.Utility
@@ -46,8 +47,8 @@ class TherapistHomeFragment : Fragment() {
     private var basicDetails: UserDetails.Data? = null
     private lateinit var binding: TherapistHomeFragmentBinding
     private val vm: MainViewModel by activityViewModels()
-    private val mainList = ArrayList<UserAppointmentModel.Data>()
-    private val list = ArrayList<UserAppointmentModel.Data>()
+    private val mainList = ArrayList<Data>()
+    private val list = ArrayList<Data>()
     lateinit var adapter: AppointmentAdapter
     private var filterCode = 1
     val progress: Progress by lazy {
@@ -249,31 +250,32 @@ class TherapistHomeFragment : Fragment() {
 
     }
 
-    fun todayAppointment(dataList: java.util.ArrayList<UserAppointmentModel.Data>) {
-
-        val currentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())
-        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-
+    fun todayAppointment(dataList: java.util.ArrayList<Data>) {
+        val currentTime = Calendar.getInstance()
+        val today = Calendar.getInstance()
+        today.set(Calendar.HOUR_OF_DAY, 0)
+        today.set(Calendar.MINUTE, 0)
+        today.set(Calendar.SECOND, 0)
+        today.set(Calendar.MILLISECOND, 0)
 
         val todayData = dataList.filter {
-            val appointmentTime = it.slot_time.toLowerCase(Locale.getDefault())
-            val appointmentDateTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(appointmentTime)
-            val calendar = Calendar.getInstance()
-            calendar.time = appointmentDateTime!!
-            calendar.add(Calendar.MINUTE, 30) // Add 30 minutes
-            val updatedTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(calendar.time)
-            val appointmentDate = it.apointmnet_date
+            val appointmentDateTime = Calendar.getInstance()
+            val appointmentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(it.slot_time)
+            appointmentDateTime.time = appointmentTime!!
+            appointmentDateTime.set(Calendar.YEAR, today.get(Calendar.YEAR))
+            appointmentDateTime.set(Calendar.MONTH, today.get(Calendar.MONTH))
+            appointmentDateTime.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH))
 
-            appointmentDate == today && updatedTime > currentTime
+            // Add 30 minutes to the appointment time
+            appointmentDateTime.add(Calendar.MINUTE, 30)
+
+            appointmentDateTime.after(currentTime)
         }
 
         val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault())
         val upcomingAppointment = todayData.minByOrNull {
             val appointmentDateTime = sdf.parse("${it.apointmnet_date} ${it.slot_time}")
-            val calendar = Calendar.getInstance()
-            calendar.time = appointmentDateTime
-            calendar.add(Calendar.MINUTE, 30) // Add 30 minutes
-            calendar.time
+            appointmentDateTime
         }
 
         if (upcomingAppointment != null) {

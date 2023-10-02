@@ -15,6 +15,6 @@ data class UserAppointmentModel(
         val slot_id: Int,
         val slot_time: String,
         val patient_name: String,
-        val patient_profile: String,
+        val patient_profile: String?,
     )
 }

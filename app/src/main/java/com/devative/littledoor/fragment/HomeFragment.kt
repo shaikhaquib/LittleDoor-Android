@@ -221,29 +221,31 @@ class HomeFragment  : Fragment() {
     }
     fun todayAppointment(dataList: java.util.ArrayList<Data>) {
 
-        val currentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date())
-        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-
+        val currentTime = Calendar.getInstance()
+        val today = Calendar.getInstance()
+        today.set(Calendar.HOUR_OF_DAY, 0)
+        today.set(Calendar.MINUTE, 0)
+        today.set(Calendar.SECOND, 0)
+        today.set(Calendar.MILLISECOND, 0)
 
         val todayData = dataList.filter {
-            val appointmentTime = it.slot_time.toLowerCase(Locale.getDefault())
-            val appointmentDateTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(appointmentTime)
-            val calendar = Calendar.getInstance()
-            calendar.time = appointmentDateTime!!
-            calendar.add(Calendar.MINUTE, 30) // Add 30 minutes
-            val updatedTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(calendar.time)
-            val appointmentDate = it.apointmnet_date
+            val appointmentDateTime = Calendar.getInstance()
+            val appointmentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(it.slot_time)
+            appointmentDateTime.time = appointmentTime!!
+            appointmentDateTime.set(Calendar.YEAR, today.get(Calendar.YEAR))
+            appointmentDateTime.set(Calendar.MONTH, today.get(Calendar.MONTH))
+            appointmentDateTime.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH))
 
-            appointmentDate == today && updatedTime > currentTime
+            // Add 30 minutes to the appointment time
+            appointmentDateTime.add(Calendar.MINUTE, 30)
+
+            appointmentDateTime.after(currentTime)
         }
 
         val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault())
         val upcomingAppointment = todayData.minByOrNull {
             val appointmentDateTime = sdf.parse("${it.apointmnet_date} ${it.slot_time}")
-            val calendar = Calendar.getInstance()
-            calendar.time = appointmentDateTime
-            calendar.add(Calendar.MINUTE, 30) // Add 30 minutes
-            calendar.time
+            appointmentDateTime
         }
 
         if (upcomingAppointment != null) {

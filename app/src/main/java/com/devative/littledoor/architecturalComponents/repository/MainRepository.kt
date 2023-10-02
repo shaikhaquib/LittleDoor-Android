@@ -53,5 +53,8 @@ class MainRepository @Inject constructor(
     suspend fun addComment(sendData: HashMap<String, Any>) = apiHelper.addComment(sendData)
     suspend fun getComments(sendData: HashMap<String, Any>) = apiHelper.getComments(sendData)
     suspend fun likePost(sendData: HashMap<String, Any>) = apiHelper.likePost(sendData)
+    suspend fun getBankDetails() = apiHelper.getBankDetails()
+    suspend fun deleteBankDetails(id:Int) = apiHelper.deleteBankDetails(id)
+    suspend fun addBankDetails(sendData: HashMap<String, Any>) = apiHelper.addBankDetails(sendData)
 
 }

@@ -11,6 +11,9 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.devative.littledoor.R
+import com.devative.littledoor.activity.DoctorRegistrationMaster
+import com.devative.littledoor.activity.RevenueActivity
+import com.devative.littledoor.activity.SelectBankActivity
 import com.devative.littledoor.activity.SignUpActivity
 import com.devative.littledoor.activity.THAddSessionDetailsActivity
 import com.devative.littledoor.activity.TermsAndCondition
@@ -18,6 +21,7 @@ import com.devative.littledoor.activity.UpdateProfile
 import com.devative.littledoor.activity.UserAppointmentActivity
 import com.devative.littledoor.activity.UserNotificationActivity
 import com.devative.littledoor.activity.UserTransactionActivity
+import com.devative.littledoor.adapter.DoctorDetailsAdapter
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
@@ -82,6 +86,9 @@ class SettingsFragment : Fragment(), OnClickListener {
         binding.txtTransaction.setOnClickListener(this)
         binding.termsConditions.setOnClickListener(this)
         binding.txtSessionDetails.setOnClickListener(this)
+        binding.txtYourInformation.setOnClickListener(this)
+        binding.txtBankDetails.setOnClickListener(this)
+        binding.txtRevenue.setOnClickListener(this)
     }
 
     private fun updateUI() {
@@ -137,6 +144,24 @@ class SettingsFragment : Fragment(), OnClickListener {
                 Intent(
                     requireContext(),
                     THAddSessionDetailsActivity::class.java
+                )
+            )
+            binding.txtYourInformation.id -> startActivity(
+                Intent(
+                    requireContext(),
+                    DoctorRegistrationMaster::class.java
+                ).putExtra(Constants.TH_REGISTERED,true)
+            )
+            binding.txtBankDetails.id -> startActivity(
+                Intent(
+                    requireContext(),
+                    SelectBankActivity::class.java
+                )
+            )
+            binding.txtRevenue.id -> startActivity(
+                Intent(
+                    requireContext(),
+                    RevenueActivity::class.java
                 )
             )
         }

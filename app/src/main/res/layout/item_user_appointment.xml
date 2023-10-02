@@ -59,11 +59,13 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtTimeRemaining"
             style="@style/TextTitleMedium_12sp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16_dp"
+            android:layout_margin="@dimen/_16_dp"
             android:text="Start in 5 min"
             android:textColor="#8F9BB3"
+            app:layout_constraintEnd_toStartOf="@+id/btnVideo"
             app:layout_constraintStart_toStartOf="@+id/circleImageView"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
         <androidx.appcompat.widget.AppCompatTextView

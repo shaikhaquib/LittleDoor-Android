@@ -1,8 +1,8 @@
 package com.devative.littledoor.architecturalComponents.apicall
 
-import androidx.room.Delete
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.model.AvailableSlotModel
+import com.devative.littledoor.model.BankDetailsModel
 import com.devative.littledoor.model.CategoryResponse
 import com.devative.littledoor.model.DailyJournalModel
 import com.devative.littledoor.model.DoctorDetailsResponse
@@ -146,11 +146,25 @@ interface APIClient {
     @POST("admin/add/post-comment")
     suspend fun addComment(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
 
+    @DELETE("admin/delete/post/{id}")
+    suspend fun deletePost(
+        @Path(
+            value = "id",
+            encoded = true
+        ) id: Int,
+    ): Response<GeneralResponse>
+
     @POST("admin/get/post-comments")
     suspend fun getComments(@Body sendData: HashMap<String, Any>): Response<PostCommentModel>
 
-    @DELETE("admin/delete/post/1/{id}")
-    suspend fun deletePost(
+    @GET("doctor/get/bank-details")
+    suspend fun getBankDetails(): Response<BankDetailsModel>
+
+    @POST("doctor/create/update/bank-details")
+    suspend fun addBankDetails(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+
+    @DELETE("doctor/delete/bank-details/{id}")
+    suspend fun deleteBankDetails(
         @Path(
             value = "id",
             encoded = true

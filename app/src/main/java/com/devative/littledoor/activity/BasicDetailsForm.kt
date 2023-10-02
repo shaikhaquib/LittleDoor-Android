@@ -196,12 +196,14 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
 
                 Status.ERROR -> {
                     progress?.dismiss()
+/*
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
                             it1, Toasty.LENGTH_SHORT
                         ).show()
                     }
+*/
                 }
 
             }

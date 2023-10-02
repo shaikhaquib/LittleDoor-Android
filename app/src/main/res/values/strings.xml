@@ -120,6 +120,14 @@
     <string name="comments">Comments</string>
     <string name="likes">Likes</string>
     <string name="no_schedule_appointment">No appointments scheduled at the moment. We\'ll keep you posted if any appointments are arranged.</string>
+    <string name="add_new_bank_account">Add New Bank Account</string>
+    <string name="enter_bank_name">Enter Bank Name</string>
+    <string name="account_holder_s_name">Account Holder’s Name</string>
+    <string name="account_number">Account Number</string>
+    <string name="re_enter_account_number">Re-enter Account Number</string>
+    <string name="ifsc_code">IFSC Code</string>
+    <string name="account_type">Account Type</string>
+    <string name="confirm">Confirm</string>
     <string-array name="week_days">
         <item>Monday</item>
         <item>Tuesday</item>
@@ -129,4 +137,18 @@
         <item>Saturday</item>
         <item>Sunday</item>
     </string-array>
+    <string name="error_empty_bank_name">Please enter the bank name.</string>
+    <string name="error_empty_account_holder_name">Please enter the account holders name.</string>
+    <string name="error_empty_account_number">Please enter the account number.</string>
+    <string name="error_empty_confirm_account_number">Please re-enter the account number.</string>
+    <string name="error_empty_ifsc_code">Please enter the IFSC code.</string>
+    <string name="error_empty_account_type">Please select the account type.</string>
+    <string name="error_account_number_mismatch">Account number and confirm account number do not match.</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="close">Close</string>
+    <string name="transactions">Transactions</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="total_revenue">Total Revenue</string>
+    <string name="withdrawal_7_working_days_for_transfer">Withdrawal amount would take 7 working days for transfer to your bank accounts</string>
+
 </resources>

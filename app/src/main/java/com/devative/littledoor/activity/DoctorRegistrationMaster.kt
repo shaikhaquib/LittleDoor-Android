@@ -48,10 +48,10 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         binding = ActivityDoctorRegistrationMasterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         adapter = DoctorFormMasterAdapter(this,formMasterList,doctorDetails,this)
-        binding.rvFormMaster.adapter = adapter
         adapter.setHasStableIds(true)
+        binding.rvFormMaster.adapter = adapter
         binding.rvFormMaster.addItemDecoration(ListSpacingDecoration())
-        
+        binding.txtName.text = "${getString(R.string.hello)}"
         formMasterList.apply {
             add(DrRegistrationMasterModel("Work experience"))
             add(DrRegistrationMasterModel("Education"))
@@ -63,11 +63,23 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         }
         adapter.notifyDataSetChanged()
         binding.btnFinish.setOnClickListener {
-            Utility.savePrefBoolean(applicationContext,Constants.IS_DR_Reg_Finish,true)
-            startActivity(Intent(applicationContext,ProfilePicUploadActivity::class.java).putExtra(Constants.IS_DOCTOR,true))
+            if (intent.hasExtra(Constants.TH_REGISTERED)){
+                finish()
+            }else {
+                Utility.savePrefBoolean(applicationContext, Constants.IS_DR_Reg_Finish, true)
+                startActivity(
+                    Intent(
+                        applicationContext,
+                        ProfilePicUploadActivity::class.java
+                    ).putExtra(Constants.IS_DOCTOR, true)
+                )
+
+            }
         }
        observe()
-        
+        if (intent.hasExtra(Constants.TH_REGISTERED)){
+            binding.btnFinish.text = "Back"
+        }
     }
 
     override fun onResume() {
@@ -89,6 +101,9 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
                         binding.txtName.text = "${getString(R.string.hello)} ${it.data.data.first_name}"
                         doctorDetails = it.data
                         adapter.setBindFormData(doctorDetails)
+                        if (doctorDetails?.data?.status != 1){
+                            binding.btnFinish.isEnabled = false
+                        }
                       //  Toasty.success(applicationContext, it.data.message).show()
                     } else {
                       //  Toasty.error(applicationContext, it.data!!.message).show()
@@ -97,12 +112,14 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
 
                 Status.ERROR -> {
                     progress?.dismiss()
+/*
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
                             it1, Toasty.LENGTH_SHORT
                         ).show()
                     }
+*/
                 }
 
             }
@@ -209,9 +226,13 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
 
     private fun startActivityForEdit(position: Int, activity: Class<*>) {
         startActivity(
-            Intent(applicationContext, activity)
-                .putExtra(Constants.FORM_EDIT_POSITION, position)
-                .putExtra(Constants.FORM_EDIT_DATA, vm.doctorDetailsData.value?.data?.data)
+            Intent(applicationContext, activity).apply {
+                putExtra(Constants.FORM_EDIT_POSITION, position)
+                vm.doctorDetailsData.value?.data?.data?.let {
+                    putExtra(Constants.FORM_EDIT_DATA, it)
+                }
+            }
+
         )
     }
 }
