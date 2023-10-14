@@ -16,6 +16,7 @@ import com.devative.littledoor.model.PostCommentModel
 import com.devative.littledoor.model.PostModel
 import com.devative.littledoor.model.SessionDetails
 import com.devative.littledoor.model.SkillResponse
+import com.devative.littledoor.model.SliderModel
 import com.devative.littledoor.model.SubCategoryResponse
 import com.devative.littledoor.model.TimeSLotModel
 import com.devative.littledoor.model.UserAppointmentModel
@@ -47,6 +48,8 @@ interface APIClient {
 
     @GET("admin/get/user/details")
     suspend fun getUserDetails(): Response<UserDetails>
+    @GET("admin/get/promotions")
+    suspend fun getPromotions(): Response<SliderModel>
 
     @GET("admin/get/cities")
     suspend fun getAllCities(): Response<GetAllCitiesResponse>

@@ -15,11 +15,13 @@ import androidx.fragment.app.activityViewModels
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.MainActivity
 import com.devative.littledoor.adapter.AppointmentAdapter
+import com.devative.littledoor.adapter.SliderAdapter
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.TherapistHomeFragmentBinding
+import com.devative.littledoor.model.SliderModel
 import com.devative.littledoor.model.UserAppointmentModel
 import com.devative.littledoor.model.UserAppointmentModel.*
 import com.devative.littledoor.model.UserDetails
@@ -33,6 +35,12 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -51,6 +59,9 @@ class TherapistHomeFragment : Fragment() {
     private val list = ArrayList<Data>()
     lateinit var adapter: AppointmentAdapter
     private var filterCode = 1
+    private lateinit var sliderAdapter: SliderAdapter
+    private val sliderItems = ArrayList<SliderModel.Data>()
+    private lateinit var autoScrollJob: Job
     val progress: Progress by lazy {
         Progress(requireActivity() as AppCompatActivity)
     }
@@ -97,6 +108,7 @@ class TherapistHomeFragment : Fragment() {
 
     private fun observe() {
         vm.getUserBookedAppointment()
+        vm.getPromotions()
         vm.getUserBookedAppointment.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
@@ -130,6 +142,53 @@ class TherapistHomeFragment : Fragment() {
                     }
                 }
 
+            }
+        }
+        vm.promotions.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true) {
+                        sliderItems.clear()
+                        if (it.data.data.isNotEmpty()) {
+                            sliderItems.addAll(it.data.data as ArrayList)
+                            handlePromotionAdapter()
+                        }
+                    } else {
+                        Utility.errorToast(
+                            requireContext(),
+                            getString(R.string.some_thing_went_wrong)
+                        )
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress.dismiss()
+                    it.message?.let { it1 ->
+                        Utility.errorToast(
+                            requireContext(),
+                            getString(R.string.some_thing_went_wrong)
+                        )
+                    }
+                }
+
+            }
+        }
+    }
+
+    private fun handlePromotionAdapter() {
+        sliderAdapter = SliderAdapter(sliderItems)
+        binding.viewPager.adapter = sliderAdapter
+
+        autoScrollJob = CoroutineScope(Dispatchers.Main).launch {
+            while (true) {
+                delay(3000)
+                withContext(Dispatchers.Main) {
+                    binding.viewPager.currentItem = (binding.viewPager.currentItem + 1) % sliderItems.size
+                }
             }
         }
     }
@@ -244,10 +303,9 @@ class TherapistHomeFragment : Fragment() {
             list.addAll(l)
         }
         adapter.notifyDataSetChanged()
-        binding.noAppointmentError.visibility = View.GONE
+        binding.noAppointmentError.visibility = if(list.isNotEmpty()) View.GONE else View.VISIBLE
         binding.rvAppointment.isVisible = list.isNotEmpty()
         todayAppointment(list)
-
     }
 
     fun todayAppointment(dataList: java.util.ArrayList<Data>) {
@@ -283,12 +341,18 @@ class TherapistHomeFragment : Fragment() {
             binding.txtTHName.text = "${upcomingAppointment.doctor_name}"
             binding.txtSlotTime.text = "Today at ${upcomingAppointment.slot_time}"
         } else {
-           // binding.liJoinSession.visibility = View.GONE
-            binding.txtTHName.text = ""
+            binding.liJoinSession.visibility = View.GONE
+           /* binding.txtTHName.text = ""
             binding.txtSlotTime.text = ""
-            binding.btnJoinNow.visibility = View.GONE
+            binding.btnJoinNow.visibility = View.GONE*/
+
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (this::autoScrollJob.isInitialized)
+            autoScrollJob.cancel()
+    }
 
 }

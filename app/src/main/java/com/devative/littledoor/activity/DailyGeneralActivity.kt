@@ -23,10 +23,8 @@ import com.devative.littledoor.verticalweekcalendar.interfaces.DateWatcher
 import com.devative.littledoor.verticalweekcalendar.interfaces.OnDateClickListener
 import com.devative.littledoor.verticalweekcalendar.model.CalendarDay
 import es.dmoral.toasty.Toasty
-import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.GregorianCalendar
-import java.util.Locale
 
 class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAdapterEvent {
     private val binding: ActivityDailyGeneralBinding by lazy {

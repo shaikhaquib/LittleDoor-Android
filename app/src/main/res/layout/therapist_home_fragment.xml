@@ -131,77 +131,104 @@
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-            <carbon.widget.LinearLayout
-                android:id="@+id/liJoinSession"
+            
+            
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/liContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_14_dp"
-                android:background="#FEF3E7"
                 android:orientation="vertical"
-                android:padding="@dimen/_16_dp"
-                app:carbon_cornerRadius="@dimen/_20_dp"
-                app:carbon_elevation="@dimen/_2_dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txtUserName"
                 app:layout_constraintTop_toBottomOf="@+id/textView10">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" />
+
+                <carbon.widget.RelativeLayout
+                    android:id="@+id/liJoinSession"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14_dp"
+                    android:layout_marginBottom="@dimen/_8_dp"
+                    android:background="#FEF3E7"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:padding="@dimen/_16_dp"
+                    app:carbon_cornerRadius="@dimen/_20_dp"
+                    app:carbon_elevation="@dimen/_2_dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtUserName"
+                    app:layout_constraintTop_toBottomOf="@+id/textView10">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txtTHName"
-                        style="@style/TextHeadLineDark_24dp"
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_20_dp"
-                        android:text="Aquib Shaikh"
-                        android:textColor="@color/dark_brown" />
+                        android:orientation="vertical"
+                        android:layout_weight="1">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txtSlotTime"
-                        style="@style/TextTitleNormal_12sp"
-                        android:layout_width="wrap_content"
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtTHName"
+                            style="@style/TextHeadLineDark_24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_20_dp"
+                            android:text="Aquib Shaikh"
+                            android:textColor="@color/dark_brown" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtSlotTime"
+                            style="@style/TextTitleNormal_12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_20_dp"
+                            android:layout_marginTop="@dimen/_8_dp"
+                            android:fontFamily="@font/sfprodisplayregular"
+                            android:text="04:00 PM to 05:00 PM"
+                            android:textColor="@color/dark_brown" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/btnJoinNow"
+                            style="@style/TextDarkBold_16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_20_dp"
+                            android:layout_marginTop="@dimen/_12_dp"
+                            android:drawableEnd="@drawable/round_play_circle"
+                            android:drawablePadding="@dimen/_8_dp"
+                            android:gravity="center"
+                            android:text="Join Now"
+                            android:textColor="@color/secondary" />
+
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_20_dp"
-                        android:layout_marginTop="@dimen/_8_dp"
-                        android:fontFamily="@font/sfprodisplayregular"
-                        android:text="04:00 PM to 05:00 PM"
-                        android:textColor="@color/dark_brown" />
+                        android:layout_marginEnd="24dp"
+                        android:adjustViewBounds="true"
+                        android:elevation="@dimen/_4_dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        app:layout_constraintBottom_toBottomOf="@+id/liContainer"
+                        app:layout_constraintEnd_toEndOf="@+id/liContainer"
+                        app:layout_constraintTop_toTopOf="@+id/liContainer"
+                        app:srcCompat="@drawable/join_member" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/btnJoinNow"
-                        style="@style/TextDarkBold_16dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_20_dp"
-                        android:layout_marginTop="@dimen/_12_dp"
-                        android:drawableEnd="@drawable/round_play_circle"
-                        android:drawablePadding="@dimen/_8_dp"
-                        android:gravity="center"
-                        android:text="Join Now"
-                        android:textColor="@color/secondary" />
+
+                </carbon.widget.RelativeLayout>
 
 
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-                
-
-            </carbon.widget.LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="80dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="24dp"
-                android:adjustViewBounds="true"
-                android:elevation="@dimen/_4_dp"
-                app:layout_constraintBottom_toBottomOf="@+id/liJoinSession"
-                app:layout_constraintEnd_toEndOf="@+id/liJoinSession"
-                app:layout_constraintTop_toTopOf="@+id/liJoinSession"
-                app:srcCompat="@drawable/join_member" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/appCompatTextView2"
@@ -213,8 +240,8 @@
                 android:gravity="center_vertical"
                 android:text="Today’s Appointment"
                 android:textSize="@dimen/_16_dp"
-                app:layout_constraintStart_toStartOf="@+id/liJoinSession"
-                app:layout_constraintTop_toBottomOf="@+id/liJoinSession" />
+                app:layout_constraintStart_toStartOf="@+id/liContainer"
+                app:layout_constraintTop_toBottomOf="@+id/liContainer" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtViewAll"
@@ -228,8 +255,8 @@
                 android:textColor="@color/secondary"
                 android:textSize="@dimen/_16_dp"
                 app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView2"
-                app:layout_constraintEnd_toEndOf="@+id/liJoinSession"
-                app:layout_constraintTop_toBottomOf="@+id/liJoinSession" />
+                app:layout_constraintEnd_toEndOf="@+id/liContainer"
+                app:layout_constraintTop_toBottomOf="@+id/liContainer" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linearLayout5"
@@ -237,8 +264,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@+id/liJoinSession"
-                app:layout_constraintStart_toStartOf="@+id/liJoinSession"
+                app:layout_constraintEnd_toEndOf="@+id/liContainer"
+                app:layout_constraintStart_toStartOf="@+id/liContainer"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2">
 
                 <carbon.widget.TextView

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.R
+import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.databinding.ItemChatBinding
 import com.devative.littledoor.databinding.ItemDailyGeneralBinding
 import com.devative.littledoor.databinding.ItemExploreBinding
@@ -23,13 +24,7 @@ class DailyGeneralAdapter(
         fun bindData(position: Int) {
             binding.txtDetails.text = list[position].message
             binding.txtTime.text = list[position].created_at.split(" ")[1]
-            when(list[position].emotion_name.toLowerCase()){
-                "angry" -> binding.imgEmotion.setImageResource(R.drawable.angry)
-                "calm" -> binding.imgEmotion.setImageResource(R.drawable.relieved_face)
-                "manic" -> binding.imgEmotion.setImageResource(R.drawable.manic)
-                "sad" -> binding.imgEmotion.setImageResource(R.drawable.sad)
-                "happy" -> binding.imgEmotion.setImageResource(R.drawable.happy_emoji)
-            }
+            list[position].emotion_url?.let { binding.imgEmotion.load(it) }
             binding.more.setOnClickListener {
                 event.onMore(list[position])
             }

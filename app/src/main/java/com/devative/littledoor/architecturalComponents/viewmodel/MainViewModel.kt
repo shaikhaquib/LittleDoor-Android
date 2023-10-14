@@ -10,6 +10,7 @@ import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.SliderModel
 import com.devative.littledoor.model.UserAppointmentModel
 import com.devative.littledoor.model.UserDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -84,6 +85,7 @@ class MainViewModel  @Inject constructor(
     val bookAppointment = MutableLiveData<Resource<GeneralResponse>>()
     val availableSlots = MutableLiveData<Resource<AvailableSlotModel>>()
     val getUserBookedAppointment = MutableLiveData<Resource<UserAppointmentModel>>()
+    val promotions = MutableLiveData<Resource<SliderModel>>()
 
     fun getOTPPatientLogin(mobileNo:String, isPatient:String) = CoroutineScope(Dispatchers.IO).launch {
         _OTPSend.postValue(Resource.loading(null))
@@ -143,6 +145,25 @@ class MainViewModel  @Inject constructor(
             }
         } catch (e: Exception) {
             _userDetails.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+    fun getPromotions() = CoroutineScope(Dispatchers.IO).launch {
+        promotions.postValue(Resource.loading(null))
+        try {
+            mainRepository.getPromotions().let {
+                if (it.isSuccessful) {
+                    promotions.postValue(Resource.success(it.body()))
+                } else {
+                    promotions.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            promotions.postValue(Resource.error(e.message.toString(), null))
         }
     }
     fun getCities() = CoroutineScope(Dispatchers.IO).launch {

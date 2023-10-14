@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.devative.littledoor.R
@@ -14,12 +15,15 @@ import com.devative.littledoor.activity.DailyGeneralActivity
 import com.devative.littledoor.activity.MainActivity
 import com.devative.littledoor.activity.UpdateProfile
 import com.devative.littledoor.adapter.EmoteAdapter
+import com.devative.littledoor.adapter.SliderAdapter
+import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.DailyJournalVM
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.HomeFragmentBinding
 import com.devative.littledoor.model.EmotModel
+import com.devative.littledoor.model.SliderModel
 import com.devative.littledoor.model.UserAppointmentModel.*
 import com.devative.littledoor.model.UserDetails
 import com.devative.littledoor.util.DailyGeneraleBottomSheet
@@ -28,6 +32,12 @@ import com.devative.littledoor.util.QuoteManager
 import com.devative.littledoor.util.Utility
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -43,6 +53,9 @@ class HomeFragment  : Fragment() {
     private lateinit var vm: MainViewModel
     private val dailyJournalVM: DailyJournalVM by viewModels()
     private val emoteList = ArrayList<EmotModel.Data>()
+    private lateinit var sliderAdapter: SliderAdapter
+    private val sliderItems = ArrayList<SliderModel.Data>()
+    private lateinit var autoScrollJob: Job
     private val progress:Progress by lazy {
         Progress(requireActivity() as AppCompatActivity)
     }
@@ -99,6 +112,7 @@ class HomeFragment  : Fragment() {
     private fun observe() {
         dailyJournalVM.getEmote()
         vm.getUserBookedAppointment()
+        vm.getPromotions()
         dailyJournalVM.getEmote.observe(requireActivity()) {
             when (it.status) {
                 Status.LOADING -> {
@@ -182,6 +196,41 @@ class HomeFragment  : Fragment() {
             }
         }
 
+        vm.promotions.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true) {
+                        sliderItems.clear()
+                        if (it.data.data.isNotEmpty()) {
+                            sliderItems.addAll(it.data.data as ArrayList)
+                            handlePromotionAdapter()
+                        }
+                    } else {
+                        Utility.errorToast(
+                            requireContext(),
+                            getString(R.string.some_thing_went_wrong)
+                        )
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress.dismiss()
+                    it.message?.let { it1 ->
+                        Utility.errorToast(
+                            requireContext(),
+                            getString(R.string.some_thing_went_wrong)
+                        )
+                    }
+                }
+
+            }
+        }
+
+
     }
 
     private fun updateUI() {
@@ -248,7 +297,7 @@ class HomeFragment  : Fragment() {
             appointmentDateTime
         }
 
-        if (upcomingAppointment != null) {
+        if (upcomingAppointment != null && isCurrentDate(upcomingAppointment.apointmnet_date)) {
             binding.liBookSession.visibility = View.GONE
             binding.liJoinSession.visibility = View.VISIBLE
             binding.txtTHName.text = "${upcomingAppointment.doctor_name}"
@@ -257,5 +306,33 @@ class HomeFragment  : Fragment() {
             binding.liBookSession.visibility = View.VISIBLE
             binding.liJoinSession.visibility = View.GONE
         }
+    }
+
+    private fun handlePromotionAdapter() {
+        sliderAdapter = SliderAdapter(sliderItems)
+        binding.viewPager.adapter = sliderAdapter
+
+        autoScrollJob = CoroutineScope(Dispatchers.Main).launch {
+            while (true) {
+                delay(3000)
+                withContext(Dispatchers.Main) {
+                    binding.viewPager.currentItem = (binding.viewPager.currentItem + 1) % sliderItems.size
+                }
+            }
+        }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        if (this::autoScrollJob.isInitialized)
+            autoScrollJob.cancel()
+    }
+
+
+    fun isCurrentDate(dateString: String): Boolean {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val currentDate = Calendar.getInstance().time
+        val passedDate = dateFormat.parse(dateString)
+
+        return dateFormat.format(currentDate) == dateFormat.format(passedDate)
     }
 }

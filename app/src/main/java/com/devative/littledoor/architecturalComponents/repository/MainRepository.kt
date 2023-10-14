@@ -15,6 +15,7 @@ class MainRepository @Inject constructor(
         apiHelper.getVerifyOTPPatientLogin(mobileNo, otp)
 
     suspend fun getUserDetails() = apiHelper.getUserDetails()
+    suspend fun getPromotions() = apiHelper.getPromotions()
     suspend fun getAllCities() = apiHelper.getAllCities()
     suspend fun getQuestions() = apiHelper.getQuestions()
     suspend fun createPatient(
