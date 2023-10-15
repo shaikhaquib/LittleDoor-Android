@@ -21,12 +21,22 @@
         app:title="User name" />
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
     <carbon.widget.LinearLayout
+        android:id="@+id/linearLayout15"
         style="@style/AppEditTextCarbonElevated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_16_dp"
         android:gravity="center_vertical"
+        android:padding="@dimen/_16_dp"
         app:carbon_cornerRadiusTopEnd="@dimen/_12_dp"
         app:carbon_cornerRadiusTopStart="@dimen/_12_dp"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -35,41 +45,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:background="@drawable/bordergrey_8dp">
+            android:background="@drawable/bordergrey_8dp"
+            android:gravity="center_vertical">
 
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_smiled"
+                android:layout_marginStart="@dimen/_8_dp"
                 android:layout_marginTop="@dimen/_12_dp"
                 android:layout_marginBottom="@dimen/_12_dp"
-                android:layout_marginStart="@dimen/_8_dp"/>
+                app:srcCompat="@drawable/ic_smiled" />
 
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edtMessageBox"
                 style="@style/TextTitleNormal_12sp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:maxLines="6"
-                android:layout_marginTop="@dimen/_4_dp"
-                android:layout_marginBottom="@dimen/_4_dp"
-                android:scrollbars="vertical"
-                android:inputType="textMultiLine"
                 android:layout_marginStart="@dimen/_12_dp"
+                android:layout_marginTop="@dimen/_4_dp"
                 android:layout_marginEnd="@dimen/_12_dp"
+                android:layout_marginBottom="@dimen/_4_dp"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="Type a message..."/>
+                android:hint="Type a message..."
+                android:inputType="textMultiLine"
+                android:maxLines="6"
+                android:scrollbars="vertical" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_attach"
                 android:layout_marginTop="@dimen/_12_dp"
+                android:layout_marginEnd="@dimen/_8_dp"
                 android:layout_marginBottom="@dimen/_12_dp"
-                android:layout_marginEnd="@dimen/_8_dp"/>
+                app:srcCompat="@drawable/ic_attach" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -88,6 +99,8 @@
 
 
     </carbon.widget.LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

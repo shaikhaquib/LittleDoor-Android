@@ -116,4 +116,5 @@ dependencies {
     debugImplementation "com.github.chuckerteam.chucker:library:4.0.0"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:4.0.0"
     implementation 'com.github.ozodrukh:CircularReveal:2.0.1'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.0'
 }

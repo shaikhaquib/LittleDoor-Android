@@ -23,6 +23,7 @@ object Constants {
     const val FORM_EDIT_DATA = "FORM_EDIT_DATA"
     const val TH_DETAILS = "TH_DETAILS"
     const val TH_REGISTERED = "Registered"
+    const val FCM_TOKEN = "FCM_TOKEN"
     var isDoctor = false
 
     fun ImageView.load(url: String,placeholder: Int = R.color.primary) {

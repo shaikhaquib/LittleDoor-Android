@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "197786043709",
+    "firebase_url": "https://littledoor-ec8c9-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "littledoor-ec8c9",
+    "storage_bucket": "littledoor-ec8c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197786043709:android:c606900284d9b34f153154",
+        "android_client_info": {
+          "package_name": "com.devative.littledoor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB44_O4ZL2bndplflopalzXmtmFrv0IoeU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
