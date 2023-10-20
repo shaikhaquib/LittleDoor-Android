@@ -12,12 +12,12 @@
         style="@style/AppToolbar"
         android:layout_width="match_parent"
         android:layout_height="66dp"
+        android:background="@drawable/bottom_corner"
         android:gravity="center_vertical"
+        app:buttonGravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:buttonGravity="center_vertical"
-        android:background="@drawable/bottom_corner"
         app:title="User name" />
 
 
@@ -75,6 +75,7 @@
                 android:scrollbars="vertical" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btnAttach"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12_dp"
@@ -96,11 +97,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/btnBookAppointment"
             app:layout_constraintStart_toEndOf="@+id/btnBookAppointment"
             app:layout_constraintTop_toBottomOf="@+id/txtDesc" />
-
-
     </carbon.widget.LinearLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

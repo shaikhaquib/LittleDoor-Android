@@ -1,7 +1,9 @@
 package com.devative.littledoor.architecturalComponents.helper
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.icu.util.Calendar
+import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.devative.littledoor.R
@@ -10,6 +12,9 @@ import java.util.Date
 import java.util.Locale
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.devative.littledoor.model.UserAppointmentModel
+import java.io.File
+import java.io.FileOutputStream
+import java.util.UUID
 
 
 object Constants {
@@ -95,5 +100,36 @@ object Constants {
         }.sortedBy { it.apointmnet_date }
     }
 
+    fun convertTimestampToDate(timestamp: Long, format:String = "yyyy-MM-dd HH:mm:ss"): String {
+        val sdf = SimpleDateFormat(format, Locale.getDefault())
+        val date = Date(timestamp)
+        return sdf.format(date)
+    }
+
+
+    fun uriToFile(context: Context, uri: Uri, extension:String = "jpg"): File? {
+        try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            if (inputStream != null) {
+                val file = File(context.cacheDir, "${UUID.randomUUID()}_file.$extension")
+                val outputStream = FileOutputStream(file)
+                val buffer = ByteArray(1024)
+                var read: Int
+
+                while (inputStream.read(buffer).also { read = it } != -1) {
+                    outputStream.write(buffer, 0, read)
+                }
+
+                inputStream.close()
+                outputStream.flush()
+                outputStream.close()
+
+                return file
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
 
 }

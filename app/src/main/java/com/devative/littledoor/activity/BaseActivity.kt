@@ -9,6 +9,8 @@ import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.model.LoginModel
 import com.devative.littledoor.model.UserDetails
 import com.devative.littledoor.util.Progress
+import com.google.firebase.FirebaseApp
+import com.google.firebase.appcheck.FirebaseAppCheck
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

@@ -35,7 +35,16 @@ class MessengerFragment  : Fragment() {
         binding.rvChatRoom.adapter = ChatRoomAdapter(requireActivity(),object :
             ChatRoomAdapter.ChatRoomAdapterEvent {
             override fun onclick(position: Int) {
-                startActivity(Intent(requireContext(), ChatActivity::class.java))
+
+                startActivity(Intent(requireContext(), ChatActivity::class.java).apply {
+                    if (position == 1){
+                        putExtra("Sender","UserA")
+                        putExtra("Receiver","UserB")
+                    }else{
+                        putExtra("Sender","UserB")
+                        putExtra("Receiver","UserA")
+                    }
+                })
             }
         })
 

@@ -1,0 +1,77 @@
+<!-- item_message.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_50dp"
+    android:layout_marginTop="@dimen/_4_dp"
+    android:orientation="vertical">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16_dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_message_sent"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_10_dp"
+            android:paddingHorizontal="@dimen/_30_dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvDateTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvMessageText"
+                style="@style/TextTitleNormal_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dgdgdgdgdgdgdgdgdgdgd55555555555555555555555555555555555555555555555555555555555555555555"
+                android:textColor="@color/black" />
+
+            <carbon.widget.ImageView
+                android:id="@+id/imgPost"
+                style="@style/TextTitleNormal_12sp"
+                android:layout_width="@dimen/_250dp"
+                android:layout_height="@dimen/_250dp"
+                android:visibility="visible"
+                app:carbon_cornerRadius="@dimen/_15dp"
+                app:carbon_stroke="@color/grey_light"
+                app:carbon_strokeWidth="@dimen/_1dp"
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:text="Is there a therapy which can cure crossdressing &amp; bdsm compulsion?"
+                />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/tvDateTime"
+            style="@style/TextGray_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/single_tick"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/_4_dp"
+            android:text="02/23/2024"
+            android:textColor="@color/grey_light"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/linearLayoutCompat2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+</LinearLayout>

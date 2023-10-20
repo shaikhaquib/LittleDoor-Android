@@ -16,6 +16,7 @@ class ChatRoomAdapter(
     inner class ViewHolder(val binding: ItemChatBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
+            itemView.setOnClickListener{event.onclick(position)}
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
