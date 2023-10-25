@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="agora_app_id" translatable="false">034afdaac42e4fc48af1e92e889ef119</string>
+    <string name="agora_app_certificate" translatable="false">c94586246bb54f7b9c14e35e5c5e4c5e</string>
+</resources>

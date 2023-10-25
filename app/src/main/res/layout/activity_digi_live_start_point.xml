@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rlActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/top_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/backward" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_marginStart="@dimen/_8_dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="DigiLive"/>
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rlActionBar"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_24dp"
+            android:text="Welecome to Digilive"
+            android:textColor="@color/black"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_below="@+id/rlActionBar"
+            android:text="A new way to connect world digitally"/>
+
+
+        <LinearLayout
+            android:id="@+id/llEmail"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="@dimen/_50dp"
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/edtChannel"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="Enter Channel ID"
+                android:paddingLeft="12dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#b1a7a7"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/next"
+            android:layout_below="@id/tips"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:paddingTop="16dp"
+            android:layout_gravity="center"
+            android:paddingBottom="16dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Let's Connect" />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

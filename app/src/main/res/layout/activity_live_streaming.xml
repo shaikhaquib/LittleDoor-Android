@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ChatUi.liveStreaming.LiveStreaming">
+
+    <com.devative.littledoor.ChatUi.liveStreaming.VideoReportLayout
+        android:id="@+id/remoteContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/ll_join"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/foreground_layout"
+        layout="@layout/fragment_live_streaming_video_item"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/video_tracking_layout"
+        layout="@layout/fragment_live_streaming_video_tracking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:visibility="gone" />
+
+
+    <ImageButton
+        android:id="@+id/btn_join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="?selectableItemBackground"
+        android:src="@drawable/ic_dissconnect_call"
+        android:text="@string/leave"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_join"
+        app:layout_constraintEnd_toStartOf="@+id/ch_mute"
+        app:layout_constraintStart_toEndOf="@+id/ch_video_mute"
+         />
+
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/ch_mute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_24_dp"
+        android:layout_marginEnd="16dp"
+        android:button="@drawable/mike_selector"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_join"
+        app:layout_constraintEnd_toStartOf="@+id/btn_setting"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_join"
+        app:layout_constraintTop_toTopOf="@+id/btn_join" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/ch_audio_mute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:visibility="invisible"
+        android:button="@drawable/audio_selector"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_join"
+        app:layout_constraintEnd_toStartOf="@+id/ch_video_mute"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/remoteContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_join" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/ch_video_mute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16_dp"
+        android:layout_marginEnd="@dimen/_24_dp"
+        android:button="@drawable/video_selector"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_join"
+        app:layout_constraintEnd_toStartOf="@+id/btn_join"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ch_audio_mute"
+        app:layout_constraintTop_toTopOf="@+id/btn_join" />
+
+
+    <ImageButton
+        android:id="@+id/btn_setting"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_setting_more"
+        android:background="?selectableItemBackground"
+        android:text="Setting"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_join"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ch_mute"
+        app:layout_constraintTop_toTopOf="@+id/btn_join" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_remote_screenshot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Remote Screen Shot"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/btn_publish"
+            app:layout_constraintStart_toStartOf="@id/btn_publish" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:enabled="false"
+            android:text="@string/enable_publish"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/ll_join"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_channel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:digits="@string/chanel_support_char"
+            android:hint="Channel ID"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

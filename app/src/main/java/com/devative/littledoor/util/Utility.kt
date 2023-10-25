@@ -102,4 +102,13 @@ object Utility {
         return dateFormat.format(currentDate)
     }
 
+    fun isCurrentDate(dateString: String): Boolean {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val currentDate = Calendar.getInstance().time
+        val passedDate = dateFormat.parse(dateString)
+
+        return dateFormat.format(currentDate) == dateFormat.format(passedDate)
+    }
+
+
 }

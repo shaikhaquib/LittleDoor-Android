@@ -1,5 +1,6 @@
 package com.devative.littledoor.fragment.drdashboard
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
@@ -12,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.devative.littledoor.ChatUi.liveStreaming.LiveStreaming
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.MainActivity
 import com.devative.littledoor.adapter.AppointmentAdapter
@@ -27,6 +29,7 @@ import com.devative.littledoor.model.UserAppointmentModel.*
 import com.devative.littledoor.model.UserDetails
 import com.devative.littledoor.util.Progress
 import com.devative.littledoor.util.Utility
+import com.devative.littledoor.util.Utility.isCurrentDate
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
@@ -187,7 +190,8 @@ class TherapistHomeFragment : Fragment() {
             while (true) {
                 delay(3000)
                 withContext(Dispatchers.Main) {
-                    binding.viewPager.currentItem = (binding.viewPager.currentItem + 1) % sliderItems.size
+                    binding.viewPager.currentItem =
+                        (binding.viewPager.currentItem + 1) % sliderItems.size
                 }
             }
         }
@@ -296,14 +300,14 @@ class TherapistHomeFragment : Fragment() {
         paint.shader = linGrad
     }
 
-    fun refreshList(){
+    fun refreshList() {
         list.clear()
         val l = Constants.filterAndSortData(mainList, filterCode)
         if (l.isNotEmpty()) {
             list.addAll(l)
         }
         adapter.notifyDataSetChanged()
-        binding.noAppointmentError.visibility = if(list.isNotEmpty()) View.GONE else View.VISIBLE
+        binding.noAppointmentError.visibility = if (list.isNotEmpty()) View.GONE else View.VISIBLE
         binding.rvAppointment.isVisible = list.isNotEmpty()
         todayAppointment(list)
     }
@@ -318,7 +322,8 @@ class TherapistHomeFragment : Fragment() {
 
         val todayData = dataList.filter {
             val appointmentDateTime = Calendar.getInstance()
-            val appointmentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(it.slot_time)
+            val appointmentTime =
+                SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(it.slot_time)
             appointmentDateTime.time = appointmentTime!!
             appointmentDateTime.set(Calendar.YEAR, today.get(Calendar.YEAR))
             appointmentDateTime.set(Calendar.MONTH, today.get(Calendar.MONTH))
@@ -336,15 +341,26 @@ class TherapistHomeFragment : Fragment() {
             appointmentDateTime
         }
 
-        if (upcomingAppointment != null) {
-           // binding.liJoinSession.visibility = View.VISIBLE
+        if (upcomingAppointment != null && isCurrentDate(upcomingAppointment.apointmnet_date)) {
+            // binding.liJoinSession.visibility = View.VISIBLE
             binding.txtTHName.text = "${upcomingAppointment.doctor_name}"
             binding.txtSlotTime.text = "Today at ${upcomingAppointment.slot_time}"
+
+            binding.btnJoinNow.setOnClickListener {
+                //(requireActivity() as MainActivity).setNavigationSelection(R.id.bottom_navigation_search)
+                startActivity(
+                    Intent(context, LiveStreaming::class.java)
+                        .putExtra("CHANNEL_ID", upcomingAppointment.id.toString())
+                        .putExtra("IS_HOST", true)
+                )
+
+            }
+
         } else {
             binding.liJoinSession.visibility = View.GONE
-           /* binding.txtTHName.text = ""
-            binding.txtSlotTime.text = ""
-            binding.btnJoinNow.visibility = View.GONE*/
+            /* binding.txtTHName.text = ""
+             binding.txtSlotTime.text = ""
+             binding.btnJoinNow.visibility = View.GONE*/
 
         }
     }

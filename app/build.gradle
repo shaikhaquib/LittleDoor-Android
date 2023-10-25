@@ -127,4 +127,10 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 
     implementation 'com.squareup.picasso:picasso:2.8'
+
+    //Agora
+    def agora_sdk_version = "4.2.1"
+    // case 1: full libs
+    implementation "io.agora.rtc:full-sdk:${agora_sdk_version}"
+    implementation "com.karumi:dexter:6.2.3"
 }

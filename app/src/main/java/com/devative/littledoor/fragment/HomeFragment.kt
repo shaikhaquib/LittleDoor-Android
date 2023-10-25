@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.devative.littledoor.ChatUi.liveStreaming.LiveStreaming
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.DailyGeneralActivity
 import com.devative.littledoor.activity.MainActivity
@@ -30,6 +31,7 @@ import com.devative.littledoor.util.DailyGeneraleBottomSheet
 import com.devative.littledoor.util.Progress
 import com.devative.littledoor.util.QuoteManager
 import com.devative.littledoor.util.Utility
+import com.devative.littledoor.util.Utility.isCurrentDate
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
@@ -106,7 +108,6 @@ class HomeFragment  : Fragment() {
         binding.btnBookNow.setOnClickListener {
             (requireActivity() as MainActivity).setNavigationSelection(R.id.bottom_navigation_search)
         }
-
     }
 
     private fun observe() {
@@ -302,10 +303,21 @@ class HomeFragment  : Fragment() {
             binding.liJoinSession.visibility = View.VISIBLE
             binding.txtTHName.text = "${upcomingAppointment.doctor_name}"
             binding.txtSlotTime.text = "Today at ${upcomingAppointment.slot_time}"
+
+            binding.btnJoinNow.setOnClickListener {
+                //(requireActivity() as MainActivity).setNavigationSelection(R.id.bottom_navigation_search)
+                startActivity(Intent(context, LiveStreaming::class.java)
+                    .putExtra("CHANNEL_ID",upcomingAppointment.id.toString())
+                    .putExtra("IS_HOST",true))
+
+            }
+
         } else {
             binding.liBookSession.visibility = View.VISIBLE
             binding.liJoinSession.visibility = View.GONE
         }
+
+
     }
 
     private fun handlePromotionAdapter() {
@@ -328,11 +340,4 @@ class HomeFragment  : Fragment() {
     }
 
 
-    fun isCurrentDate(dateString: String): Boolean {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val currentDate = Calendar.getInstance().time
-        val passedDate = dateFormat.parse(dateString)
-
-        return dateFormat.format(currentDate) == dateFormat.format(passedDate)
-    }
 }
