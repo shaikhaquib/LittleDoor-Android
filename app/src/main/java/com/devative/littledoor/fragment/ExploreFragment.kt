@@ -11,6 +11,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -107,6 +108,8 @@ class ExploreFragment : Fragment(),ExplorerAdapter.ExplorerAdapterEvent {
                     } else {
                         Utility.errorToast(requireContext(), getString(R.string.some_thing_went_wrong))
                     }
+                    binding.rvTherapist.isVisible = postList.isNotEmpty()
+                    binding.emtyView.isVisible = postList.isEmpty()
                 }
 
                 Status.ERROR -> {

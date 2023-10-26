@@ -99,7 +99,16 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/item_chat"
                 android:layout_marginTop="@dimen/_8_dp"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/emptyView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_50dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/chathistory" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

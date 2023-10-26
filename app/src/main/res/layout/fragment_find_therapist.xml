@@ -125,9 +125,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/item_therapist"
+                android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/emtyView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_50dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/notherapist" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 

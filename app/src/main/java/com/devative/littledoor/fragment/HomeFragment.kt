@@ -269,8 +269,7 @@ class HomeFragment  : Fragment() {
             }
         }
     }
-    fun todayAppointment(dataList: java.util.ArrayList<Data>) {
-
+    fun todayAppointment(dataList: ArrayList<Data>) {
         val currentTime = Calendar.getInstance()
         val today = Calendar.getInstance()
         today.set(Calendar.HOUR_OF_DAY, 0)
@@ -279,17 +278,25 @@ class HomeFragment  : Fragment() {
         today.set(Calendar.MILLISECOND, 0)
 
         val todayData = dataList.filter {
-            val appointmentDateTime = Calendar.getInstance()
+            val appointmentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it.apointmnet_date)
             val appointmentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(it.slot_time)
+
+            val appointmentDateTime = Calendar.getInstance()
             appointmentDateTime.time = appointmentTime!!
             appointmentDateTime.set(Calendar.YEAR, today.get(Calendar.YEAR))
             appointmentDateTime.set(Calendar.MONTH, today.get(Calendar.MONTH))
             appointmentDateTime.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH))
 
+            // Set the appointment time
+            appointmentDateTime.set(Calendar.HOUR_OF_DAY, appointmentDateTime.get(Calendar.HOUR_OF_DAY))
+            appointmentDateTime.set(Calendar.MINUTE, appointmentDateTime.get(Calendar.MINUTE))
+            appointmentDateTime.set(Calendar.SECOND, 0)
+            appointmentDateTime.set(Calendar.MILLISECOND, 0)
+
             // Add 30 minutes to the appointment time
             appointmentDateTime.add(Calendar.MINUTE, 30)
 
-            appointmentDateTime.after(currentTime)
+            appointmentDate == today.time && appointmentDateTime.after(currentTime)
         }
 
         val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault())
@@ -297,8 +304,7 @@ class HomeFragment  : Fragment() {
             val appointmentDateTime = sdf.parse("${it.apointmnet_date} ${it.slot_time}")
             appointmentDateTime
         }
-
-        if (upcomingAppointment != null && isCurrentDate(upcomingAppointment.apointmnet_date)) {
+        if (upcomingAppointment != null) {
             binding.liBookSession.visibility = View.GONE
             binding.liJoinSession.visibility = View.VISIBLE
             binding.txtTHName.text = "${upcomingAppointment.doctor_name}"

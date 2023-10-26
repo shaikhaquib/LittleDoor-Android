@@ -49,7 +49,6 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-
 /**
  * Created by AQUIB RASHID SHAIKH on 20-03-2023.
  */
@@ -321,18 +320,25 @@ class TherapistHomeFragment : Fragment() {
         today.set(Calendar.MILLISECOND, 0)
 
         val todayData = dataList.filter {
+            val appointmentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it.apointmnet_date)
+            val appointmentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(it.slot_time)
+
             val appointmentDateTime = Calendar.getInstance()
-            val appointmentTime =
-                SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(it.slot_time)
             appointmentDateTime.time = appointmentTime!!
             appointmentDateTime.set(Calendar.YEAR, today.get(Calendar.YEAR))
             appointmentDateTime.set(Calendar.MONTH, today.get(Calendar.MONTH))
             appointmentDateTime.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH))
 
+            // Set the appointment time
+            appointmentDateTime.set(Calendar.HOUR_OF_DAY, appointmentDateTime.get(Calendar.HOUR_OF_DAY))
+            appointmentDateTime.set(Calendar.MINUTE, appointmentDateTime.get(Calendar.MINUTE))
+            appointmentDateTime.set(Calendar.SECOND, 0)
+            appointmentDateTime.set(Calendar.MILLISECOND, 0)
+
             // Add 30 minutes to the appointment time
             appointmentDateTime.add(Calendar.MINUTE, 30)
 
-            appointmentDateTime.after(currentTime)
+            appointmentDate == today.time && appointmentDateTime.after(currentTime)
         }
 
         val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault())
@@ -340,9 +346,8 @@ class TherapistHomeFragment : Fragment() {
             val appointmentDateTime = sdf.parse("${it.apointmnet_date} ${it.slot_time}")
             appointmentDateTime
         }
-
-        if (upcomingAppointment != null && isCurrentDate(upcomingAppointment.apointmnet_date)) {
-            // binding.liJoinSession.visibility = View.VISIBLE
+        if (upcomingAppointment != null) {
+            binding.liJoinSession.visibility = View.VISIBLE
             binding.txtTHName.text = "${upcomingAppointment.doctor_name}"
             binding.txtSlotTime.text = "Today at ${upcomingAppointment.slot_time}"
 
@@ -361,7 +366,6 @@ class TherapistHomeFragment : Fragment() {
             /* binding.txtTHName.text = ""
              binding.txtSlotTime.text = ""
              binding.btnJoinNow.visibility = View.GONE*/
-
         }
     }
 

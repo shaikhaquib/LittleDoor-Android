@@ -133,4 +133,5 @@ dependencies {
     // case 1: full libs
     implementation "io.agora.rtc:full-sdk:${agora_sdk_version}"
     implementation "com.karumi:dexter:6.2.3"
+    implementation 'com.razorpay:checkout:1.6.33'
 }

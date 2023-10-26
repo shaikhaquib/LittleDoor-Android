@@ -72,13 +72,14 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/no_appointment_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_20_dp"
         style="@style/TextTitleMedium_16sp"
         android:gravity="center"
+        android:src="@drawable/noappointment"
         android:textColor="@color/overlays_red"
         android:text="@string/no_appointment_error"
         app:layout_constraintBottom_toBottomOf="parent"

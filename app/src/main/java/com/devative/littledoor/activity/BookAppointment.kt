@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import com.devative.littledoor.R
 import com.devative.littledoor.adapter.TimeSlotAdapterByDate
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Status
@@ -12,12 +13,16 @@ import com.devative.littledoor.databinding.ActivityBookAppointmentBinding
 import com.devative.littledoor.model.AvailableSlotModel
 import com.devative.littledoor.model.DoctotorListRes
 import com.devative.littledoor.util.Utility
+import com.razorpay.Checkout
+import com.razorpay.PaymentResultListener
 import es.dmoral.toasty.Toasty
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDateEvent {
+class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDateEvent,
+    PaymentResultListener {
     val binding: ActivityBookAppointmentBinding by lazy {
         ActivityBookAppointmentBinding.inflate(layoutInflater)
     }
@@ -28,6 +33,7 @@ class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDa
     var selectedSlot:AvailableSlotModel.Data? = null
     private val vm:MainViewModel by viewModels()
     private var formattedDate = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -42,18 +48,34 @@ class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDa
         binding.btnProceed.setOnClickListener {
             /*slot_id:2
             appointment_date:2023-08-22*/
-            if (selectedSlot == null){
-                Utility.errorToast(applicationContext,"Please select the available slot")
-            }else {
-                val hashMap = HashMap<String, Any>()
-                hashMap["doctor_id"] = thDetails.id
-                hashMap["slot_id"] = selectedSlot!!.id
-                hashMap["appointment_date"] = formattedDate
-                vm.bookAppointment(hashMap)
-            }
+            startPayment()
         }
+        initRazorPay()
     }
 
+    private fun initRazorPay() {
+        Checkout.preload(applicationContext)
+        val co = Checkout()
+        co.setKeyID("rzp_test_pQVzKuWl7tuXu1")
+
+    }
+
+
+    private fun startPayment() {
+        val co = Checkout()
+
+        try {
+            val options = JSONObject()
+            options.put("name", getString(R.string.app_name))
+            options.put("description", "Appointment with ${thDetails.name}")
+            options.put("currency", "INR")
+            options.put("amount"," ${(thDetails.doctor_session_charge.toIntOrNull()?:0) * 100 }") // Amount in paise (e.g., 10000 paise = ₹100)
+
+            co.open(this, options)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
     private fun setUPObserver() {
         vm.availableSlots.observe(this) {
             when (it.status) {
@@ -184,6 +206,24 @@ class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDa
 
     override fun onItemSelected(data: AvailableSlotModel.Data) {
         selectedSlot = data
+    }
+
+    override fun onPaymentError(code: Int, message: String?) {
+        Utility.errorToast(applicationContext,message?:"Some thing went wrong")
+    }
+
+    override fun onPaymentSuccess(razorpayPaymentID: String?) {
+        Utility.errorToast(applicationContext,"Success - $razorpayPaymentID")
+
+        if (selectedSlot == null){
+            Utility.errorToast(applicationContext,"Please select the available slot")
+        }else {
+            val hashMap = HashMap<String, Any>()
+            hashMap["doctor_id"] = thDetails.id
+            hashMap["slot_id"] = selectedSlot!!.id
+            hashMap["appointment_date"] = formattedDate
+            vm.bookAppointment(hashMap)
+        }
     }
 
 

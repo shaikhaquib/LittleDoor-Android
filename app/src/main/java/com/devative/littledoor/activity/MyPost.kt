@@ -32,13 +32,13 @@ import com.devative.littledoor.util.DividerItemDecoration
 import com.devative.littledoor.util.Utility
 import com.google.android.material.tabs.TabLayout
 
-class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEvent {
+class MyPost : BaseActivity(), OnClickListener, ExplorerAdapter.ExplorerAdapterEvent {
 
     private val binding: ActivityMyPostBinding by lazy {
         ActivityMyPostBinding.inflate(layoutInflater)
     }
-    private val vm : ExploreViewModel by viewModels()
-    private val mainViewModel :MainViewModel by viewModels()
+    private val vm: ExploreViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
     private val userPosts = ArrayList<PostModel.Data>()
     private val myPostList = ArrayList<PostModel.Data>()
     private val myCommentPostList = ArrayList<PostModel.Data>()
@@ -57,17 +57,19 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
         binding.btnUpdateProfile.setOnClickListener {
             startActivity(Intent(this, UpdateProfile::class.java))
         }
-        adapter = ExplorerAdapter(this,userPosts,this)
+        adapter = ExplorerAdapter(this, userPosts, this)
         adapter.setHasStableIds(true)
         binding.rvTherapist.adapter = adapter
         binding.rvTherapist.addItemDecoration(
-            DividerItemDecoration(this,
-                LinearLayoutManager.VERTICAL,false)
+            DividerItemDecoration(
+                this,
+                LinearLayoutManager.VERTICAL, false
+            )
         )
 
         mainViewModel.fetchUserData()
-        mainViewModel.basicDetails.observe(this){
-            if (!it.isNullOrEmpty()){
+        mainViewModel.basicDetails.observe(this) {
+            if (!it.isNullOrEmpty()) {
                 basicDetails = it[0]
                 updateUI()
             }
@@ -76,25 +78,25 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
         binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val tabID = tab?.text.toString()
-                if (tabID == getString(R.string.my_post) && filterCode != 1){
+                if (tabID == getString(R.string.my_post) && filterCode != 1) {
                     filterCode = 1
-                    if (myPostList.isEmpty()){
+                    if (myPostList.isEmpty()) {
                         vm.getAllPostUser()
-                    }else{
+                    } else {
                         updateList(myPostList)
                     }
-                } else if (tabID == getString(R.string.comments) && filterCode != 2){
+                } else if (tabID == getString(R.string.comments) && filterCode != 2) {
                     filterCode = 2
-                    if (myCommentPostList.isEmpty()){
+                    if (myCommentPostList.isEmpty()) {
                         vm.getAllPostUserComment()
-                    }else{
+                    } else {
                         updateList(myCommentPostList)
                     }
-                } else if (tabID ==  getString(R.string.likes) && filterCode != 3){
+                } else if (tabID == getString(R.string.likes) && filterCode != 3) {
                     filterCode = 3
-                    if (myLikePostList.isEmpty()){
+                    if (myLikePostList.isEmpty()) {
                         vm.getAllPostUserLikes()
-                    }else{
+                    } else {
                         updateList(myLikePostList)
                     }
                 }
@@ -113,6 +115,8 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
         userPosts.clear()
         userPosts.addAll(list)
         adapter.notifyDataSetChanged()
+        binding.rvTherapist.isVisible = userPosts.isNotEmpty()
+        binding.emtyView.isVisible = userPosts.isEmpty()
     }
 
     private fun updateUI() {
@@ -148,18 +152,26 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
                     progress.dismiss()
                     if (it.data?.status == true) {
                         myPostList.clear()
-
+                        userPosts.clear()
                         if (it.data.data.isNotEmpty()) {
-                            myPostList.addAll(it.data.data )
+                            myPostList.addAll(it.data.data)
                             if (filterCode == 1) {
                                 userPosts.clear()
                                 userPosts.addAll(myPostList)
                                 adapter.notifyDataSetChanged()
+                            } else {
+                                if (filterCode == 1) {
+                                    userPosts.clear()
+                                    adapter.notifyDataSetChanged()
+                                }
                             }
                         }
                     } else {
                         Utility.errorToast(this, getString(R.string.some_thing_went_wrong))
                     }
+
+                    binding.rvTherapist.isVisible = userPosts.isNotEmpty()
+                    binding.emtyView.isVisible = userPosts.isEmpty()
                 }
 
                 Status.ERROR -> {
@@ -184,7 +196,6 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
                     progress.dismiss()
                     if (it.data?.status == true) {
                         myLikePostList.clear()
-
                         if (it.data.data.isNotEmpty()) {
                             myLikePostList.addAll(it.data.data)
                             if (filterCode == 3) {
@@ -192,10 +203,17 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
                                 userPosts.addAll(myLikePostList)
                                 adapter.notifyDataSetChanged()
                             }
+                        } else {
+                            if (filterCode == 3) {
+                                userPosts.clear()
+                                adapter.notifyDataSetChanged()
+                            }
                         }
                     } else {
                         Utility.errorToast(this, getString(R.string.some_thing_went_wrong))
                     }
+                    binding.rvTherapist.isVisible = userPosts.isNotEmpty()
+                    binding.emtyView.isVisible = userPosts.isEmpty()
                 }
 
                 Status.ERROR -> {
@@ -221,16 +239,24 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
                     if (it.data?.status == true) {
                         myCommentPostList.clear()
                         if (it.data.data.isNotEmpty()) {
-                            myCommentPostList.addAll(it.data.data )
+                            myCommentPostList.addAll(it.data.data)
                             if (filterCode == 2) {
                                 userPosts.clear()
                                 userPosts.addAll(myCommentPostList)
                                 adapter.notifyDataSetChanged()
+                            } else {
+                                if (filterCode == 2) {
+                                    userPosts.clear()
+                                    adapter.notifyDataSetChanged()
+                                }
                             }
                         }
                     } else {
                         Utility.errorToast(this, getString(R.string.some_thing_went_wrong))
                     }
+
+                    binding.rvTherapist.isVisible = userPosts.isNotEmpty()
+                    binding.emtyView.isVisible = userPosts.isEmpty()
                 }
 
                 Status.ERROR -> {
@@ -255,9 +281,8 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
                 Status.SUCCESS -> {
                     progress.dismiss()
                     if (it.data?.status == true) {
-                        if (!it.data.status) {
-                            Utility.errorToast(this, it.data.message)
-                        }
+                        Utility.successToast(this, it.data.message)
+                        vm.getAllPostUserLikes()
                     } else {
                         Utility.errorToast(this, getString(R.string.some_thing_went_wrong))
                     }
@@ -287,7 +312,7 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
                     if (it.data?.status == true) {
                         if (it.data.status) {
                             Utility.successToast(this, it.data.message)
-                        }else{
+                        } else {
                             Utility.errorToast(this, it.data.message)
                         }
                     } else {
@@ -314,7 +339,7 @@ class MyPost : BaseActivity(),OnClickListener,ExplorerAdapter.ExplorerAdapterEve
 
     override fun onLike(position: Int, isLike: Boolean, postID: Int) {
         val likeStatus = if (isLike) 1 else 0
-        val map = HashMap<String,Any>()
+        val map = HashMap<String, Any>()
         map["post_id"] = postID
         map["post_like"] = likeStatus
         vm.likePost(map)

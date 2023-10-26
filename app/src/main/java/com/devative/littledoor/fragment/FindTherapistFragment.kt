@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -45,7 +46,7 @@ class FindTherapistFragment : Fragment(), TherapistAdapter.TherapistAdapterEvent
         super.onViewCreated(view, savedInstanceState)
         adapter = TherapistAdapter(requireActivity(), doctorList, this)
         adapter.setHasStableIds(true)
-        catAdapter = CategoryAdapter(requireActivity(),categoryList,object :
+        catAdapter = CategoryAdapter(requireActivity(), categoryList, object :
             CategoryAdapter.CategoryAdapterEvent {
             override fun onclick(position: Int) {
 
@@ -96,6 +97,8 @@ class FindTherapistFragment : Fragment(), TherapistAdapter.TherapistAdapterEvent
                         Toasty.error(requireContext(), getString(R.string.some_thing_went_wrong))
                             .show()
                     }
+                    binding.rvTherapist.isVisible = doctorList.isNotEmpty()
+                    binding.emtyView.isVisible = doctorList.isEmpty()
                 }
 
                 Status.ERROR -> {
@@ -114,13 +117,17 @@ class FindTherapistFragment : Fragment(), TherapistAdapter.TherapistAdapterEvent
     }
 
     override fun onclick(position: Int) {
-        startActivity(Intent(requireContext(), ThProfileDetails::class.java)
-            .putExtra(Constants.TH_DETAILS,doctorList[position]))
+        startActivity(
+            Intent(requireContext(), ThProfileDetails::class.java)
+                .putExtra(Constants.TH_DETAILS, doctorList[position])
+        )
     }
 
     override fun bookAppointment(position: Int) {
-        startActivity(Intent(requireContext(), BookAppointment::class.java)
-            .putExtra(Constants.TH_DETAILS,doctorList[position]))
+        startActivity(
+            Intent(requireContext(), BookAppointment::class.java)
+                .putExtra(Constants.TH_DETAILS, doctorList[position])
+        )
     }
 
     override fun onChat(position: Int) {
