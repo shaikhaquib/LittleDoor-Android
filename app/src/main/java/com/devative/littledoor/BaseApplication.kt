@@ -4,6 +4,7 @@ import android.app.Application
 import com.google.firebase.FirebaseApp
 import com.google.firebase.appcheck.FirebaseAppCheck
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -19,6 +20,7 @@ class BaseApplication : Application(){
         // Initialize App Check and install the debug provider.
         val firebaseAppCheck = FirebaseAppCheck.getInstance()
         firebaseAppCheck.installAppCheckProviderFactory(DebugAppCheckProviderFactory.getInstance())
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

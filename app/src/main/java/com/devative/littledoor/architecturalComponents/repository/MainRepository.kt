@@ -57,5 +57,10 @@ class MainRepository @Inject constructor(
     suspend fun getBankDetails() = apiHelper.getBankDetails()
     suspend fun deleteBankDetails(id:Int) = apiHelper.deleteBankDetails(id)
     suspend fun addBankDetails(sendData: HashMap<String, Any>) = apiHelper.addBankDetails(sendData)
+    suspend fun createChat(sendData: HashMap<String, Any>) = apiHelper.createChat(sendData)
+    suspend fun getChat() = apiHelper.getChat()
+    suspend fun getNotification() = apiHelper.getUserWiseNotification()
+    suspend fun notificationReadReceipt(sendData: HashMap<String, Any>) = apiHelper.readReceipt(sendData)
+    suspend fun createOrder(sendData: HashMap<String, Any>) = apiHelper.createOrder(sendData)
 
 }

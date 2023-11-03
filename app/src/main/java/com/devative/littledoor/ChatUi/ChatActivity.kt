@@ -4,12 +4,17 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devative.littledoor.activity.BaseActivity
+import com.devative.littledoor.architecturalComponents.helper.Constants
+import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.ActivityChatBinding
+import com.devative.littledoor.model.ChatListResponse
 import com.devative.littledoor.util.Progress
 import com.devative.littledoor.util.imageUtil.CompressImage
 import com.devative.littledoor.util.imageUtil.FileUtil.from
@@ -26,17 +31,14 @@ import java.io.File
 import java.util.UUID
 
 
-class ChatActivity : AppCompatActivity() {
+class ChatActivity : BaseActivity() {
     private lateinit var binding: ActivityChatBinding
     private lateinit var database: DatabaseReference
     private lateinit var messageAdapter: MessageAdapter
-    private lateinit var chatId: String
-    private lateinit var userId1: String
-    private lateinit var userId2: String
+    private val mainViewModel: MainViewModel by viewModels()
+    private var chatData:ChatListResponse.Data? = null
     private lateinit var storageReference: StorageReference
-    val progress: Progress by lazy {
-        Progress(this)
-    }
+    private var userId = ""
 
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
         progress.show()
@@ -90,27 +92,31 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        setSupportActionBar(binding.toolbar)
+        chatData = intent.getSerializableExtra("data") as ChatListResponse.Data?
         // Initialize Firebase Realtime Database
         database = Firebase.database.reference.child("chats")
-
         // Initialize Firebase Storage
         storageReference = FirebaseStorage.getInstance().reference.child("chat_images")
-
-        // Assign user IDs
-        if (intent.hasExtra("Sender")) {
-            userId1 = intent.getStringExtra("Sender") ?: "UserA"
-            userId2 = intent.getStringExtra("Receiver") ?: "UserB"
-        } else {
-            userId1 = "UserA"
-            userId2 = "UserB"
+        mainViewModel.fetchUserData()
+        mainViewModel.basicDetails.observe(this){
+            if (!it.isNullOrEmpty()){
+                basicDetails = it[0]
+              initData()
+            }
         }
-
-        // Generate chat ID
-        chatId = generateChatId(userId1, userId2)
-
         // Set up RecyclerView
-        messageAdapter = MessageAdapter(userId1)
+    }
+
+    private fun initData() {
+        if(Constants.isDoctor) {
+            userId = basicDetails?.doctor_id.toString()
+            binding.toolbar.title = chatData?.patient_name
+        } else {
+            userId = basicDetails?.pateint_id.toString()
+            binding.toolbar.title = chatData?.doctor_name
+        }
+        messageAdapter = MessageAdapter(this,userId)
         binding.rvMessage.apply {
             layoutManager = LinearLayoutManager(this@ChatActivity)
             adapter = messageAdapter
@@ -126,14 +132,14 @@ class ChatActivity : AppCompatActivity() {
         }
 
         // Listen for new messages
-        database.child(chatId).addChildEventListener(object : ChildEventListener {
+        database.child(chatData?.chat_id.toString()).addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val message = snapshot.getValue(Message::class.java)
 
                 message?.let { messageAdapter.addMessage(it) }
                 binding.rvMessage.smoothScrollToPosition(messageAdapter.itemCount - 1)
                 // Update the read status of the message
-                if (message?.userName != userId1) {
+                if (message?.userName != userId) {
                     snapshot.ref.child("read").setValue(true)
                 }
 
@@ -155,16 +161,17 @@ class ChatActivity : AppCompatActivity() {
             pickImageLauncher.launch("image/*")
         }
     }
-        private fun sendMessage(messageText: String, imageUrl: String? = null) {
+
+    private fun sendMessage(messageText: String, imageUrl: String? = null) {
         val timestamp = System.currentTimeMillis()
         val message = Message(
-            userName = userId1,
+            userName = userId,
             dateTime = timestamp,
             messageText = messageText,
             imageUrl = imageUrl,
             read = false
         )
-        database.child(chatId).push().setValue(message)
+        database.child(chatData?.chat_id.toString()).push().setValue(message)
     }
 
     private fun generateChatId(userId1: String, userId2: String): String {
@@ -179,4 +186,16 @@ class ChatActivity : AppCompatActivity() {
         val imageUrl: String? = null,
         val read: Boolean = false
     )
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }

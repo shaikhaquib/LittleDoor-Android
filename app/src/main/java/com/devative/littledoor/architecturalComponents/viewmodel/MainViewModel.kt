@@ -1,15 +1,21 @@
 package com.devative.littledoor.architecturalComponents.viewmodel
 
+import android.content.Intent
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.*
+import com.devative.littledoor.ChatUi.ChatActivity
 import com.devative.littledoor.architecturalComponents.helper.Resource
 import com.devative.littledoor.architecturalComponents.room.UserDao
 import com.devative.littledoor.architecturalComponents.repository.MainRepository
 import com.devative.littledoor.model.AvailableSlotModel
+import com.devative.littledoor.model.ChatListResponse
+import com.devative.littledoor.model.CreateChatModel
 import com.devative.littledoor.model.DoctotorListRes
 import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.NotificationResponse
 import com.devative.littledoor.model.SliderModel
 import com.devative.littledoor.model.UserAppointmentModel
 import com.devative.littledoor.model.UserDetails
@@ -86,6 +92,10 @@ class MainViewModel  @Inject constructor(
     val availableSlots = MutableLiveData<Resource<AvailableSlotModel>>()
     val getUserBookedAppointment = MutableLiveData<Resource<UserAppointmentModel>>()
     val promotions = MutableLiveData<Resource<SliderModel>>()
+    val createChat = MutableLiveData<Resource<CreateChatModel>>()
+    val getChat = MutableLiveData<Resource<ChatListResponse>>()
+    val getNotifications = MutableLiveData<Resource<NotificationResponse>>()
+    val notificationReadReceipt = MutableLiveData<Resource<GeneralResponse>>()
 
     fun getOTPPatientLogin(mobileNo:String, isPatient:String) = CoroutineScope(Dispatchers.IO).launch {
         _OTPSend.postValue(Resource.loading(null))
@@ -321,6 +331,82 @@ class MainViewModel  @Inject constructor(
             }
         } catch (e: Exception) {
             getUserBookedAppointment.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+    fun getChatList() = CoroutineScope(Dispatchers.IO).launch {
+        getChat.postValue(Resource.loading(null))
+        try {
+            mainRepository.getChat().let {
+                if (it.isSuccessful) {
+                    getChat.postValue(Resource.success(it.body()))
+                } else {
+                    getChat.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            getChat.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+    fun createChat(sendData: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
+        createChat.postValue(Resource.loading(null))
+        try {
+            mainRepository.createChat(sendData).let {
+                if (it.isSuccessful) {
+                    createChat.postValue(Resource.success(it.body()))
+                } else {
+                    createChat.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            createChat.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+    fun getNotifications() = CoroutineScope(Dispatchers.IO).launch {
+        getNotifications.postValue(Resource.loading(null))
+        try {
+            mainRepository.getNotification().let {
+                if (it.isSuccessful) {
+                    getNotifications.postValue(Resource.success(it.body()))
+                } else {
+                    getNotifications.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            getNotifications.postValue(Resource.error(e.message.toString(), null))
+        }
+    }
+    fun notificationReadReceipt(sendData: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
+        notificationReadReceipt.postValue(Resource.loading(null))
+        try {
+            mainRepository.notificationReadReceipt(sendData).let {
+                if (it.isSuccessful) {
+                    notificationReadReceipt.postValue(Resource.success(it.body()))
+                } else {
+                    notificationReadReceipt.postValue(
+                        Resource.error(
+                            "Server Error",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            notificationReadReceipt.postValue(Resource.error(e.message.toString(), null))
         }
     }
 

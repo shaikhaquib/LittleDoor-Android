@@ -1,28 +1,34 @@
 package com.devative.littledoor.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import com.devative.littledoor.R
 import com.devative.littledoor.adapter.TimeSlotAdapterByDate
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
+import com.devative.littledoor.architecturalComponents.viewmodel.TransactionViewModel
 import com.devative.littledoor.databinding.ActivityBookAppointmentBinding
 import com.devative.littledoor.model.AvailableSlotModel
 import com.devative.littledoor.model.DoctotorListRes
+import com.devative.littledoor.util.PaymentPromptSheet
 import com.devative.littledoor.util.Utility
 import com.razorpay.Checkout
+import com.razorpay.PaymentData
 import com.razorpay.PaymentResultListener
+import com.razorpay.PaymentResultWithDataListener
 import es.dmoral.toasty.Toasty
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDateEvent,
-    PaymentResultListener {
+class BookAppointment : BaseActivity(), TimeSlotAdapterByDate.TimeSlotAdapterByDateEvent,
+    PaymentResultWithDataListener {
     val binding: ActivityBookAppointmentBinding by lazy {
         ActivityBookAppointmentBinding.inflate(layoutInflater)
     }
@@ -30,14 +36,21 @@ class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDa
         intent.getSerializableExtra(Constants.TH_DETAILS) as DoctotorListRes.Data
     }
     val slotList = ArrayList<AvailableSlotModel.Data>()
-    var selectedSlot:AvailableSlotModel.Data? = null
-    private val vm:MainViewModel by viewModels()
+    var selectedSlot: AvailableSlotModel.Data? = null
+    private val vm: MainViewModel by viewModels()
+    private val trModel: TransactionViewModel by viewModels()
     private var formattedDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        vm.fetchUserData()
+        vm.basicDetails.observe(this){
+            if (!it.isNullOrEmpty()){
+                basicDetails = it[0]
+            }
+        }
         setData()
         val currentDate = Calendar.getInstance().time
         formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentDate)
@@ -45,23 +58,40 @@ class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDa
         getAvaibaleSLot(dayId, formattedDate)
         setupCalendar()
         setUPObserver()
+
         binding.btnProceed.setOnClickListener {
             /*slot_id:2
             appointment_date:2023-08-22*/
-            startPayment()
+            //
+            if (selectedSlot != null) {
+                PaymentPromptSheet(object : PaymentPromptSheet.PaymentPromptEvent {
+                    override fun onDismiss() {
+                        Utility.errorToast(applicationContext, "Payment canceled")
+                    }
+
+                    override fun onPayment() {
+                        // startPayment()
+                        val dataMap = HashMap<String, Any>()
+                        dataMap["patient_id"] = basicDetails?.pateint_id!!
+                        dataMap["doctor_id"] = thDetails.id
+                        dataMap["amount"] = thDetails.doctor_session_charge
+                        trModel.createRazorPayOrder(dataMap)
+                    }
+                }).show(supportFragmentManager, PaymentPromptSheet.TAG)
+            }
         }
         initRazorPay()
+
     }
 
     private fun initRazorPay() {
         Checkout.preload(applicationContext)
         val co = Checkout()
         co.setKeyID("rzp_test_pQVzKuWl7tuXu1")
-
     }
 
 
-    private fun startPayment() {
+    private fun startPayment(id:String) {
         val co = Checkout()
 
         try {
@@ -69,13 +99,18 @@ class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDa
             options.put("name", getString(R.string.app_name))
             options.put("description", "Appointment with ${thDetails.name}")
             options.put("currency", "INR")
-            options.put("amount"," ${(thDetails.doctor_session_charge.toIntOrNull()?:0) * 100 }") // Amount in paise (e.g., 10000 paise = ₹100)
+            options.put("order_id", id)
+            options.put(
+                "amount",
+                " ${(thDetails.doctor_session_charge.toIntOrNull() ?: 0) * 100}"
+            ) // Amount in paise (e.g., 10000 paise = ₹100)
 
             co.open(this, options)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
     private fun setUPObserver() {
         vm.availableSlots.observe(this) {
             when (it.status) {
@@ -89,15 +124,15 @@ class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDa
                         if (!it.data.data.isNullOrEmpty()) {
                             slotList.clear()
                             slotList.addAll(it.data.data as ArrayList)
-                            binding.rvTimeSlot.adapter = TimeSlotAdapterByDate(this,slotList,this)
+                            binding.rvTimeSlot.adapter = TimeSlotAdapterByDate(this, slotList, this)
                             binding.txtError.visibility = View.GONE
                             binding.rvTimeSlot.visibility = View.VISIBLE
-                        }else{
+                        } else {
                             binding.txtError.text = "No Slots Available for the day"
                             binding.txtError.visibility = View.VISIBLE
                             binding.rvTimeSlot.visibility = View.GONE
                         }
-                    }else{
+                    } else {
                         binding.txtError.text = "No Slots Available for the day"
                         binding.txtError.visibility = View.VISIBLE
                         binding.rvTimeSlot.visibility = View.GONE
@@ -105,7 +140,34 @@ class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDa
                 }
 
                 Status.ERROR -> {
-                  progress.dismiss()
+                    progress.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
+        trModel.createRazorPayOrder.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true) {
+                        it.data.data?.let {
+                            startPayment(it.id)
+                        }
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
@@ -206,24 +268,30 @@ class BookAppointment : BaseActivity(),TimeSlotAdapterByDate.TimeSlotAdapterByDa
 
     override fun onItemSelected(data: AvailableSlotModel.Data) {
         selectedSlot = data
+        binding.btnProceed.isClickable =  true
+        binding.btnProceed.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.primary))
     }
 
-    override fun onPaymentError(code: Int, message: String?) {
-        Utility.errorToast(applicationContext,message?:"Some thing went wrong")
-    }
 
-    override fun onPaymentSuccess(razorpayPaymentID: String?) {
-        Utility.errorToast(applicationContext,"Success - $razorpayPaymentID")
 
-        if (selectedSlot == null){
-            Utility.errorToast(applicationContext,"Please select the available slot")
-        }else {
+
+    override fun onPaymentSuccess(p0: String?, p1: PaymentData?) {
+        Utility.successToast(applicationContext, "Success - $p1")
+        Log.d("TAG", "onPaymentSuccess: $p0 ### $p1")
+
+        if (selectedSlot == null) {
+            Utility.errorToast(applicationContext, "Please select the available slot")
+        } else {
             val hashMap = HashMap<String, Any>()
             hashMap["doctor_id"] = thDetails.id
             hashMap["slot_id"] = selectedSlot!!.id
             hashMap["appointment_date"] = formattedDate
             vm.bookAppointment(hashMap)
         }
+    }
+
+    override fun onPaymentError(p0: Int, p1: String?, p2: PaymentData?) {
+        Utility.successToast(applicationContext, "Success - $p1")
     }
 
 

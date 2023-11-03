@@ -4,6 +4,9 @@ import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.model.AvailableSlotModel
 import com.devative.littledoor.model.BankDetailsModel
 import com.devative.littledoor.model.CategoryResponse
+import com.devative.littledoor.model.ChatListResponse
+import com.devative.littledoor.model.CreateChatModel
+import com.devative.littledoor.model.CreateOrderModel
 import com.devative.littledoor.model.DailyJournalModel
 import com.devative.littledoor.model.DoctorDetailsResponse
 import com.devative.littledoor.model.DoctotorListRes
@@ -12,6 +15,7 @@ import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
 import com.devative.littledoor.model.GetAllQuestions
 import com.devative.littledoor.model.LoginModel
+import com.devative.littledoor.model.NotificationResponse
 import com.devative.littledoor.model.PostCommentModel
 import com.devative.littledoor.model.PostModel
 import com.devative.littledoor.model.SessionDetails
@@ -165,6 +169,19 @@ interface APIClient {
 
     @POST("doctor/create/update/bank-details")
     suspend fun addBankDetails(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+
+    @POST("admin/create/chat")
+    suspend fun createChat(@Body sendData: HashMap<String, Any>): Response<CreateChatModel>
+
+    @GET("admin/get/chat")
+    suspend fun getChat(): Response<ChatListResponse>
+
+    @GET("admin/get/user-notification")
+    suspend fun getUserWiseNotification(): Response<NotificationResponse>
+    @POST("admin/read/notification")
+    suspend fun readReceipt(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+    @POST("admin/create-payment/order")
+    suspend fun createOrder(@Body sendData: HashMap<String, Any>): Response<CreateOrderModel>
 
     @DELETE("doctor/delete/bank-details/{id}")
     suspend fun deleteBankDetails(

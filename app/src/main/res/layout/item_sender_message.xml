@@ -1,5 +1,5 @@
 <!-- item_message.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,17 +19,17 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_message_sent"
             android:orientation="vertical"
-            android:paddingVertical="@dimen/_10_dp"
-            android:paddingHorizontal="@dimen/_30_dp"
             app:layout_constraintBottom_toTopOf="@+id/tvDateTime"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvMessageText"
                 style="@style/TextTitleNormal_12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_30_dp"
+                android:paddingVertical="@dimen/_10_dp"
                 android:text="dgdgdgdgdgdgdgdgdgdgd55555555555555555555555555555555555555555555555555555555555555555555"
                 android:textColor="@color/black" />
 
@@ -39,19 +39,19 @@
                 android:layout_width="@dimen/_250dp"
                 android:layout_height="@dimen/_250dp"
                 android:visibility="visible"
-                app:carbon_cornerRadius="@dimen/_15dp"
+                app:carbon_cornerRadius="@dimen/_8_dp"
+                android:layout_gravity="center"
                 app:carbon_stroke="@color/grey_light"
                 app:carbon_strokeWidth="@dimen/_1dp"
                 android:adjustViewBounds="true"
                 android:src="@mipmap/ic_launcher"
-                android:layout_marginTop="@dimen/_16_dp"
                 android:text="Is there a therapy which can cure crossdressing &amp; bdsm compulsion?"
                 />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDateTime"
             style="@style/TextGray_10"
             android:layout_width="wrap_content"
@@ -74,4 +74,4 @@
 
 
 
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

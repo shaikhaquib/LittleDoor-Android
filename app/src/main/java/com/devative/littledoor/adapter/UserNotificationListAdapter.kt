@@ -7,15 +7,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.databinding.ItemUserAppointmentBinding
 import com.devative.littledoor.databinding.ItemUserNotificationBinding
 import com.devative.littledoor.databinding.ItemUserTransactionBinding
+import com.devative.littledoor.model.NotificationResponse
 
 class UserNotificationListAdapter(
     private val context: Context,
+    private val notificationList: ArrayList<NotificationResponse.Data>,
     private val event: UserNotificationListAdapterEvent,
     private val maxLength: Int = -1
 ) : RecyclerView.Adapter<UserNotificationListAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemUserNotificationBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
+            val notification = notificationList[position]
+            binding.txtName.text = notification.notification_type
+            binding.txtSubText.text = notification.message
+            itemView.setOnClickListener{event.onclick(position)}
         }
     }
 
@@ -31,10 +37,7 @@ class UserNotificationListAdapter(
 
 
     override fun getItemCount(): Int {
-        return if (maxLength == -1)
-            3
-        else
-            2
+        return notificationList.size
     }
 
     interface UserNotificationListAdapterEvent {

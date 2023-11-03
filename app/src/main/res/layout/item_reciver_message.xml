@@ -1,5 +1,5 @@
 <!-- item_message.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -12,16 +12,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:background="@drawable/bg_message_received"
-        android:paddingVertical="@dimen/_10_dp"
-        android:paddingHorizontal="@dimen/_24_dp"
         android:orientation="vertical">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvMessageText"
             style="@style/TextTitleNormal_12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="dgdgdgdgdgdgdgdgdgdgd"
+            android:paddingVertical="@dimen/_10_dp"
+            android:paddingHorizontal="@dimen/_24_dp"
             android:textColor="@color/white" />
 
         <carbon.widget.ImageView
@@ -30,12 +30,11 @@
             android:background="@color/white"
             android:layout_height="@dimen/_250dp"
             android:visibility="visible"
-            app:carbon_cornerRadius="@dimen/_15dp"
+            app:carbon_cornerRadius="@dimen/_8_dp"
             app:carbon_stroke="@color/grey_light"
             app:carbon_strokeWidth="@dimen/_1dp"
             android:adjustViewBounds="true"
             android:src="@mipmap/ic_launcher"
-            android:layout_marginTop="@dimen/_16_dp"
             android:text="Is there a therapy which can cure crossdressing &amp; bdsm compulsion?"
             />
 
@@ -55,4 +54,4 @@
         android:layout_height="wrap_content" />
 
 
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

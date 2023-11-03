@@ -5,10 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.devative.littledoor.ChatUi.ChatActivity
 import com.devative.littledoor.adapter.ChatRoomAdapter
+import com.devative.littledoor.architecturalComponents.helper.Status
+import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.MessengerFragmentBinding
+import com.devative.littledoor.model.ChatListResponse
+import com.devative.littledoor.util.Progress
 
 
 /**
@@ -16,6 +23,11 @@ import com.devative.littledoor.databinding.MessengerFragmentBinding
  */
 class MessengerFragment  : Fragment() {
     private lateinit var binding: MessengerFragmentBinding
+    private val viewModel: MainViewModel by activityViewModels()
+    private val chatList = ArrayList<ChatListResponse.Data>()
+    private val progress: Progress by lazy {
+        Progress(requireActivity() as AppCompatActivity)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,23 +44,46 @@ class MessengerFragment  : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvChatRoom.adapter = ChatRoomAdapter(requireActivity(),object :
+        binding.rvChatRoom.adapter = ChatRoomAdapter(requireActivity(),chatList,object :
             ChatRoomAdapter.ChatRoomAdapterEvent {
             override fun onclick(position: Int) {
-
                 startActivity(Intent(requireContext(), ChatActivity::class.java).apply {
-                    if (position == 1){
-                        putExtra("Sender","UserA")
-                        putExtra("Receiver","UserB")
-                    }else{
-                        putExtra("Sender","UserB")
-                        putExtra("Receiver","UserA")
-                    }
+                    putExtra("data",chatList[position])
                 })
             }
         })
 
-     //   binding.rvChatRoom.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL,false))
+        viewModel.getChatList()
+        observe()
+        //   binding.rvChatRoom.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL,false))
+    }
+    fun observe(){
+        viewModel.getChat.observe(requireActivity()) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true) {
+                        chatList.clear()
+                        chatList.addAll(it.data.data)
+                        binding.rvChatRoom.adapter?.notifyDataSetChanged()
+                    }
+                    binding.rvChatRoom.isVisible = chatList.isNotEmpty()
+                    binding.emptyView.isVisible = chatList.isEmpty()
+                }
+
+                Status.ERROR -> {
+                    progress.dismiss()
+                    binding.rvChatRoom.isVisible = chatList.isNotEmpty()
+                    binding.emptyView.isVisible = chatList.isEmpty()
+                }
+
+            }
+        }
+
     }
 
 }

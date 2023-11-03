@@ -15,7 +15,7 @@
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView15"
+            android:id="@+id/dateTime"
             style="@style/TextTitleMedium_12sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:text="Hi Aquib"
             android:layout_marginTop="@dimen/_8_dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintTop_toBottomOf="@+id/dateTime" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtSubText"
