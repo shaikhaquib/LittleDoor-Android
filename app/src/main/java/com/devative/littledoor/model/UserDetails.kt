@@ -12,7 +12,7 @@ data class UserDetails(
         val city_id: Int,
         val form_status: Int,
         val status: Int,
-        val city_name: String,
+        val city_name: String?,
         val dob: String,
         val doctor_id: Int?,
         val email: String,

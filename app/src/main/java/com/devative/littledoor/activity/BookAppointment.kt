@@ -14,6 +14,7 @@ import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.architecturalComponents.viewmodel.TransactionViewModel
 import com.devative.littledoor.databinding.ActivityBookAppointmentBinding
 import com.devative.littledoor.model.AvailableSlotModel
+import com.devative.littledoor.model.CreateOrderModel
 import com.devative.littledoor.model.DoctotorListRes
 import com.devative.littledoor.util.PaymentPromptSheet
 import com.devative.littledoor.util.Utility
@@ -40,7 +41,8 @@ class BookAppointment : BaseActivity(), TimeSlotAdapterByDate.TimeSlotAdapterByD
     private val vm: MainViewModel by viewModels()
     private val trModel: TransactionViewModel by viewModels()
     private var formattedDate = ""
-
+    private var paymentData:PaymentData? = null
+    private var orderData: CreateOrderModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -160,9 +162,41 @@ class BookAppointment : BaseActivity(), TimeSlotAdapterByDate.TimeSlotAdapterByD
                 Status.SUCCESS -> {
                     progress.dismiss()
                     if (it.data?.status == true) {
+                        orderData = it.data
                         it.data.data?.let {
                             startPayment(it.id)
                         }
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress.dismiss()
+                    it.message?.let { it1 ->
+                        Toasty.error(
+                            this,
+                            it1, Toasty.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            }
+        }
+        trModel.verifyOrder.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    progress.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true) {
+                        val hashMap = HashMap<String, Any>()
+                        hashMap["doctor_id"] = thDetails.id
+                        hashMap["slot_id"] = selectedSlot!!.id
+                        hashMap["appointment_date"] = formattedDate
+                        vm.bookAppointment(hashMap)
+                    }else{
+                        Utility.errorToast(applicationContext, it.data?.message?:getString(R.string.some_thing_went_wrong))
                     }
                 }
 
@@ -276,22 +310,24 @@ class BookAppointment : BaseActivity(), TimeSlotAdapterByDate.TimeSlotAdapterByD
 
 
     override fun onPaymentSuccess(p0: String?, p1: PaymentData?) {
-        Utility.successToast(applicationContext, "Success - $p1")
-        Log.d("TAG", "onPaymentSuccess: $p0 ### $p1")
-
+       /* Utility.successToast(applicationContext, "Success - $p1")
+        Log.d("TAG", "onPaymentSuccess: $p0 ### $p1")*/
+        paymentData = p1
         if (selectedSlot == null) {
             Utility.errorToast(applicationContext, "Please select the available slot")
         } else {
             val hashMap = HashMap<String, Any>()
-            hashMap["doctor_id"] = thDetails.id
-            hashMap["slot_id"] = selectedSlot!!.id
-            hashMap["appointment_date"] = formattedDate
-            vm.bookAppointment(hashMap)
+            hashMap["payment_id"] = orderData?.paymentId?:0
+            hashMap["order_id"] = orderData?.data?.id?:"0"
+            hashMap["razorpay_payment_id"] = paymentData?.paymentId?:"0"
+            hashMap["razorpay_order_id"] = paymentData?.orderId?:"0"
+            hashMap["razorpay_signature"] = paymentData?.signature?:"0"
+            trModel.verifyOrder(hashMap)
         }
     }
 
     override fun onPaymentError(p0: Int, p1: String?, p2: PaymentData?) {
-        Utility.successToast(applicationContext, "Success - $p1")
+       Utility.successToast(applicationContext, "Payment failed")
     }
 
 

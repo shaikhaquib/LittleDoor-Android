@@ -201,6 +201,7 @@
                     android:layout_marginHorizontal="@dimen/_16_dp"
                     android:background="#FEF3E7"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:padding="@dimen/_16_dp"
                     app:carbon_cornerRadius="@dimen/_20_dp"
                     app:carbon_elevation="@dimen/_2_dp"

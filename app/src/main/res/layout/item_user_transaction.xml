@@ -34,7 +34,7 @@
             android:layout_marginStart="@dimen/_14_dp"
             android:layout_marginTop="@dimen/_4_dp"
             android:text="Test Doctor"
-            app:layout_constraintEnd_toStartOf="@+id/textView14"
+            app:layout_constraintEnd_toStartOf="@+id/txtAmount"
             app:layout_constraintStart_toEndOf="@+id/circleImageView"
             app:layout_constraintTop_toTopOf="@+id/circleImageView" />
 
@@ -42,17 +42,18 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtSubText"
             style="@style/TextTitleMedium_12sp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4_dp"
             android:text="Paid"
             android:textColor="@color/grey_primary"
             app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+            app:layout_constraintEnd_toStartOf="@+id/txtDate"
             app:layout_constraintStart_toStartOf="@+id/txtName"
             app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/imgStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -64,7 +65,7 @@
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView14"
+            android:id="@+id/txtAmount"
             style="@style/TextDarkBold_16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,15 +76,15 @@
             app:layout_constraintTop_toTopOf="@+id/circleImageView" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            style="@style/TextTitleMedium_12sp"
+            android:id="@+id/txtDate"
+            style="@style/TextTitleNormal_12sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4_dp"
             android:text="03 July 2023"
             android:textColor="@color/grey_primary"
             app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
-            app:layout_constraintEnd_toEndOf="@+id/textView14"
-            app:layout_constraintStart_toEndOf="@+id/txtName"
+            app:layout_constraintEnd_toEndOf="@+id/txtAmount"
             app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
 

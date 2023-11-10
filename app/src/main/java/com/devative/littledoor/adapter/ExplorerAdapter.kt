@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.devative.littledoor.R
 import com.devative.littledoor.architecturalComponents.helper.Constants
@@ -17,6 +18,7 @@ class ExplorerAdapter(
     val list: ArrayList<PostModel.Data>,
     val event:ExplorerAdapterEvent
 ) : RecyclerView.Adapter<ExplorerAdapter.ViewHolder>() {
+    var isMyPost:Boolean = false
     inner class ViewHolder(val binding: ItemExploreBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
@@ -51,7 +53,11 @@ class ExplorerAdapter(
                 event.onComment(position,item.id)
             }
             binding.imgShare.setOnClickListener {
-                event.onShare(position,item.id)
+                event.onShare(position,item)
+            }
+            binding.more.isVisible = isMyPost
+            binding.more.setOnClickListener {
+                event.onDelete(position,item)
             }
         }
     }
@@ -63,6 +69,9 @@ class ExplorerAdapter(
 
     override fun onBindViewHolder(holder: ExplorerAdapter.ViewHolder, position: Int) {
         holder.bindData(position)
+        if (position == itemCount - 1) {
+            onEndReachedListener?.invoke()
+        }
     }
 
     override fun getItemCount(): Int {
@@ -77,13 +86,23 @@ class ExplorerAdapter(
         return position
     }
 
+    private var onEndReachedListener: (() -> Unit)? = null
+
+    fun setOnEndReachedListener(listener: () -> Unit) {
+        onEndReachedListener = listener
+    }
+
+    fun setIsMyPost(isMyPost: Boolean) {
+        this.isMyPost = isMyPost
+    }
 
 
     interface ExplorerAdapterEvent {
         fun onclick(position: Int)
         fun onLike(position: Int,isLike: Boolean,postID: Int)
         fun onComment(position: Int,postID: Int)
-        fun onShare(position: Int,postID: Int)
+        fun onShare(position: Int, postID: PostModel.Data)
+        fun onDelete(position: Int, postID: PostModel.Data){}
 
     }
 }

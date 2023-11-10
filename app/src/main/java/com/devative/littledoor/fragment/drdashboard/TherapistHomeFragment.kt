@@ -16,18 +16,25 @@ import androidx.fragment.app.activityViewModels
 import com.devative.littledoor.ChatUi.liveStreaming.LiveStreaming
 import com.devative.littledoor.R
 import com.devative.littledoor.activity.MainActivity
+import com.devative.littledoor.activity.RevenueActivity
+import com.devative.littledoor.activity.THAddSessionDetailsActivity
 import com.devative.littledoor.adapter.AppointmentAdapter
 import com.devative.littledoor.adapter.SliderAdapter
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
+import com.devative.littledoor.architecturalComponents.viewmodel.TransactionViewModel
 import com.devative.littledoor.databinding.TherapistHomeFragmentBinding
+import com.devative.littledoor.model.DRStatsModel
+import com.devative.littledoor.model.SearchAbleList
 import com.devative.littledoor.model.SliderModel
 import com.devative.littledoor.model.UserAppointmentModel
 import com.devative.littledoor.model.UserAppointmentModel.*
 import com.devative.littledoor.model.UserDetails
+import com.devative.littledoor.util.Logger
 import com.devative.littledoor.util.Progress
+import com.devative.littledoor.util.SingleSelectBottomSheetDialogFragment
 import com.devative.littledoor.util.Utility
 import com.devative.littledoor.util.Utility.isCurrentDate
 import com.github.mikephil.charting.animation.Easing
@@ -57,7 +64,9 @@ class TherapistHomeFragment : Fragment() {
     private var basicDetails: UserDetails.Data? = null
     private lateinit var binding: TherapistHomeFragmentBinding
     private val vm: MainViewModel by activityViewModels()
+    private val trViewModel: TransactionViewModel by activityViewModels()
     private val mainList = ArrayList<Data>()
+    private var statList: DRStatsModel? = null
     private val list = ArrayList<Data>()
     lateinit var adapter: AppointmentAdapter
     private var filterCode = 1
@@ -87,7 +96,7 @@ class TherapistHomeFragment : Fragment() {
                 updateUI()
             }
         }
-        setUpLineChart()
+
         setUpList()
     }
 
@@ -96,7 +105,35 @@ class TherapistHomeFragment : Fragment() {
         binding.txtViewAll.setOnClickListener {
             (requireActivity() as MainActivity).setNavigationSelection(R.id.bottom_navigation_calender)
         }
+        binding.btnSetupSession.setOnClickListener {
+            startActivity(Intent(requireActivity(),THAddSessionDetailsActivity::class.java))
+        }
 
+        binding.txtFilterName.setOnClickListener {
+            val items = arrayListOf<SearchAbleList>(
+                SearchAbleList(0, "Weekly"),
+                SearchAbleList(1, "Last 15 Days"),
+                SearchAbleList(2, "Monthly"),
+            )
+            val selectedValue = 0
+            val dialog = SingleSelectBottomSheetDialogFragment(
+                requireActivity(),
+                items,
+                "Select an option",
+                selectedValue
+            ) { selected ->
+                Logger.d("TAG", "onCreate: $selected")
+                binding.txtFilterName.text = selected.title
+                setUpLineChart()
+            }
+            dialog.show(
+                requireActivity().supportFragmentManager,
+                "SingleSelectBottomSheetDialogFragment"
+            )
+        }
+        binding.txtRevenue.setOnClickListener {
+            startActivity(Intent(requireActivity(), RevenueActivity::class.java))
+        }
         observe()
         adapter = AppointmentAdapter(requireActivity(), list, object :
             AppointmentAdapter.AppointmentAdapterEvent {
@@ -111,6 +148,26 @@ class TherapistHomeFragment : Fragment() {
     private fun observe() {
         vm.getUserBookedAppointment()
         vm.getPromotions()
+        vm.getChatList()
+        vm.getDoctorStats()
+        trViewModel.getRevenue()
+        vm.getDoctorStats.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+                }
+
+                Status.SUCCESS -> {
+                    if (it.data?.status == true) {
+                        statList = it.data
+                        setUpLineChart()
+                    }
+                }
+
+                Status.ERROR -> {
+                }
+
+            }
+        }
         vm.getUserBookedAppointment.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
@@ -142,6 +199,42 @@ class TherapistHomeFragment : Fragment() {
                             getString(R.string.some_thing_went_wrong)
                         )
                     }
+                }
+
+            }
+        }
+        trViewModel.getRevenue.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true) {
+                        binding.txtRevenue.text = it.data.data.total_trasaction_amount.toString()
+                    }
+                }
+
+                Status.ERROR -> {
+                }
+
+            }
+        }
+        vm.getChat.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING -> {
+
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true) {
+                        binding.txtPatientCount.text = it.data.data?.size.toString() ?: "0"
+                    }
+                }
+
+                Status.ERROR -> {
                 }
 
             }
@@ -198,6 +291,15 @@ class TherapistHomeFragment : Fragment() {
 
     private fun updateUI() {
         binding.txtUserName.text = basicDetails?.name
+
+        if (basicDetails?.status  != 1){
+            binding.bannerAccountNotActive.visibility = View.VISIBLE
+            binding.txtRevenue.isEnabled = false
+        }else{
+            binding.bannerAccountNotActive.visibility = View.GONE
+            binding.txtRevenue.isEnabled = true
+        }
+
         basicDetails?.image_url?.let { it1 ->
             binding.imgProfile.load(
                 it1,
@@ -259,11 +361,24 @@ class TherapistHomeFragment : Fragment() {
 
     private fun week2(): ArrayList<Entry> {
         val sales = ArrayList<Entry>()
-        sales.add(Entry(0f, 11f))
-        sales.add(Entry(1f, 13f))
-        sales.add(Entry(2f, 18f))
-        sales.add(Entry(3f, 16f))
-        sales.add(Entry(4f, 22f))
+        statList?.let {
+
+            if (binding.txtFilterName.text.toString() == "Weekly" && it.data.last_seven_day_wise != null) {
+                for ((index, data) in it.data.last_seven_day_wise.withIndex()) {
+                    sales.add(Entry(index.toFloat(), data.appointment_count.toFloat()))
+                }
+            }
+            if (binding.txtFilterName.text.toString() == "Last 15 Days" && it.data.last_fifteen_day_wise != null) {
+                for ((index, data) in it.data.last_fifteen_day_wise.withIndex()) {
+                    sales.add(Entry(index.toFloat(), data.appointment_count.toFloat()))
+                }
+            }
+            if (binding.txtFilterName.text.toString() == "Monthly" && it.data.month_wise != null) {
+                for ((index, data) in it.data.month_wise.withIndex()) {
+                    sales.add(Entry(index.toFloat(), data.appointment_count.toFloat()))
+                }
+            }
+        }
         return sales
     }
 
@@ -320,8 +435,10 @@ class TherapistHomeFragment : Fragment() {
         today.set(Calendar.MILLISECOND, 0)
 
         val todayData = dataList.filter {
-            val appointmentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it.apointmnet_date)
-            val appointmentTime = SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(it.slot_time)
+            val appointmentDate =
+                SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it.apointmnet_date)
+            val appointmentTime =
+                SimpleDateFormat("hh:mm a", Locale.getDefault()).parse(it.slot_time)
 
             val appointmentDateTime = Calendar.getInstance()
             appointmentDateTime.time = appointmentTime!!
@@ -330,7 +447,10 @@ class TherapistHomeFragment : Fragment() {
             appointmentDateTime.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH))
 
             // Set the appointment time
-            appointmentDateTime.set(Calendar.HOUR_OF_DAY, appointmentDateTime.get(Calendar.HOUR_OF_DAY))
+            appointmentDateTime.set(
+                Calendar.HOUR_OF_DAY,
+                appointmentDateTime.get(Calendar.HOUR_OF_DAY)
+            )
             appointmentDateTime.set(Calendar.MINUTE, appointmentDateTime.get(Calendar.MINUTE))
             appointmentDateTime.set(Calendar.SECOND, 0)
             appointmentDateTime.set(Calendar.MILLISECOND, 0)
@@ -363,9 +483,6 @@ class TherapistHomeFragment : Fragment() {
 
         } else {
             binding.liJoinSession.visibility = View.GONE
-            /* binding.txtTHName.text = ""
-             binding.txtSlotTime.text = ""
-             binding.btnJoinNow.visibility = View.GONE*/
         }
     }
 

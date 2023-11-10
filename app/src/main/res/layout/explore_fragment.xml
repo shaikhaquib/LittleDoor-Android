@@ -32,17 +32,36 @@
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTherapist"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:listitem="@layout/item_explore" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTherapist"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_explore"
+            tools:itemCount="1"
+            android:layout_weight="1"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/_16_dp"
+            android:layout_gravity="center"
+            app:lottie_rawRes="@raw/loader"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -62,6 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/_50dp"
         android:layout_gravity="center"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -779,4 +779,6 @@
     <string name="third_party_player_native" translatable="false">NativePlayer</string>
     <string name="feature_unavailable">The feature is unavailable in the device!</string>
     <string name="video_image_source">Video Image</string>
+    <string name="pending">Pending</string>
+    <string name="available_balance">Available Balance</string>
 </resources>

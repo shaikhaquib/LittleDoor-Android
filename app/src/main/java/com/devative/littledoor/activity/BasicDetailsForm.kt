@@ -187,8 +187,10 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
                     progress?.dismiss()
                     if (it.data?.status == true) {
                         // Toasty.success(applicationContext, it.data.message).show()
-                        startActivity(Intent(applicationContext, MCQActivity::class.java))
-                        finish()
+                        if (it.data.data.pateint_id != null) {
+                            startActivity(Intent(applicationContext, MCQActivity::class.java))
+                            finish()
+                        }
                     } else {
                         Toasty.error(applicationContext,getString(R.string.some_thing_went_wrong)).show()
                     }

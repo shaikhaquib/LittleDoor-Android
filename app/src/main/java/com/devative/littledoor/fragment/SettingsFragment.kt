@@ -28,6 +28,7 @@ import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.SettingsFragmentBinding
 import com.devative.littledoor.model.LoginModel
 import com.devative.littledoor.model.UserDetails
+import com.devative.littledoor.util.Utility
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -65,11 +66,15 @@ class SettingsFragment : Fragment(), OnClickListener {
             if (!it.isNullOrEmpty()) {
                 basicDetails = it[0]
                 updateUI()
+                if (basicDetails?.status != 1){
+                    binding.txtRevenue.isEnabled = false
+                }
             }
         }
 
         binding.txtSignOut.setOnClickListener {
             vm.deleteUserData()
+            Utility.clearPreference(requireContext())
             startActivity(Intent(requireContext(), SignUpActivity::class.java))
             requireActivity().finish()
         }

@@ -10,7 +10,7 @@ import com.devative.littledoor.model.UserDetails
 /**
  * Created by AQUIB RASHID SHAIKH on 25-03-2023.
  */
-@Database(entities = [UserDetails.Data::class], version = 6)
+@Database(entities = [UserDetails.Data::class], version = 7)
 abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 

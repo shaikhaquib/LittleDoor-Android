@@ -67,14 +67,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtGreet" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textView8"
+                android:id="@+id/txtRevenue"
                 style="@style/TextHeadLineDark_24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16_dp"
                 android:drawableStart="@drawable/rupee"
                 android:drawablePadding="@dimen/_8_dp"
-                android:text="10.1K"
+                android:text="0.0"
                 android:textColor="@color/semantic_green"
                 android:textSize="@dimen/_32dp"
                 app:layout_constraintEnd_toStartOf="@+id/view2"
@@ -90,9 +90,9 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_8_dp"
                 android:text="Patients"
-                app:layout_constraintEnd_toEndOf="@+id/textView9"
+                app:layout_constraintEnd_toEndOf="@+id/txtPatientCount"
                 app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintTop_toBottomOf="@+id/txtPatientCount" />
 
             <View
                 android:id="@+id/view2"
@@ -100,13 +100,13 @@
                 android:layout_height="@dimen/_0dp"
                 android:background="@color/grey_lighter"
                 app:layout_constraintBottom_toBottomOf="@+id/textView10"
-                app:layout_constraintEnd_toStartOf="@+id/textView9"
+                app:layout_constraintEnd_toStartOf="@+id/txtPatientCount"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView8"
-                app:layout_constraintTop_toTopOf="@+id/textView8" />
+                app:layout_constraintStart_toEndOf="@+id/txtRevenue"
+                app:layout_constraintTop_toTopOf="@+id/txtRevenue" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textView9"
+                android:id="@+id/txtPatientCount"
                 style="@style/TextHeadLineDark_24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/view2"
-                app:layout_constraintTop_toTopOf="@+id/textView8" />
+                app:layout_constraintTop_toTopOf="@+id/txtRevenue" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView10"
@@ -127,13 +127,11 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/_8_dp"
                 android:text="Revenue"
-                app:layout_constraintEnd_toEndOf="@+id/textView8"
+                app:layout_constraintEnd_toEndOf="@+id/txtRevenue"
                 app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintTop_toBottomOf="@+id/txtRevenue" />
 
-            
-            
-            
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/liContainer"
                 android:layout_width="0dp"
@@ -168,8 +166,8 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/txtTHName"
@@ -205,18 +203,17 @@
                             android:textColor="@color/secondary" />
 
 
-
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginEnd="24dp"
                         android:adjustViewBounds="true"
                         android:elevation="@dimen/_4_dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         app:layout_constraintBottom_toBottomOf="@+id/liContainer"
                         app:layout_constraintEnd_toEndOf="@+id/liContainer"
                         app:layout_constraintTop_toTopOf="@+id/liContainer"
@@ -224,7 +221,6 @@
 
 
                 </carbon.widget.RelativeLayout>
-
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -268,16 +264,16 @@
                 app:layout_constraintStart_toStartOf="@+id/liContainer"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2">
 
-                <carbon.widget.TextView
+                <carbon.widget.ImageView
                     android:id="@+id/no_appointment_error"
                     style="@style/AppEditTextCarbonElevated"
                     android:layout_width="match_parent"
+                    android:layout_height="200dp"
                     android:layout_margin="@dimen/_8_dp"
                     android:gravity="center"
-                    android:textSize="@dimen/_12_dp"
-                    android:textColor="@color/overlays_red"
+                    android:src="@drawable/noappointment"
                     android:text="@string/no_schedule_appointment"
-                    android:layout_height="200dp"/>
+                    android:textColor="@color/overlays_red" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvAppointment"
@@ -291,12 +287,40 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView3"
+                style="@style/TextTitleNormal_16sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:gravity="center_vertical"
+                android:text="Patient Stats"
+                android:textSize="@dimen/_16_dp"
+                app:layout_constraintStart_toStartOf="@+id/liContainer"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtFilterName"
+                style="@style/TextDarkBold_16dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16_dp"
+                android:drawableEnd="@drawable/drop_down"
+                android:gravity="center_vertical|end"
+                android:text="Weekly"
+                android:textColor="@color/secondary"
+                android:textSize="@dimen/_16_dp"
+                app:layout_constraintEnd_toEndOf="@+id/liContainer"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+
             <carbon.widget.LinearLayout
                 android:id="@+id/linearLayout6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="@dimen/_16_dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:background="@color/white"
                 android:orientation="vertical"
@@ -305,7 +329,7 @@
                 app:carbon_elevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txtUserName"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView3">
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart"
@@ -320,6 +344,40 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+
+            <carbon.widget.LinearLayout
+                android:id="@+id/bannerAccountNotActive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_8_dp"
+                android:background="@color/overlays_red"
+                android:orientation="vertical"
+                android:padding="@dimen/_16_dp"
+                app:carbon_cornerRadius="@dimen/_20_dp"
+                app:carbon_elevation="@dimen/_2_dp"
+                app:layout_constraintBottom_toTopOf="@+id/liContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txtUserName"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dear User,\nThank you for your interest in the Little Door application. Your application is currently under review and will be activated after successful verification. In the meantime, you can configure your session details"
+                    android:textColor="@color/white" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSetupSession"
+                    style="@style/RoundedCorner"
+                    android:layout_width="@dimen/_100dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/_16_dp"
+                    android:text="Setup"
+                    app:backgroundTint="@color/primary" />
+            </carbon.widget.LinearLayout>
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

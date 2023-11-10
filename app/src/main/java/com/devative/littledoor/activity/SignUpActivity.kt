@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.devative.littledoor.R
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Constants.PHONE_NO
+import com.devative.littledoor.architecturalComponents.helper.Constants.SESSION_EXPIRED
 import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.ActivitySignUpBinding
@@ -33,6 +34,10 @@ class SignUpActivity : BaseActivity(),View.OnClickListener {
         setContentView(binding.root)
         
         viewModel = MainViewModel.getViewModel(this)
+        if (intent.hasExtra(SESSION_EXPIRED)){
+            Utility.clearPreference(applicationContext)
+            viewModel.deleteUserData()
+        }
         viewAnimation()
         setMessageWithClickableLink()
         binding.btnSendOTP.setOnClickListener(this)

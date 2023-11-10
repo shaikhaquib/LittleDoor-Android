@@ -19,7 +19,7 @@ class UserNotificationListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
             val notification = notificationList[position]
-            binding.txtName.text = notification.notification_type
+            binding.txtName.text = notification.title
             binding.txtSubText.text = notification.message
             itemView.setOnClickListener{event.onclick(position)}
         }

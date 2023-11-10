@@ -2,6 +2,7 @@ package com.devative.littledoor.architecturalComponents.helper
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.icu.util.Calendar
 import android.net.Uri
 import android.widget.ImageView
@@ -19,6 +20,7 @@ import java.util.UUID
 
 object Constants {
     const val  WELCOME_BANNER_SHOWN = "welcomeBannerShown"
+    const val  SESSION_EXPIRED = "session_expired"
     const val IS_DOCTOR: String = "Doctor"
     const val IS_DR_Reg_Finish: String = "IS_DR_Reg_Finish"
     const val BASE_URL = "https://www.littledoor.in/api/"
@@ -72,11 +74,11 @@ object Constants {
         val minutes = targetDate.get(Calendar.MINUTE) - currentDate.get(Calendar.MINUTE)
 
         return when {
-            months > 0 -> "Start in $months month"
-            weeks > 0 -> "Start in $weeks week"
-            days > 0 -> "Start in $days day"
-            hours > 0 -> "Start in $hours hour"
-            minutes > 0 -> "Start in $minutes minute"
+            months > 0 -> "Will start in $months month"
+            weeks > 0 -> "Will start in $weeks week"
+            days > 0 -> "Will start in $days day"
+            hours > 0 -> "Will start in $hours hour"
+            minutes > 0 -> "Will start in $minutes minute"
             else -> "$dateString is already passed"
         }
     }
@@ -131,5 +133,17 @@ object Constants {
         }
         return null
     }
+
+    fun shareText(context: Context, message: String) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, message)
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(shareIntent)
+    }
+
 
 }

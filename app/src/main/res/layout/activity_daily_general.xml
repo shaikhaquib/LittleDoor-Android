@@ -89,6 +89,7 @@
         app:srcCompat="@drawable/edit" />
 
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGeneral"
         android:layout_width="@dimen/_0dp"
@@ -101,5 +102,15 @@
         app:layout_constraintStart_toEndOf="@+id/verticalDivider"
         app:layout_constraintTop_toBottomOf="@+id/view3" />
 
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/verticalCalendar"
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        app:srcCompat="@drawable/nodailygeneral" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

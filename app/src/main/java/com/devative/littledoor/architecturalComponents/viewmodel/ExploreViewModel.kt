@@ -55,10 +55,10 @@ class ExploreViewModel @Inject constructor(
             likePost.postValue(Resource.error(e.message.toString(), null))
         }
     }
-    fun getAllPost() = CoroutineScope(Dispatchers.IO).launch {
+    fun getAllPost(page:Int,per_page:Int) = CoroutineScope(Dispatchers.IO).launch {
         getAllPost.postValue(Resource.loading(null))
         try {
-            mainRepository.getAllPost().let {
+            mainRepository.getAllPost(page,per_page).let {
                 if (it.isSuccessful) {
                     getAllPost.postValue(Resource.success(it.body()))
                 } else {
@@ -170,10 +170,10 @@ class ExploreViewModel @Inject constructor(
             comments.postValue(Resource.error(e.message.toString(), null))
         }
     }
-    fun deletePost(sendData: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
+    fun deletePost(id: Int) = CoroutineScope(Dispatchers.IO).launch {
         deletePost.postValue(Resource.loading(null))
         try {
-            mainRepository.addComment(sendData).let {
+            mainRepository.deletePost(id).let {
                 if (it.isSuccessful) {
                     deletePost.postValue(Resource.success(it.body()))
                 } else {

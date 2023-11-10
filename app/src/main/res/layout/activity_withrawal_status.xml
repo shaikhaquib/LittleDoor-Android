@@ -24,7 +24,7 @@
         android:layout_width="@dimen/_160dp"
         android:layout_height="160dp"
         android:layout_margin="@dimen/_16_dp"
-        app:layout_constraintBottom_toTopOf="@+id/appCompatTextView4"
+        app:layout_constraintBottom_toTopOf="@+id/txtTransactionID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,20 +34,20 @@
         app:lottie_rawRes="@raw/success" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView4"
+        android:id="@+id/txtTransactionID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20_dp"
         android:text="Order ID: #78554334"
         android:textAppearance="@style/TextDarkBold_16dp"
-        app:layout_constraintBottom_toTopOf="@+id/appCompatTextView"
+        app:layout_constraintBottom_toTopOf="@+id/txtnMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/animationView" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView"
+        android:id="@+id/txtnMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_35dp"
@@ -61,7 +61,7 @@ Amount will credit to your bank account within 7 working days."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTransactionID" />
 
 
     <com.google.android.material.button.MaterialButton

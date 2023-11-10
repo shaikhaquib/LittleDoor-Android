@@ -1,6 +1,7 @@
 package com.devative.littledoor.architecturalComponents.viewmodel
 
 import android.content.Intent
+import android.util.Log
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.*
 import com.devative.littledoor.ChatUi.ChatActivity
@@ -10,6 +11,7 @@ import com.devative.littledoor.architecturalComponents.repository.MainRepository
 import com.devative.littledoor.model.AvailableSlotModel
 import com.devative.littledoor.model.ChatListResponse
 import com.devative.littledoor.model.CreateChatModel
+import com.devative.littledoor.model.DRStatsModel
 import com.devative.littledoor.model.DoctotorListRes
 import com.devative.littledoor.model.GeneralResponse
 import com.devative.littledoor.model.GetAllCitiesResponse
@@ -19,6 +21,7 @@ import com.devative.littledoor.model.NotificationResponse
 import com.devative.littledoor.model.SliderModel
 import com.devative.littledoor.model.UserAppointmentModel
 import com.devative.littledoor.model.UserDetails
+import com.devative.littledoor.util.Utility
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,13 +29,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel  @Inject constructor(
+class MainViewModel @Inject constructor(
     private val userDao: UserDao,
     private val mainRepository: MainRepository
-): ViewModel(){
+) : ViewModel() {
 
-    companion object{
-        fun getViewModel(owner: ViewModelStoreOwner):MainViewModel{
+    companion object {
+        fun getViewModel(owner: ViewModelStoreOwner): MainViewModel {
             return ViewModelProvider(owner)[MainViewModel::class.java]
         }
     }
@@ -41,50 +44,52 @@ class MainViewModel  @Inject constructor(
     var basicDetails: LiveData<List<UserDetails.Data>> = MutableLiveData()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun fetchUserData(){
+    fun fetchUserData() {
         viewModelScope.launch {
             basicDetails = userDao.getAll()
         }
     }
-    fun insertUserData(data:UserDetails.Data){
+
+    fun insertUserData(data: UserDetails.Data) {
         CoroutineScope(Dispatchers.IO).launch {
-           userDao.insertAll(data)
-        }
-    }
-    fun deleteUserData(){
-        CoroutineScope(Dispatchers.IO).launch {
-           userDao.deleteAll()
+            userDao.insertAll(data)
         }
     }
 
+    fun deleteUserData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            userDao.deleteAll()
+            logout()
+        }
+    }
 
 
     private val _userDetails = MutableLiveData<Resource<UserDetails>>()
-    val userDetails : LiveData<Resource<UserDetails>>
+    val userDetails: LiveData<Resource<UserDetails>>
         get() = _userDetails
 
     private val _OTPSend = MutableLiveData<Resource<GeneralResponse>>()
-    val OTPSend : LiveData<Resource<GeneralResponse>>
+    val OTPSend: LiveData<Resource<GeneralResponse>>
         get() = _OTPSend
 
     private val _verifyOtp = MutableLiveData<Resource<LoginModel>>()
-    val verifyOtp : LiveData<Resource<LoginModel>>
+    val verifyOtp: LiveData<Resource<LoginModel>>
         get() = _verifyOtp
 
     private val _getCities = MutableLiveData<Resource<GetAllCitiesResponse>>()
-    val getCities : LiveData<Resource<GetAllCitiesResponse>>
+    val getCities: LiveData<Resource<GetAllCitiesResponse>>
         get() = _getCities
 
     private val _getQuestions = MutableLiveData<Resource<GetAllQuestions>>()
-    val getQuestions : LiveData<Resource<GetAllQuestions>>
+    val getQuestions: LiveData<Resource<GetAllQuestions>>
         get() = _getQuestions
 
     private val _createPatient = MutableLiveData<Resource<GeneralResponse>>()
-    val createPatient : LiveData<Resource<GeneralResponse>>
+    val createPatient: LiveData<Resource<GeneralResponse>>
         get() = _createPatient
 
     private val _saveMCQ = MutableLiveData<Resource<GeneralResponse>>()
-    val saveMCQ : LiveData<Resource<GeneralResponse>>
+    val saveMCQ: LiveData<Resource<GeneralResponse>>
         get() = _saveMCQ
 
     val doctorList = MutableLiveData<Resource<DoctotorListRes>>()
@@ -96,52 +101,58 @@ class MainViewModel  @Inject constructor(
     val getChat = MutableLiveData<Resource<ChatListResponse>>()
     val getNotifications = MutableLiveData<Resource<NotificationResponse>>()
     val notificationReadReceipt = MutableLiveData<Resource<GeneralResponse>>()
+    val getDoctorStats = MutableLiveData<Resource<DRStatsModel>>()
 
-    fun getOTPPatientLogin(mobileNo:String, isPatient:String) = CoroutineScope(Dispatchers.IO).launch {
-        _OTPSend.postValue(Resource.loading(null))
-        try {
-            mainRepository.getOTPPatientLogin(mobileNo,isPatient).let {
-                if (it.isSuccessful) {
+    fun getOTPPatientLogin(mobileNo: String, isPatient: String) =
+        CoroutineScope(Dispatchers.IO).launch {
+            _OTPSend.postValue(Resource.loading(null))
+            try {
+                mainRepository.getOTPPatientLogin(mobileNo, isPatient).let {
+                    if (it.isSuccessful) {
                         _OTPSend.postValue(Resource.success(it.body()))
-                } else {
-                    _OTPSend.postValue(
-                        Resource.error(
-                            "Server Error",
-                            null
+                    } else {
+                        _OTPSend.postValue(
+                            Resource.error(
+                                "Server Error",
+                                null
+                            )
                         )
-                    )
+                    }
                 }
+            } catch (e: Exception) {
+                _OTPSend.postValue(Resource.error(e.message.toString(), null))
             }
-        } catch (e: Exception) {
-            _OTPSend.postValue(Resource.error(e.message.toString(), null))
         }
-    }
-    fun getVerifyOTPPatientLogin(mobileNo:String, otp:String) = CoroutineScope(Dispatchers.IO).launch {
-        _verifyOtp.postValue(Resource.loading(null))
-        try {
-            mainRepository.getVerifyOTPPatientLogin(mobileNo,otp).let {
-                if (it.isSuccessful) {
+
+    fun getVerifyOTPPatientLogin(mobileNo: String, otp: String) =
+        CoroutineScope(Dispatchers.IO).launch {
+            _verifyOtp.postValue(Resource.loading(null))
+            try {
+                mainRepository.getVerifyOTPPatientLogin(mobileNo, otp).let {
+                    if (it.isSuccessful) {
                         _verifyOtp.postValue(Resource.success(it.body()))
-                } else {
-                    _verifyOtp.postValue(
-                        Resource.error(
-                            "Server Error",
-                            null
+                    } else {
+                        _verifyOtp.postValue(
+                            Resource.error(
+                                "Server Error",
+                                null
+                            )
                         )
-                    )
+                    }
                 }
+            } catch (e: Exception) {
+                _verifyOtp.postValue(Resource.error(e.message.toString(), null))
             }
-        } catch (e: Exception) {
-            _verifyOtp.postValue(Resource.error(e.message.toString(), null))
         }
-    }
+
     fun getUserDetails() = CoroutineScope(Dispatchers.IO).launch {
         _userDetails.postValue(Resource.loading(null))
         try {
             mainRepository.getUserDetails().let {
                 if (it.isSuccessful) {
                     _userDetails.postValue(Resource.success(it.body()))
-                    it.body()?.data?.let {data->
+                    it.body()?.data?.let { data ->
+                        if (data.doctor_id != null || data.pateint_id != null)
                         insertUserData(data)
                     }
                 } else {
@@ -157,6 +168,7 @@ class MainViewModel  @Inject constructor(
             _userDetails.postValue(Resource.error(e.message.toString(), null))
         }
     }
+
     fun getPromotions() = CoroutineScope(Dispatchers.IO).launch {
         promotions.postValue(Resource.loading(null))
         try {
@@ -176,6 +188,7 @@ class MainViewModel  @Inject constructor(
             promotions.postValue(Resource.error(e.message.toString(), null))
         }
     }
+
     fun getCities() = CoroutineScope(Dispatchers.IO).launch {
         _getCities.postValue(Resource.loading(null))
         try {
@@ -195,6 +208,7 @@ class MainViewModel  @Inject constructor(
             _getCities.postValue(Resource.error(e.message.toString(), null))
         }
     }
+
     fun getQuestions() = CoroutineScope(Dispatchers.IO).launch {
         _getQuestions.postValue(Resource.loading(null))
         try {
@@ -215,25 +229,27 @@ class MainViewModel  @Inject constructor(
         }
     }
 
-    fun createUser(name:String, gender:String, dob:String, email:String, city_id:String) = CoroutineScope(Dispatchers.IO).launch {
-        _createPatient.postValue(Resource.loading(null))
-        try {
-            mainRepository.createPatient(name, gender, dob, email, city_id).let {
-                if (it.isSuccessful) {
-                    _createPatient.postValue(Resource.success(it.body()))
-                } else {
-                    _createPatient.postValue(
-                        Resource.error(
-                            "Server Error",
-                            null
+    fun createUser(name: String, gender: String, dob: String, email: String, city_id: String) =
+        CoroutineScope(Dispatchers.IO).launch {
+            _createPatient.postValue(Resource.loading(null))
+            try {
+                mainRepository.createPatient(name, gender, dob, email, city_id).let {
+                    if (it.isSuccessful) {
+                        _createPatient.postValue(Resource.success(it.body()))
+                    } else {
+                        _createPatient.postValue(
+                            Resource.error(
+                                "Server Error",
+                                null
+                            )
                         )
-                    )
+                    }
                 }
+            } catch (e: Exception) {
+                _createPatient.postValue(Resource.error(e.message.toString(), null))
             }
-        } catch (e: Exception) {
-            _createPatient.postValue(Resource.error(e.message.toString(), null))
         }
-    }
+
     fun saveMCQResult(result: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
         _saveMCQ.postValue(Resource.loading(null))
         try {
@@ -253,6 +269,7 @@ class MainViewModel  @Inject constructor(
             _saveMCQ.postValue(Resource.error(e.message.toString(), null))
         }
     }
+
     fun getDoctorList() = CoroutineScope(Dispatchers.IO).launch {
         doctorList.postValue(Resource.loading(null))
         try {
@@ -272,6 +289,7 @@ class MainViewModel  @Inject constructor(
             doctorList.postValue(Resource.error(e.message.toString(), null))
         }
     }
+
     fun bookAppointment(data: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
         bookAppointment.postValue(Resource.loading(null))
         try {
@@ -291,6 +309,7 @@ class MainViewModel  @Inject constructor(
             bookAppointment.postValue(Resource.error(e.message.toString(), null))
         }
     }
+
     fun getAvailableSLotByDate(data: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
         availableSlots.postValue(Resource.loading(null))
         try {
@@ -312,8 +331,6 @@ class MainViewModel  @Inject constructor(
     }
 
 
-
-
     fun getUserBookedAppointment() = CoroutineScope(Dispatchers.IO).launch {
         getUserBookedAppointment.postValue(Resource.loading(null))
         try {
@@ -333,6 +350,7 @@ class MainViewModel  @Inject constructor(
             getUserBookedAppointment.postValue(Resource.error(e.message.toString(), null))
         }
     }
+
     fun getChatList() = CoroutineScope(Dispatchers.IO).launch {
         getChat.postValue(Resource.loading(null))
         try {
@@ -352,6 +370,7 @@ class MainViewModel  @Inject constructor(
             getChat.postValue(Resource.error(e.message.toString(), null))
         }
     }
+
     fun createChat(sendData: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
         createChat.postValue(Resource.loading(null))
         try {
@@ -371,6 +390,7 @@ class MainViewModel  @Inject constructor(
             createChat.postValue(Resource.error(e.message.toString(), null))
         }
     }
+
     fun getNotifications() = CoroutineScope(Dispatchers.IO).launch {
         getNotifications.postValue(Resource.loading(null))
         try {
@@ -390,14 +410,47 @@ class MainViewModel  @Inject constructor(
             getNotifications.postValue(Resource.error(e.message.toString(), null))
         }
     }
-    fun notificationReadReceipt(sendData: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
-        notificationReadReceipt.postValue(Resource.loading(null))
+
+    fun notificationReadReceipt(sendData: HashMap<String, Any>) =
+        CoroutineScope(Dispatchers.IO).launch {
+            notificationReadReceipt.postValue(Resource.loading(null))
+            try {
+                mainRepository.notificationReadReceipt(sendData).let {
+                    if (it.isSuccessful) {
+                        notificationReadReceipt.postValue(Resource.success(it.body()))
+                    } else {
+                        notificationReadReceipt.postValue(
+                            Resource.error(
+                                "Server Error",
+                                null
+                            )
+                        )
+                    }
+                }
+            } catch (e: Exception) {
+                notificationReadReceipt.postValue(Resource.error(e.message.toString(), null))
+            }
+        }
+
+    fun logout() = CoroutineScope(Dispatchers.IO).launch {
         try {
-            mainRepository.notificationReadReceipt(sendData).let {
+            mainRepository.logout().let {
+                Log.d("TAG", "logout: ${it.body()?.message}")
+            }
+        } catch (e: Exception) {
+            Log.d("TAG", "logout: ${e.message.toString()}")
+        }
+    }
+
+
+    fun getDoctorStats() = CoroutineScope(Dispatchers.IO).launch {
+        getDoctorStats.postValue(Resource.loading(null))
+        try {
+            mainRepository.getDoctorStats().let {
                 if (it.isSuccessful) {
-                    notificationReadReceipt.postValue(Resource.success(it.body()))
+                    getDoctorStats.postValue(Resource.success(it.body()))
                 } else {
-                    notificationReadReceipt.postValue(
+                    getDoctorStats.postValue(
                         Resource.error(
                             "Server Error",
                             null
@@ -406,7 +459,7 @@ class MainViewModel  @Inject constructor(
                 }
             }
         } catch (e: Exception) {
-            notificationReadReceipt.postValue(Resource.error(e.message.toString(), null))
+            getDoctorStats.postValue(Resource.error(e.message.toString(), null))
         }
     }
 

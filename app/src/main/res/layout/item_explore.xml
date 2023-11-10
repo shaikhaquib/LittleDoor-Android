@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_18_dp"
             android:text="Dr. Zaira Wasim"
-            app:layout_constraintBottom_toTopOf="@+id/txtDesc"
             app:layout_constraintStart_toEndOf="@+id/imgProfile"
             app:layout_constraintTop_toTopOf="@+id/imgProfile"
             app:layout_constraintVertical_chainStyle="packed" />
@@ -43,6 +42,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/txtName"
             app:layout_constraintStart_toEndOf="@+id/txtName"
             app:layout_constraintTop_toTopOf="@+id/txtName" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgProfile"
+            app:srcCompat="@drawable/more_menu" />
+
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/liPostContainer"

@@ -47,10 +47,14 @@ class QuestionFragment : Fragment() {
         val option4RadioButton = binding.option4RadioButton
 
         questionTextView.text = question.question_name
+        if (question.options.size > 0)
         option1RadioButton.text = question.options[0].option_name
+        if (question.options.size > 1)
         option2RadioButton.text = question.options[1].option_name
+        if (question.options.size > 2)
         option3RadioButton.text = question.options[2].option_name
-        option4RadioButton.text = question.options[3].option_name
+        if (question.options.size > 3)
+            option4RadioButton.text = question.options[3].option_name
 
         option1RadioButton.setOnCheckedChangeListener(object :
             OnCheckedChangeListener {

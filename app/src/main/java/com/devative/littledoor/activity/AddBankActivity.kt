@@ -169,6 +169,7 @@ class AddBankActivity : BaseActivity() {
                     progress.dismiss()
                     if (it.data?.status == true) {
                         Utility.successToast(applicationContext, it.data.message)
+                        finish()
                     } else {
                         Utility.errorToast(applicationContext, it.data!!.message)
                     }

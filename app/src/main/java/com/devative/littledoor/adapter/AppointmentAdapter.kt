@@ -16,7 +16,7 @@ import com.devative.littledoor.model.UserAppointmentModel
 class AppointmentAdapter(
     private val context: Context,
     private val list :ArrayList<UserAppointmentModel.Data>,
-    private val explorerAdapterEvent: AppointmentAdapterEvent,
+    private val event: AppointmentAdapterEvent,
     private val maxLength: Int = -1
 ) : RecyclerView.Adapter<AppointmentAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemAppointmentBinding) :
@@ -30,6 +30,10 @@ class AppointmentAdapter(
 
             if (Constants.hasDatePassed(item.apointmnet_date, item.slot_time)){
                 binding.txtDate.visibility = View.GONE
+            }
+
+            itemView.setOnClickListener {
+                event.onclick(position)
             }
         }
     }

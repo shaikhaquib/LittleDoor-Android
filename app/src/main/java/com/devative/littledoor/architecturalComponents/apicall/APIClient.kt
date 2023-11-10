@@ -7,8 +7,10 @@ import com.devative.littledoor.model.CategoryResponse
 import com.devative.littledoor.model.ChatListResponse
 import com.devative.littledoor.model.CreateChatModel
 import com.devative.littledoor.model.CreateOrderModel
+import com.devative.littledoor.model.DRStatsModel
 import com.devative.littledoor.model.DailyJournalModel
 import com.devative.littledoor.model.DoctorDetailsResponse
+import com.devative.littledoor.model.DoctorTransactionRes
 import com.devative.littledoor.model.DoctotorListRes
 import com.devative.littledoor.model.EmotModel
 import com.devative.littledoor.model.GeneralResponse
@@ -18,6 +20,7 @@ import com.devative.littledoor.model.LoginModel
 import com.devative.littledoor.model.NotificationResponse
 import com.devative.littledoor.model.PostCommentModel
 import com.devative.littledoor.model.PostModel
+import com.devative.littledoor.model.RevenueDetails
 import com.devative.littledoor.model.SessionDetails
 import com.devative.littledoor.model.SkillResponse
 import com.devative.littledoor.model.SliderModel
@@ -33,6 +36,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface APIClient {
 
@@ -52,6 +56,7 @@ interface APIClient {
 
     @GET("admin/get/user/details")
     suspend fun getUserDetails(): Response<UserDetails>
+
     @GET("admin/get/promotions")
     suspend fun getPromotions(): Response<SliderModel>
 
@@ -130,8 +135,10 @@ interface APIClient {
 
     @POST("patient/book/appointment")
     suspend fun bookAppointment(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+
     @GET("patient/get/book/appointment/details")
     suspend fun getUserBookedAppointment(): Response<UserAppointmentModel>
+
     @DELETE("patient/delete/daily/journal/{id}")
     suspend fun deleteJournal(
         @Path(
@@ -141,15 +148,29 @@ interface APIClient {
     ): Response<GeneralResponse>
 
     @GET("admin/get/all-post")
-    suspend fun getAllPost(): Response<PostModel>
+    suspend fun getAllPost(
+        @Query(
+            value = "page",
+            encoded = true
+        ) page: Int,
+        @Query(
+            value = "per_page",
+            encoded = true
+        ) per_page: Int,
+    ): Response<PostModel>
+
     @GET("admin/get/user-post")
     suspend fun getAllPostUser(): Response<PostModel>
+
     @GET("admin/user/likes-post")
     suspend fun getAllPostUserLikes(): Response<PostModel>
+
     @GET("admin/user/comment-post")
     suspend fun getAllPostUserComment(): Response<PostModel>
+
     @POST("admin/add/post-like")
     suspend fun likePost(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+
     @POST("admin/add/post-comment")
     suspend fun addComment(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
 
@@ -178,10 +199,29 @@ interface APIClient {
 
     @GET("admin/get/user-notification")
     suspend fun getUserWiseNotification(): Response<NotificationResponse>
+
     @POST("admin/read/notification")
     suspend fun readReceipt(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+
     @POST("admin/create-payment/order")
     suspend fun createOrder(@Body sendData: HashMap<String, Any>): Response<CreateOrderModel>
+
+    @GET("admin/all/user/transaction")
+    suspend fun getDoctorTransaction(): Response<DoctorTransactionRes>
+
+    @POST("admin/request/amout-payment")
+    suspend fun withdrawalRequest(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+    @POST("admin/verify-order/payment")
+    suspend fun verifyOrder(@Body sendData: HashMap<String, Any>): Response<GeneralResponse>
+
+    @GET("admin/get/revenue")
+    suspend fun getRevenue(): Response<RevenueDetails>
+
+    @GET("doctor/get/appointment/stats")
+    suspend fun getDoctorStats(): Response<DRStatsModel>
+
+    @POST("admin/logout")
+    suspend fun logout(): Response<GeneralResponse>
 
     @DELETE("doctor/delete/bank-details/{id}")
     suspend fun deleteBankDetails(

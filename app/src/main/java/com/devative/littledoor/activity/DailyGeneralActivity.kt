@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import com.devative.littledoor.R
 import com.devative.littledoor.adapter.DailyGeneralAdapter
 import com.devative.littledoor.architecturalComponents.helper.Constants
@@ -34,6 +35,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
     private val vm: DailyJournalVM by viewModels()
     private val emoteList = ArrayList<EmotModel.Data>()
     private val dailyJournalList = ArrayList<DailyJournalModel.Data>()
+    private val dailyJournalListFiltered = ArrayList<DailyJournalModel.Data>()
     var selected: GregorianCalendar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
         val calendar = Calendar.getInstance()
         setUpwatcher(calendar)
         binding.txtMonth.text = Constants.monthNames[calendar[Calendar.MONTH]]
-        adapter = DailyGeneralAdapter(this, this,dailyJournalList)
+        adapter = DailyGeneralAdapter(this, this,dailyJournalListFiltered)
         adapter.setHasStableIds(true)
         binding.rvGeneral.adapter = adapter
 //        binding.txtMonth.setText(calendarView.g)
@@ -59,6 +61,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
                         val calendar = Calendar.getInstance()
                         calendar.set(year, month, day)
                         setUpwatcher(calendar)
+                        updateList("$day-${month + 1}-$year")
                         binding.txtMonth.text = Constants.monthNames[month]
                     }
                 }
@@ -78,7 +81,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
 
                     val dataMap = HashMap<String, Any>()
                     dataMap["emotion_id"] = id
-                    dataMap["date"] = Utility.getCurrentDateFormatted("$year-$month-$day")
+                    dataMap["date"] = "$year-$month-$day"
                     dataMap["message"] = message
                     vm.postJournal(dataMap)
                 }
@@ -122,10 +125,11 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
                 Status.SUCCESS -> {
                     progress.dismiss()
                     if (it.data?.status == true) {
+                        dailyJournalListFiltered.clear()
                         dailyJournalList.clear()
                         if (it.data.data.isNotEmpty()) {
                             dailyJournalList.addAll(it.data.data as ArrayList)
-                            adapter.notifyDataSetChanged()
+                            updateList(Utility.getCurrentDateFormatted("dd-MM-yyyy"))
                         }
                     } else {
                         Toasty.error(applicationContext, getString(R.string.some_thing_went_wrong))
@@ -203,6 +207,17 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
 
     }
 
+    private fun updateList(strDate:String) {
+        dailyJournalListFiltered.clear()
+        val list = dailyJournalList.filter {
+            it.journal_date == strDate
+        }
+        dailyJournalListFiltered.addAll(list as ArrayList)
+        adapter.notifyDataSetChanged()
+        binding.rvGeneral.isVisible = list.isNotEmpty()
+        binding.emptyView.isVisible = list.isEmpty()
+    }
+
     private fun setUpwatcher(calendar: Calendar) {
 
         var calendarView: VerticalWeekCalendar? = null
@@ -245,7 +260,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
             }
 
             override fun onDateSelection(year: Int, month: Int, day: Int) {
-                Toast.makeText(applicationContext, "$day/$month/$year", Toast.LENGTH_SHORT).show()
+                updateList("$day-${month + 1}-$year")
             }
         })
 

@@ -7,7 +7,7 @@ data class NotificationResponse(
     data class Data(
         val id: Int,
         val message: String,
-        val notification_type: String,
+        val title: String,
         val user_id: Int
     )
 }

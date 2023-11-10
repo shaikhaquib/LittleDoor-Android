@@ -51,6 +51,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation project(path: ':PinView')
     implementation 'com.google.firebase:firebase-appcheck-debug:17.1.0'
+    implementation 'androidx.datastore:datastore-core:1.0.0'
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -130,7 +132,6 @@ dependencies {
 
     //Agora
     def agora_sdk_version = "4.2.1"
-    // case 1: full libs
     implementation "io.agora.rtc:full-sdk:${agora_sdk_version}"
     implementation "com.karumi:dexter:6.2.3"
     implementation 'com.razorpay:checkout:1.6.33'

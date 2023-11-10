@@ -113,8 +113,6 @@
         style="@style/TextTitleMedium_16sp"
         android:gravity="center"
         android:src="@drawable/noappointment"
-        android:textColor="@color/overlays_red"
-        android:text="@string/no_appointment_error"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

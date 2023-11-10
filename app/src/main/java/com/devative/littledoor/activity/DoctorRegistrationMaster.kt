@@ -101,7 +101,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
                         binding.txtName.text = "${getString(R.string.hello)} ${it.data.data.first_name}"
                         doctorDetails = it.data
                         adapter.setBindFormData(doctorDetails)
-                        if (doctorDetails?.data?.status != 1){
+                        if (doctorDetails?.data?.form_status != 1){
                             binding.btnFinish.isEnabled = false
                         }
                       //  Toasty.success(applicationContext, it.data.message).show()

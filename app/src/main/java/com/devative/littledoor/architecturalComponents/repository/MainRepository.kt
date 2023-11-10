@@ -47,7 +47,7 @@ class MainRepository @Inject constructor(
     suspend fun bookAppointment(sendData: HashMap<String, Any>) = apiHelper.bookAppointment(sendData)
     suspend fun deleteJournal(id:Int) = apiHelper.deleteJournal(id)
     suspend fun deletePost(id:Int) = apiHelper.deletePost(id)
-    suspend fun getAllPost() = apiHelper.getAllPost()
+    suspend fun getAllPost(page:Int,per_page:Int) = apiHelper.getAllPost(page,per_page)
     suspend fun getAllPostUser() = apiHelper.getAllPostUser()
     suspend fun getAllPostUserLikes() = apiHelper.getAllPostUserLikes()
     suspend fun getAllPostUserComment() = apiHelper.getAllPostUserComment()
@@ -62,5 +62,11 @@ class MainRepository @Inject constructor(
     suspend fun getNotification() = apiHelper.getUserWiseNotification()
     suspend fun notificationReadReceipt(sendData: HashMap<String, Any>) = apiHelper.readReceipt(sendData)
     suspend fun createOrder(sendData: HashMap<String, Any>) = apiHelper.createOrder(sendData)
+    suspend fun withdrawalRequest(sendData: HashMap<String, Any>) = apiHelper.withdrawalRequest(sendData)
+    suspend fun verifyOrder(sendData: HashMap<String, Any>) = apiHelper.verifyOrder(sendData)
+    suspend fun getRevenue() = apiHelper.getRevenue()
+    suspend fun getDoctorStats() = apiHelper.getDoctorStats()
+    suspend fun getDoctorTransaction() = apiHelper.getDoctorTransaction()
+    suspend fun logout() = apiHelper.logout()
 
 }

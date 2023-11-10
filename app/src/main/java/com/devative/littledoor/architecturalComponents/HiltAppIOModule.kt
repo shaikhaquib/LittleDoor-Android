@@ -4,6 +4,7 @@ import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.devative.littledoor.architecturalComponents.apicall.APIClient
 import com.devative.littledoor.architecturalComponents.apicall.AuthInterceptor
+import com.devative.littledoor.architecturalComponents.apicall.SessionAuthenticator
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.room.UserDao
 import com.devative.littledoor.architecturalComponents.room.UserDatabase
@@ -27,7 +28,7 @@ class  HiltAppIOModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(@ApplicationContext context: Context) = run {
+    fun provideOkHttpClient(@ApplicationContext context: Context, authenticator: SessionAuthenticator) = run {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val authInterceptor = AuthInterceptor(context)
@@ -35,6 +36,7 @@ class  HiltAppIOModule {
             .addInterceptor(authInterceptor)
             .addInterceptor(ChuckerInterceptor(context))
             .addInterceptor(loggingInterceptor)
+            .authenticator(authenticator)
             .build()
     }
 
@@ -47,13 +49,17 @@ class  HiltAppIOModule {
         .build()
     @Provides
     @Singleton
-    fun provideAPIClient(retrofit: Retrofit) = retrofit.create(APIClient::class.java)!!
+    fun provideAPIClient(retrofit: Retrofit) = retrofit.create(APIClient::class.java)
 
     @Provides
     fun provideStudentDao(@ApplicationContext appContext: Context) : UserDao {
         return UserDatabase.getDatabase(appContext).userDao()
     }
 
-
+    @Singleton
+    @Provides
+    fun provideSessionAuthenticator(@ApplicationContext appContext: Context): SessionAuthenticator {
+        return SessionAuthenticator(appContext)
+    }
 
 }

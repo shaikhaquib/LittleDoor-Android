@@ -2,7 +2,11 @@ package com.devative.littledoor.model
 
 data class PostModel(
     val `data`: List<Data>,
-    val status: Boolean
+    val status: Boolean,
+    val current_page:Int,
+    val last_page:Int,
+    val per_page:Int,
+    val total:Int
 ) {
 
     data class Data(

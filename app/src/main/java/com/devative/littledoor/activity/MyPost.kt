@@ -1,9 +1,6 @@
 package com.devative.littledoor.activity
 
-import android.app.Activity
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
@@ -12,23 +9,20 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
-import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devative.littledoor.R
 import com.devative.littledoor.adapter.ExplorerAdapter
-import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.ExploreViewModel
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.ActivityMyPostBinding
-import com.devative.littledoor.databinding.SettingsFragmentBinding
 import com.devative.littledoor.fragment.CommentDialogFragment
 import com.devative.littledoor.model.PostModel
-import com.devative.littledoor.model.UserDetails
+import com.devative.littledoor.model.SearchAbleList
 import com.devative.littledoor.util.DividerItemDecoration
+import com.devative.littledoor.util.SingleSelectBottomSheetDialogFragment
 import com.devative.littledoor.util.Utility
 import com.google.android.material.tabs.TabLayout
 
@@ -66,6 +60,10 @@ class MyPost : BaseActivity(), OnClickListener, ExplorerAdapter.ExplorerAdapterE
                 LinearLayoutManager.VERTICAL, false
             )
         )
+        binding.fabCreatePost.setOnClickListener {
+            startActivity(Intent(applicationContext, CreatePost::class.java))
+        }
+
 
         mainViewModel.fetchUserData()
         mainViewModel.basicDetails.observe(this) {
@@ -115,6 +113,7 @@ class MyPost : BaseActivity(), OnClickListener, ExplorerAdapter.ExplorerAdapterE
         userPosts.clear()
         userPosts.addAll(list)
         adapter.notifyDataSetChanged()
+        adapter.setIsMyPost(filterCode == 1)
         binding.rvTherapist.isVisible = userPosts.isNotEmpty()
         binding.emtyView.isVisible = userPosts.isEmpty()
     }
@@ -159,12 +158,21 @@ class MyPost : BaseActivity(), OnClickListener, ExplorerAdapter.ExplorerAdapterE
                                 userPosts.clear()
                                 userPosts.addAll(myPostList)
                                 adapter.notifyDataSetChanged()
+                                adapter.setIsMyPost(filterCode == 1)
                             } else {
                                 if (filterCode == 1) {
                                     userPosts.clear()
                                     adapter.notifyDataSetChanged()
                                 }
                             }
+                        }else{
+                            if (filterCode == 1) {
+                                userPosts.clear()
+                                adapter.notifyDataSetChanged()
+                                binding.rvTherapist.isVisible = userPosts.isNotEmpty()
+                                binding.emtyView.isVisible = userPosts.isEmpty()
+                            }
+
                         }
                     } else {
                         Utility.errorToast(this, getString(R.string.some_thing_went_wrong))
@@ -250,6 +258,13 @@ class MyPost : BaseActivity(), OnClickListener, ExplorerAdapter.ExplorerAdapterE
                                     adapter.notifyDataSetChanged()
                                 }
                             }
+                        }else{
+                            if (filterCode == 2) {
+                                userPosts.clear()
+                                adapter.notifyDataSetChanged()
+                                binding.rvTherapist.isVisible = userPosts.isNotEmpty()
+                                binding.emtyView.isVisible = userPosts.isEmpty()
+                            }
                         }
                     } else {
                         Utility.errorToast(this, getString(R.string.some_thing_went_wrong))
@@ -332,6 +347,39 @@ class MyPost : BaseActivity(), OnClickListener, ExplorerAdapter.ExplorerAdapterE
 
             }
         }
+        vm.deletePost.observe(this) {
+            when (it.status) {
+                Status.LOADING -> {
+                    if (!progress.isShowing())
+                        progress.show()
+                }
+
+                Status.SUCCESS -> {
+                    progress.dismiss()
+                    if (it.data?.status == true) {
+                        if (it.data.status) {
+                            Utility.successToast(this, it.data.message)
+                            vm.getAllPostUser()
+                        } else {
+                            Utility.errorToast(this, it.data.message)
+                        }
+                    } else {
+                        Utility.errorToast(this, getString(R.string.some_thing_went_wrong))
+                    }
+                }
+
+                Status.ERROR -> {
+                    progress.dismiss()
+                    it.message?.let { it1 ->
+                        Utility.errorToast(
+                            this,
+                            it1
+                        )
+                    }
+                }
+
+            }
+        }
     }
 
     override fun onclick(position: Int) {
@@ -353,7 +401,22 @@ class MyPost : BaseActivity(), OnClickListener, ExplorerAdapter.ExplorerAdapterE
 
     }
 
-    override fun onShare(position: Int, postID: Int) {
+    override fun onShare(position: Int, postID: PostModel.Data) {
     }
 
+    override fun onDelete(position: Int, postID: PostModel.Data) {
+        super.onDelete(position, postID)
+        val items = arrayListOf(SearchAbleList(0, "Delete", R.drawable.delete))
+        val dialog = SingleSelectBottomSheetDialogFragment(
+            this,
+            items,
+            "Menu Option",
+            cancelAble = true
+        ) { selectedValue ->
+            when (selectedValue.position) {
+                0 -> vm.deletePost(postID.id)
+            }
+        }
+        dialog.show(supportFragmentManager, "SearchAbleList")
+    }
 }
