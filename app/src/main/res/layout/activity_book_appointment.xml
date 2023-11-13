@@ -15,14 +15,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Appointment details" />
+        app:title="Appointment details"
+        app:titleTextAppearance="@style/AppToolbar" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/btnProceed">
+        app:layout_constraintBottom_toTopOf="@id/btnProceed"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,8 +34,8 @@
                 style="@style/TextDarkBold_16dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginHorizontal="@dimen/_16_dp"
+                android:layout_marginTop="8dp"
                 android:text="Dr. Zaira Wasim - Therapist"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,12 +48,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16_dp"
                 android:layout_marginTop="@dimen/_24_dp"
+                android:gravity="center"
                 android:textColor="@color/overlays_red"
                 android:visibility="gone"
-                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
             <carbon.widget.LinearLayout
                 android:id="@+id/linearLayout7"
@@ -128,19 +129,16 @@
                 android:id="@+id/rvTimeSlot"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                tools:itemCount="12"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="4"
                 android:layout_marginVertical="@dimen/_16_dp"
-                tools:listitem="@layout/item_chip"
                 android:nestedScrollingEnabled="true"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout9"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-
-
+                app:layout_constraintTop_toBottomOf="@+id/textView13"
+                app:spanCount="4"
+                tools:itemCount="12"
+                tools:listitem="@layout/item_chip" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -148,32 +146,24 @@
     </androidx.core.widget.NestedScrollView>
 
 
-
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnProceed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="false"
+        android:layout_height="@dimen/_60dp"
         android:backgroundTint="@color/dark_gray"
+        android:clickable="false"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:text="Proceed to pay"
+        android:text="Proceed to Pay"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:cornerRadius="@dimen/_0dp"
+        style="@style/TextTitleMedium_16sp"
         app:icon="@drawable/right"
         app:iconGravity="textEnd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
-
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

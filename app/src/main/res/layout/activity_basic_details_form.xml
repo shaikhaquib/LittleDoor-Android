@@ -14,7 +14,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Basic Details" />
+        app:title="Basic Details"
+        app:titleTextAppearance="@style/AppToolbar" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -51,6 +52,7 @@
                 android:layout_marginEnd="@dimen/_16_dp"
                 android:layout_marginBottom="@dimen/_16_dp"
                 android:drawableStart="@drawable/user"
+                android:drawableTint="@color/neutral_navyblue"
                 android:hint="@string/enter_name"
                 android:maxLines="1" />
 
@@ -95,6 +97,7 @@
                 android:drawableStart="@drawable/mail"
                 android:hint="@string/enter_email"
                 android:inputType="textEmailAddress"
+                android:drawableTint="@color/neutral_navyblue"
                 android:maxLines="1" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -140,6 +143,7 @@
                     android:drawableEnd="@drawable/drop_down"
                     android:gravity="center"
                     android:text="@string/select"
+                    android:drawableTint="@color/neutral_navyblue"
                     android:textSize="@dimen/_12_dp"
                     app:carbon_rippleColor="@color/neutral_gray"
                     app:carbon_stroke="@color/grey_lighter"
@@ -154,6 +158,7 @@
                     android:layout_marginEnd="@dimen/_16_dp"
                     android:layout_weight="1"
                     android:drawableEnd="@drawable/calendar"
+                    android:drawableTint="@color/neutral_navyblue"
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@string/select"
@@ -180,6 +185,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:layout_margin="@dimen/carbon_padding"
+                android:drawableTint="@color/neutral_navyblue"
                 android:drawableStart="@drawable/event"
                 android:drawableEnd="@drawable/drop_down"
                 android:gravity="start|center"
@@ -215,7 +221,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtTermsLabel"
-            style="@style/TextTitleBold_14sp"
+            style="@style/TextTitleMedium_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

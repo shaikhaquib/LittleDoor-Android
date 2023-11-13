@@ -87,15 +87,15 @@ class WelcomeBanner : BaseActivity() {
 
             with(holder) {
                 if (position == 0) {
-                    bindingDesign.introTitle.text = "Lorem Ipsum is simply dummy text?"
+                    bindingDesign.introTitle.text = "Let us guide you towards a happier, healthier life."
                     bindingDesign.introDescription.text =
-                        "Welcome !!! Do you want to clear task super fast with Mane?"
+                        "We believe that everyone deserves access to quality mental health care."
                     bindingDesign.introImage.setImageResource(R.drawable.splash_1)
                 }
                 if (position == 1) {
-                    bindingDesign.introTitle.text = "Lorem Ipsum is simply dummy text?"
+                    bindingDesign.introTitle.text = "Let's work together to improve your mental health."
                     bindingDesign.introDescription.text =
-                        "It has been easier to complete tasks. Get started with us!"
+                        "Experienced licensed therapists to support you and provide continuous support."
                     bindingDesign.introImage.setImageResource(R.drawable.splash_2)
                 }
             }

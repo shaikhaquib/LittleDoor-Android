@@ -308,7 +308,7 @@ class TherapistHomeFragment : Fragment() {
         }
         binding.imgProfile.borderColor =
             ContextCompat.getColor(requireContext(), R.color.grey_primary)
-        binding.imgProfile.borderWidth = 10
+        binding.imgProfile.borderWidth = 2
     }
 
     private fun dayGreetings() {

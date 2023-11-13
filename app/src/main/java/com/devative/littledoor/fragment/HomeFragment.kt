@@ -239,7 +239,7 @@ class HomeFragment  : Fragment() {
         basicDetails?.image_url?.let { it1 -> binding.imgProfile.load(it1,R.drawable.profile_view)}
         binding.imgProfile.borderColor =
             ContextCompat.getColor(requireContext(), R.color.grey_primary)
-        binding.imgProfile.borderWidth = 10
+        binding.imgProfile.borderWidth = 2
     }
 
     private fun dayGreetings() {
@@ -329,6 +329,8 @@ class HomeFragment  : Fragment() {
     private fun handlePromotionAdapter() {
         sliderAdapter = SliderAdapter(sliderItems)
         binding.viewPager.adapter = sliderAdapter
+       // binding.viewPager.setPageTransformer(FadePageTransformer())
+
 
         autoScrollJob = CoroutineScope(Dispatchers.Main).launch {
             while (true) {

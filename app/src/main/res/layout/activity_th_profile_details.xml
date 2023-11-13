@@ -8,8 +8,9 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
-        style="@style/AppToolbar"
-        android:layout_width="match_parent"
+ style="@style/AppToolbar"
+        app:titleTextAppearance="@style/AppToolbar"
+                android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -225,7 +226,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBookAppointment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_60dp"
         android:backgroundTint="@color/primary"
         android:insetTop="0dp"
         android:insetBottom="0dp"
@@ -235,6 +236,7 @@
         app:cornerRadius="@dimen/_0dp"
         app:icon="@drawable/right"
         app:iconGravity="textEnd"
+        style="@style/TextTitleMedium_16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

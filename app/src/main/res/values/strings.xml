@@ -2,7 +2,7 @@
     <string name="app_name">LittleDoor</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get Started</string>
-    <string name="next">next</string>
+    <string name="next">Next</string>
     <string name="send_otp">Send OTP</string>
     <string name="login_as_therapist">Are you registered therapist?<font color="#643FDB"> Sign Up</font> </string>
     <string name="label_terms_condition">I agree with all<font color="#F47A7A"> Terms and Conditions</font> </string>

@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/explore"
-        app:titleTextAppearance="@style/TextDarkBold_20" />
+        app:titleTextAppearance="@style/TextDarkBold_32" />
 
 
     <de.hdodenhof.circleimageview.CircleImageView

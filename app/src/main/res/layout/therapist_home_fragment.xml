@@ -13,7 +13,7 @@
         android:layout_margin="@dimen/_20_dp"
         android:src="@drawable/sample_dr_image_1"
         app:civ_border_color="@color/grey_primary"
-        app:civ_border_width="2dp"
+        app:civ_border_width="0.5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -146,7 +146,7 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" />
+                    android:layout_height="180dp" />
 
                 <carbon.widget.RelativeLayout
                     android:id="@+id/liJoinSession"

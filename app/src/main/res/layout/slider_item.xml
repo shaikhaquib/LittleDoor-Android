@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/_8_dp"
     app:cardCornerRadius="16dp">
 
     <androidx.appcompat.widget.AppCompatImageView

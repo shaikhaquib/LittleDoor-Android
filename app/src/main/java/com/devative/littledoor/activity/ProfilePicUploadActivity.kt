@@ -48,7 +48,7 @@ class ProfilePicUploadActivity : BaseActivity(), OnClickListener {
             lilGallery.setOnClickListener(this@ProfilePicUploadActivity)
             btnSubmit.setOnClickListener(this@ProfilePicUploadActivity)
             txtSkip.setOnClickListener(this@ProfilePicUploadActivity)
-            txtSkip.isVisible = isDoctor
+            //txtSkip.isVisible = isDoctor
         }
     }
 

@@ -45,12 +45,8 @@ class QuoteManager(
                 val responseBody = response.body?.string()
                 val quote = parseQuoteOfTheDay(responseBody)
                 activity.runOnUiThread{
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        txtQuote.text = (Html.fromHtml(quote?.text, Html.FROM_HTML_MODE_COMPACT));
-                    } else {
-                        txtQuote.text = (Html.fromHtml(quote?.text));
-                    }
-                    txtQuoteAuthor.text = quote?.author
+                    txtQuoteAuthor.text = "-- ${quote?.author}"
+                    txtQuote.text = "\"${quote?.text}\""
                 }
                 println("Quote of the day: ${quote?.text} - ${quote?.author}")
             }
@@ -61,7 +57,7 @@ class QuoteManager(
         try {
             val jsonArray = JSONArray(responseBody)
             val jsonObject = jsonArray.getJSONObject(0)
-            val text = jsonObject.getString("h")
+            val text = jsonObject.getString("q")
             val author = jsonObject.getString("a")
             return Quote(text, author)
         } catch (e: Exception) {
