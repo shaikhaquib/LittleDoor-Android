@@ -37,7 +37,7 @@ class MainRepository @Inject constructor(
     suspend fun getCategory() = apiHelper.getCategory()
     suspend fun getDoctorDetails() = apiHelper.getDoctorDetails()
     suspend fun getSkill() = apiHelper.getSkill()
-    suspend fun getDoctorList() = apiHelper.getDoctorList()
+    suspend fun getDoctorList(result: HashMap<String, Any>) = apiHelper.getDoctorList(result)
     suspend fun getAllTimeSLots() = apiHelper.getAllTimeSLots()
     suspend fun getAllEmotions() = apiHelper.getAllEmotions()
     suspend fun getJournal() = apiHelper.getJournal()

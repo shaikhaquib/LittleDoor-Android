@@ -127,20 +127,20 @@ class TherapistAppointmentFragment : Fragment() {
                             refreshList()
                         }
                     } else {
-                        Utility.errorToast(
+                      /*  Utility.errorToast(
                             requireContext(),
                             getString(R.string.some_thing_went_wrong)
-                        )
+                        )*/
                     }
                 }
 
                 Status.ERROR -> {
                     progress.dismiss()
                     it.message?.let { it1 ->
-                        Utility.errorToast(
+                       /* Utility.errorToast(
                             requireContext(),
                             getString(R.string.some_thing_went_wrong)
-                        )
+                        )*/
                     }
                 }
 

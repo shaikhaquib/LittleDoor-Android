@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.devative.littledoor.ChatUi.ChatActivity
@@ -21,7 +22,7 @@ import com.devative.littledoor.util.Progress
 /**
  * Created by AQUIB RASHID SHAIKH on 20-03-2023.
  */
-class MessengerFragment  : Fragment() {
+class MessengerFragment : Fragment() {
     private lateinit var binding: MessengerFragmentBinding
     private val viewModel: MainViewModel by activityViewModels()
     private val chatList = ArrayList<ChatListResponse.Data>()
@@ -44,20 +45,35 @@ class MessengerFragment  : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvChatRoom.adapter = ChatRoomAdapter(requireActivity(),chatList,object :
+        val adapter = ChatRoomAdapter(requireActivity(), chatList, object :
             ChatRoomAdapter.ChatRoomAdapterEvent {
             override fun onclick(position: Int) {
                 startActivity(Intent(requireContext(), ChatActivity::class.java).apply {
-                    putExtra("data",chatList[position])
+                    putExtra("data", chatList[position])
                 })
             }
         })
+
+        binding.rvChatRoom.adapter = adapter
+
+        binding.edtSearch.onFocusChangeListener =
+            View.OnFocusChangeListener { p0, p1 ->
+                if (p1)
+                    binding.appbar.setExpanded(false)
+            }
+
+        binding.edtSearch.doOnTextChanged { text, start, before, count ->
+            if (text != null) {
+                adapter.filter(binding.edtSearch.text.toString())
+            }
+        }
 
         viewModel.getChatList()
         observe()
         //   binding.rvChatRoom.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL,false))
     }
-    fun observe(){
+
+    fun observe() {
         viewModel.getChat.observe(requireActivity()) {
             when (it.status) {
                 Status.LOADING -> {

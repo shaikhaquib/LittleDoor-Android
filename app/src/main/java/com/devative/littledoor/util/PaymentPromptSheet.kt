@@ -7,11 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import com.devative.littledoor.databinding.PaymentPromptSheetBinding
+import com.devative.littledoor.model.DoctotorListRes
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class PaymentPromptSheet(
+    val thDetails: DoctotorListRes.Data,
     val event: PaymentPromptEvent? = null
 ) :
     BottomSheetDialogFragment() {
@@ -31,6 +32,12 @@ class PaymentPromptSheet(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.txtPlatform.text = thDetails.platform_charge
+        binding.txtGSTandTAX.text = thDetails.tax
+        binding.txtTherapistFee.text = thDetails.doctor_session_charge
+        binding.txtTotalCharges.text = thDetails.total_amount.toString()
+
         binding.btnSubmit.setOnClickListener{
             event?.onPayment()
             dismiss()
@@ -55,12 +62,3 @@ class PaymentPromptSheet(
     }
 
 }
-
-fun showPaymentPrompt(
-    fragmentManager: FragmentManager,
-    event: PaymentPromptSheet.PaymentPromptEvent
-) {
-    val bottomSheet = PaymentPromptSheet(event)
-    bottomSheet.show(fragmentManager, PaymentPromptSheet.TAG)
-}
-

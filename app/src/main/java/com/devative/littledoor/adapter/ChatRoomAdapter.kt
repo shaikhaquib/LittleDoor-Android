@@ -2,14 +2,15 @@ package com.devative.littledoor.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.devative.littledoor.architecturalComponents.helper.Constants
+import com.devative.littledoor.R
+import com.devative.littledoor.architecturalComponents.helper.Constants.isDoctor
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.databinding.ItemChatBinding
-import com.devative.littledoor.databinding.ItemTherapistBinding
 import com.devative.littledoor.model.ChatListResponse
+import java.util.Locale
 
 
 class ChatRoomAdapter(
@@ -17,13 +18,21 @@ class ChatRoomAdapter(
     val chatList: ArrayList<ChatListResponse.Data>,
     val event: ChatRoomAdapterEvent
 ) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
+    private var filteredItems = chatList
+
     inner class ViewHolder(val binding: ItemChatBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int) {
-            val chat = chatList[position]
-            binding.txtName.text = if (Constants.isDoctor) chat.patient_name else chat.doctor_name
-            binding.imageView5.load((if (Constants.isDoctor) chat.patient_image_url else chat.doctor_image_url).toString())
+            val chat = filteredItems[position]
+            binding.txtName.text = if (isDoctor) chat.patient_name else chat.doctor_name
+            binding.imageView5.load(
+                (if (isDoctor) chat.patient_image_url else chat.doctor_image_url).toString(),
+                (if (isDoctor) R.drawable.user_default_icon else R.drawable.therapist_default_icon),
+
+                )
             itemView.setOnClickListener { event.onclick(position) }
+            binding.txtDate.visibility =  View.GONE
+            binding.txtDesc.visibility =  View.GONE
         }
     }
 
@@ -38,10 +47,33 @@ class ChatRoomAdapter(
     }
 
     override fun getItemCount(): Int {
-        return chatList.size
+        return filteredItems.size
     }
 
     interface ChatRoomAdapterEvent {
         fun onclick(position: Int)
     }
+
+    fun filter(query: String) {
+        filteredItems = ArrayList()
+        if (query.isNotEmpty()) {
+            for (item in chatList) {
+                val name = if (isDoctor) {
+                    item.patient_name
+                } else item.doctor_name
+                if (name.toLowerCase(Locale.getDefault()).contains(
+                        query.toLowerCase(
+                            Locale.getDefault()
+                        )
+                    )
+                ) {
+                    filteredItems.add(item)
+                }
+            }
+        } else {
+            filteredItems = chatList
+        }
+        notifyDataSetChanged()
+    }
+
 }

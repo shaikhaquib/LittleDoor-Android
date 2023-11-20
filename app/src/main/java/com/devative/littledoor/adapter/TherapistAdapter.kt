@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.devative.littledoor.R
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.databinding.ItemTherapistBinding
 import com.devative.littledoor.model.DoctotorListRes
@@ -24,7 +25,7 @@ class TherapistAdapter(
             binding.apply {
                 txtName.text = data.name
                 txtDesc.text = "${data.category_name}, ${data.city}, ${data.state}"
-                data.image?.let { imgProfile.load(it) }
+                data.image?.let { imgProfile.load(it, R.drawable.therapist_default_icon) }
             }
 
             binding.btnBookAppointment.setOnClickListener {

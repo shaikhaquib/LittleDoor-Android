@@ -112,12 +112,10 @@ class THAddSessionDetailsActivity : BaseActivity() {
         vm.getSessionAmount.observe(this){
             when (it.status) {
                 Status.LOADING -> {
-                 progress.show()
                 }
 
                 Status.SUCCESS -> {
-                 progress.dismiss()
-                    it.data?.let {session->
+                  it.data?.let {session->
                         if (session.status) {
                             if (session.data != null) {
                                 binding.edtAmount.setText(session.data.session_charge)
@@ -138,7 +136,6 @@ class THAddSessionDetailsActivity : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                 //   progress?.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,

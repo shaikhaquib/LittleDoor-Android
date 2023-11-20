@@ -25,9 +25,9 @@ class CommentsAdapter(
             binding.txtDesc.text = item.comment
             binding.txtDate.text = "${Constants.convertDateFormat(item.commented_at,"dd MMM, hh:mm","yyyy-MM-dd hh:mm:ss")}"
             if (!item.commented_user_profile.isNullOrEmpty()){
-                binding.imgProfile.load(item.commented_user_profile!!, R.drawable.profile_placeholder)
+                binding.imgProfile.load(item.commented_user_profile!!, R.drawable.user_default_icon)
             }else{
-               binding.imgProfile.setImageResource(R.drawable.profile_placeholder)
+               binding.imgProfile.setImageResource(R.drawable.user_default_icon)
             }
 
             binding.chkLike.visibility = View.GONE

@@ -80,6 +80,7 @@
                         android:layout_marginEnd="@dimen/_16_dp"                        android:src="@drawable/ic_search"/>
 
                     <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtSearch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/AppEditText"

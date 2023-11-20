@@ -29,9 +29,9 @@ class ExplorerAdapter(
 
             binding.chkLike.text = if (item.post_likes > 0) item.post_likes.toString() else ""
             if (!item.user_profile_url.isNullOrEmpty()){
-                binding.imgProfile.load(item.user_profile_url!!, R.drawable.profile_placeholder)
+                binding.imgProfile.load(item.user_profile_url!!, R.drawable.user_default_icon)
             }else{
-               binding.imgProfile.setImageResource(R.drawable.profile_placeholder)
+               binding.imgProfile.setImageResource(R.drawable.user_default_icon)
             }
             if (item.post_image.isNullOrEmpty()){
                 binding.imgPost.visibility = View.GONE

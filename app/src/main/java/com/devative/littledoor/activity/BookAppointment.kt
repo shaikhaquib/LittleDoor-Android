@@ -1,7 +1,6 @@
 package com.devative.littledoor.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -20,7 +19,6 @@ import com.devative.littledoor.util.PaymentPromptSheet
 import com.devative.littledoor.util.Utility
 import com.razorpay.Checkout
 import com.razorpay.PaymentData
-import com.razorpay.PaymentResultListener
 import com.razorpay.PaymentResultWithDataListener
 import es.dmoral.toasty.Toasty
 import org.json.JSONObject
@@ -66,7 +64,7 @@ class BookAppointment : BaseActivity(), TimeSlotAdapterByDate.TimeSlotAdapterByD
             appointment_date:2023-08-22*/
             //
             if (selectedSlot != null) {
-                PaymentPromptSheet(object : PaymentPromptSheet.PaymentPromptEvent {
+                PaymentPromptSheet(thDetails,object : PaymentPromptSheet.PaymentPromptEvent {
                     override fun onDismiss() {
                         Utility.errorToast(applicationContext, "Payment canceled")
                     }
@@ -76,7 +74,7 @@ class BookAppointment : BaseActivity(), TimeSlotAdapterByDate.TimeSlotAdapterByD
                         val dataMap = HashMap<String, Any>()
                         dataMap["patient_id"] = basicDetails?.pateint_id!!
                         dataMap["doctor_id"] = thDetails.id
-                        dataMap["amount"] = thDetails.doctor_session_charge
+                        dataMap["amount"] = thDetails.total_amount
                         trModel.createRazorPayOrder(dataMap)
                     }
                 }).show(supportFragmentManager, PaymentPromptSheet.TAG)
@@ -144,10 +142,12 @@ class BookAppointment : BaseActivity(), TimeSlotAdapterByDate.TimeSlotAdapterByD
                 Status.ERROR -> {
                     progress.dismiss()
                     it.message?.let { it1 ->
+/*
                         Toasty.error(
                             this,
                             it1, Toasty.LENGTH_SHORT
                         ).show()
+*/
                     }
                 }
 
@@ -172,10 +172,12 @@ class BookAppointment : BaseActivity(), TimeSlotAdapterByDate.TimeSlotAdapterByD
                 Status.ERROR -> {
                     progress.dismiss()
                     it.message?.let { it1 ->
+/*
                         Toasty.error(
                             this,
                             it1, Toasty.LENGTH_SHORT
                         ).show()
+*/
                     }
                 }
 

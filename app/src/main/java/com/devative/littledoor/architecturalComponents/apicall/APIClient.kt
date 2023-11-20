@@ -115,8 +115,8 @@ interface APIClient {
     @GET("admin/get/skills")
     suspend fun getSkill(): Response<SkillResponse>
 
-    @GET("admin/get/doctor/list")
-    suspend fun getDoctorList(): Response<DoctotorListRes>
+    @POST("admin/get/doctor/list")
+    suspend fun getDoctorList(@Body sendData: HashMap<String, Any>): Response<DoctotorListRes>
 
     @GET("admin/get/all-slot")
     suspend fun getAllTimeSLots(): Response<TimeSLotModel>

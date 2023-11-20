@@ -17,6 +17,7 @@
             android:layout_height="56dp"
             android:background="@color/overlays_purple"
             android:padding="0dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/sample_dr_image"
             app:carbon_elevation="0dp"
             app:layout_constraintStart_toStartOf="parent"

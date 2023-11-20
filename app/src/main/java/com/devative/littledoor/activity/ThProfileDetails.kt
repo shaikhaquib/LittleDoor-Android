@@ -34,7 +34,7 @@ class ThProfileDetails : BaseActivity() {
     private fun setData() {
         thDetails.apply {
             binding.apply {
-                image?.let { imgProfile.load(it,) }
+                image?.let { imgProfile.load(it,R.drawable.sample_dr_image) }
                 txtCategory.text = category_name
                 txtCity.text = city
                 txtYearEXP.text = "$total_year_of_experience"

@@ -87,6 +87,7 @@ object Utility {
     }
 
     fun errorToast(applicationContext: Context,message: String){
+        if(!message.contains("End of input"))
         Toasty.error(applicationContext,message).show()
     }
     fun successToast(applicationContext: Context,message: String){

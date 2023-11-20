@@ -65,7 +65,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         binding.btnFinish.setOnClickListener {
             if (intent.hasExtra(Constants.TH_REGISTERED)){
                 finish()
-            }else {
+            }else  if (doctorDetails?.data?.form_status == 1) {
                 Utility.savePrefBoolean(applicationContext, Constants.IS_DR_Reg_Finish, true)
                 startActivity(
                     Intent(
@@ -74,6 +74,8 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
                     ).putExtra(Constants.IS_DOCTOR, true)
                 )
 
+            }else{
+                finish()
             }
         }
        observe()

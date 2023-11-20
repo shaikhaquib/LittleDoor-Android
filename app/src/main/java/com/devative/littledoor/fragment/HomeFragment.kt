@@ -187,10 +187,10 @@ class HomeFragment  : Fragment() {
                 Status.ERROR -> {
                     progress.dismiss()
                     it.message?.let { it1 ->
-                      Utility.errorToast(
+                     /* Utility.errorToast(
                             requireContext(),
                             it1
-                        )
+                        )*/
                     }
                 }
 

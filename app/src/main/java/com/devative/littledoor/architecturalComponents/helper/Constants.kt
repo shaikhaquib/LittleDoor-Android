@@ -36,8 +36,9 @@ object Constants {
     fun ImageView.load(url: String,placeholder: Int = R.color.primary) {
         Glide.with(context.getApplicationContext())
             .load(url)
-            .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .thumbnail(0.3f)
+            .placeholder(placeholder)
             .override(width, height)
             .centerCrop()
             .into(this)

@@ -24,7 +24,7 @@ class AppointmentAdapter(
         fun bindData(position: Int) {
             val item = list[position]
             binding.txtName.text = item.patient_name
-            item.patient_profile?.let { binding.imgProfile.load(it,R.drawable.profile_placeholder) }
+            item.patient_profile?.let { binding.imgProfile.load(it,R.drawable.user_default_icon) }
             binding.txtDesc.text = Constants.getTimeRemaining("${item.apointmnet_date}, ${item.slot_time}")
             binding.txtDate.text = "${item.slot_time}"
 

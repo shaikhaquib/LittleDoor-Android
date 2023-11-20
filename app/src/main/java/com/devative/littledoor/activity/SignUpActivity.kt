@@ -1,6 +1,7 @@
 package com.devative.littledoor.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -18,8 +19,8 @@ import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
 import com.devative.littledoor.databinding.ActivitySignUpBinding
 import com.devative.littledoor.util.Logger
-import com.devative.littledoor.util.Progress
 import com.devative.littledoor.util.Utility
+import com.devative.littledoor.util.ViewTooltip
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 
@@ -32,7 +33,7 @@ class SignUpActivity : BaseActivity(),View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        
+
         viewModel = MainViewModel.getViewModel(this)
         if (intent.hasExtra(SESSION_EXPIRED)){
             Utility.clearPreference(applicationContext)
@@ -148,6 +149,7 @@ class SignUpActivity : BaseActivity(),View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+
         when (v?.id){
             binding.btnSendOTP.id ->{
                 if (binding.edtPhoneNo.text.isNullOrEmpty()) {
@@ -161,6 +163,7 @@ class SignUpActivity : BaseActivity(),View.OnClickListener {
                 startActivity(Intent(applicationContext, BasicDetailsForm::class.java).putExtra(Constants.IS_DOCTOR,true))
             }
         }
+
     }
 
 

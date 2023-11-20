@@ -5,7 +5,7 @@ import java.io.Serializable
 data class DoctotorListRes(
     val `data`: List<Data>,
     val status: Boolean
-):Serializable {
+) : Serializable {
     data class Data(
         val appreciation: List<DoctorDetailsResponse.Data.Appreciation>,
         val category_name: String,
@@ -19,6 +19,9 @@ data class DoctotorListRes(
         val state: String,
         val time_slot: List<Any>,
         val total_year_of_experience: Int = 1,
-        val doctor_session_charge: String = "300"
-    ):Serializable
+        val doctor_session_charge: String = "300",
+        val tax: String,
+        val platform_charge: String,
+        val total_amount: Int
+    ) : Serializable
 }

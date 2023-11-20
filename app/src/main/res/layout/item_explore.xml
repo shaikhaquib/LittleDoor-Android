@@ -117,6 +117,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_share"
             android:tint="@color/grey_light"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/imgChat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imgChat" />

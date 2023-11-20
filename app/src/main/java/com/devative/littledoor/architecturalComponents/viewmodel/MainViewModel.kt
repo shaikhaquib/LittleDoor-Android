@@ -270,10 +270,10 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getDoctorList() = CoroutineScope(Dispatchers.IO).launch {
+    fun getDoctorList(result: HashMap<String, Any>) = CoroutineScope(Dispatchers.IO).launch {
         doctorList.postValue(Resource.loading(null))
         try {
-            mainRepository.getDoctorList().let {
+            mainRepository.getDoctorList(result).let {
                 if (it.isSuccessful) {
                     doctorList.postValue(Resource.success(it.body()))
                 } else {

@@ -12,39 +12,37 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.view.isVisible
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide.init
+import androidx.room.Update
+import com.devative.littledoor.R
 import com.devative.littledoor.databinding.BottomSheetSingleSelectBinding
 import com.devative.littledoor.model.SearchAbleList
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.util.*
-
+import java.util.Locale
 
 /**
- * Created by AQUIB RASHID SHAIKH on 11-03-2023.
+ * Created by AQUIB RASHID SHAIKH on 18-11-2023.
  */
-
-
-
-class SingleSelectBottomSheetDialogFragment(
+class MultipleSelectBottomSheetDialogFragment(
     private val context: Context,
     private val items: ArrayList<SearchAbleList>,
     private val title: String,
-    private val selectedValue: Int? = 0,
-    private val searchAble:Boolean = false,
-    private val cancelAble:Boolean = false,
-    private val listener: ((selectedValue: SearchAbleList) -> Unit)? = null
+    private val selectedValuesString: String, // Change to ArrayList for multiple selections
+    private val searchAble: Boolean = false,
+    private val cancelAble: Boolean = false,
+    private val listener: ((selectedValues: String) -> Unit)? = null // Change to ArrayList for multiple selections
 ) : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetSingleSelectBinding? = null
     private val binding get() = _binding!!
+    private val selectedValues =
+        ArrayList<SearchAbleList>() // Change to ArrayList for multiple selections
 
-    private lateinit var adapter: SingleSelectAdapter
+    private lateinit var adapter: MultipleSelectAdapter // Change to MultipleSelectAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,20 +61,31 @@ class SingleSelectBottomSheetDialogFragment(
         bottomSheet.setBackgroundColor(Color.TRANSPARENT)
         isCancelable = cancelAble
         binding.title.text = title
-        adapter = SingleSelectAdapter(items, selectedValue?:0) { value ->
-            listener?.invoke(value)
+        val selectedTitles =
+            selectedValuesString.split(", ") // Convert comma-separated string to list of titles
+        selectedValues.addAll(items.filter { selectedTitles.contains(it.title) } )// Find SearchAbleList objects with selected titles
+        adapter = MultipleSelectAdapter(items) { selectedItems ->
+            val selectedValuesString =
+                selectedItems.joinToString(", ") { it.title } // Convert selected items to comma-separated string
+
+        }
+        //  adapter.setHasStableIds(true)
+        // Set up RecyclerView with adapter
+
+        binding.btnSubmit.setOnClickListener{
+            val selectedValuesString = selectedValues.joinToString(", ") { it.title } // Convert selected items to comma-separated string
+            listener?.invoke(selectedValuesString)
             dismiss()
         }
         binding.ivBottomSheetClose.setOnClickListener { dismiss() }
-        binding.btnSubmit.isVisible = false
-        adapter.setHasStableIds(true)
-        // Set up RecyclerView with adapter
-        if (searchAble == true){
+
+        if (searchAble) {
             binding.edtSearch.visibility = View.VISIBLE
-        }else {
+        } else {
             binding.edtSearch.visibility = View.GONE
         }
-        binding.itemList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        binding.itemList.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.itemList.adapter = adapter
 
         binding.edtSearch.addTextChangedListener(object : TextWatcher {
@@ -91,32 +100,29 @@ class SingleSelectBottomSheetDialogFragment(
             }
         })
 
+        binding.ivBottomSheetClose.setOnClickListener {
+            dismiss()
+        }
+
         binding.edtSearch.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-
-
                 val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
                 bottomSheetBehavior.isFitToContents = false
-                val layoutParams: ViewGroup.LayoutParams = bottomSheet.getLayoutParams()
+                val layoutParams: ViewGroup.LayoutParams = bottomSheet.layoutParams
                 val windowHeight = getWindowHeight()
                 if (layoutParams != null) {
                     layoutParams.height = windowHeight
                 }
-                bottomSheet.setLayoutParams(layoutParams)
+                bottomSheet.layoutParams = layoutParams
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            } else {
-                /*// Hide the soft keyboard
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)*/
             }
         }
     }
 
-
     private fun getWindowHeight(): Int {
         // Calculate window height for fullscreen use
         val displayMetrics = DisplayMetrics()
-        (getContext() as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics.heightPixels
     }
 
@@ -125,11 +131,10 @@ class SingleSelectBottomSheetDialogFragment(
         _binding = null
     }
 
-    class SingleSelectAdapter(
+    inner class MultipleSelectAdapter(
         private val items: ArrayList<SearchAbleList>,
-        private val selectedValue: Int = 0,
-        private val onItemClick: (value: SearchAbleList) -> Unit
-    ) : RecyclerView.Adapter<SingleSelectAdapter.ViewHolder>() {
+        private val onItemClick: (selectedItems: ArrayList<SearchAbleList>) -> Unit // Change to ArrayList for multiple selections
+    ) : RecyclerView.Adapter<MultipleSelectAdapter.ViewHolder>() {
 
         private var filteredItems: ArrayList<SearchAbleList> = ArrayList()
 
@@ -139,19 +144,29 @@ class SingleSelectBottomSheetDialogFragment(
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(com.devative.littledoor.R.layout.item_single_select, parent, false)
+                .inflate(R.layout.item_single_select, parent, false)
             return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = filteredItems[position]
             holder.text.text = item.title
-            holder.itemView.isSelected = position == selectedValue
-            holder.itemView.setOnClickListener { onItemClick.invoke(item) }
-            if (item.icon != 0){
-                holder.imgIcon.setImageResource(item.icon)
-            }else{
-                holder.imgIcon.visibility = View.GONE
+            holder.itemView.isSelected =
+                selectedValues.contains(item) // Check if the item is selected
+            holder.itemView.setOnClickListener {
+                if (selectedValues.contains(item)) {
+                    selectedValues.remove(item) // Deselect the item
+                } else {
+                    selectedValues.add(item) // Select the item
+                }
+                //   onItemClick.invoke(getSelectedItems()) // Pass the selected items to the listener
+                notifyDataSetChanged()
+            }
+
+            if (holder.itemView.isSelected) {
+                holder.imgIcon.setImageResource(R.drawable.active_checkbox)
+            } else {
+                holder.imgIcon.setImageResource(R.drawable.inactive_checkbox)
             }
         }
 
@@ -163,7 +178,9 @@ class SingleSelectBottomSheetDialogFragment(
             filteredItems = ArrayList()
             if (query.isNotEmpty()) {
                 for (item in items) {
-                    if (item.title.toLowerCase(Locale.getDefault()).contains(query.toLowerCase(Locale.getDefault()))) {
+                    if (item.title.toLowerCase(Locale.getDefault())
+                            .contains(query.toLowerCase(Locale.getDefault()))
+                    ) {
                         filteredItems.add(item)
                     }
                 }
@@ -173,11 +190,13 @@ class SingleSelectBottomSheetDialogFragment(
             notifyDataSetChanged()
         }
 
-        class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val text = itemView.findViewById<androidx.appcompat.widget.AppCompatTextView>(com.devative.littledoor.R.id.itemText)
-            val imgIcon = itemView.findViewById<androidx.appcompat.widget.AppCompatImageView>(com.devative.littledoor.R.id.imgIcon)
+        private fun getSelectedItems(): ArrayList<SearchAbleList> {
+            return selectedValues
+        }
+
+        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val text = itemView.findViewById<AppCompatTextView>(R.id.itemText)
+            val imgIcon = itemView.findViewById<AppCompatImageView>(R.id.imgIcon)
         }
     }
-
-
 }

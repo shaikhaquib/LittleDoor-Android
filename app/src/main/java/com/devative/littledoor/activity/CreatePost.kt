@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.devative.littledoor.R
 import com.devative.littledoor.architecturalComponents.apicall.APIClient
+import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.architecturalComponents.helper.Status
 import com.devative.littledoor.architecturalComponents.viewmodel.DrRegViewModel
@@ -34,7 +35,9 @@ class CreatePost : BaseActivity() {
         viewModel.basicDetails.observe(this) {
             if (!it.isNullOrEmpty()) {
                 basicDetails = it[0]
-                binding.imgProfile.load(basicDetails?.image_url?:"", R.drawable.profile_placeholder)
+                binding.imgProfile.load(basicDetails?.image_url?:"",
+                    (if (Constants.isDoctor) R.drawable.therapist_default_icon else R.drawable.user_default_icon),
+                )
             }
         }
         binding.imgCamera.setOnClickListener {

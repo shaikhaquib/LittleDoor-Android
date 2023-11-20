@@ -90,7 +90,7 @@ class MessageAdapter(private val activity: ChatActivity,private val currentUserI
                     .load(message.imageUrl)
                     .resize(250, 250)
                     .centerCrop()
-                    .placeholder(R.drawable.profile_placeholder)
+                    .placeholder(R.color.grey_primary)
                     .into(binding.imgPost)
             }
 
@@ -135,7 +135,7 @@ class MessageAdapter(private val activity: ChatActivity,private val currentUserI
                     .load(message.imageUrl)
                     .resize(250, 250)
                     .centerCrop()
-                    .placeholder(R.drawable.profile_placeholder)
+                    .placeholder(R.color.grey_primary)
                     .into(binding.imgPost)
             }
         }

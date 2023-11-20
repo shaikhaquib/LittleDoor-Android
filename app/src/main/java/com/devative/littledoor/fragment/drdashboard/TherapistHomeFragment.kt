@@ -184,21 +184,13 @@ class TherapistHomeFragment : Fragment() {
                             refreshList()
                         }
                     } else {
-                        Utility.errorToast(
-                            requireContext(),
-                            getString(R.string.some_thing_went_wrong)
-                        )
+                        binding.liJoinSession.visibility = View.GONE
                     }
                 }
 
                 Status.ERROR -> {
                     progress.dismiss()
-                    it.message?.let { it1 ->
-                        Utility.errorToast(
-                            requireContext(),
-                            getString(R.string.some_thing_went_wrong)
-                        )
-                    }
+                    binding.liJoinSession.visibility = View.GONE
                 }
 
             }

@@ -24,7 +24,7 @@ class FullScreenImageDialogFragment : DialogFragment() {
         val imageView = view.findViewById<AppCompatImageView>(R.id.imageView)
         Picasso.get()
             .load(imageUri)
-            .placeholder(R.drawable.profile_placeholder)
+            .placeholder(R.color.grey_primary)
             .into(imageView)
 
         view.findViewById<ImageButton>(R.id.backButton).setOnClickListener {

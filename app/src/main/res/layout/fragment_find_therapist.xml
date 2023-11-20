@@ -80,6 +80,7 @@
                         android:layout_marginEnd="@dimen/_16_dp"                        android:src="@drawable/ic_search"/>
 
                     <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtSearch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/AppEditText"
@@ -87,7 +88,17 @@
                         android:background="@color/neutral_white"
                         android:layout_weight="1"/>
 
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progress_circular"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        app:indicatorSize="@dimen/_24_dp"
+                        android:indeterminate="true"
+                        app:indicatorColor="@color/overlays_purple"
+                        app:trackCornerRadius="@dimen/_8_dp"/>
+
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgFilter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_16_dp"

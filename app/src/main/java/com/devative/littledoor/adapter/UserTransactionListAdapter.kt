@@ -25,10 +25,10 @@ class UserTransactionListAdapter(
             binding.txtAmount.text = "Rs ${item.amount}"
             binding.txtDate.text = "${item.created_at.split(" ")[0]}"
             if (isDoctor) {
-                binding.circleImageView.load(item.patient_image)
+                binding.circleImageView.load(item.patient_image,R.drawable.user_default_icon)
                 binding.txtName.text = item.patient_name
             } else {
-                binding.circleImageView.load(item.doctor_image)
+                binding.circleImageView.load(item.doctor_image,R.drawable.therapist_default_icon)
                 binding.txtName.text = item.doctor_name
             }
             if (item.status.toLowerCase() == "success") {

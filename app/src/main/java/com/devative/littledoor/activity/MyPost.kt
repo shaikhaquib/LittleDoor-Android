@@ -124,7 +124,7 @@ class MyPost : BaseActivity(), OnClickListener, ExplorerAdapter.ExplorerAdapterE
         basicDetails?.image_url?.let { it1 ->
             binding.imgProfile.load(
                 it1,
-                R.drawable.profile_view
+                R.drawable.user_default_icon
             )
         }
         binding.imgProfile.borderColor = ContextCompat.getColor(this, R.color.grey_primary)

@@ -11,6 +11,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.devative.littledoor.R
+import com.devative.littledoor.activity.AboutUs
 import com.devative.littledoor.activity.DoctorRegistrationMaster
 import com.devative.littledoor.activity.RevenueActivity
 import com.devative.littledoor.activity.SelectBankActivity
@@ -94,6 +95,7 @@ class SettingsFragment : Fragment(), OnClickListener {
         binding.txtYourInformation.setOnClickListener(this)
         binding.txtBankDetails.setOnClickListener(this)
         binding.txtRevenue.setOnClickListener(this)
+        binding.aboutUs.setOnClickListener(this)
     }
 
     private fun updateUI() {
@@ -143,6 +145,12 @@ class SettingsFragment : Fragment(), OnClickListener {
                 Intent(
                     requireContext(),
                     TermsAndCondition::class.java
+                )
+            )
+            binding.aboutUs.id -> startActivity(
+                Intent(
+                    requireContext(),
+                    AboutUs::class.java
                 )
             )
             binding.txtSessionDetails.id -> startActivity(

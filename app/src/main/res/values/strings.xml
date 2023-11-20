@@ -377,37 +377,37 @@
         <item>@string/faceunity_beauty</item>
     </string-array>
 
-    <string-array name="encoder_type" >
+    <string-array name="encoder_type">
         <item>Auto</item>
         <item>Hardware</item>
         <item>Software</item>
     </string-array>
-    <string-array name="screen_scenario_type" >
+    <string-array name="screen_scenario_type">
         <item>SCREEN_SCENARIO_DOCUMENT</item>
         <item>SCREEN_SCENARIO_GAMING</item>
         <item>SCREEN_SCENARIO_VIDEO</item>
     </string-array>
-    <string-array name="push_buffer_type" >
+    <string-array name="push_buffer_type">
         <item>I420</item>
         <item>NV21</item>
         <item>NV12</item>
         <item>Texture2D</item>
     </string-array>
 
-    <string-array name="render_mode" >
+    <string-array name="render_mode">
         <item>@string/render_mode_hidden</item>
         <item>@string/render_mode_fit</item>
         <item>@string/render_mode_adaptive</item>
     </string-array>
 
-    <string-array name="channel_profile" >
+    <string-array name="channel_profile">
         <item>@string/channel_profile_communication</item>
         <item>@string/channel_profile_live_broadcasting</item>
         <item>@string/channel_profile_game</item>
         <item>@string/channel_profile_cloud_gaming</item>
         <item>@string/channel_profile_communication_1v1</item>
     </string-array>
-    <string-array name="audio_route" >
+    <string-array name="audio_route">
         <item>@string/audio_route_speakerphone</item>
         <item>@string/audio_route_earpiece</item>
         <item>@string/audio_route_headset</item>
