@@ -97,12 +97,12 @@ class SingleSelectBottomSheetDialogFragment(
 
                 val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
                 bottomSheetBehavior.isFitToContents = false
-                val layoutParams: ViewGroup.LayoutParams = bottomSheet.getLayoutParams()
+                val layoutParams: ViewGroup.LayoutParams = bottomSheet.layoutParams
                 val windowHeight = getWindowHeight()
                 if (layoutParams != null) {
                     layoutParams.height = windowHeight
                 }
-                bottomSheet.setLayoutParams(layoutParams)
+                bottomSheet.layoutParams = layoutParams
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             } else {
                 /*// Hide the soft keyboard
@@ -163,7 +163,7 @@ class SingleSelectBottomSheetDialogFragment(
             filteredItems = ArrayList()
             if (query.isNotEmpty()) {
                 for (item in items) {
-                    if (item.title.toLowerCase(Locale.getDefault()).contains(query.toLowerCase(Locale.getDefault()))) {
+                    if (item.title.lowercase(Locale.getDefault()).contains(query.lowercase(Locale.getDefault()))) {
                         filteredItems.add(item)
                     }
                 }

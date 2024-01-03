@@ -29,7 +29,7 @@ open class BaseActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         mainViewModel.fetchUserData()
         mainViewModel.basicDetails.observe(this) {
             if (!it.isNullOrEmpty()) {

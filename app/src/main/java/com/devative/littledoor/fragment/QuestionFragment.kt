@@ -31,7 +31,7 @@ class QuestionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
 
         question = arguments?.get(ARG_QUESTION) as GetAllQuestions.Data
@@ -89,13 +89,6 @@ class QuestionFragment : Fragment() {
                 }
             }
         })
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        /* binding.submitButton.setOnClickListener {
-             (activity as? MCQActivity)?.onQuestionAnswered(question.id, selectedOptionIndex)
-         }*/
     }
 
     override fun onDestroyView() {

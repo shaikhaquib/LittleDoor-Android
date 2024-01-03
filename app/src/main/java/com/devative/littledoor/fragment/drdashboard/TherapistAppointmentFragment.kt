@@ -45,7 +45,7 @@ class TherapistAppointmentFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = TherapistAppointmentFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }

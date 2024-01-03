@@ -59,7 +59,7 @@ object FileUploader {
                 .build()
 
             val response = withContext(Dispatchers.IO) { client.newCall(request).execute() }
-            responseBody = response.body?.string() ?: ""
+            responseBody = response.body.string()
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {

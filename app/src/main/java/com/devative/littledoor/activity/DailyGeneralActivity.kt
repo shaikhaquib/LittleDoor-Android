@@ -142,7 +142,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -169,7 +169,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -196,7 +196,7 @@ class DailyGeneralActivity : BaseActivity(), DailyGeneralAdapter.DailyGeneralAda
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }

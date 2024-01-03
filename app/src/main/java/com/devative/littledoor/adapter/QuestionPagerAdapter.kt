@@ -17,7 +17,7 @@ class QuestionPagerAdapter(fragmentManager: FragmentManager, private val questio
         return questionList.size
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return "Question ${position + 1}"
     }
 }

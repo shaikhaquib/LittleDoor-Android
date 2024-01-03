@@ -1,7 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="RoundedCorners" parent="Widget.MaterialComponents.CardView">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/_14_dp</item>
-    </style>
-</resources>
+<resources></resources>

@@ -15,8 +15,8 @@ android {
         applicationId "com.devative.littledoor"
         minSdk 21
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 12
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -132,7 +132,7 @@ dependencies {
 
     //Agora
     def agora_sdk_version = "4.2.1"
-    implementation "io.agora.rtc:full-sdk:${agora_sdk_version}"
+    implementation "io.agora.rtc:full-rtc-basic:${agora_sdk_version}"
     implementation "com.karumi:dexter:6.2.3"
     implementation 'com.razorpay:checkout:1.6.33'
 }

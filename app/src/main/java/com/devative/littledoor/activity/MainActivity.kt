@@ -36,7 +36,7 @@ class MainActivity : BaseActivity() {
             Constants.isDoctor = true
             navController.setGraph(R.navigation.dr_nav_graph)
             binding.bottomNavigation.menu.clear()
-            binding.bottomNavigation.inflateMenu(R.menu.dr_bottom_navigation);
+            binding.bottomNavigation.inflateMenu(R.menu.dr_bottom_navigation)
         }else{
             Constants.isDoctor = false
         }

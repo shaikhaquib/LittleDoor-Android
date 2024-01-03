@@ -21,10 +21,10 @@ class CustomCalendarView @JvmOverloads constructor(
 
             if (selectedDate < currentDate) {
                 // Set the color for past dates
-                setDateTextAppearance(Color.GRAY)
+                dateTextAppearance = Color.GRAY
             } else {
                 // Set the color for future dates
-                setDateTextAppearance(Color.BLACK)
+                dateTextAppearance = Color.BLACK
             }
         }
     }

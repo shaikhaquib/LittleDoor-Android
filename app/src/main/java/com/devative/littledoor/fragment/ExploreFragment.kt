@@ -48,13 +48,9 @@ class ExploreFragment : Fragment(), ExplorerAdapter.ExplorerAdapterEvent {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ExploreFragmentBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
 

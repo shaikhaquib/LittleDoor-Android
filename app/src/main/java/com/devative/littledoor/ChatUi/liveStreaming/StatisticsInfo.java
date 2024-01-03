@@ -76,35 +76,34 @@ public class StatisticsInfo {
     public String getLastMileResult() {
         if(lastMileProbeResult == null)
             return null;
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Rtt: ")
-                .append(lastMileProbeResult.rtt)
-                .append("ms")
-                .append("\n")
-                .append("DownlinkAvailableBandwidth: ")
-                .append(lastMileProbeResult.downlinkReport.availableBandwidth)
-                .append("Kbps")
-                .append("\n")
-                .append("DownlinkJitter: ")
-                .append(lastMileProbeResult.downlinkReport.jitter)
-                .append("ms")
-                .append("\n")
-                .append("DownlinkLoss: ")
-                .append(lastMileProbeResult.downlinkReport.packetLossRate)
-                .append("%")
-                .append("\n")
-                .append("UplinkAvailableBandwidth: ")
-                .append(lastMileProbeResult.uplinkReport.availableBandwidth)
-                .append("Kbps")
-                .append("\n")
-                .append("UplinkJitter: ")
-                .append(lastMileProbeResult.uplinkReport.jitter)
-                .append("ms")
-                .append("\n")
-                .append("UplinkLoss: ")
-                .append(lastMileProbeResult.uplinkReport.packetLossRate)
-                .append("%");
-        return stringBuilder.toString();
+        String stringBuilder = "Rtt: " +
+                lastMileProbeResult.rtt +
+                "ms" +
+                "\n" +
+                "DownlinkAvailableBandwidth: " +
+                lastMileProbeResult.downlinkReport.availableBandwidth +
+                "Kbps" +
+                "\n" +
+                "DownlinkJitter: " +
+                lastMileProbeResult.downlinkReport.jitter +
+                "ms" +
+                "\n" +
+                "DownlinkLoss: " +
+                lastMileProbeResult.downlinkReport.packetLossRate +
+                "%" +
+                "\n" +
+                "UplinkAvailableBandwidth: " +
+                lastMileProbeResult.uplinkReport.availableBandwidth +
+                "Kbps" +
+                "\n" +
+                "UplinkJitter: " +
+                lastMileProbeResult.uplinkReport.jitter +
+                "ms" +
+                "\n" +
+                "UplinkLoss: " +
+                lastMileProbeResult.uplinkReport.packetLossRate +
+                "%";
+        return stringBuilder;
     }
 
     public void setLastMileProbeResult(LastmileProbeResult lastmileProbeResult) {

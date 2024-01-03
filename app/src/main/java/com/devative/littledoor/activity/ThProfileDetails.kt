@@ -38,7 +38,7 @@ class ThProfileDetails : BaseActivity() {
                 txtCategory.text = category_name
                 txtCity.text = city
                 txtYearEXP.text = "$total_year_of_experience"
-                toolbar.setTitle(name)
+                toolbar.title = name
                 txtSessionFee.text = "$doctor_session_charge"
 
 

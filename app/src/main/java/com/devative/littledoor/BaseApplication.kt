@@ -20,7 +20,7 @@ class BaseApplication : Application(){
         // Initialize App Check and install the debug provider.
         val firebaseAppCheck = FirebaseAppCheck.getInstance()
         firebaseAppCheck.installAppCheckProviderFactory(DebugAppCheckProviderFactory.getInstance())
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

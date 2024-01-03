@@ -12,6 +12,7 @@ import android.view.View.OnClickListener
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.core.view.isGone
+import com.devative.littledoor.R
 import com.devative.littledoor.activity.BaseActivity
 import com.devative.littledoor.adapter.FormAdapter
 import com.devative.littledoor.architecturalComponents.helper.Constants
@@ -51,11 +52,11 @@ class ActivityAddEducationForm : BaseActivity(), OnClickListener, FormAdapter.Fo
         vmDR.uploadResponse.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
                         finish()
@@ -65,11 +66,11 @@ class ActivityAddEducationForm : BaseActivity(), OnClickListener, FormAdapter.Fo
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -255,7 +256,7 @@ class ActivityAddEducationForm : BaseActivity(), OnClickListener, FormAdapter.Fo
             dataMap["education[$i][end_date]"] = list[i].end_date!!
             dataMap["education[$i][description]"] = list[i].description!!
         }
-        Logger.d("TAG", "uploadFormData: ${dataMap.toString()}")
+        Logger.d("TAG", "uploadFormData: $dataMap")
         vmDR.uploadData(
             this@ActivityAddEducationForm,
                 fileMap,
@@ -266,12 +267,12 @@ class ActivityAddEducationForm : BaseActivity(), OnClickListener, FormAdapter.Fo
 
     override fun onclick(position: Int, item: Any) {
         vm.deleteFormItem(position)
-        val data = item as ActivityAddEducationForm.EducationFormData
+        val data = item as EducationFormData
         setDataUI(data)
 
     }
 
-    private fun setDataUI(data: ActivityAddEducationForm.EducationFormData) {
+    private fun setDataUI(data: EducationFormData) {
         binding.apply {
             edtLevelOfEducation.setText(data.name)
             edtInstituteName.setText(data.institution_name)

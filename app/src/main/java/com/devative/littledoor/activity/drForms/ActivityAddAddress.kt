@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import com.devative.littledoor.R
 import com.devative.littledoor.activity.BaseActivity
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.helper.Status
@@ -79,11 +80,11 @@ class ActivityAddAddress : BaseActivity(), View.OnClickListener {
         mVm.getCities.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         cityStateList.addAll(it.data.data)
                     } else {
@@ -92,11 +93,11 @@ class ActivityAddAddress : BaseActivity(), View.OnClickListener {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -106,11 +107,11 @@ class ActivityAddAddress : BaseActivity(), View.OnClickListener {
         drVM.uploadResponse.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
                         finish()
@@ -120,11 +121,11 @@ class ActivityAddAddress : BaseActivity(), View.OnClickListener {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -248,7 +249,7 @@ class ActivityAddAddress : BaseActivity(), View.OnClickListener {
         dataMap["address[0][state_id]"] = selectedStateID.toString()
         dataMap["address[0][address_type]"] =binding.btnAddressType.text.toString()
 
-        Logger.d("TAG", "uploadFormData: ${dataMap.toString()}")
+        Logger.d("TAG", "uploadFormData: $dataMap")
         drVM.uploadData(
             this@ActivityAddAddress,
             fileMap,

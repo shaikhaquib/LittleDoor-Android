@@ -1,5 +1,6 @@
 package com.devative.littledoor.activity
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -23,9 +24,15 @@ import com.devative.littledoor.architecturalComponents.viewmodel.DrRegViewModel
 import com.devative.littledoor.databinding.ActivityDoctorRegistrationMasterBinding
 import com.devative.littledoor.model.DoctorDetailsResponse
 import com.devative.littledoor.model.DrRegistrationMasterModel
+import com.devative.littledoor.util.GeneralBottomSheetDialog
 import com.devative.littledoor.util.ListSpacingDecoration
 import com.devative.littledoor.util.Progress
 import com.devative.littledoor.util.Utility
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 
@@ -34,7 +41,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
     lateinit var binding: ActivityDoctorRegistrationMasterBinding
     val formMasterList = ArrayList<DrRegistrationMasterModel>()
     lateinit var adapter: DoctorFormMasterAdapter
-    private var doctorDetails:DoctorDetailsResponse?= null
+    private var doctorDetails: DoctorDetailsResponse? = null
     private val vm: DrRegViewModel by viewModels()
 
 
@@ -47,7 +54,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         }
         binding = ActivityDoctorRegistrationMasterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        adapter = DoctorFormMasterAdapter(this,formMasterList,doctorDetails,this)
+        adapter = DoctorFormMasterAdapter(this, formMasterList, doctorDetails, this)
         adapter.setHasStableIds(true)
         binding.rvFormMaster.adapter = adapter
         binding.rvFormMaster.addItemDecoration(ListSpacingDecoration())
@@ -63,9 +70,9 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         }
         adapter.notifyDataSetChanged()
         binding.btnFinish.setOnClickListener {
-            if (intent.hasExtra(Constants.TH_REGISTERED)){
+            if (intent.hasExtra(Constants.TH_REGISTERED)) {
                 finish()
-            }else  if (doctorDetails?.data?.form_status == 1) {
+            } else if (doctorDetails?.data?.form_status == 1) {
                 Utility.savePrefBoolean(applicationContext, Constants.IS_DR_Reg_Finish, true)
                 startActivity(
                     Intent(
@@ -74,13 +81,55 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
                     ).putExtra(Constants.IS_DOCTOR, true)
                 )
 
-            }else{
-                finish()
+            } else {
+                val dialog = GeneralBottomSheetDialog()
+                dialog.setTitle("Would you like to close application!")
+                dialog.setMessage("It seems that you haven't completed all the necessary details to proceed. Please ensure that all required information is provided to avoid application closure. If you close app still you can resume from where you left off next time.")
+                dialog.setPositiveButton("Close") {
+                    dialog.dismiss()
+                    finish()
+                }
+                dialog.setNegativeButton("Cancel") {
+                    dialog.dismiss()
+                }
+                dialog.show(supportFragmentManager,"close")
+
             }
         }
-       observe()
-        if (intent.hasExtra(Constants.TH_REGISTERED)){
+        observe()
+        if (intent.hasExtra(Constants.TH_REGISTERED)) {
             binding.btnFinish.text = "Back"
+        }
+
+        storagePermession()
+
+    }
+
+    private fun storagePermession() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            val permissionArray = arrayListOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            Dexter.withContext(this)
+                .withPermissions(
+                    permissionArray
+                )
+                .withListener(object : MultiplePermissionsListener {
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                        // Check if all permissions are granted
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(
+                        permissions: MutableList<PermissionRequest>?,
+                        token: PermissionToken?
+                    ) {
+                        // Show rationale for permission request if needed
+                        token?.continuePermissionRequest()
+                    }
+                })
+                .check()
+
         }
     }
 
@@ -88,40 +137,42 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         super.onResume()
         vm.getDoctorDetails()
     }
-    fun observe(){
+
+    fun observe() {
 
         vm.doctorDetailsData.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    if (progress?.isShowing() == false)
-                    progress?.show()
+                    if (progress.isShowing() == false)
+                        progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
-                        binding.txtName.text = "${getString(R.string.hello)} ${it.data.data.first_name}"
+                        binding.txtName.text =
+                            "${getString(R.string.hello)} ${it.data.data.first_name}"
                         doctorDetails = it.data
                         adapter.setBindFormData(doctorDetails)
-                        if (doctorDetails?.data?.form_status != 1){
+                        /*if (doctorDetails?.data?.form_status != 1){
                             binding.btnFinish.isEnabled = false
-                        }
-                      //  Toasty.success(applicationContext, it.data.message).show()
+                        }*/
+                        //  Toasty.success(applicationContext, it.data.message).show()
                     } else {
-                      //  Toasty.error(applicationContext, it.data!!.message).show()
+                        //  Toasty.error(applicationContext, it.data!!.message).show()
                     }
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
-/*
-                    it.message?.let { it1 ->
-                        Toasty.error(
-                            this,
-                            it1, Toasty.LENGTH_SHORT
-                        ).show()
-                    }
-*/
+                    progress.dismiss()
+                    /*
+                                        it.message?.let { it1 ->
+                                            Toasty.error(
+                                                this,
+                                                it1, Toasty.LENGTH_SHORT
+                                            ).show()
+                                        }
+                    */
                 }
 
             }
@@ -129,7 +180,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
         vm.uploadResponse.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
@@ -137,11 +188,11 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -157,34 +208,37 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
     }
 
     override fun onClickAdd(position: Int) {
-        when(position)
-        {
-            0 -> startActivityForEdit(-1,ActivityAddExperience::class.java)
-            1 -> startActivityForEdit(-1,ActivityAddEducationForm::class.java)
-            2 -> startActivityForEdit(-1,ActivityAddExpertise::class.java)
-            3 -> startActivityForEdit(-1,ActivityAddAddress::class.java)
-            4 -> startActivity(Intent(applicationContext,ActivityLanguageSelection::class.java))
-            5 -> startActivityForEdit(position,ActivityAddAppreciation::class.java)
-            6 -> startActivityForEdit(position,ActivityUploadOtherDocument::class.java)
+        when (position) {
+            0 -> startActivityForEdit(-1, ActivityAddExperience::class.java)
+            1 -> startActivityForEdit(-1, ActivityAddEducationForm::class.java)
+            2 -> startActivityForEdit(-1, ActivityAddExpertise::class.java)
+            3 -> startActivityForEdit(-1, ActivityAddAddress::class.java)
+            4 -> startActivity(Intent(applicationContext, ActivityLanguageSelection::class.java))
+            5 -> startActivityForEdit(position, ActivityAddAppreciation::class.java)
+            6 -> startActivityForEdit(position, ActivityUploadOtherDocument::class.java)
         }
     }
 
     override fun onEdit(type: Any, position: Int) {
-        when(type){
-            is DoctorDetailsResponse.Data.WorkExperience->{
-                startActivityForEdit(position,ActivityAddExperience::class.java)
+        when (type) {
+            is DoctorDetailsResponse.Data.WorkExperience -> {
+                startActivityForEdit(position, ActivityAddExperience::class.java)
             }
-            is DoctorDetailsResponse.Data.Education->{
-                startActivityForEdit(position,ActivityAddEducationForm::class.java)
+
+            is DoctorDetailsResponse.Data.Education -> {
+                startActivityForEdit(position, ActivityAddEducationForm::class.java)
             }
-            is DoctorDetailsResponse.Data.Addres->{
-                startActivityForEdit(position,ActivityAddAddress::class.java)
+
+            is DoctorDetailsResponse.Data.Addres -> {
+                startActivityForEdit(position, ActivityAddAddress::class.java)
             }
-            is DoctorDetailsResponse.Data.Appreciation->{
-                startActivityForEdit(position,ActivityAddAppreciation::class.java)
+
+            is DoctorDetailsResponse.Data.Appreciation -> {
+                startActivityForEdit(position, ActivityAddAppreciation::class.java)
             }
-            is DoctorDetailsResponse.Data.Other->{
-                startActivityForEdit(position,ActivityUploadOtherDocument::class.java)
+
+            is DoctorDetailsResponse.Data.Other -> {
+                startActivityForEdit(position, ActivityUploadOtherDocument::class.java)
             }
         }
     }
@@ -194,7 +248,7 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
             val fileMap = HashMap<String, Uri>()
             val dataMap = HashMap<String, String>()
             dataMap["step"] = "3"
-            for (i in list!!.indices) {
+            for (i in list.indices) {
                 dataMap["skills[$i]"] = list[i]
             }
             vm.uploadData(
@@ -202,17 +256,21 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
                 fileMap,
                 dataMap
             )
-        }else{
-            Toasty.info(this,"Please add additional skill/expertise before eliminating everything!").show()
+        } else {
+            Toasty.info(
+                this,
+                "Please add additional skill/expertise before eliminating everything!"
+            ).show()
             binding.rvFormMaster.adapter?.notifyDataSetChanged()
         }
     }
+
     override fun onLangRemove(list: ArrayList<String>) {
         if (list.isNotEmpty()) {
             val fileMap = HashMap<String, Uri>()
             val dataMap = HashMap<String, String>()
             dataMap["step"] = "5"
-            for (i in list!!.indices) {
+            for (i in list.indices) {
                 dataMap["languages[i]"] = list[i]
             }
             vm.uploadData(
@@ -220,8 +278,9 @@ class DoctorRegistrationMaster : BaseActivity(), DoctorFormMasterAdapter.FormMas
                 fileMap,
                 dataMap
             )
-        }else{
-            Toasty.info(this,"Please add additional language before eliminating everything!").show()
+        } else {
+            Toasty.info(this, "Please add additional language before eliminating everything!")
+                .show()
             binding.rvFormMaster.adapter?.notifyDataSetChanged()
         }
     }

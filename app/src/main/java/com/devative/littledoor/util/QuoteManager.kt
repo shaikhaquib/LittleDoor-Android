@@ -42,7 +42,7 @@ class QuoteManager(
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body?.string()
+                val responseBody = response.body.string()
                 val quote = parseQuoteOfTheDay(responseBody)
                 activity.runOnUiThread{
                     txtQuoteAuthor.text = "-- ${quote?.author}"

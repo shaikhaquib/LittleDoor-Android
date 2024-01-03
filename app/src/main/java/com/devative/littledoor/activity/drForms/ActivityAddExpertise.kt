@@ -53,7 +53,7 @@ class ActivityAddExpertise : BaseActivity() {
                 val fileMap = HashMap<String, Uri>()
                 val dataMap = HashMap<String, String>()
                 dataMap["step"] = "3"
-                for (i in itemList!!.indices) {
+                for (i in itemList.indices) {
                     dataMap["skills[$i]"] = itemList[i]
                 }
                 vmDR.uploadData(
@@ -81,11 +81,11 @@ class ActivityAddExpertise : BaseActivity() {
         vmDR.skillData.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.data?.data?.let { skills ->
                         val autoCompleteList = ArrayList<String>()
                         for (skill in skills) {
@@ -109,11 +109,11 @@ class ActivityAddExpertise : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -124,11 +124,11 @@ class ActivityAddExpertise : BaseActivity() {
         vmDR.uploadResponse.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
                         finish()
@@ -139,11 +139,11 @@ class ActivityAddExpertise : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }

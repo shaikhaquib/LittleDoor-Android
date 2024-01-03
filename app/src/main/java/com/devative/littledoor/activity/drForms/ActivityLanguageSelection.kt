@@ -210,11 +210,11 @@ class ActivityLanguageSelection : BaseActivity() {
         drVM.uploadResponse.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
                         finish()
@@ -224,11 +224,11 @@ class ActivityLanguageSelection : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }

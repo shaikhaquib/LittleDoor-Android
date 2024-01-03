@@ -44,7 +44,7 @@ class SettingsFragment : Fragment(), OnClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = SettingsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -91,6 +91,7 @@ class SettingsFragment : Fragment(), OnClickListener {
         binding.txtTHNotification.setOnClickListener(this)
         binding.txtTransaction.setOnClickListener(this)
         binding.termsConditions.setOnClickListener(this)
+        binding.privacyPolicy.setOnClickListener(this)
         binding.txtSessionDetails.setOnClickListener(this)
         binding.txtYourInformation.setOnClickListener(this)
         binding.txtBankDetails.setOnClickListener(this)
@@ -146,6 +147,12 @@ class SettingsFragment : Fragment(), OnClickListener {
                     requireContext(),
                     TermsAndCondition::class.java
                 )
+            )
+            binding.privacyPolicy.id -> startActivity(
+                Intent(
+                    requireContext(),
+                    TermsAndCondition::class.java
+                ).putExtra("privacyPolicy",true)
             )
             binding.aboutUs.id -> startActivity(
                 Intent(

@@ -40,7 +40,7 @@ class OTPVerificationActivity : BaseActivity() {
         timer()
         viewModel = MainViewModel.getViewModel(this)
         binding.btnNext.setOnClickListener {
-            if (binding.pinview.value.isEmpty() || binding.pinview.value.length < 6) {
+            if (binding.pinview.value.isEmpty()) {
                 Toasty.error(applicationContext, "Please enter OTP").show()
             } else {
                 intent.getStringExtra(Constants.PHONE_NO)
@@ -60,11 +60,11 @@ class OTPVerificationActivity : BaseActivity() {
         viewModel.verifyOtp.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
                         Utility.savePrefString(
@@ -84,11 +84,11 @@ class OTPVerificationActivity : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -98,13 +98,13 @@ class OTPVerificationActivity : BaseActivity() {
         viewModel.userDetails.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
-                        it.data?.let { data ->
+                        it.data.let { data ->
                             // Toasty.success(applicationContext, it.data.message).show()
                             if (isDoctor || data.data.doctor_id != null) {
                                 if (it.data.data.status == 1){
@@ -123,12 +123,12 @@ class OTPVerificationActivity : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
 /*
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
 */
                     }
@@ -139,11 +139,11 @@ class OTPVerificationActivity : BaseActivity() {
         drRegViewModel.verifyOtpTher.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
                         Utility.savePrefString(
@@ -158,11 +158,11 @@ class OTPVerificationActivity : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -172,16 +172,16 @@ class OTPVerificationActivity : BaseActivity() {
         viewModel.OTPSend.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
-                        if (it.data?.otp != null) {
+                        if (it.data.otp != null) {
                             Utility.showNotification(
                                 applicationContext,
-                                "Use this OTP to Login:${it.data?.otp}",
+                                "Use this OTP to Login:${it.data.otp}",
                                 "Login Auth"
                             )
                             it.message?.let { it1 ->
@@ -202,11 +202,11 @@ class OTPVerificationActivity : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }

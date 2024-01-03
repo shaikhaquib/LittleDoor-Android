@@ -48,18 +48,18 @@ class SignUpActivity : BaseActivity(),View.OnClickListener {
         viewModel.OTPSend.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
-                        if (it.data?.otp != null) {
-                            Utility.showNotification(
+                        if (it.data != null) {
+                         /*   Utility.showNotification(
                                 applicationContext,
                                 "Use this OTP to Login:${it.data?.otp}",
                                 "Login Auth"
-                            )
+                            )*/
                             it.message?.let { it1 ->
                                 Toasty.success(
                                     this,
@@ -84,11 +84,11 @@ class SignUpActivity : BaseActivity(),View.OnClickListener {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }

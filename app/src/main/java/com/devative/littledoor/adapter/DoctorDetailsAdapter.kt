@@ -70,9 +70,9 @@ class DoctorDetailsAdapter(
 
         private fun appreciation() {
             binding.icForm.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.appreciation))
-            formData?.let {
+            formData.let {
                 if (!it.appreciation.isNullOrEmpty()) {
-                    
+
                     binding.rvFormData.visibility = View.VISIBLE
                     binding.rvFormData.adapter =
                         FormAdapter(context, it.appreciation as ArrayList<Any>, object :
@@ -92,7 +92,7 @@ class DoctorDetailsAdapter(
 
         private fun language() {
             binding.icForm.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.lang))
-            formData?.apply {
+            formData.apply {
                 val chipList = ArrayList<String>()
                 binding.chipGroup.removeAllViews()
                 if (!languages.isNullOrEmpty()) {
@@ -146,29 +146,29 @@ class DoctorDetailsAdapter(
 
         private fun expertise() {
             binding.icForm.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.experties))
-            formData?.apply {
+            formData.apply {
                 val chipList = ArrayList<String>()
                 binding.chipGroup.removeAllViews()
                 if (!skills.isNullOrEmpty())
-                for (chip in skills) {
-                    chipList.add(chip.skill_name)
-                    binding.chipGroup.addView(
-                        Chip(context).apply {
-                            text = chip.skill_name
-                            setBackgroundColor(ContextCompat.getColor(context, R.color.chipback))
-                            isCloseIconVisible = false
-                            setTextColor(ContextCompat.getColor(context, R.color.black))
-                            setTextAppearance(R.style.TextTitleNormal_12sp)
-                            chipCornerRadius = 15f
-                            setPadding(24)
-                            setOnCloseIconClickListener {
-                                binding.chipGroup.removeView(this)
-                                chipList.remove(text)
-                                event.onExpertiseRemove(chipList)
+                    for (chip in skills) {
+                        chipList.add(chip.skill_name)
+                        binding.chipGroup.addView(
+                            Chip(context).apply {
+                                text = chip.skill_name
+                                setBackgroundColor(ContextCompat.getColor(context, R.color.chipback))
+                                isCloseIconVisible = false
+                                setTextColor(ContextCompat.getColor(context, R.color.black))
+                                setTextAppearance(R.style.TextTitleNormal_12sp)
+                                chipCornerRadius = 15f
+                                setPadding(24)
+                                setOnCloseIconClickListener {
+                                    binding.chipGroup.removeView(this)
+                                    chipList.remove(text)
+                                    event.onExpertiseRemove(chipList)
+                                }
                             }
-                        }
-                    )
-                }
+                        )
+                    }
                 binding.chipGroup.isVisible = chipList.isNotEmpty()
             }
         }

@@ -17,15 +17,32 @@
         app:title="@string/terms_of_service"
         app:titleTextAppearance="@style/AppToolbar" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        style="@style/TextTitleNormal_14sp"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:id="@+id/scrollView4"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/_16_dp"
-        android:text="@string/terms_of"
-        android:textColor="@color/dark_gray"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtData"
+            style="@style/TextTitleNormal_14sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16_dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/terms_of"
+            android:textColor="@color/dark_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    </ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

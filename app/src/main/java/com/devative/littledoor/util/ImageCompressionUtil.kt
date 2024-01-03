@@ -57,7 +57,7 @@ object URIl {
         return inSampleSize
     }
 
-    private fun saveCompressedImage(context: Context, compressedImageBytes: ByteArray): Uri? {
+    private fun saveCompressedImage(context: Context, compressedImageBytes: ByteArray): Uri {
         val outputStream = context.contentResolver.openOutputStream(createTempImageUri(context))
         outputStream?.write(compressedImageBytes)
         outputStream?.close()

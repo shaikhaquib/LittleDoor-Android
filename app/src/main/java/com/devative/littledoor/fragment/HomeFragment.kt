@@ -15,6 +15,7 @@ import com.devative.littledoor.R
 import com.devative.littledoor.activity.DailyGeneralActivity
 import com.devative.littledoor.activity.MainActivity
 import com.devative.littledoor.activity.UpdateProfile
+import com.devative.littledoor.activity.UserNotificationActivity
 import com.devative.littledoor.adapter.EmoteAdapter
 import com.devative.littledoor.adapter.SliderAdapter
 import com.devative.littledoor.architecturalComponents.helper.Constants
@@ -65,7 +66,7 @@ class HomeFragment  : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -83,6 +84,9 @@ class HomeFragment  : Fragment() {
         }
         binding.imgProfile.setOnClickListener {
             startActivity(Intent(requireContext(),UpdateProfile::class.java))
+        }
+        binding.imageView4.setOnClickListener {
+            startActivity(Intent(requireContext(), UserNotificationActivity::class.java))
         }
         binding.layoutJournal.setOnClickListener {
             startActivity(Intent(requireContext(),DailyGeneralActivity::class.java))
@@ -141,7 +145,7 @@ class HomeFragment  : Fragment() {
         dailyJournalVM.postJournal.observe(requireActivity()) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
@@ -152,7 +156,7 @@ class HomeFragment  : Fragment() {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             requireContext(),

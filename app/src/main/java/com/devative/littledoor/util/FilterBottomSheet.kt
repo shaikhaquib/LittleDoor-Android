@@ -40,10 +40,10 @@ class FilterBottomSheet(
 
     companion object {
         const val TAG = "SelectPocketBottomSheetFragment"
-        var FILTER_CITY:String? = null
-        var FILTER_CATEGORY:String? = null
-        var FILTER_CATEGORY_ID:String? = null
-        var FILTER_SUB_CATEGORY:String? = null
+        var FILTER_CITY: String? = null
+        var FILTER_CATEGORY: String? = null
+        var FILTER_CATEGORY_ID: String? = null
+        var FILTER_SUB_CATEGORY: String? = null
     }
 
     override fun onCreateView(
@@ -64,12 +64,12 @@ class FilterBottomSheet(
         binding.ivBottomSheetClose.setOnClickListener(this)
         binding.btnSubmit.setOnClickListener(this)
 
-        FILTER_CITY?.let {  binding.editTextCities.setText(it) }
+        FILTER_CITY?.let { binding.editTextCities.setText(it) }
         FILTER_CATEGORY?.let {
             binding.editTextCategory.setText(it)
-            vm.getSubCategory(FILTER_CATEGORY_ID?:"0")
+            vm.getSubCategory(FILTER_CATEGORY_ID ?: "0")
         }
-        FILTER_SUB_CATEGORY?.let {  binding.editTextSubCategory.setText(it) }
+        FILTER_SUB_CATEGORY?.let { binding.editTextSubCategory.setText(it) }
     }
 
     private fun observe() {
@@ -190,10 +190,11 @@ class FilterBottomSheet(
                     "SingleSelectBottomSheetDialogFragment"
                 )
             }
+
             binding.editTextSubCategory.id -> {
-                if(FILTER_CATEGORY_ID == null){
-                    Utility.errorToast(requireContext(),"Please Select Category")
-                }else{
+                if (FILTER_CATEGORY_ID == null) {
+                    Utility.errorToast(requireContext(), "Please Select Category")
+                } else {
                     val items = ArrayList<SearchAbleList>()
                     for (i in subCategoryList) {
                         items.add(SearchAbleList(i.id, i.name))
@@ -216,10 +217,12 @@ class FilterBottomSheet(
                     )
                 }
             }
-            binding.ivBottomSheetClose.id->{
+
+            binding.ivBottomSheetClose.id -> {
                 clearFilter()
             }
-            binding.btnSubmit.id->{
+
+            binding.btnSubmit.id -> {
                 dismiss()
                 event?.onDismiss()
             }

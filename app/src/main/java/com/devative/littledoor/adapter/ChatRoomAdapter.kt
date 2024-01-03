@@ -61,8 +61,8 @@ class ChatRoomAdapter(
                 val name = if (isDoctor) {
                     item.patient_name
                 } else item.doctor_name
-                if (name.toLowerCase(Locale.getDefault()).contains(
-                        query.toLowerCase(
+                if (name.lowercase(Locale.getDefault()).contains(
+                        query.lowercase(
                             Locale.getDefault()
                         )
                     )

@@ -208,7 +208,7 @@ class LiveStreaming : AppCompatActivity(), View.OnClickListener {
                 Constants.CHANNEL_PROFILE_LIVE_BROADCASTING
             rtcEngineConfig.mAudioScenario =
                 Constants.AudioScenario.getValue(Constants.AudioScenario.DEFAULT)
-            rtcEngineConfig.mAreaCode = getGlobalSettings().getAreaCode()
+            rtcEngineConfig.mAreaCode = getGlobalSettings().areaCode
             engine = RtcEngine.create(rtcEngineConfig)/*
              * This parameter is for reporting the usages of APIExample to agora background.
              * Generally, it is not necessary for you to set this parameter.
@@ -217,7 +217,7 @@ class LiveStreaming : AppCompatActivity(), View.OnClickListener {
                 "{" + "\"rtc.report_app_scenario\":" + "{" + "\"appScenario\":" + 100 + "," + "\"serviceType\":" + 11 + "," + "\"appVersion\":\"" + RtcEngine.getSdkVersion() + "\"" + "}" + "}"
             )/* setting the local access point if the private cloud ip was set, otherwise the config will be invalid.*/
             engine?.setLocalAccessPoint(
-                getGlobalSettings().getPrivateCloudConfig()
+                getGlobalSettings().privateCloudConfig
             )
             engine?.setVideoEncoderConfiguration(videoEncoderConfiguration)
             engine?.enableDualStreamMode(true)
@@ -340,7 +340,7 @@ class LiveStreaming : AppCompatActivity(), View.OnClickListener {
         // Setup local video to render your local camera preview
         engine!!.setupLocalVideo(VideoCanvas(surfaceView, VideoCanvas.RENDER_MODE_HIDDEN, 0))
         // Set audio route to microPhone
-        engine!!.setDefaultAudioRoutetoSpeakerphone(false)
+        engine!!.setDefaultAudioRoutetoSpeakerphone(true)
         engine!!.startPreview()
         // Set audio route to microPhone
         engine!!.setDefaultAudioRoutetoSpeakerphone(true)
@@ -358,13 +358,13 @@ class LiveStreaming : AppCompatActivity(), View.OnClickListener {
         // Setup video encoding configs
         engine!!.setVideoEncoderConfiguration(
             VideoEncoderConfiguration(
-                getGlobalSettings().getVideoEncodingDimensionObject(),
+                getGlobalSettings().videoEncodingDimensionObject,
                 VideoEncoderConfiguration.FRAME_RATE.valueOf(
-                    getGlobalSettings().getVideoEncodingFrameRate()
+                    getGlobalSettings().videoEncodingFrameRate
                 ),
                 VideoEncoderConfiguration.STANDARD_BITRATE,
                 VideoEncoderConfiguration.ORIENTATION_MODE.valueOf(
-                    getGlobalSettings().getVideoEncodingOrientation()
+                    getGlobalSettings().videoEncodingOrientation
                 )
             )
         )
@@ -463,8 +463,8 @@ class LiveStreaming : AppCompatActivity(), View.OnClickListener {
 
     private fun takeSnapshot(uid: Int) {
         if (uid != 0) {
-            val filePath: String = this.getExternalCacheDir()
-                ?.getAbsolutePath() + File.separator + "livestreaming_snapshot.png"
+            val filePath: String = this.externalCacheDir
+                ?.absolutePath + File.separator + "livestreaming_snapshot.png"
             val ret = engine!!.takeSnapshot(uid, filePath)
             if (ret != Constants.ERR_OK) {
 
@@ -757,43 +757,29 @@ class LiveStreaming : AppCompatActivity(), View.OnClickListener {
             runOnUiThread {
                 val videoTrackingLayout: FragmentLiveStreamingVideoTrackingBinding =
                     mRootBinding.videoTrackingLayout
-                videoTrackingLayout.getRoot().setVisibility(View.VISIBLE)
-                videoTrackingLayout.tvUid.setText(uid.toString())
-                videoTrackingLayout.tvEvent.setText(currentEvent.value.toString())
-                videoTrackingLayout.tvElapsedTime.setText(
-                    String.format(
-                        Locale.US, "%d ms", tracingInfo.elapsedTime
-                    )
+                videoTrackingLayout.root.visibility = View.VISIBLE
+                videoTrackingLayout.tvUid.text = uid.toString()
+                videoTrackingLayout.tvEvent.text = currentEvent.value.toString()
+                videoTrackingLayout.tvElapsedTime.text = String.format(
+                    Locale.US, "%d ms", tracingInfo.elapsedTime
                 )
-                videoTrackingLayout.tvStart2JoinChannel.setText(
-                    String.format(
-                        Locale.US, "%d ms", tracingInfo.start2JoinChannel
-                    )
+                videoTrackingLayout.tvStart2JoinChannel.text = String.format(
+                    Locale.US, "%d ms", tracingInfo.start2JoinChannel
                 )
-                videoTrackingLayout.tvJoin2JoinSuccess.setText(
-                    String.format(
-                        Locale.US, "%d ms", tracingInfo.join2JoinSuccess
-                    )
+                videoTrackingLayout.tvJoin2JoinSuccess.text = String.format(
+                    Locale.US, "%d ms", tracingInfo.join2JoinSuccess
                 )
-                videoTrackingLayout.tvJoinSuccess2RemoteJoined.setText(
-                    String.format(
-                        Locale.US, "%d ms", tracingInfo.joinSuccess2RemoteJoined
-                    )
+                videoTrackingLayout.tvJoinSuccess2RemoteJoined.text = String.format(
+                    Locale.US, "%d ms", tracingInfo.joinSuccess2RemoteJoined
                 )
-                videoTrackingLayout.tvRemoteJoined2SetView.setText(
-                    String.format(
-                        Locale.US, "%d ms", tracingInfo.remoteJoined2SetView
-                    )
+                videoTrackingLayout.tvRemoteJoined2SetView.text = String.format(
+                    Locale.US, "%d ms", tracingInfo.remoteJoined2SetView
                 )
-                videoTrackingLayout.tvRemoteJoined2UnmuteVideo.setText(
-                    String.format(
-                        Locale.US, "%d ms", tracingInfo.remoteJoined2UnmuteVideo
-                    )
+                videoTrackingLayout.tvRemoteJoined2UnmuteVideo.text = String.format(
+                    Locale.US, "%d ms", tracingInfo.remoteJoined2UnmuteVideo
                 )
-                videoTrackingLayout.tvRemoteJoined2PacketReceived.setText(
-                    String.format(
-                        Locale.US, "%d ms", tracingInfo.remoteJoined2PacketReceived
-                    )
+                videoTrackingLayout.tvRemoteJoined2PacketReceived.text = String.format(
+                    Locale.US, "%d ms", tracingInfo.remoteJoined2PacketReceived
                 )
             }
         }

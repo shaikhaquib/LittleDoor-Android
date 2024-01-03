@@ -34,7 +34,7 @@ class GeneralBottomSheetDialog : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = GeneralBottomSheetDialogBinding.inflate(inflater, container, false)
 
         binding.dialogTitle.text = title

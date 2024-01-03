@@ -93,11 +93,11 @@ class ActivityUploadOtherDocument : BaseActivity(),OnClickListener,FormAdapter.F
         vmDR.uploadResponse.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
                         finish()
@@ -107,11 +107,11 @@ class ActivityUploadOtherDocument : BaseActivity(),OnClickListener,FormAdapter.F
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -198,7 +198,7 @@ class ActivityUploadOtherDocument : BaseActivity(),OnClickListener,FormAdapter.F
             dataMap["other[$i][name]"] = list[i].name!!
 
         }
-        Logger.d("TAG", "uploadFormData: ${dataMap.toString()}")
+        Logger.d("TAG", "uploadFormData: $dataMap")
         vmDR.uploadData(
             this@ActivityUploadOtherDocument,
             fileMap,

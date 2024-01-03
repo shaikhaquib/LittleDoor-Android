@@ -53,7 +53,7 @@ class CalendarBottomSheetDialogFragment(private var dateSelectionListener: DateS
         calendarView = view.findViewById(R.id.calendarView)
         btnOkay = view.findViewById(R.id.btnOkay)
         val calendar = Calendar.getInstance()
-        btnOkay.setText("Select (${calendar[Calendar.DAY_OF_MONTH]}/${calendar[Calendar.MONTH] + 1}/${calendar[Calendar.YEAR]})")
+        btnOkay.text = "Select (${calendar[Calendar.DAY_OF_MONTH]}/${calendar[Calendar.MONTH] + 1}/${calendar[Calendar.YEAR]})"
         day = calendar[Calendar.DAY_OF_MONTH]
         month = calendar[Calendar.MONTH]
         year = calendar[Calendar.YEAR]
@@ -61,12 +61,12 @@ class CalendarBottomSheetDialogFragment(private var dateSelectionListener: DateS
             this.day = dayOfMonth
             this.year = year
             this.month = month
-            dateSelectionListener?.onDateChange(dayOfMonth, month, year)
-            btnOkay.setText("Select ($day/${month + 1}/$year)")
+            dateSelectionListener.onDateChange(dayOfMonth, month, year)
+            btnOkay.text = "Select ($day/${month + 1}/$year)"
         }
 
         btnOkay.setOnClickListener {
-            dateSelectionListener?.onDateSelected(day, month, year)
+            dateSelectionListener.onDateSelected(day, month, year)
             dismiss()
         }
     }

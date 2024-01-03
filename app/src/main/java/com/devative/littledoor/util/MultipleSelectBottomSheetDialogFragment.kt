@@ -178,8 +178,8 @@ class MultipleSelectBottomSheetDialogFragment(
             filteredItems = ArrayList()
             if (query.isNotEmpty()) {
                 for (item in items) {
-                    if (item.title.toLowerCase(Locale.getDefault())
-                            .contains(query.toLowerCase(Locale.getDefault()))
+                    if (item.title.lowercase(Locale.getDefault())
+                            .contains(query.lowercase(Locale.getDefault()))
                     ) {
                         filteredItems.add(item)
                     }

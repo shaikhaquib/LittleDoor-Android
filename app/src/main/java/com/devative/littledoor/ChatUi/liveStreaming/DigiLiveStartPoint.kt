@@ -17,7 +17,7 @@ import es.dmoral.toasty.Toasty
 
 
 class DigiLiveStartPoint : AppCompatActivity() {
-    private val TAG: String = DigiLiveStartPoint::class.java.getSimpleName()
+    private val TAG: String = DigiLiveStartPoint::class.java.simpleName
     private lateinit var binding: ActivityDigiLiveStartPointBinding
     private var tips: AppCompatTextView? = null
     private val exampleBean: ExampleBean =

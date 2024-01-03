@@ -94,8 +94,8 @@ class MessageAdapter(private val activity: ChatActivity,private val currentUserI
                     .into(binding.imgPost)
             }
 
-            val singleTick = binding.tvDateTime.context.getDrawable(R.drawable.single_tick);
-            val doubleTick = binding.tvDateTime.context.getDrawable(R.drawable.double_tick);
+            val singleTick = binding.tvDateTime.context.getDrawable(R.drawable.single_tick)
+            val doubleTick = binding.tvDateTime.context.getDrawable(R.drawable.double_tick)
 
 
             if (message.read) {

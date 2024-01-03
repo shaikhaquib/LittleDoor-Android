@@ -78,7 +78,7 @@ class FormAdapter (
         private fun appreciationList(position: Int) {
             removeCardElevation()
             val formData = list[position] as DoctorDetailsResponse.Data.Appreciation
-            setData(formData.name!!,formData.category_achieved!!,"${formData.description}, Issued on: ${formData.issue_date}")
+            setData(formData.name, formData.category_achieved,"${formData.description}, Issued on: ${formData.issue_date}")
         }
 
         private fun appreciationForm(position: Int) {

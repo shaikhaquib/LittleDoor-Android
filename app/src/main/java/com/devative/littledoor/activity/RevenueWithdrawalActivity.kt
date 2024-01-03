@@ -28,16 +28,16 @@ class RevenueWithdrawalActivity : BaseActivity() {
 
         binding.numericKeyboard.setOnTypeListener(object : NumericKeyboardView.OnTypeListener {
             override fun onType(text: String) {
-                val currentText = binding.edtAmount.text.toString() ?: ""
+                val currentText = binding.edtAmount.text.toString()
                 val newText = currentText + text
-                binding.edtAmount.setText(newText)
+                binding.edtAmount.text = newText
             }
 
             override fun onBackSpace() {
                 val currentText = binding.edtAmount.text.toString()
                 if (currentText.isNotEmpty()) {
                     val newText = currentText.substring(0, currentText.length - 1)
-                    binding.edtAmount.setText(newText)
+                    binding.edtAmount.text = newText
                 }
             }
         })
@@ -90,11 +90,11 @@ class RevenueWithdrawalActivity : BaseActivity() {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }

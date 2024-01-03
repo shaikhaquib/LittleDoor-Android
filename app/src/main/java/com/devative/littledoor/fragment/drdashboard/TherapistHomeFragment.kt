@@ -18,6 +18,7 @@ import com.devative.littledoor.R
 import com.devative.littledoor.activity.MainActivity
 import com.devative.littledoor.activity.RevenueActivity
 import com.devative.littledoor.activity.THAddSessionDetailsActivity
+import com.devative.littledoor.activity.UserNotificationActivity
 import com.devative.littledoor.adapter.AppointmentAdapter
 import com.devative.littledoor.adapter.SliderAdapter
 import com.devative.littledoor.architecturalComponents.helper.Constants
@@ -81,7 +82,7 @@ class TherapistHomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = TherapistHomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -96,6 +97,11 @@ class TherapistHomeFragment : Fragment() {
                 updateUI()
             }
         }
+
+        binding.imageView4.setOnClickListener {
+            startActivity(Intent(requireContext(), UserNotificationActivity::class.java))
+        }
+
 
         setUpList()
     }
@@ -222,7 +228,7 @@ class TherapistHomeFragment : Fragment() {
                 Status.SUCCESS -> {
                     progress.dismiss()
                     if (it.data?.status == true) {
-                        binding.txtPatientCount.text = it.data.data?.size.toString() ?: "0"
+                        binding.txtPatientCount.text = it.data.data.size.toString()
                     }
                 }
 

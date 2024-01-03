@@ -10,6 +10,7 @@ import com.devative.littledoor.architecturalComponents.helper.Constants.isDoctor
 import com.devative.littledoor.architecturalComponents.helper.Constants.load
 import com.devative.littledoor.databinding.ItemUserTransactionBinding
 import com.devative.littledoor.model.DoctorTransactionRes
+import java.util.Locale
 
 class UserTransactionListAdapter(
     private val context: Context,
@@ -31,7 +32,7 @@ class UserTransactionListAdapter(
                 binding.circleImageView.load(item.doctor_image,R.drawable.therapist_default_icon)
                 binding.txtName.text = item.doctor_name
             }
-            if (item.status.toLowerCase() == "success") {
+            if (item.status.lowercase(Locale.getDefault()) == "success") {
                 binding.imgStatus.setImageResource(R.drawable.green_success_tick)
             } else {
                 binding.imgStatus.setImageResource(R.drawable.failed)

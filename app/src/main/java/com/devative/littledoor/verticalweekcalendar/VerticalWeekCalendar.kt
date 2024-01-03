@@ -106,14 +106,12 @@ class VerticalWeekCalendar : LinearLayoutCompat, ResProvider {
 
     private fun setupRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.setLayoutManager(
-            LinearLayoutManager(
-                getContext(),
-                RecyclerView.VERTICAL,
-                false
-            )
+        recyclerView.layoutManager = LinearLayoutManager(
+            getContext(),
+            RecyclerView.VERTICAL,
+            false
         )
-        recyclerView.setAdapter(getAdapter())
+        recyclerView.adapter = getAdapter()
         recyclerView.scrollToPosition(15)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             private var mLastFirstVisibleItem = 0

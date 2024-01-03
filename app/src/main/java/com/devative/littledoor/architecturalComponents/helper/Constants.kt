@@ -34,7 +34,7 @@ object Constants {
     var isDoctor = false
 
     fun ImageView.load(url: String,placeholder: Int = R.color.primary) {
-        Glide.with(context.getApplicationContext())
+        Glide.with(context.applicationContext)
             .load(url)
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .thumbnail(0.3f)
@@ -142,7 +142,7 @@ object Constants {
             type = "text/plain"
         }
         val shareIntent = Intent.createChooser(sendIntent, null)
-        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(shareIntent)
     }
 

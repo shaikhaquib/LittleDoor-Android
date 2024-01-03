@@ -93,7 +93,7 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
         itemIDList.clear()
         itemList.clear()
         val subCategoryArray = getCommaSeparatedNames(editData.sub_category).split(",")
-        for (subCatID in subCategoryArray!!) {
+        for (subCatID in subCategoryArray) {
             subCategoryList.clear()
             itemIDList.add(subCatID)
         }
@@ -113,12 +113,12 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
         vm.categoryData.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    if (progress?.isShowing() == false)
-                        progress?.show()
+                    if (progress.isShowing() == false)
+                        progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         categoryList.clear()
                         categoryList.addAll(it.data.data)
@@ -135,11 +135,11 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -149,11 +149,11 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
         vmDR.uploadResponse.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
                         finish()
@@ -163,11 +163,11 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -177,12 +177,12 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
         vm.subCategoryData.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    if (progress?.isShowing() == false)
-                        progress?.show()
+                    if (progress.isShowing() == false)
+                        progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         subCategoryList.clear()
                         subCategoryList.addAll(it.data.data)
@@ -200,11 +200,11 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -320,7 +320,7 @@ class ActivityAddExperience : BaseActivity(), View.OnClickListener,FormAdapter.F
         }
     }
     private fun uploadFormData() {
-        progress?.show()
+        progress.show()
         val list = vm.formData.value
         if(list ==  null){
             Toasty.error(this,"No data found").show()

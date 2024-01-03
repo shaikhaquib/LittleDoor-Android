@@ -53,7 +53,7 @@ object Utility {
         notificationManager.notify(notificationId, builder.build())
     }
 
-    public fun savePrefString(context: Context,key : String,value : String){
+    fun savePrefString(context: Context,key : String,value : String){
         val sharedPreferences: SharedPreferences = context.getSharedPreferences("USER",Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor =  sharedPreferences.edit()
         editor.putString(key,value)
@@ -76,7 +76,7 @@ object Utility {
 
     fun getPrefBoolean(context: Context,key : String) : Boolean {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences("USER",Context.MODE_PRIVATE)
-        val value : Boolean = sharedPreferences.getBoolean(key,false);
+        val value : Boolean = sharedPreferences.getBoolean(key,false)
         return value
     }
     fun clearPreference(context: Context) {
@@ -86,9 +86,13 @@ object Utility {
         editor.apply()
     }
 
-    fun errorToast(applicationContext: Context,message: String){
-        if(!message.contains("End of input"))
-        Toasty.error(applicationContext,message).show()
+    @SuppressLint("SuspiciousIndentation")
+    fun errorToast(applicationContext: Context, message: String){
+        if(!message.contains("End of input",true)) {
+            Toasty.error(applicationContext,message).show()
+        } else {
+            Toasty.error(applicationContext,applicationContext.getString(R.string.some_thing_went_wrong)).show()
+        }
     }
     fun successToast(applicationContext: Context,message: String){
         Toasty.success(applicationContext,message).show()

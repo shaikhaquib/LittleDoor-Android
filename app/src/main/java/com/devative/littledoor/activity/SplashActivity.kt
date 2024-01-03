@@ -2,23 +2,18 @@ package com.devative.littledoor.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.hardware.SensorPrivacyManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.RemoteException
 import android.view.Window
 import android.view.WindowManager
-import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.devative.littledoor.R
 import com.devative.littledoor.architecturalComponents.helper.Constants
 import com.devative.littledoor.architecturalComponents.viewmodel.MainViewModel
-import com.devative.littledoor.model.DrRegistrationMasterModel
 import com.devative.littledoor.util.Utility
 import com.devative.littledoor.util.Utility.CHANNEL_ID
 import dagger.hilt.android.AndroidEntryPoint

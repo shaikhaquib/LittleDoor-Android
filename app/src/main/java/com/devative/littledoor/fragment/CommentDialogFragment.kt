@@ -101,7 +101,7 @@ class CommentDialogFragment(
         if (layoutParams != null) {
             layoutParams.height = windowHeight
         }
-        bottomSheet.setLayoutParams(layoutParams)
+        bottomSheet.layoutParams = layoutParams
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
@@ -189,12 +189,8 @@ class CommentDialogFragment(
     private fun getWindowHeight(): Int {
         // Calculate window height for fullscreen use
         val displayMetrics = DisplayMetrics()
-        (getContext() as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics.heightPixels
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 
 

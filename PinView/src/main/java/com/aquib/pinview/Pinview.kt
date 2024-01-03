@@ -38,7 +38,7 @@ class Pinview @JvmOverloads constructor(
      * Attributes
      */
     private var mPinLength = 4
-    private val editTextList: MutableList<androidx.appcompat.widget.AppCompatEditText>? = ArrayList()
+    private val editTextList: MutableList<AppCompatEditText> = ArrayList()
     private var mPinWidth = 50
     private var mTextSize = 12
     private var mPinHeight = 50
@@ -270,7 +270,7 @@ class Pinview @JvmOverloads constructor(
      *
      * @return the current focused pin view. It can be used to open softkeyboard manually.
      */
-    fun requestPinEntryFocus(): View? {
+    fun requestPinEntryFocus(): View {
         val currentTag = Math.max(0, indexOfCurrentFocus)
         val currentEditText = editTextList!![currentTag]
         if (currentEditText != null) {

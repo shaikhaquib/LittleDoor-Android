@@ -97,7 +97,7 @@ class RevenueActivity : BaseActivity() {
                                     amount = item.request_amount,
                                     status = "pending",
                                     created_at = item.created_at,
-                                    transaction_number = item.transaction_number ?: "",
+                                    transaction_number = item.transaction_number,
                                     doctor_id = 0,
                                     doctor_image = basicDetails?.image_url ?: "",
                                     doctor_name = "Withdrawal request",
@@ -158,7 +158,7 @@ class RevenueActivity : BaseActivity() {
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }

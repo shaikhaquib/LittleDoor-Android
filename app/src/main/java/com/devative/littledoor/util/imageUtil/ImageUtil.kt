@@ -1,4 +1,4 @@
-package com.azhar.kompresgambar.utils
+package com.devative.littledoor.util.imageUtil
 
 import kotlin.Throws
 import android.graphics.Bitmap.CompressFormat

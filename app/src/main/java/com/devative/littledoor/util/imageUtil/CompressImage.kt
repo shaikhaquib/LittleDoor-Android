@@ -3,8 +3,8 @@ package com.devative.littledoor.util.imageUtil
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
-import com.azhar.kompresgambar.utils.ImageUtil.compressImage
-import com.azhar.kompresgambar.utils.ImageUtil.decodeSampledBitmapFromFile
+import com.devative.littledoor.util.imageUtil.ImageUtil.compressImage
+import com.devative.littledoor.util.imageUtil.ImageUtil.decodeSampledBitmapFromFile
 import io.reactivex.Flowable
 import java.io.File
 import java.io.IOException

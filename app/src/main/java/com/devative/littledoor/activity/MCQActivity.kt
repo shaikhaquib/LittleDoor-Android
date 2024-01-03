@@ -73,25 +73,25 @@ class MCQActivity : BaseActivity() {
         viewModel.getQuestions.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
-                      it.data.data?.let {list ->
-                          questionList.addAll(list)
-                          adapter.notifyDataSetChanged()
-                      }
+                        it.data.data.let { list ->
+                            questionList.addAll(list)
+                            adapter.notifyDataSetChanged()
+                        }
                     } else {
                       //  Toasty.error(applicationContext, it.data!!.message).show()
                     }
                 }
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -120,7 +120,7 @@ class MCQActivity : BaseActivity() {
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -173,7 +173,7 @@ class MCQActivity : BaseActivity() {
         startActivity(Intent(applicationContext,GetStartedActivity::class.java).setFlags(
             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         ))
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
     }
 

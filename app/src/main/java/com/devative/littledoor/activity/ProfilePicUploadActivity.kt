@@ -74,22 +74,22 @@ class ProfilePicUploadActivity : BaseActivity(), OnClickListener {
         vmDR.uploadResponse.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.data?.let { it1 -> Toasty.success(applicationContext, it1.message).show() }
                     viewModel.getUserDetails()
                     Handler(Looper.getMainLooper()).postDelayed({startActivity()},500)
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }

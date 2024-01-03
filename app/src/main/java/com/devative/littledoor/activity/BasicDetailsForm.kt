@@ -71,11 +71,11 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
         viewModel.getCities.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         citiesList.addAll(it.data.data)
                         // Toasty.success(applicationContext, it.data.message).show()
@@ -85,11 +85,11 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -99,11 +99,11 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
         viewModel.createPatient.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         Toasty.success(applicationContext, it.data.message).show()
                         viewModel.getUserDetails()
@@ -113,11 +113,11 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -128,16 +128,16 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
         drRegViewModel.registerTherapist.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
-                        if (it.data?.otp != null) {
+                        if (it.data != null) {
                             Utility.showNotification(
                                 applicationContext,
-                                "Use this OTP to Login:${it.data?.otp}",
+                                "Use this OTP to Login:${it.data.otp}",
                                 "Login Auth"
                             )
                             it.message?.let { it1 ->
@@ -164,11 +164,11 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -180,11 +180,11 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
         viewModel.userDetails.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    progress?.show()
+                    progress.show()
                 }
 
                 Status.SUCCESS -> {
-                    progress?.dismiss()
+                    progress.dismiss()
                     if (it.data?.status == true) {
                         // Toasty.success(applicationContext, it.data.message).show()
                         if (it.data.data.pateint_id != null) {
@@ -197,12 +197,12 @@ class BasicDetailsForm : BaseActivity(), View.OnClickListener {
                 }
 
                 Status.ERROR -> {
-                    progress?.dismiss()
+                    progress.dismiss()
 /*
                     it.message?.let { it1 ->
                         Toasty.error(
                             this,
-                            it1, Toasty.LENGTH_SHORT
+                            getString(R.string.some_thing_went_wrong), Toasty.LENGTH_SHORT
                         ).show()
                     }
 */
